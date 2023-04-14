@@ -1,0 +1,16 @@
+// Import all of Bootstrap's CSS
+@import 'bootstrap/scss/bootstrap';
+
+.navbar {
+	background-color: $yellow-500;
+	padding: 30px;
+}
+
+.nav_link {
+  
+}
+nav svg {
+	width: 40px;
+	$thumbnail-border-radius: var(--#{$prefix}border-radius);
+	margin-right: 20px;
+}
