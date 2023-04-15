@@ -15,3 +15,8 @@ nav svg {
 	$thumbnail-border-radius: var(--#{$prefix}border-radius);
 	margin-right: 20px;
 }
+
+td svg {
+	width: 20px;
+	$thumbnail-border-radius: var(--#{$prefix}border-radius);
+}
