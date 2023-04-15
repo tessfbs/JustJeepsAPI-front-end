@@ -1,6 +1,6 @@
 import OrderProduct from './OrderProduct';
 import { useEffect, useState } from 'react';
-import { Space, Switch, Table } from 'antd';
+import { Space, Switch, Table, Popconfirm } from 'antd';
 import axios from 'axios';
 import orderProducts from '../../../orderProducts';
 const columns = [
@@ -41,8 +41,44 @@ const columns = [
 		dataIndex: 'total_qty_ordered',
 		editTable: true,
 	},
+	{
+		title: 'Action',
+		dataIndex: 'action',
+		render: (_, record) => orderProducts.length >= 1? (
+		<Popconfirm title='Are you sure you want to delete?' onConfirm={() => handleDelete(record)}>
+
+		</Popconfirm>
+		)
+	},
 ];
 
+const children = [
+	{
+		title: 'ID',
+		dataIndex: 'id',
+		key: 'id',
+	},
+	{
+		title: 'Item',
+		dataIndex: 'name',
+	},
+	{
+		title: 'SKU',
+		dataIndex: 'sku',
+	},
+	{
+		title: 'Price',
+		dataIndex: 'price',
+	},
+	{
+		title: 'Product_id',
+		dataIndex: 'product_id',
+	},
+	{
+		title: 'Qty',
+		dataIndex: 'qty_ordered',
+	},
+];
 const rowSelection = {
 	onChange: (selectedRowKeys, selectedRows) => {
 		console.log(
@@ -82,14 +118,10 @@ const OrderProductList = () => {
 
 	return (
 		<>
-			{/* <Space
-				align='center'
-				style={{
-					marginBottom: 16,
-				}}
-			></Space> */}
+
 			<Table
 				columns={columns}
+				childrenColumnName={children}
 				rowSelection={{
 					...rowSelection,
 				}}
