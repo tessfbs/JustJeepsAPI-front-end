@@ -6,33 +6,30 @@ import orderProducts from '../../../orderProducts';
 const columns = [
 	{
 		title: 'Order_id',
-		dataIndex: 'order_id',
-		key: 'order_id',
+		dataIndex: 'entity_id',
+		key: 'entity_id',
 	},
 	{
 		title: 'Created_Date',
-		dataIndex: 'created_day',
-		key: 'created_day',
+		dataIndex: 'created_at',
 	},
 	{
 		title: 'Email',
-		dataIndex: 'email',
-		key: 'email',
+		dataIndex: 'customer_email',
+		editTable: true,
 	},
 	{
 		title: 'First Name',
-		dataIndex: 'firstName',
-		key: 'firstName',
+		dataIndex: 'customer_firstname',
 	},
 	{
 		title: 'Last Name',
-		dataIndex: 'lastName',
-		key: 'lastName',
+		dataIndex: 'customer_lastname',
 	},
 	{
 		title: 'Total',
-		dataIndex: 'total',
-		key: 'total',
+		dataIndex: 'grand_total',
+		editTable: true,
 	},
 	{
 		title: 'Increment_id',
@@ -41,8 +38,8 @@ const columns = [
 	},
 	{
 		title: 'Total Qty',
-		dataIndex: 'total_qty',
-		key: 'total_qty',
+		dataIndex: 'total_qty_ordered',
+		editTable: true,
 	},
 ];
 
@@ -64,53 +61,41 @@ const rowSelection = {
 
 const OrderProductList = () => {
 	const [orders, setOrders] = useState([]);
-	const [checkStrictly, setCheckStrictly] = useState(false);
+	const [loading, setLoading] = useState(false);
+
 	// useEffect(() => {
-	// 	axios
-	// 		.get('/orderProductsJoin.json')
-	// 		.then(res => setOrders(console.log('data', res.data)))
-	// 		.catch(err => console.log(err));
+	// 	loadData();
 	// }, []);
 
+	// const loadData = async () => {
+	// 	setLoading(true);
+	// 	const response = await axios.get('orderProductsJoin.json');
+	// 	setOrders(response.data);
+	// 	setLoading(false);
+	// };
+
+	// const modifiedData = orders.map(({items, ...orders}) => ({
+	// 	...orders,
+	// 	children: items,
+	// }));
+	// console.log();
+
 	return (
-		// <div className='container-fluid mt-3'>
-		// 	<table className='table table-hover table-striped'>
-		// 		<thead>
-		// 			<tr>
-		// 				<th scope='col'>ID</th>
-		// 				<th scope='col'>Name</th>
-		// 				<th scope='col'>SKU</th>
-		// 				<th scope='col'>Price</th>
-		// 				<th scope='col'>Product_id</th>
-		// 				<th scope='col'>Qty</th>
-		// 				<th scope='col'>Options</th>
-		// 			</tr>
-		// 		</thead>
-		// 		<tbody>
-		// 			{orderProducts.map(orderProduct => {
-		// 				orderProduct.items.map(item => {
-		// 					return <OrderProduct key={item.id} {...item} />;
-		// 				});
-		// 			})}
-		// 		</tbody>
-		// 	</table>
-		// </div>
 		<>
-			<Space
+			{/* <Space
 				align='center'
 				style={{
 					marginBottom: 16,
 				}}
-			>
-				CheckStrictly:{' '}
-				<Switch checked={checkStrictly} onChange={setCheckStrictly} />
-			</Space>
+			></Space> */}
 			<Table
 				columns={columns}
 				rowSelection={{
 					...rowSelection,
 				}}
 				dataSource={orderProducts}
+				bordered
+				loading={loading}
 			/>
 		</>
 	);
