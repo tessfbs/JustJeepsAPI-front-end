@@ -1,14 +1,12 @@
 import Navbar from './features/navbar/Navbar.jsx';
+import OrdersList from './features/order/OrdersList.jsx';
 
 function App() {
 	return (
-		<div>
-			<nav>
-				<Navbar />
-			</nav>
-
-			<main></main>
-		</div>
+		<main>
+			<Navbar />
+			<OrdersList />
+		</main>
 	);
 }
 

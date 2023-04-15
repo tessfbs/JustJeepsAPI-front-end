@@ -117,3 +117,5 @@ const orderItems = [
 		total_qty_ordered: 1,
 	},
 ];
+
+export default orderItems;

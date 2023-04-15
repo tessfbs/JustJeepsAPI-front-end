@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-// import orderItems from '../../orderItems'  //cannot import, need to check
+import orderItems from '../../../orderItems';
 const initialState = {
-	// orderItems: orderItems,
-	orderItems: [],
+	orderItems: orderItems,
 	amount: 0,
 	total: 0,
 	isLoading: true,
