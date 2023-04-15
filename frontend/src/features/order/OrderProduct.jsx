@@ -1,5 +1,6 @@
+import axios from 'axios';
 import { Option } from '../../icons';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import orderProducts from '../../../orderProducts';
 const OrderProduct = () => {
 	// useEffect(() => {

@@ -1,5 +1,4 @@
 import Order from './Order';
-import { useSelector } from 'react-redux';
 
 const OrdersList = () => {
 	const { orders } = useSelector(store => store.order);

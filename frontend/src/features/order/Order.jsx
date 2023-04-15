@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { View } from '../../icons';
-import { current } from '@reduxjs/toolkit';
 import OrderProduct from './OrderProduct';
 
 const Order = ({
