@@ -1,4 +1,7 @@
+import { useState } from 'react';
 import { View } from '../../icons';
+import { current } from '@reduxjs/toolkit';
+import OrderProduct from './OrderProduct';
 
 const Order = ({
 	entity_id,
@@ -10,6 +13,12 @@ const Order = ({
 	increment_id,
 	total_qty_ordered,
 }) => {
+	const [isShown, setIsShown] = useState(false);
+
+	const handleClick = event => {
+		setIsShown(current => !current);
+	};
+
 	return (
 		<tr>
 			<th scope='row'>{entity_id}</th>
@@ -21,10 +30,11 @@ const Order = ({
 			<td>{increment_id}</td>
 			<td>{total_qty_ordered}</td>
 			<td>
-				<a role='button' class='link-warning'>
+				<a role='button' class='link-warning' onClick={handleClick}>
 					<View />
 				</a>
 			</td>
+			{/* {isShown && <OrderProduct />} */}
 		</tr>
 	);
 };
