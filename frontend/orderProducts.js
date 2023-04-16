@@ -17,8 +17,11 @@ const orderProducts = [
 				name: 'Rugged Ridge Custom Fit Neoprene Front Seat Covers For 2011-18 Jeep Wrangler JK 2 Door & Unlimited 4 Door Models 13215-',
 				sku: 'RR-13215.09',
 				order_id: 82311,
+				base_price: 254.11,
+				base_price_incl_tax: 266.82,
 				discount_amount: 0,
-
+				discount_invoiced: 0,
+				discount_percent: 0,
 				original_price: 298.95,
 				price: 254.11,
 				price_incl_tax: 266.82,
