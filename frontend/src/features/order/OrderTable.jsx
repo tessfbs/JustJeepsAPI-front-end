@@ -57,12 +57,17 @@ const OrderTable = () => {
 			},
 		];
 		const data = [];
-		// const data = orderProducts.map(order => {
-		// 	return order.items.map(item => ({
-		// 		key: item.id.toString(),
-		// 		...data,
-		// 	}));
-		// });
+		for (let i = 0; i < orderProducts?.items?.length; i++) {
+			data.push({
+				key: orderProducts.items[i].id.toString(),
+				id: orderProducts.items[i].id,
+				name: orderProducts.items[i].name,
+				sku: orderProducts.items[i].sku,
+				price: orderProducts.items[i].price,
+				product_id: orderProducts.items[i].product_id,
+				qty_ordered: orderProducts.items[i].qty_ordered,
+			});
+		}
 
 		return <Table columns={columns} dataSource={data} pagination={false} />;
 	};
