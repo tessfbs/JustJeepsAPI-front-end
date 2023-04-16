@@ -20,44 +20,58 @@ const rowSelection = {
 	},
 };
 
-const pagination = {
-	total: data.length,
-	current: 1,
-	showSizeChanger: true,
-	onShowSizeChange(current, pageSize) {
-		console.log('Current: ', current, '; PageSize: ', pageSize);
-	},
-	onChange(current) {
-		console.log('Current: ', current);
-	},
-};
-
 const OrderProductList = () => {
 	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(false);
 
-	// useEffect(() => {
-	// 	loadData();
-	// }, []);
+	useEffect(() => {
+		loadData();
+	}, []);
 
-	// const loadData = async () => {
-	// 	setLoading(true);
-	// 	const response = await axios.get('orderProductsJoin.json');
-	// 	setOrders(response.data);
-	// 	setLoading(false);
-	// };
+	const loadData = async () => {
+		setLoading(true);
+		const response = await axios.get('orderProductsJoin.json');
+		console.log('response: ', response);
 
-	// const modifiedData = orders.map(({items, ...orders}) => ({
-	// 	...orders,
-	// 	children: items,
-	// }));
+		setOrders(response.data);
+		setLoading(false);
+	};
+
+	console.log('orders: ', orders);
+	// const modifiedData =
+	// 	orders.length > 0 &&
+	// 	orders.map(({ items, ...orders }) => ({
+	// 		...orders,
+	// 		children: items,
+	// 	}));
+
+	const prepareData = arr => {
+		if (arr.length < 1) {
+			return [];
+		}
+		return arr.map(order => ({ ...order, children: order.items }));
+	};
+
+	const modifiedData = prepareData(orders);
 
 	const handleDelete = value => {
-		const dataSource = [...orderProducts]; //modifiedData
+		const dataSource = [...modifiedData]; //modifiedData
 		const filteredOrders = dataSource.filter(
 			order => order.entity_id !== value.id
 		);
 		setOrders(filteredOrders);
+	};
+
+	const pagination = {
+		total: modifiedData.length,
+		current: 1,
+		showSizeChanger: true,
+		onShowSizeChange(current, pageSize) {
+			console.log('Current: ', current, '; PageSize: ', pageSize);
+		},
+		onChange(current) {
+			console.log('Current: ', current);
+		},
 	};
 
 	const columns = [
@@ -69,23 +83,28 @@ const OrderProductList = () => {
 		{
 			title: 'Created_Date',
 			dataIndex: 'created_at',
+			key: 'created_at',
 		},
 		{
 			title: 'Email',
 			dataIndex: 'customer_email',
+			key: 'customer_email',
 			editTable: true,
 		},
 		{
 			title: 'First Name',
 			dataIndex: 'customer_firstname',
+			key: 'customer_firstname',
 		},
 		{
 			title: 'Last Name',
 			dataIndex: 'customer_lastname',
+			key: 'customer_lastname',
 		},
 		{
 			title: 'Total',
 			dataIndex: 'grand_total',
+			key: 'grand_total',
 			editTable: true,
 		},
 		{
@@ -96,60 +115,18 @@ const OrderProductList = () => {
 		{
 			title: 'Total Qty',
 			dataIndex: 'total_qty_ordered',
+			key: 'total_qty_ordered',
 			editTable: true,
-		},
-		{
-			title: 'Action',
-			dataIndex: 'action', //modefiedData below
-			render: (_, record) =>
-				orderProducts.length >= 1 ? (
-					<Popconfirm
-						title='Are you sure you want to delete?'
-						onConfirm={() => handleDelete(record)}
-					>
-						<Button danger type='primary'>
-							Delete
-						</Button>
-					</Popconfirm>
-				) : null,
 		},
 	];
 
-	const children = [
-		{
-			title: 'ID',
-			dataIndex: 'id',
-			key: 'id',
-		},
-		{
-			title: 'Item',
-			dataIndex: 'name',
-		},
-		{
-			title: 'SKU',
-			dataIndex: 'sku',
-		},
-		{
-			title: 'Price',
-			dataIndex: 'price',
-		},
-		{
-			title: 'Product_id',
-			dataIndex: 'product_id',
-		},
-		{
-			title: 'Qty',
-			dataIndex: 'qty_ordered',
-		},
-	];
 	return (
 		<>
 			<Table
 				columns={columns}
-				childrenColumnName={children}
 				rowSelection={rowSelection}
 				pagination={pagination}
-				dataSource={orderProducts} //modefiedData
+				dataSource={modifiedData}
 				bordered
 				loading={loading}
 			/>
@@ -158,3 +135,19 @@ const OrderProductList = () => {
 };
 
 export default OrderProductList;
+
+// {
+// 	title: 'Action',
+// 	dataIndex: 'action', //modefiedData below
+// 	render: (_, record) =>
+// 		modefiedData.length >= 1 ? (
+// 			<Popconfirm
+// 				title='Are you sure you want to delete?'
+// 				onConfirm={() => handleDelete(record)}
+// 			>
+// 				<Button danger type='primary'>
+// 					Delete
+// 				</Button>
+// 			</Popconfirm>
+// 		) : null,
+// },
