@@ -12,12 +12,10 @@ const rowSelection = {
 			selectedRows
 		);
 	},
-	onSelect: (record, selected, selectedRows) => {
-		console.log(record, selected, selectedRows);
-	},
-	onSelectAll: (selected, selectedRows, changeRows) => {
-		console.log(selected, selectedRows, changeRows);
-	},
+	getCheckboxProps: record => ({
+		disabled: record.entity_id === 'Disabled User', // Column configuration not to be checked
+		entity_id: record.entity_id,
+	}),
 };
 
 const OrderProductList = () => {
