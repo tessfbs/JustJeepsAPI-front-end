@@ -147,19 +147,3 @@ const OrderProductList = () => {
 };
 
 export default OrderProductList;
-
-// {
-// 	title: 'Action',
-// 	dataIndex: 'action', //modefiedData below
-// 	render: (_, record) =>
-// 		modefiedData.length >= 1 ? (
-// 			<Popconfirm
-// 				title='Are you sure you want to delete?'
-// 				onConfirm={() => handleDelete(record)}
-// 			>
-// 				<Button danger type='primary'>
-// 					Delete
-// 				</Button>
-// 			</Popconfirm>
-// 		) : null,
-// },
