@@ -79,14 +79,61 @@ const OrderProductList = () => {
 		setSortedInfo({ columnKey: field, order });
 	};
 
-	const getColumnSearchProps = dataIndex => {
+	const getColumnSearchProps = dataIndex => ({
 		filterDropDown: ({
 			setSelectedKeys,
 			selectedKeys,
 			confirm,
-			clearFilter,
-		}) => <div></div>;
-	};
+			clearFilters,
+		}) => (
+			<div style={{ padding: 8 }}>
+				<Input
+					placeholder={`Search ${dataIndex}`}
+					value={selectedKeys[0]}
+					onChange={e =>
+						setSelectedKeys(e.target.value ? [e.target.value] : [])
+					}
+					onPressEnter={() => handleSearchCol(selectedKeys, confirm, dataIndex)}
+					style={{ width: 188, marginBottom: 8, display: 'block' }}
+				/>
+				<Space>
+					<Button
+						type='primary'
+						onClick={() => handleSearchCol(selectedKeys, confirm, dataIndex)}
+						icon={<SearchOutLined />}
+						size='small'
+						style={{ width: 90, marginRight: 8 }}
+					>
+						Search
+					</Button>
+					<Button
+						type='primary'
+						onClick={() => handleResetCol(clearFilters)}
+						size='small'
+						style={{ width: 90 }}
+					>
+						Reset
+					</Button>
+				</Space>
+			</div>
+		),
+		filterIcon: filtered => (
+			<SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+		),
+		onFilter: (value, record) =>
+			record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+		render: text =>
+			searchedCol === dataIndex ? (
+				<Highlighter
+					highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
+					searchWords={[searchedColText]}
+					autoEscape
+					textToHighlight={text ? text.toString() : ''}
+				/>
+			) : (
+				text
+			),
+	});
 
 	const columns = [
 		{
