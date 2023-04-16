@@ -1,6 +1,6 @@
 import OrderProduct from './OrderProduct';
 import { useEffect, useState } from 'react';
-import { Space, Switch, Table, Popconfirm, Input, Button } from 'antd';
+import { Space, Switch, Table, Popconfirm, Input, Button, Badge } from 'antd';
 import Highlighter from 'react-highlight-words';
 import axios from 'axios';
 import orderProducts from '../../../orderProducts';

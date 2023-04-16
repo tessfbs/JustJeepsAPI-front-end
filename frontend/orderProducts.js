@@ -11,7 +11,7 @@ const orderProducts = [
 		increment_id: '200038574',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 1,
-		children: [
+		items: [
 			{
 				id: 1,
 				name: 'Rugged Ridge Custom Fit Neoprene Front Seat Covers For 2011-18 Jeep Wrangler JK 2 Door & Unlimited 4 Door Models 13215-',
@@ -58,7 +58,7 @@ const orderProducts = [
 		increment_id: '200038573',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 2,
-		children: [
+		items: [
 			{
 				id: 3,
 				name: 'SpiderWebShade GrabBag GRABBAG-',
@@ -121,7 +121,7 @@ const orderProducts = [
 		increment_id: '200038572',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 1,
-		children: [
+		items: [
 			{
 				id: 6,
 				name: 'ORACLE LIGHTING OCULUS BI-LED PROJECTOR HEADLIGHTS (Matte Black) For 2018+ Jeep Gladiator JT & Wrangler JL 2 Door & Unlimited 4 Door Models 5839-504',
@@ -152,7 +152,7 @@ const orderProducts = [
 		increment_id: '200038571',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 3,
-		children: [
+		items: [
 			{
 				id: 7,
 				name: 'Daystar 3/4" Front Spacers For 2018+ Jeep Gladiator JT & Wrangler JL 2 Door & Unlimited 4 Door Models KJ09182BK',
@@ -215,7 +215,7 @@ const orderProducts = [
 		increment_id: '200038570',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 3,
-		children: [
+		items: [
 			{
 				id: 10,
 				name: 'MasterTop Tailgate Bar Replacement with Side Mounts for 07-18 Jeep Wrangler JK, JKU 15438301',
@@ -310,7 +310,7 @@ const orderProducts = [
 		increment_id: '200038569',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 2,
-		children: [
+		items: [
 			{
 				id: 15,
 				name: 'TeraFlex 3” Sport ST3 Suspension System For 2007-18 Jeep Wrangler JK Unlimited 4 Door Models 1313000',
@@ -357,7 +357,7 @@ const orderProducts = [
 		increment_id: '000000375',
 		order_currency_code: 'USD',
 		total_qty_ordered: 2,
-		children: [
+		items: [
 			{
 				id: 17,
 				name: 'Omix-ADA Transmission Mount For 1987-95 Jeep Wrangler YJ With AX4, AX5, AX15 or BA 10/5 Transmission 18608.09',
@@ -388,7 +388,7 @@ const orderProducts = [
 		increment_id: '200038568',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 1,
-		children: [
+		items: [
 			{
 				id: 18,
 				name: 'Omix-ADA Upper Steering Shaft Bearing Kit For 1976-95 Jeep CJ Series & Wrangler YJ 18019.03',
@@ -419,7 +419,7 @@ const orderProducts = [
 		increment_id: '200038567',
 		order_currency_code: 'CAD',
 		total_qty_ordered: 1,
-		children: [
+		items: [
 			{
 				id: 19,
 				name: 'Rugged Ridge Stainless Steel Door Hinge Kit For 2007-18 Jeep Wrangler JK Unlimited 4 Door Models 11111.21',
