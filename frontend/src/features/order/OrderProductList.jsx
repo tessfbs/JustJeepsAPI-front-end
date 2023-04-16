@@ -23,6 +23,7 @@ const OrderProductList = () => {
 	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [sortedInfo, setSortedInfo] = useState({});
+	const [searchColumnText, setSearchColumnText] = useState('');
 	useEffect(() => {
 		loadData();
 	}, []);
@@ -76,6 +77,15 @@ const OrderProductList = () => {
 	const handleChange = (...sorter) => {
 		const { order, field } = sorter[2];
 		setSortedInfo({ columnKey: field, order });
+	};
+
+	const getColumnSearchProps = dataIndex => {
+		filterDropDown: ({
+			setSelectedKeys,
+			selectedKeys,
+			confirm,
+			clearFilter,
+		}) => <div></div>;
 	};
 
 	const columns = [
