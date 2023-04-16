@@ -1,6 +1,6 @@
 import OrderProduct from './OrderProduct';
 import { useEffect, useState } from 'react';
-import { Space, Switch, Table, Popconfirm, Input, Button, Icon } from 'antd';
+import { Space, Switch, Table, Popconfirm, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import axios from 'axios';
 import orderProducts from '../../../orderProducts';
@@ -204,8 +204,12 @@ const OrderProductList = () => {
 	return (
 		<>
 			<div className='container-fluid mt-5'>
-				<Table
+				<Table.Column.EXPAND_COLUM
 					columns={columns}
+					// expandable={{
+					// 	expandedRowRender: record => <div>{record.info}</div>,
+					// 	rowExpandable: record => record.info !== 'Not Expandable',
+					// }}
 					rowSelection={rowSelection}
 					pagination={{ pageSize: 10 }}
 					dataSource={modifiedData}
