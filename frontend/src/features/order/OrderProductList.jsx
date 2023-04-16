@@ -23,7 +23,7 @@ const rowSelection = {
 const OrderProductList = () => {
 	const [orders, setOrders] = useState([]);
 	const [loading, setLoading] = useState(false);
-
+	const [sortedInfo, setSortedInfo] = useState({});
 	useEffect(() => {
 		loadData();
 	}, []);
@@ -79,57 +79,69 @@ const OrderProductList = () => {
 			title: 'Order_id',
 			dataIndex: 'entity_id',
 			key: 'entity_id',
+			sorter: (a, b) => a.entity_id - b.entity_id,
 		},
 		{
 			title: 'Created_Date',
 			dataIndex: 'created_at',
 			key: 'created_at',
+			sorter: (a, b) => a.created_at?.localeCompare(b.created_at),
 		},
 		{
 			title: 'Email',
 			dataIndex: 'customer_email',
 			key: 'customer_email',
 			editTable: true,
+			sorter: (a, b) => a.customer_email?.localeCompare(b.customer_email),
 		},
 		{
 			title: 'First Name',
 			dataIndex: 'customer_firstname',
 			key: 'customer_firstname',
+			sorter: (a, b) =>
+				a.customer_firstname?.localeCompare(b.customer_firstname),
 		},
 		{
 			title: 'Last Name',
 			dataIndex: 'customer_lastname',
 			key: 'customer_lastname',
+			sorter: (a, b) => a.customer_lastname?.localeCompare(b.customer_lastname),
 		},
 		{
 			title: 'Total',
 			dataIndex: 'grand_total',
 			key: 'grand_total',
 			editTable: true,
+			sorter: (a, b) => a.grand_total - b.grand_total,
 		},
 		{
 			title: 'Increment_id',
 			dataIndex: 'increment_id',
 			key: 'increment_id',
+			sorter: (a, b) => a.increment_id - b.increment_id,
 		},
 		{
 			title: 'Total Qty',
 			dataIndex: 'total_qty_ordered',
 			key: 'total_qty_ordered',
 			editTable: true,
+			sorter: (a, b) => a.total_qty_ordered - b.total_qty_ordered,
 		},
 	];
 
 	return (
 		<>
-			<Table
-				columns={columns}
-				rowSelection={rowSelection}
-				pagination={pagination}
-				dataSource={modifiedData}
-				bordered
-				loading={loading}
-			/>
+			<div className='container-fluid mt-5'>
+				<Table
+					columns={columns}
+					rowSelection={rowSelection}
+					pagination={{ pageSize: 10 }}
+					dataSource={modifiedData}
+					bordered
+					// loading={loading}
+					rowKey={record => record.id}
+				/>
+			</div>
 		</>
 	);
 };
