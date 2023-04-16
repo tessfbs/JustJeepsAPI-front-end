@@ -204,12 +204,8 @@ const OrderProductList = () => {
 	return (
 		<>
 			<div className='container-fluid mt-5'>
-				<Table.Column.EXPAND_COLUM
+				<Table
 					columns={columns}
-					// expandable={{
-					// 	expandedRowRender: record => <div>{record.info}</div>,
-					// 	rowExpandable: record => record.info !== 'Not Expandable',
-					// }}
 					rowSelection={rowSelection}
 					pagination={{ pageSize: 10 }}
 					dataSource={modifiedData}
