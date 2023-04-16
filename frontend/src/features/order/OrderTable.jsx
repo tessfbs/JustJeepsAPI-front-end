@@ -11,6 +11,121 @@ const items = [
 		label: 'Action 2',
 	},
 ];
+
+const sampleData = [
+	{
+		entity_id: 82311,
+		id: 1,
+		created_at: '2023-04-14 01:51:05',
+		customer_email: 'tasljansen@gmail.com',
+		coupon_code: null,
+		customer_firstname: 'Anita',
+		customer_lastname: 'Jansen',
+		grand_total: 303.57,
+		increment_id: '200038574',
+		order_currency_code: 'CAD',
+		total_qty_ordered: 1,
+		items: [
+			{
+				id: 1,
+				name: 'Rugged Ridge Custom Fit Neoprene Front Seat Covers For 2011-18 Jeep Wrangler JK 2 Door & Unlimited 4 Door Models 13215-',
+				sku: 'RR-13215.09',
+				order_id: 82311,
+				base_price: 254.11,
+				base_price_incl_tax: 266.82,
+				discount_amount: 0,
+				discount_invoiced: 0,
+				discount_percent: 0,
+				original_price: 298.95,
+				price: 254.11,
+				price_incl_tax: 266.82,
+				product_id: 26318,
+				qty_ordered: 1,
+			},
+			{
+				id: 2,
+				name: 'Rugged Ridge (Grey) Custom Fit Neoprene Front Seat Covers For 2011-18 Jeep Wrangler JK 2 Door & Unlimited 4 Door Models 13215.09',
+				sku: 'RR-13215.09',
+				order_id: 82311,
+				base_price: 0,
+				base_price_incl_tax: null,
+				discount_amount: 0,
+				discount_invoiced: 0,
+				discount_percent: 0,
+				original_price: 0,
+				price: 0,
+				price_incl_tax: null,
+				product_id: 13728,
+				qty_ordered: 1,
+			},
+		],
+	},
+	{
+		entity_id: 82310,
+		id: 2,
+		created_at: '2023-04-14 01:48:19',
+		customer_email: 'peterjesso@gmail.com',
+		coupon_code: null,
+		customer_firstname: 'Peter',
+		customer_lastname: 'Jesso',
+		grand_total: 223.18,
+		increment_id: '200038573',
+		order_currency_code: 'CAD',
+		total_qty_ordered: 2,
+		items: [
+			{
+				id: 3,
+				name: 'SpiderWebShade GrabBag GRABBAG-',
+				sku: 'SWS-GRABBAG',
+				order_id: 82310,
+				base_price: 43.31,
+				base_price_incl_tax: 49.81,
+				discount_amount: 0,
+				discount_invoiced: 0,
+				discount_percent: 0,
+				original_price: 50.95,
+				price: 43.31,
+				price_incl_tax: 49.81,
+				product_id: 37053,
+				qty_ordered: 1,
+			},
+			{
+				id: 4,
+				name: 'SpiderWebShade GrabBag GRABBAG Black',
+				sku: 'SWS-GRABBAG',
+				order_id: 82310,
+				base_price: 0,
+				base_price_incl_tax: null,
+				discount_amount: 0,
+				discount_invoiced: 0,
+				discount_percent: 0,
+				original_price: 0,
+				price: 0,
+				price_incl_tax: null,
+				product_id: 37042,
+				qty_ordered: 1,
+			},
+			{
+				id: 5,
+				name: 'Poison Spyder Customs LED 3rd Brake Light and License Plate Light 41-04-406',
+				sku: 'PS-41-04-406',
+				order_id: 82310,
+				base_price: 125.76,
+				base_price_incl_tax: 144.62,
+				discount_amount: 0,
+				discount_invoiced: 0,
+				discount_percent: 0,
+				original_price: 147.95,
+				price: 125.76,
+				price_incl_tax: 144.62,
+				product_id: 27667,
+				qty_ordered: 1,
+			},
+		],
+	},
+];
+
+console.log('sampleLength', sampleData.length);
 const OrderTable = () => {
 	const expandedRowRender = () => {
 		const columns = [
@@ -56,16 +171,18 @@ const OrderTable = () => {
 				),
 			},
 		];
+
 		const data = [];
-		for (let i = 0; i < orderProducts?.items?.length; i++) {
+		for (let i = 0; i < sampleData.length; i++) {
+			console.log('sampleData[i].name: ', sampleData[i]);
 			data.push({
-				key: orderProducts.items[i].id.toString(),
-				id: orderProducts.items[i].id,
-				name: orderProducts.items[i].name,
-				sku: orderProducts.items[i].sku,
-				price: orderProducts.items[i].price,
-				product_id: orderProducts.items[i].product_id,
-				qty_ordered: orderProducts.items[i].qty_ordered,
+				key: i.toString(),
+				id: i + 1,
+				name: sampleData[i].items[i].name,
+				sku: sampleData[i].items[i].sku,
+				price: sampleData[i].items[i].price,
+				product_id: sampleData[i].items[i].product_id,
+				qty_ordered: sampleData[i].items[i].qty_ordered,
 			});
 		}
 
@@ -148,7 +265,7 @@ const OrderTable = () => {
 		},
 	];
 
-	const data = orderProducts.map(order => ({
+	const data = sampleData.map(order => ({
 		key: order.entity_id.toString(),
 		...order,
 	}));
