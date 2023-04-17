@@ -1,5 +1,7 @@
 import helper_black from '../../assets/helper_black_transparent.png';
-import { Login } from '../../icons';
+import { Login, Logout, ImageAvatars } from '../../icons';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Space } from 'antd';
 
 const Navbar = () => {
 	return (
@@ -67,9 +69,9 @@ const Navbar = () => {
 							</a>
 						</li>
 					</ul>
-					<Login />
-					<button className='btn btn-outline-dark fs-5' type='submit'>
-						Log out
+					<ImageAvatars />
+					<button className='btn btn-outline-dark' type='submit'>
+						<Logout />
 					</button>
 				</div>
 			</div>

@@ -424,10 +424,10 @@ const OrderTable = () => {
 			key: 'operation',
 			render: () => (
 				<Space size='middle'>
-					<button className='btn-outline-light'>
+					<button className='btn btn-outline-warning'>
 						<Edit />
 					</button>
-					<button>
+					<button className='btn btn-outline-danger'>
 						<Trash />
 					</button>
 				</Space>
