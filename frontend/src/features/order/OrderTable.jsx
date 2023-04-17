@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Badge, Dropdown, Space, Table, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
+import { Edit, Trash } from '../../icons';
 
 const sampleData = [
 	{
@@ -423,8 +424,12 @@ const OrderTable = () => {
 			key: 'operation',
 			render: () => (
 				<Space size='middle'>
-					<a>Edit</a>
-					<a>Delete</a>
+					<button className='btn-outline-light'>
+						<Edit />
+					</button>
+					<button>
+						<Trash />
+					</button>
 				</Space>
 			),
 		},
