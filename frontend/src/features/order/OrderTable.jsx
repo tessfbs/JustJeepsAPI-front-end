@@ -205,7 +205,6 @@ const OrderTable = () => {
 				/>
 				<Space>
 					<Button
-						type='primary'
 						onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
 						icon={<SearchOutlined />}
 						size='small'
@@ -434,7 +433,21 @@ const OrderTable = () => {
 		{
 			title: 'Action',
 			key: 'operation',
-			render: () => (
+			render: (_, record) => (
+				// 		<Popconfirm
+				//   title="Title"
+				//   description="Open Popconfirm with async logic"
+				//   open={open}
+				//   onConfirm={handleOk}
+				//   okButtonProps={{
+				//     loading: confirmLoading,
+				//   }}
+				//   onCancel={handleCancel}
+				// >
+				//   <Button type="primary" onClick={showPopconfirm}>
+				//     Open Popconfirm with async logic
+				//   </Button>
+				// </Popconfirm>
 				<Space size='middle'>
 					<button className='btn btn-sm btn-outline-warning'>
 						<Edit />
