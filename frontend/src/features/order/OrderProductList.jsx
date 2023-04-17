@@ -62,78 +62,71 @@ const OrderProductList = () => {
 		setOrders(filteredOrders);
 	};
 
-	const pagination = {
-		total: modifiedData.length,
-		current: 1,
-		showSizeChanger: true,
-		onShowSizeChange(current, pageSize) {
-			console.log('Current: ', current, '; PageSize: ', pageSize);
-		},
-		onChange(current) {
-			console.log('Current: ', current);
-		},
-	};
-
 	const handleChange = (...sorter) => {
 		const { order, field } = sorter[2];
 		setSortedInfo({ columnKey: field, order });
 	};
 
-	const getColumnSearchProps = dataIndex => ({
-		filterDropDown: ({
-			setSelectedKeys,
-			selectedKeys,
-			confirm,
-			clearFilters,
-		}) => (
-			<div style={{ padding: 8 }}>
-				<Input
-					placeholder={`Search ${dataIndex}`}
-					value={selectedKeys[0]}
-					onChange={e =>
-						setSelectedKeys(e.target.value ? [e.target.value] : [])
-					}
-					onPressEnter={() => handleSearchCol(selectedKeys, confirm, dataIndex)}
-					style={{ width: 188, marginBottom: 8, display: 'block' }}
-				/>
-				<Space>
-					<Button
-						type='primary'
-						onClick={() => handleSearchCol(selectedKeys, confirm, dataIndex)}
-						icon={<SearchOutLined />}
-						size='small'
-						style={{ width: 90, marginRight: 8 }}
-					>
-						Search
-					</Button>
-					<Button
-						type='primary'
-						onClick={() => handleResetCol(clearFilters)}
-						size='small'
-						style={{ width: 90 }}
-					>
-						Reset
-					</Button>
-				</Space>
-			</div>
-		),
-		filterIcon: filtered => (
-			<SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
-		),
-		onFilter: (value, record) =>
-			record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
-		render: text =>
-			searchedCol === dataIndex ? (
-				<Highlighter
-					highlightStyle={{ backgroundColor: '#ffc069', padding: 0 }}
-					searchWords={[searchedColText]}
-					autoEscape
-					textToHighlight={text ? text.toString() : ''}
-				/>
-			) : (
-				text
-			),
-	});
+	const expandedRowRender = () => {
+		const columns = [
+			{
+				title: 'ID',
+				dataIndex: 'id',
+				key: 'id',
+			},
+			{
+				title: 'Product',
+				dataIndex: 'name',
+				key: 'name',
+			},
+			{
+				title: 'SKU',
+				dataIndex: 'sku',
+				key: 'sku',
+			},
+			{
+				title: 'Price',
+				dataIndex: 'price',
+				key: 'price',
+			},
+			{
+				title: 'Product_id',
+				dataIndex: 'product_id',
+				key: 'product_id',
+			},
+			{
+				title: 'Quantity',
+				dataIndex: 'qty_ordered',
+				key: 'qty_ordered',
+			},
+			{
+				title: 'Action',
+				dataIndex: 'operation',
+				key: 'operation',
+				render: () => (
+					<Space size='middle'>
+						<a>Edit</a>
+						<a>Delete</a>
+					</Space>
+				),
+			},
+		];
+
+		const data = [];
+		for (let i = 0; i < modifiedData.length; i++) {
+			data.push({
+				key: i.toString(),
+				id: i + 1,
+				name: modifiedData[i].items[i].name,
+				sku: modifiedData[i].items[i].sku,
+				price: modifiedData[i].items[i].price,
+				product_id: modifiedData[i].items[i].product_id,
+				qty_ordered: modifiedData[i].items[i].qty_ordered,
+			});
+		}
+
+		return <Table columns={columns} dataSource={data} pagination={false} />;
+	};
 
 	const columns = [
 		{
@@ -199,22 +192,34 @@ const OrderProductList = () => {
 			sortOrder:
 				sortedInfo.columnKey === 'total_qty_ordered' && sortedInfo.order,
 		},
+		{
+			title: 'Action',
+			key: 'operation',
+			render: () => (
+				<Space size='middle'>
+					<a>Edit</a>
+					<a>Delete</a>
+				</Space>
+			),
+		},
 	];
+
+	const data = modifiedData.map(order => ({
+		key: order.entity_id.toString(),
+		...order,
+	}));
 
 	return (
 		<>
-			<div className='container-fluid mt-5'>
-				<Table
-					columns={columns}
-					rowSelection={rowSelection}
-					pagination={{ pageSize: 10 }}
-					dataSource={modifiedData}
-					bordered
-					// loading={loading}
-					rowKey={record => record.id}
-					onChange={handleChange}
-				/>
-			</div>
+			<Table
+				columns={columns}
+				expandable={{
+					expandedRowRender,
+					defaultExpandedRowKeys: ['0'],
+				}}
+				dataSource={data}
+				size='middle'
+			/>
 		</>
 	);
 };
