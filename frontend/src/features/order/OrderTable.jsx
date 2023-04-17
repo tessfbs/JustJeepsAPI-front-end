@@ -467,18 +467,22 @@ const OrderTable = () => {
 
 	return (
 		<>
-			<Table
-				columns={columns}
-				expandable={{
-					expandedRowRender,
-					defaultExpandedRowKeys: ['0'],
-				}}
-				dataSource={data}
-				bordered
-				rowKey={record => record.id}
-				onChange={handleChange}
-				size='small'
-			/>
+			<div className='container-xxl mt-5'>
+				<table className='table table-striped'>
+					<Table
+						columns={columns}
+						expandable={{
+							expandedRowRender,
+							defaultExpandedRowKeys: ['0'],
+						}}
+						dataSource={data}
+						bordered
+						rowKey={record => record.id}
+						onChange={handleChange}
+						size='small'
+					/>
+				</table>
+			</div>
 		</>
 	);
 };

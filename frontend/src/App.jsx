@@ -12,6 +12,7 @@ import { Items } from './features/items/Items.jsx';
 function App() {
 	return (
 		<>
+			<Navbar />
 			<Routes>
 				<Route path='/' element={<OrderTable />} />
 				<Route path='/orders' element={<OrderTable />} />
