@@ -149,6 +149,7 @@ const OrderTable = () => {
 
 	const modifiedData = prepareData(orders);
 
+	//delete
 	const handleDelete = value => {
 		const dataSource = [...modifiedData]; //modifiedData
 		const filteredOrders = dataSource.filter(
@@ -157,6 +158,7 @@ const OrderTable = () => {
 		setOrders(filteredOrders);
 	};
 
+	//sort
 	const handleChange = (...sorter) => {
 		const { order, field } = sorter[2];
 		setSortedInfo({ columnKey: field, order });
@@ -173,6 +175,7 @@ const OrderTable = () => {
 		setSearchText('');
 	};
 
+	//search
 	const getColumnSearchProps = dataIndex => ({
 		filterDropdown: ({
 			setSelectedKeys,
@@ -314,9 +317,13 @@ const OrderTable = () => {
 				dataIndex: 'operation',
 				key: 'operation',
 				render: () => (
-					<Space size='middle'>
-						<a>Edit</a>
-						<a>Delete</a>
+					<Space size='small'>
+						<button className='btn btn-sm btn-outline-warning'>
+							<Edit />
+						</button>
+						<button className='btn btn-sm btn-outline-danger'>
+							<Trash />
+						</button>
 					</Space>
 				),
 			},
@@ -424,10 +431,10 @@ const OrderTable = () => {
 			key: 'operation',
 			render: () => (
 				<Space size='middle'>
-					<button className='btn btn-outline-warning'>
+					<button className='btn btn-sm btn-outline-warning'>
 						<Edit />
 					</button>
-					<button className='btn btn-outline-danger'>
+					<button className='btn btn-sm btn-outline-danger'>
 						<Trash />
 					</button>
 				</Space>
@@ -452,7 +459,7 @@ const OrderTable = () => {
 				bordered
 				rowKey={record => record.id}
 				onChange={handleChange}
-				size='middle'
+				size='small'
 			/>
 		</>
 	);
