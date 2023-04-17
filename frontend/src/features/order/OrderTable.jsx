@@ -150,7 +150,7 @@ const OrderTable = () => {
 	const modifiedData = prepareData(orders);
 
 	//delete
-	const handleDelete = value => {
+	const handleDeleteOrder = value => {
 		const dataSource = [...modifiedData]; //modifiedData
 		const filteredOrders = dataSource.filter(
 			order => order.entity_id !== value.id
@@ -332,6 +332,11 @@ const OrderTable = () => {
 				dataIndex: 'order_id',
 				key: 'order_id',
 			},
+			// {
+			// 	title: 'Supplier',
+			// 	dataIndex: 'supplier_name',
+			// 	key: 'supplier_name',
+			// },
 		];
 
 		//subtable data
