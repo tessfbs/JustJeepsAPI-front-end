@@ -1,7 +1,8 @@
-import { DownOutlined } from '@ant-design/icons';
-import { useEffect, useState } from 'react';
+import { DownOutlined, SearchOutlined } from '@ant-design/icons';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Badge, Dropdown, Space, Table } from 'antd';
+import { Badge, Dropdown, Space, Table, Input, Button } from 'antd';
+import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
 
 const sampleData = [
@@ -121,6 +122,10 @@ const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
 	const [sortedInfo, setSortedInfo] = useState({});
 	const [loading, setLoading] = useState(false);
+	const [searchText, setSearchText] = useState('');
+	const [searchedColumn, setSearchedColumn] = useState('');
+	const searchInput = useRef(null);
+
 	useEffect(() => {
 		loadData();
 	}, []);
@@ -156,6 +161,121 @@ const OrderTable = () => {
 		setSortedInfo({ columnKey: field, order });
 	};
 
+	//search function
+	const handleSearch = (selectedKeys, confirm, dataIndex) => {
+		confirm();
+		setSearchText(selectedKeys[0]);
+		setSearchedColumn(dataIndex);
+	};
+	const handleReset = clearFilters => {
+		clearFilters();
+		setSearchText('');
+	};
+
+	const getColumnSearchProps = dataIndex => ({
+		filterDropdown: ({
+			setSelectedKeys,
+			selectedKeys,
+			confirm,
+			clearFilters,
+			close,
+		}) => (
+			<div
+				style={{
+					padding: 8,
+				}}
+				onKeyDown={e => e.stopPropagation()}
+			>
+				<Input
+					ref={searchInput}
+					placeholder={`Search ${dataIndex}`}
+					value={selectedKeys[0]}
+					onChange={e =>
+						setSelectedKeys(e.target.value ? [e.target.value] : [])
+					}
+					onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+					style={{
+						marginBottom: 8,
+						display: 'block',
+					}}
+				/>
+				<Space>
+					<Button
+						type='primary'
+						onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+						icon={<SearchOutlined />}
+						size='small'
+						style={{
+							width: 90,
+						}}
+					>
+						Search
+					</Button>
+					<Button
+						onClick={() => clearFilters && handleReset(clearFilters)}
+						size='small'
+						style={{
+							width: 90,
+						}}
+					>
+						Reset
+					</Button>
+					<Button
+						type='link'
+						size='small'
+						onClick={() => {
+							confirm({
+								closeDropdown: false,
+							});
+							setSearchText(selectedKeys[0]);
+							setSearchedColumn(dataIndex);
+						}}
+					>
+						Filter
+					</Button>
+					<Button
+						type='link'
+						size='small'
+						onClick={() => {
+							close();
+						}}
+					>
+						close
+					</Button>
+				</Space>
+			</div>
+		),
+		filterIcon: filtered => (
+			<SearchOutlined
+				style={{
+					color: filtered ? '#1890ff' : undefined,
+				}}
+			/>
+		),
+		onFilter: (value, record) =>
+			record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+		onFilterDropdownOpenChange: visible => {
+			if (visible) {
+				setTimeout(() => searchInput.current?.select(), 100);
+			}
+		},
+		render: text =>
+			searchedColumn === dataIndex ? (
+				<Highlighter
+					highlightStyle={{
+						backgroundColor: '#ffc069',
+						padding: 0,
+					}}
+					searchWords={[searchText]}
+					autoEscape
+					textToHighlight={text ? text.toString() : ''}
+				/>
+			) : (
+				text
+			),
+	});
+
+	//sub table
 	const expandedRowRender = () => {
 		const columns = [
 			{
@@ -206,6 +326,7 @@ const OrderTable = () => {
 			},
 		];
 
+		//subtable data
 		const data = [];
 		for (let i = 0; i < modifiedData.length; i++) {
 			console.log('modifiedData[i].name: ', modifiedData[i]);
@@ -224,6 +345,7 @@ const OrderTable = () => {
 		return <Table columns={columns} dataSource={data} pagination={false} />;
 	};
 
+	//set up main column
 	const columns = [
 		{
 			title: 'Order_id',
@@ -231,6 +353,7 @@ const OrderTable = () => {
 			key: 'entity_id',
 			sorter: (a, b) => a.entity_id - b.entity_id,
 			sortOrder: sortedInfo.columnKey === 'entity_id' && sortedInfo.order,
+			...getColumnSearchProps('entity_id'),
 		},
 		{
 			title: 'Created_Date',
@@ -238,6 +361,7 @@ const OrderTable = () => {
 			key: 'created_at',
 			sorter: (a, b) => a.created_at?.localeCompare(b.created_at),
 			sortOrder: sortedInfo.columnKey === 'created_at' && sortedInfo.order,
+			...getColumnSearchProps('created_at'),
 		},
 		{
 			title: 'Email',
@@ -246,6 +370,7 @@ const OrderTable = () => {
 			editTable: true,
 			sorter: (a, b) => a.customer_email?.localeCompare(b.customer_email),
 			sortOrder: sortedInfo.columnKey === 'customer_mail' && sortedInfo.order,
+			...getColumnSearchProps('customer_email'),
 		},
 		{
 			title: 'First Name',
@@ -255,6 +380,7 @@ const OrderTable = () => {
 				a.customer_firstname?.localeCompare(b.customer_firstname),
 			sortOrder:
 				sortedInfo.columnKey === 'customer_firstname' && sortedInfo.order,
+			...getColumnSearchProps('customer_firstname'),
 		},
 		{
 			title: 'Last Name',
@@ -263,6 +389,7 @@ const OrderTable = () => {
 			sorter: (a, b) => a.customer_lastname?.localeCompare(b.customer_lastname),
 			sortOrder:
 				sortedInfo.columnKey === 'customer_lastname' && sortedInfo.order,
+			...getColumnSearchProps('customer_lastname'),
 		},
 		{
 			title: 'Total',
@@ -271,6 +398,7 @@ const OrderTable = () => {
 			editTable: true,
 			sorter: (a, b) => a.grand_total - b.grand_total,
 			sortOrder: sortedInfo.columnKey === 'grand_total' && sortedInfo.order,
+			...getColumnSearchProps('grand_total'),
 		},
 		{
 			title: 'Increment_id',
@@ -278,6 +406,7 @@ const OrderTable = () => {
 			key: 'increment_id',
 			sorter: (a, b) => a.increment_id - b.increment_id,
 			sortOrder: sortedInfo.columnKey === 'increment_id' && sortedInfo.order,
+			...getColumnSearchProps('increment_id'),
 		},
 		{
 			title: 'Total Qty',
@@ -287,6 +416,7 @@ const OrderTable = () => {
 			sorter: (a, b) => a.total_qty_ordered - b.total_qty_ordered,
 			sortOrder:
 				sortedInfo.columnKey === 'total_qty_ordered' && sortedInfo.order,
+			...getColumnSearchProps('total_qty_ordered'),
 		},
 		{
 			title: 'Action',
@@ -299,7 +429,7 @@ const OrderTable = () => {
 			),
 		},
 	];
-
+	//loop main column data
 	const data = modifiedData.map(order => ({
 		key: order.entity_id.toString(),
 		...order,
