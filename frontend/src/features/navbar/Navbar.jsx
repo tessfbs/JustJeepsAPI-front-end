@@ -69,10 +69,16 @@ const Navbar = () => {
 							</a>
 						</li>
 					</ul>
-					<ImageAvatars />
-					<button className='btn btn-outline-dark' type='submit'>
-						<Logout />
-					</button>
+					<div className='nav-right'>
+						<span>
+							<ImageAvatars />
+						</span>
+						<span>
+							<button className='btn btn-outline-dark' type='submit'>
+								<Logout />
+							</button>
+						</span>
+					</div>
 				</div>
 			</div>
 		</nav>

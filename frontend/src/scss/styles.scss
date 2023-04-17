@@ -20,3 +20,13 @@ td svg {
 	width: 20px;
 	$thumbnail-border-radius: var(--#{$prefix}border-radius);
 }
+
+nav button {
+	width: 60px;
+	margin-left: 40px;
+}
+
+nav .nav_right {
+	display: flexbox;
+	justify-content: space-between;
+}
