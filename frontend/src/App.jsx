@@ -23,15 +23,6 @@ function App() {
 			</Routes>
 		</>
 	);
-
-	// (
-	// 	<main>
-	// 		<Navbar />
-	// 		{/* <Testing /> */}
-	// 		{/* <OrderProductList /> */}
-	// 		<OrderTable />
-	// 	</main>
-	// );
 }
 
 export default App;
