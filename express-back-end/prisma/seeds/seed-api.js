@@ -24,36 +24,36 @@ const allseeds = async () => {
   try {
     console.time("allseeds"); // Start the timer for allseeds
 
-    // await seedUsers();
+    await seedUsers();
 
-    // await seedCompetitorsInfo();
+    await seedCompetitorsInfo();
 
-    // await seedVendorsInfo();
+    await seedVendorsInfo();
 
-    // console.log("Seeding all products...");
-    // console.time("seedAllProducts");
-    // await seedAllProducts();
-    // console.timeEnd("seedAllProducts"); // End the timer for seedAllProducts
+    console.log("Seeding all products...");
+    console.time("seedAllProducts");
+    await seedAllProducts();
+    console.timeEnd("seedAllProducts"); // End the timer for seedAllProducts
 
     console.log("Seeding orders...");
     console.time("seedOrders");
     await seedOrders();
     console.timeEnd("seedOrders"); // End the timer for seedOrders
     
-    // console.log("Seeding Omix...");
-    // console.time("seedOmix");
-    // await seedOmix();
-    // console.timeEnd("seedOmix"); // End the timer for seedOmix
+    console.log("Seeding Omix...");
+    console.time("seedOmix");
+    await seedOmix();
+    console.timeEnd("seedOmix"); // End the timer for seedOmix
 
-    // console.log("Seeding Meyer...");
-    // console.time("seedMeyer");
-    // await seedMeyer();
-    // console.timeEnd("seedMeyer"); // End the timer for seedMeyer
+    console.log("Seeding Meyer...");
+    console.time("seedMeyer");
+    await seedMeyer();
+    console.timeEnd("seedMeyer"); // End the timer for seedMeyer
 
-    // console.log("Seeding Keystone...");
-    // console.time("seedKeystone");
-    // await seedKeystone(); 
-    // console.timeEnd("seedKeystone"); // End the timer for seedKeystone
+    console.log("Seeding Keystone...");
+    console.time("seedKeystone");
+    await seedKeystone(); 
+    console.timeEnd("seedKeystone"); // End the timer for seedKeystone
 
     console.timeEnd("allseeds"); // End the timer for allseeds
     console.log("All seeds complete");
@@ -209,73 +209,6 @@ const seedOrders = async () => {
     console.error("Error seeding data:", error);
   }
 };
-
-// const seedOrders = async () => {
-//   try {
-//        // Fetch orders from API
-//        const response = await magentoRecentOrders(600);
-
-//        const orders = response.data.items;
-//        let orderCount = 0;
-
-//     // Seed orders
-//     for (const orderData of ordersData.items) {
-//       orderCount++;
-//       const { entity_id, items, ...order } = orderData;
-//       const existingOrder = await prisma.order.findUnique({
-//         where: { entity_id },
-//       });
-
-//       if (!existingOrder) {
-//         try {
-//           // Use try-catch block to catch errors while seeding each order
-//           const createdOrder = await prisma.order.create({
-//             data: { ...order, entity_id },
-//           });
-
-//           // Seed order products
-//           for (const itemData of items) {
-//             await prisma.orderProduct.create({
-//               data: {
-//                 ...itemData,
-//                 order_id: createdOrder.entity_id, // Use entity_id as order_id
-//                 sku: itemData.sku,
-//               },
-//             });
-//           }
-//         } catch (error) {
-//           console.error(
-//             `Error seeding order with entity_id ${entity_id}:`,
-//             error.code
-//           );
-//           // Continue to next order even if error occurs
-//           continue;
-//         }
-//       } else {
-//         try {
-//           // If order already exists, update its properties
-//           const updatedOrder = await prisma.order.update({
-//             where: { entity_id },
-//             data: { ...order },
-//           });
-//           console.log(`Order with entity_id ${entity_id} already exists. Updating...`);
-//         } catch (error) {
-//           console.error(
-//             `Error updating order with entity_id ${entity_id}:`,
-//             error.code
-//           );
-//           // Continue to next order even if error occurs
-//           continue;
-//         }
-//       }
-//     }
-
-//     console.log("Orders seeded successfully");
-//     console.log(`Total orders seeded: ${orderCount}`);
-//   } catch (error) {
-//     console.error("Error seeding data:", error);
-//   }
-// };
 
 
 allseeds();
