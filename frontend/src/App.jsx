@@ -8,6 +8,7 @@ function App() {
 		<main>
 			<Navbar />
 			{/* <Testing /> */}
+			{/* <OrderProductList /> */}
 			<OrderTable />
 		</main>
 	);
