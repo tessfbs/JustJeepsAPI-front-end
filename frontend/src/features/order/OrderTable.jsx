@@ -1,7 +1,7 @@
 import { DownOutlined, SearchOutlined } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Badge, Dropdown, Space, Table, Input, Button } from 'antd';
+import { Badge, Dropdown, Space, Table, Input, Button, Popconfirm } from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
 import { Edit, Trash } from '../../icons';
@@ -126,6 +126,7 @@ const OrderTable = () => {
 	const [searchText, setSearchText] = useState('');
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
+	const [confirmLoading, setConfirmLoading] = useState(false);
 
 	useEffect(() => {
 		loadData();
@@ -156,6 +157,21 @@ const OrderTable = () => {
 			order => order.entity_id !== value.id
 		);
 		setOrders(filteredOrders);
+	};
+
+	// const showPopconfirm = () => {
+	// 	setOpen(true);
+	// };
+	// const handleOk = () => {
+	// 	setConfirmLoading(true);
+	// 	setTimeout(() => {
+	// 		setOpen(false);
+	// 		setConfirmLoading(false);
+	// 	}, 2000);
+	// };
+	const handleCancel = () => {
+		console.log('Clicked cancel button');
+		setOpen(false);
 	};
 
 	//sort
@@ -433,32 +449,37 @@ const OrderTable = () => {
 		{
 			title: 'Action',
 			key: 'operation',
-			render: (_, record) => (
-				// 		<Popconfirm
-				//   title="Title"
-				//   description="Open Popconfirm with async logic"
-				//   open={open}
-				//   onConfirm={handleOk}
-				//   okButtonProps={{
-				//     loading: confirmLoading,
-				//   }}
-				//   onCancel={handleCancel}
-				// >
-				//   <Button type="primary" onClick={showPopconfirm}>
-				//     Open Popconfirm with async logic
-				//   </Button>
-				// </Popconfirm>
-				<Space size='middle'>
-					<button className='btn btn-sm btn-outline-warning'>
-						<Edit />
-					</button>
-					<button className='btn btn-sm btn-outline-danger'>
-						<Trash />
-					</button>
-				</Space>
-			),
+			render: (_, record) =>
+				modifiedData.length >= 1 ? (
+					<Popconfirm
+						title='Warning'
+						description='Are you sure to delete'
+						// open={open}
+						onConfirm={() => handleDeleteOrder(record)}
+						// okButtonProps={{
+						// 	loading: confirmLoading,
+						// }}
+						// onCancel={handleCancel}
+					>
+						<button
+							className='btn btn-sm btn-outline-danger'
+							// onClick={showPopconfirm}
+						>
+							<Trash />
+						</button>
+					</Popconfirm>
+				) : null,
+			// 	<Space size='middle'>
+			// 		<button className='btn btn-sm btn-outline-warning'>
+			// 			<Edit />
+			// 		</button>
+			// 		<button className='btn btn-sm btn-outline-danger'>
+			// 			<Trash />
+			// 		</button>
+			// 	</Space>
 		},
 	];
+
 	//loop main column data
 	const data = modifiedData.map(order => ({
 		key: order.entity_id.toString(),
