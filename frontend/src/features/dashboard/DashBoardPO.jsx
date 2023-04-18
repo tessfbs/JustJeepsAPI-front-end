@@ -5,7 +5,7 @@ import Piechart from "../pie/Piechart";
 
 export const DashBoardPO = () => {
   return (
-    <div className="dashboard">
+    <div className="dashboardpo">
       <Sidebar />
       <div className="dashboardContainer">
         <div className="left">
