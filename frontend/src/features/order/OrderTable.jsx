@@ -20,7 +20,7 @@ const OrderTable = () => {
 	const [searchText, setSearchText] = useState('');
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
-	const [isEditing, setIsEditing] = useState(false);
+	const [editingRow, setEditingRow] = useState(null);
 
 	useEffect(() => {
 		loadData();
@@ -52,7 +52,7 @@ const OrderTable = () => {
 	// delete an backend order
 	const deleteOrder = async id => {
 		const response = await axios.delete(
-			`http://localhost:8080/api/orders/${id}`
+			`http://localhost:8080/api/orders/${id}/delete`
 		);
 		setOrders(response.data);
 	};
