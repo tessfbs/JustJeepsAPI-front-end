@@ -3,6 +3,7 @@ import {
 	SearchOutlined,
 	EditOutlined,
 	DeleteOutlined,
+	SaveOutlined,
 	ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
@@ -10,8 +11,7 @@ import axios from 'axios';
 import { Badge, Dropdown, Space, Table, Input, Button, Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
-import { Edit, Trash } from '../../icons';
-import { batchEditFormRendered } from '@syncfusion/ej2-treegrid';
+import { Edit, Trash, Save } from '../../icons';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -290,6 +290,12 @@ const OrderTable = () => {
 					>
 						<Trash />
 					</button>
+					<button
+						className='btn btn-sm btn-outline-danger'
+						onClick={() => handleDeleteOrder(record)}
+					>
+						<Save />
+					</button>
 				</Space>
 			),
 		},
@@ -349,6 +355,7 @@ const OrderTable = () => {
 											style={{ color: 'red' }}
 											onClick={() => handleDeleteOrderItem(record)}
 										/>
+										<SaveOutlined />
 									</Space>
 								),
 							},
