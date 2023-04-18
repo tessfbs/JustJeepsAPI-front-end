@@ -34,7 +34,7 @@ const OrderTable = () => {
 
 	//delete
 	const handleDeleteOrder = record => {
-		deleteOrder(id);
+		deleteOrder(record.entity_id);
 		setOrders(pre => {
 			return pre.filter(order => order.entity_id !== record.entity_id);
 		});
