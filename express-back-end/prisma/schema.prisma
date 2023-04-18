@@ -45,7 +45,7 @@ model OrderProduct {
   price_incl_tax Float?
   product_id Int?
   qty_ordered Int
-  order Order @relation(fields: [order_id], references: [entity_id])
+  order Order @relation(fields: [order_id], references: [entity_id], onDelete: Cascade)
   product Product? @relation(fields: [sku], references: [sku])
 }
 
