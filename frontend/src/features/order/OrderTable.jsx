@@ -132,23 +132,24 @@ const OrderTable = () => {
 		loadData();
 	}, []);
 
+	//load all data
 	const loadData = async () => {
 		setLoading(true);
 		const response = await axios.get('orderProductsJoin.json');
-		console.log('response: ', response);
+		// console.log('response: ', response);
 
 		setOrders(response.data);
 		setLoading(false);
 	};
 
-	const prepareData = arr => {
-		if (arr.length < 1) {
-			return [];
-		}
-		return arr.map(order => ({ ...order, children: order.items }));
-	};
+	// const prepareData = arr => {
+	// 	if (arr.length < 1) {
+	// 		return [];
+	// 	}
+	// 	return arr.map(order => ({ ...order, children: order.items }));
+	// };
 
-	const modifiedData = prepareData(orders);
+	// const modifiedData = prepareData(orders);
 
 	//delete
 	const handleDeleteOrder = value => {
@@ -353,24 +354,6 @@ const OrderTable = () => {
 			// 	key: 'supplier_name',
 			// },
 		];
-
-		//subtable data
-		const data = [];
-		for (let i = 0; i < modifiedData.length; i++) {
-			console.log('modifiedData[i].name: ', modifiedData[i]);
-			data.push({
-				key: i.toString(),
-				id: i + 1,
-				name: modifiedData[i]?.items[i]?.name,
-				sku: modifiedData[i]?.items[i]?.sku,
-				price: modifiedData[i]?.items[i]?.price,
-				product_id: modifiedData[i]?.items[i]?.product_id,
-				qty_ordered: modifiedData[i]?.items[i]?.qty_ordered,
-				order_id: modifiedData[i]?.items[i]?.order_id,
-			});
-		}
-
-		return <Table columns={columns} dataSource={data} pagination={false} />;
 	};
 
 	//set up main column
@@ -481,7 +464,7 @@ const OrderTable = () => {
 	];
 
 	//loop main column data
-	const data = modifiedData.map(order => ({
+	const data = orders.map(order => ({
 		key: order.entity_id.toString(),
 		...order,
 	}));
@@ -492,9 +475,72 @@ const OrderTable = () => {
 				<table className='table table-striped'>
 					<Table
 						columns={columns}
-						expandable={{
-							expandedRowRender,
-							defaultExpandedRowKeys: ['0'],
+						expandedRowRender={record => {
+							//render sub table here
+							const nestedColumns = [
+								{
+									title: 'ID',
+									dataIndex: 'id',
+									key: 'id',
+								},
+								{
+									title: 'Product',
+									dataIndex: 'name',
+									key: 'name',
+								},
+								{
+									title: 'SKU',
+									dataIndex: 'sku',
+									key: 'sku',
+								},
+								{
+									title: 'Price',
+									dataIndex: 'price',
+									key: 'price',
+								},
+								{
+									title: 'Product_id',
+									dataIndex: 'product_id',
+									key: 'product_id',
+								},
+								{
+									title: 'Quantity',
+									dataIndex: 'qty_ordered',
+									key: 'qty_ordered',
+								},
+								{
+									title: 'Action',
+									dataIndex: 'operation',
+									key: 'operation',
+									render: () => (
+										<Space size='small'>
+											<button className='btn btn-sm btn-outline-warning'>
+												<Edit />
+											</button>
+											<button className='btn btn-sm btn-outline-danger'>
+												<Trash />
+											</button>
+										</Space>
+									),
+								},
+								{
+									title: 'Order_id',
+									dataIndex: 'order_id',
+									key: 'order_id',
+								},
+								// {
+								// 	title: 'Supplier',
+								// 	dataIndex: 'supplier_name',
+								// 	key: 'supplier_name',
+								// },
+							];
+							return (
+								<Table
+									columns={nestedColumns}
+									dataSource={record.items}
+									pagination={false}
+								/>
+							);
 						}}
 						dataSource={data}
 						bordered
