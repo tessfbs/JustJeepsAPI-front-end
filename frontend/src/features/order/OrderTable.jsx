@@ -291,7 +291,7 @@ const OrderTable = () => {
 						<Trash />
 					</button>
 					<button
-						className='btn btn-sm btn-outline-danger'
+						className='btn btn-sm btn-outline-success'
 						onClick={() => handleDeleteOrder(record)}
 					>
 						<Save />
@@ -350,12 +350,12 @@ const OrderTable = () => {
 								key: 'operation',
 								render: () => (
 									<Space size='small'>
-										<EditOutlined />
+										<EditOutlined style={{ color: 'blue' }} />
 										<DeleteOutlined
 											style={{ color: 'red' }}
 											onClick={() => handleDeleteOrderItem(record)}
 										/>
-										<SaveOutlined />
+										<SaveOutlined style={{ color: 'green' }} />
 									</Space>
 								),
 							},
