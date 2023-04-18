@@ -88,7 +88,7 @@ app.post("/api/orders/:id/update", async (req, res) => {
 //* Routes for Product Orders *\\
 
 //Route for getting all product orders
-app.get("/api/product_orders", async (req, res) => {
+app.get("/api/order_products", async (req, res) => {
   try {
     const productOrders = await prisma.orderProduct.findMany({
       include: {
