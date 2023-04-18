@@ -31,6 +31,7 @@ const OrderTable = () => {
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
 	const [editingRow, setEditingRow] = useState(null);
+	const [form] = Form.useForm();
 
 	useEffect(() => {
 		loadData();
@@ -86,7 +87,9 @@ const OrderTable = () => {
 	};
 
 	//edit an order
-	const handleEditOrder = record => {};
+	const handleEditOrder = record => {
+		console.log('editing');
+	};
 
 	//sort
 	const handleChange = (...sorter) => {
@@ -384,7 +387,14 @@ const OrderTable = () => {
 					<button
 						className='btn btn-sm btn-outline-warning'
 						onClick={() => {
-							handleEditOrder(record.key);
+							setEditingRow(record.key);
+							form.setFieldsValue({
+								customer_email: record.customer_email,
+								customer_firstname: record.customer_firstname,
+								customer_lastname: record.customer_lastname,
+								grand_total: record.grand_total,
+								total_qty_ordered: record.total_qty_ordered,
+							});
 						}}
 					>
 						<Edit />
@@ -414,7 +424,7 @@ const OrderTable = () => {
 	return (
 		<>
 			<div className='container-xxl mt-5'>
-				<Form>
+				<Form form={form}>
 					<Table
 						columns={columns}
 						expandedRowRender={record => {
