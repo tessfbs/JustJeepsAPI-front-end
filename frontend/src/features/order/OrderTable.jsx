@@ -279,7 +279,7 @@ const OrderTable = () => {
 					<button
 						className='btn btn-sm btn-outline-warning'
 						onClick={() => {
-							handleEditOrder(record);
+							handleEditOrder(record.key);
 						}}
 					>
 						<Edit />
@@ -309,81 +309,83 @@ const OrderTable = () => {
 	return (
 		<>
 			<div className='container-xxl mt-5'>
-				<Table
-					columns={columns}
-					expandedRowRender={record => {
-						//render sub table here
-						const nestedColumns = [
-							{
-								title: 'ID',
-								dataIndex: 'id',
-								key: 'id',
-							},
-							{
-								title: 'Product',
-								dataIndex: 'name',
-								key: 'name',
-							},
-							{
-								title: 'SKU',
-								dataIndex: 'sku',
-								key: 'sku',
-							},
-							{
-								title: 'Price',
-								dataIndex: 'price',
-								key: 'price',
-							},
-							{
-								title: 'Product_id',
-								dataIndex: 'product_id',
-								key: 'product_id',
-							},
-							{
-								title: 'Quantity',
-								dataIndex: 'qty_ordered',
-								key: 'qty_ordered',
-							},
-							{
-								title: 'Action',
-								dataIndex: 'operation',
-								key: 'operation',
-								render: () => (
-									<Space size='small'>
-										<EditOutlined style={{ color: 'blue' }} />
-										<DeleteOutlined
-											style={{ color: 'red' }}
-											onClick={() => handleDeleteOrderItem(record)}
-										/>
-										<SaveOutlined style={{ color: 'green' }} />
-									</Space>
-								),
-							},
-							// {
-							// 	title: 'Order_id',
-							// 	dataIndex: 'order_id',
-							// 	key: 'order_id',
-							// },
-							// {
-							// 	title: 'Supplier',
-							// 	dataIndex: 'supplier_name',
-							// 	key: 'supplier_name',
-							// },
-						];
-						return (
-							<Table
-								columns={nestedColumns}
-								dataSource={record.items}
-								pagination={false}
-							/>
-						);
-					}}
-					dataSource={data}
-					bordered
-					rowKey={record => record.id}
-					onChange={handleChange}
-					size='small'
-				/>
+				<Form>
+					<Table
+						columns={columns}
+						expandedRowRender={record => {
+							//render sub table here
+							const nestedColumns = [
+								{
+									title: 'ID',
+									dataIndex: 'id',
+									key: 'id',
+								},
+								{
+									title: 'Product',
+									dataIndex: 'name',
+									key: 'name',
+								},
+								{
+									title: 'SKU',
+									dataIndex: 'sku',
+									key: 'sku',
+								},
+								{
+									title: 'Price',
+									dataIndex: 'price',
+									key: 'price',
+								},
+								{
+									title: 'Product_id',
+									dataIndex: 'product_id',
+									key: 'product_id',
+								},
+								{
+									title: 'Quantity',
+									dataIndex: 'qty_ordered',
+									key: 'qty_ordered',
+								},
+								{
+									title: 'Action',
+									dataIndex: 'operation',
+									key: 'operation',
+									render: () => (
+										<Space size='small'>
+											<EditOutlined style={{ color: 'blue' }} />
+											<DeleteOutlined
+												style={{ color: 'red' }}
+												onClick={() => handleDeleteOrderItem(record)}
+											/>
+											<SaveOutlined style={{ color: 'green' }} />
+										</Space>
+									),
+								},
+								// {
+								// 	title: 'Order_id',
+								// 	dataIndex: 'order_id',
+								// 	key: 'order_id',
+								// },
+								// {
+								// 	title: 'Supplier',
+								// 	dataIndex: 'supplier_name',
+								// 	key: 'supplier_name',
+								// },
+							];
+							return (
+								<Table
+									columns={nestedColumns}
+									dataSource={record.items}
+									pagination={false}
+								/>
+							);
+						}}
+						dataSource={data}
+						bordered
+						rowKey={record => record.id}
+						onChange={handleChange}
+						size='small'
+					/>
+				</Form>
 			</div>
 		</>
 	);
