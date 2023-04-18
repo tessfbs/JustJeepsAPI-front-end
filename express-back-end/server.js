@@ -71,6 +71,86 @@ app.post("/api/orders/:id", async (req, res) => {
   }
 });
 
+
+//* Routes for Product Orders *\\
+
+// Route for creating an order product
+app.post('/order-products', async (req, res) => {
+  try {
+    const { order_id, name, sku, base_price, base_price_incl_tax, discount_amount, discount_invoiced, discount_percent, original_price, price, price_incl_tax, product_id, qty_ordered } = req.body;
+    const createdOrderProduct = await prisma.orderProduct.create({
+      data: {
+        order_id: order_id,
+        name: name,
+        sku: sku,
+        base_price: base_price,
+        base_price_incl_tax: base_price_incl_tax,
+        discount_amount: discount_amount,
+        discount_invoiced: discount_invoiced,
+        discount_percent: discount_percent,
+        original_price: original_price,
+        price: price,
+        price_incl_tax: price_incl_tax,
+        product_id: product_id,
+        qty_ordered: qty_ordered,
+      },
+    });
+    res.json(createdOrderProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create order product' });
+  }
+});
+
+// Route for editing an order product
+app.post('/order-products/:id/edit', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, sku, base_price, base_price_incl_tax, discount_amount, discount_invoiced, discount_percent, original_price, price, price_incl_tax, product_id, qty_ordered } = req.body;
+    const updatedOrderProduct = await prisma.orderProduct.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        name: name,
+        sku: sku,
+        base_price: base_price,
+        base_price_incl_tax: base_price_incl_tax,
+        discount_amount: discount_amount,
+        discount_invoiced: discount_invoiced,
+        discount_percent: discount_percent,
+        original_price: original_price,
+        price: price,
+        price_incl_tax: price_incl_tax,
+        product_id: product_id,
+        qty_ordered: qty_ordered,
+      },
+    });
+    res.json(updatedOrderProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update order product' });
+  }
+});
+
+// Route for deleting an order product
+app.post('/order-products/:id/delete', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    // Delete the order product from the database using Prisma
+    await prisma.orderProduct.delete({
+      where: { id }
+    });
+
+    res.sendStatus(204);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete order product' });
+  }
+});
+
+
 //* Routes for Vendor Products *\\
 
 // Route for getting all vendor products
@@ -273,15 +353,8 @@ app.get('/totalGrandTotalByMonth', async (req, res) => {
   } catch (error) {
     console.error(`Error getting total by month: ${error}`);
     res.status(500).json({ error: 'Internal Server Error' });
-  } finally {
-    await prisma.$disconnect();
-  }
+  } 
 });
-
-app.listen(3000, () => {
-  console.log('Server is running on http://localhost:3000');
-});
-
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
