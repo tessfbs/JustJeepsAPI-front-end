@@ -54,7 +54,7 @@ app.get("/api/orders/:id", async (req, res) => {
 });
 
 // Route for updating an order status
-app.post("/api/orders/:id", async (req, res) => {
+app.post("/api/orders/:id/update", async (req, res) => {
   try {
     const order = await prisma.order.update({
       where: {
@@ -71,11 +71,39 @@ app.post("/api/orders/:id", async (req, res) => {
   }
 });
 
+//Route for deleting an order
+// app.delete("/api/orders/:id/delete", async (req, res) => {
+//   try {
+//     const order = await prisma.order.delete({
+//       where: {
+//         entity_id: Number(req.params.id),
+//       },
+//     });
+//     res.json(order);
+//   } catch (error) {
+//     res.status(500).json({ error: "Failed to delete order" });
+//   }
+// });
 
 //* Routes for Product Orders *\\
 
+//Route for getting all product orders
+app.get("/api/product_orders", async (req, res) => {
+  try {
+    const productOrders = await prisma.productOrder.findMany({
+      include: {
+        order: true,
+        product: true,
+      },
+    });
+    res.json(productOrders);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch product orders" });
+  }
+});
+
 // Route for creating an order product
-app.post('/order-products', async (req, res) => {
+app.post('/order_products', async (req, res) => {
   try {
     const { order_id, name, sku, base_price, base_price_incl_tax, discount_amount, discount_invoiced, discount_percent, original_price, price, price_incl_tax, product_id, qty_ordered } = req.body;
     const createdOrderProduct = await prisma.orderProduct.create({
@@ -103,7 +131,7 @@ app.post('/order-products', async (req, res) => {
 });
 
 // Route for editing an order product
-app.post('/order-products/:id/edit', async (req, res) => {
+app.post('/order_products/:id/edit', async (req, res) => {
   try {
     const id = req.params.id;
     const { name, sku, base_price, base_price_incl_tax, discount_amount, discount_invoiced, discount_percent, original_price, price, price_incl_tax, product_id, qty_ordered } = req.body;
@@ -134,7 +162,7 @@ app.post('/order-products/:id/edit', async (req, res) => {
 });
 
 // Route for deleting an order product
-app.post('/order-products/:id/delete', async (req, res) => {
+app.post('/order_products/:id/delete', async (req, res) => {
   try {
     const id = parseInt(req.params.id);
 
@@ -154,7 +182,7 @@ app.post('/order-products/:id/delete', async (req, res) => {
 //* Routes for Vendor Products *\\
 
 // Route for getting all vendor products
-app.get("/api/vendor-products", async (req, res) => {
+app.get("/api/vendor_products", async (req, res) => {
   try {
     //vendor products including order products and vendor
     const vendorProducts = await prisma.vendorProduct.findMany({
@@ -170,7 +198,7 @@ app.get("/api/vendor-products", async (req, res) => {
 });
 
 // Route for getting vendor products by sku
-app.get("/api/vendor-products/:sku", async (req, res) => {
+app.get("/api/vendor_products/:sku", async (req, res) => {
   console.log(req.params.sku);
   try {
     const vendorProduct = await prisma.vendorProduct.findMany({
@@ -201,7 +229,7 @@ app.get("/api/vendors", async (req, res) => {
 //* Routes for Purchase Orders *\\
 
 // Route for getting all Purchase Orders
-app.get("/api/purchase-orders", async (req, res) => {
+app.get("/api/purchase_orders", async (req, res) => {
   try {
     const purchaseOrders = await prisma.purchaseOrder.findMany({
       include: {
@@ -223,7 +251,7 @@ app.get("/api/purchase-orders", async (req, res) => {
 });
 
 // Route for getting a single Purchase Order
-app.get("/api/purchase-orders/:id", async (req, res) => {
+app.get("/api/purchase_orders/:id", async (req, res) => {
   const purchaseOrder = await prisma.purchaseOrder.findUnique({
     where: {
       id: Number(req.params.id),
@@ -244,7 +272,7 @@ app.get("/api/purchase-orders/:id", async (req, res) => {
 });
 
 // Route for creating a Purchase Order
-app.post("/api/purchase-orders", async (req, res) => {
+app.post("/api/purchase_orders", async (req, res) => {
   try {
     const purchaseOrder = await prisma.purchaseOrder.create({
       data: {
@@ -272,7 +300,7 @@ app.post("/api/purchase-orders", async (req, res) => {
 });
 
 // Route for updating a Purchase Order
-app.post("/api/purchase-orders/:id/update", async (req, res) => {
+app.post("/api/purchase_orders/:id/update", async (req, res) => {
   try {
     const purchaseOrder = await prisma.purchaseOrder.update({
       where: {
@@ -302,7 +330,7 @@ app.post("/api/purchase-orders/:id/update", async (req, res) => {
 });
 
 // Route for deleting a Purchase Order
-app.post("/api/purchase-orders/:id/delete", async (req, res) => {
+app.post("/api/purchase_orders/:id/delete", async (req, res) => {
   try {
     const purchaseOrder = await prisma.purchaseOrder.delete({
       where: {
