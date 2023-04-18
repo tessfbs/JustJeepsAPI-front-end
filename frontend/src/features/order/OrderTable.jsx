@@ -74,12 +74,13 @@ const OrderTable = () => {
 		console.log('order item record: ', record);
 		deleteOrderItem(record.id);
 		setOrders(pre => {
-			return pre.filter(order => `${order - products.id}` !== record.id);
+			return pre.filter(order => `${order.id}` !== record.id);
 		});
 	};
 
 	// delete backend order-product
 	const deleteOrderItem = async id => {
+		console.log('id: ', id);
 		const response = await axios.delete(
 			`http://localhost:8080/api/order-products/${id}/delete`
 		);
@@ -91,9 +92,26 @@ const OrderTable = () => {
 		console.log('editing');
 	};
 
+	const handleSave = () => {
+		form
+			.validateFields()
+			.then(values => {
+				onFinish(values);
+			})
+			.catch(error => {
+				console.log('error', error);
+			});
+	};
 	const onFinish = values => {
+		console.log('values: ', values);
 		const updatedOrders = [...orders];
-		updatedOrders.splice(editingRow, 1, { ...values, key: editingRow });
+		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
+		updatedOrders.splice(index, 1, { ...values, key: index });
+		console.log('values: ', values);
+		console.log('editingRow: ', editingRow);
+
+		console.log('updatedOrders: ', updatedOrders);
+
 		setOrders(updatedOrders);
 		setEditingRow(null);
 	};
@@ -388,34 +406,44 @@ const OrderTable = () => {
 		{
 			title: 'Action',
 			key: 'operation',
-			render: record => (
-				<Space size='middle'>
-					<button
-						className='btn btn-sm btn-outline-warning'
-						onClick={() => {
-							setEditingRow(record.key);
-							form.setFieldsValue({
-								customer_email: record.customer_email,
-								customer_firstname: record.customer_firstname,
-								customer_lastname: record.customer_lastname,
-								grand_total: record.grand_total,
-								total_qty_ordered: record.total_qty_ordered,
-							});
-						}}
-					>
-						<Edit />
-					</button>
-					<button
-						className='btn btn-sm btn-outline-danger'
-						onClick={() => handleDeleteOrder(record)}
-					>
-						<Trash />
-					</button>
-					<button className='btn btn-sm btn-outline-success'>
-						<Save />
-					</button>
-				</Space>
-			),
+			render: (_, record) => {
+				return (
+					<>
+						<Form.Item>
+							<Space size='middle'>
+								<button
+									className='btn btn-sm btn-outline-warning'
+									onClick={() => {
+										setEditingRow(record.key);
+										form.setFieldsValue({
+											customer_email: record.customer_email,
+											customer_firstname: record.customer_firstname,
+											customer_lastname: record.customer_lastname,
+											grand_total: record.grand_total,
+											total_qty_ordered: record.total_qty_ordered,
+										});
+									}}
+								>
+									<Edit />
+								</button>
+								<button
+									className='btn btn-sm btn-outline-danger'
+									onClick={() => handleDeleteOrder(record)}
+								>
+									<Trash />
+								</button>
+								<button
+									className='btn btn-sm btn-outline-success'
+									htmlType='submit'
+									onClick={handleSave}
+								>
+									<Save />
+								</button>
+							</Space>
+						</Form.Item>
+					</>
+				);
+			},
 		},
 	];
 	//loop main column data
@@ -424,6 +452,7 @@ const OrderTable = () => {
 		...order,
 	}));
 
+	// onFinish={onFinish} in the form before
 	return (
 		<>
 			<div className='container-xxl mt-5'>
