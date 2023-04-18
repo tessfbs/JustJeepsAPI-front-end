@@ -1,4 +1,5 @@
 const Express = require("express");
+const { format, parseISO } = require('date-fns');
 const app = Express();
 const BodyParser = require("body-parser");
 const PORT = 8080;
@@ -104,6 +105,16 @@ app.get("/api/vendor-products/:sku", async (req, res) => {
     res.json(vendorProduct);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch vendor product" });
+  }
+});
+
+// Route for getting Vendors info
+app.get("/api/vendors", async (req, res) => {
+  try {
+    const vendors = await prisma.vendor.findMany();
+    res.json(vendors);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch vendors" });
   }
 });
 
@@ -224,16 +235,53 @@ app.post("/api/purchase-orders/:id/delete", async (req, res) => {
   }
 });
 
-
-//* Routes for Vendors Info *\\
-app.get("/api/vendors", async (req, res) => {
+// Route for getting the grand total of all orders
+app.get('/totalGrandTotal', async (req, res) => {
   try {
-    const vendors = await prisma.vendor.findMany();
-    res.json(vendors);
+    const result = await prisma.order.aggregate({
+      _sum: {
+        grand_total: true
+      },
+      _count: {
+        _all: true
+      }
+    });
+
+    const totalSum = result._sum.grand_total;
+    res.json({ total_sum: totalSum });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch vendors" });
+    console.error(`Error getting total sum of grand_total: ${error}`);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    await prisma.$disconnect();
   }
 });
+
+//Route for getting the total of all orders by month
+app.get('/totalGrandTotalByMonth', async (req, res) => {
+  try {
+    const orders = await prisma.order.findMany();
+    const totalByMonth = orders.reduce((acc, order) => {
+      const month = format(parseISO(order.created_at), 'yyyy-MM');
+      if (!acc[month]) {
+        acc[month] = 0;
+      }
+      acc[month] += order.grand_total;
+      return acc;
+    }, {});
+    res.json({ total_by_month: totalByMonth });
+  } catch (error) {
+    console.error(`Error getting total by month: ${error}`);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on http://localhost:3000');
+});
+
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
