@@ -210,6 +210,20 @@ app.post("/api/purchase-orders/:id/update", async (req, res) => {
   }
 });
 
+// Route for deleting a Purchase Order
+app.post("/api/purchase-orders/:id/delete", async (req, res) => {
+  try {
+    const purchaseOrder = await prisma.purchaseOrder.delete({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
+    res.json(purchaseOrder);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete purchase order" });
+  }
+});
+
 
 //* Routes for Vendors Info *\\
 app.get("/api/vendors", async (req, res) => {
