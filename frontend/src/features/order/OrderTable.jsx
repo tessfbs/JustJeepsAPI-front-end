@@ -1,123 +1,15 @@
-import { DownOutlined, SearchOutlined } from '@ant-design/icons';
+import {
+	DownOutlined,
+	SearchOutlined,
+	EditOutlined,
+	DeleteOutlined,
+} from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Badge, Dropdown, Space, Table, Input, Button, Popconfirm } from 'antd';
+import { Badge, Dropdown, Space, Table, Input, Button } from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
 import { Edit, Trash } from '../../icons';
-
-const sampleData = [
-	{
-		entity_id: 82311,
-		id: 1,
-		created_at: '2023-04-14 01:51:05',
-		customer_email: 'tasljansen@gmail.com',
-		coupon_code: null,
-		customer_firstname: 'Anita',
-		customer_lastname: 'Jansen',
-		grand_total: 303.57,
-		increment_id: '200038574',
-		order_currency_code: 'CAD',
-		total_qty_ordered: 1,
-		items: [
-			{
-				id: 1,
-				name: 'Rugged Ridge Custom Fit Neoprene Front Seat Covers For 2011-18 Jeep Wrangler JK 2 Door & Unlimited 4 Door Models 13215-',
-				sku: 'RR-13215.09',
-				order_id: 82311,
-				base_price: 254.11,
-				base_price_incl_tax: 266.82,
-				discount_amount: 0,
-				discount_invoiced: 0,
-				discount_percent: 0,
-				original_price: 298.95,
-				price: 254.11,
-				price_incl_tax: 266.82,
-				product_id: 26318,
-				qty_ordered: 1,
-			},
-			{
-				id: 2,
-				name: 'Rugged Ridge (Grey) Custom Fit Neoprene Front Seat Covers For 2011-18 Jeep Wrangler JK 2 Door & Unlimited 4 Door Models 13215.09',
-				sku: 'RR-13215.09',
-				order_id: 82311,
-				base_price: 0,
-				base_price_incl_tax: null,
-				discount_amount: 0,
-				discount_invoiced: 0,
-				discount_percent: 0,
-				original_price: 0,
-				price: 0,
-				price_incl_tax: null,
-				product_id: 13728,
-				qty_ordered: 1,
-			},
-		],
-	},
-	{
-		entity_id: 82310,
-		id: 2,
-		created_at: '2023-04-14 01:48:19',
-		customer_email: 'peterjesso@gmail.com',
-		coupon_code: null,
-		customer_firstname: 'Peter',
-		customer_lastname: 'Jesso',
-		grand_total: 223.18,
-		increment_id: '200038573',
-		order_currency_code: 'CAD',
-		total_qty_ordered: 2,
-		items: [
-			{
-				id: 3,
-				name: 'SpiderWebShade GrabBag GRABBAG-',
-				sku: 'SWS-GRABBAG',
-				order_id: 82310,
-				base_price: 43.31,
-				base_price_incl_tax: 49.81,
-				discount_amount: 0,
-				discount_invoiced: 0,
-				discount_percent: 0,
-				original_price: 50.95,
-				price: 43.31,
-				price_incl_tax: 49.81,
-				product_id: 37053,
-				qty_ordered: 1,
-			},
-			{
-				id: 4,
-				name: 'SpiderWebShade GrabBag GRABBAG Black',
-				sku: 'SWS-GRABBAG',
-				order_id: 82310,
-				base_price: 0,
-				base_price_incl_tax: null,
-				discount_amount: 0,
-				discount_invoiced: 0,
-				discount_percent: 0,
-				original_price: 0,
-				price: 0,
-				price_incl_tax: null,
-				product_id: 37042,
-				qty_ordered: 1,
-			},
-			{
-				id: 5,
-				name: 'Poison Spyder Customs LED 3rd Brake Light and License Plate Light 41-04-406',
-				sku: 'PS-41-04-406',
-				order_id: 82310,
-				base_price: 125.76,
-				base_price_incl_tax: 144.62,
-				discount_amount: 0,
-				discount_invoiced: 0,
-				discount_percent: 0,
-				original_price: 147.95,
-				price: 125.76,
-				price_incl_tax: 144.62,
-				product_id: 27667,
-				qty_ordered: 1,
-			},
-		],
-	},
-];
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -126,7 +18,6 @@ const OrderTable = () => {
 	const [searchText, setSearchText] = useState('');
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
-	const [confirmLoading, setConfirmLoading] = useState(false);
 
 	useEffect(() => {
 		loadData();
@@ -136,43 +27,22 @@ const OrderTable = () => {
 	const loadData = async () => {
 		setLoading(true);
 		const response = await axios.get('orderProductsJoin.json');
-		// console.log('response: ', response);
 
 		setOrders(response.data);
 		setLoading(false);
 	};
 
-	// const prepareData = arr => {
-	// 	if (arr.length < 1) {
-	// 		return [];
-	// 	}
-	// 	return arr.map(order => ({ ...order, children: order.items }));
-	// };
-
-	// const modifiedData = prepareData(orders);
-
 	//delete
-	const handleDeleteOrder = value => {
-		const dataSource = [...modifiedData]; //modifiedData
-		const filteredOrders = dataSource.filter(
-			order => order.entity_id !== value.id
-		);
-		setOrders(filteredOrders);
+	const handleDeleteOrder = record => {
+		deleteOrder(id);
+		setOrders(pre => {
+			return pre.filter(order => order.entity_id !== record.entity_id);
+		});
 	};
 
-	// const showPopconfirm = () => {
-	// 	setOpen(true);
-	// };
-	// const handleOk = () => {
-	// 	setConfirmLoading(true);
-	// 	setTimeout(() => {
-	// 		setOpen(false);
-	// 		setConfirmLoading(false);
-	// 	}, 2000);
-	// };
-	const handleCancel = () => {
-		console.log('Clicked cancel button');
-		setOpen(false);
+	const deleteOrder = async id => {
+		const response = await axios.delete(`api/orders/${id}`);
+		setOrders(response.data);
 	};
 
 	//sort
@@ -295,67 +165,6 @@ const OrderTable = () => {
 			),
 	});
 
-	//sub table
-	const expandedRowRender = () => {
-		const columns = [
-			{
-				title: 'ID',
-				dataIndex: 'id',
-				key: 'id',
-			},
-			{
-				title: 'Product',
-				dataIndex: 'name',
-				key: 'name',
-			},
-			{
-				title: 'SKU',
-				dataIndex: 'sku',
-				key: 'sku',
-			},
-			{
-				title: 'Price',
-				dataIndex: 'price',
-				key: 'price',
-			},
-			{
-				title: 'Product_id',
-				dataIndex: 'product_id',
-				key: 'product_id',
-			},
-			{
-				title: 'Quantity',
-				dataIndex: 'qty_ordered',
-				key: 'qty_ordered',
-			},
-			{
-				title: 'Action',
-				dataIndex: 'operation',
-				key: 'operation',
-				render: () => (
-					<Space size='small'>
-						<button className='btn btn-sm btn-outline-warning'>
-							<Edit />
-						</button>
-						<button className='btn btn-sm btn-outline-danger'>
-							<Trash />
-						</button>
-					</Space>
-				),
-			},
-			{
-				title: 'Order_id',
-				dataIndex: 'order_id',
-				key: 'order_id',
-			},
-			// {
-			// 	title: 'Supplier',
-			// 	dataIndex: 'supplier_name',
-			// 	key: 'supplier_name',
-			// },
-		];
-	};
-
 	//set up main column
 	const columns = [
 		{
@@ -432,37 +241,21 @@ const OrderTable = () => {
 		{
 			title: 'Action',
 			key: 'operation',
-			render: (_, record) =>
-				modifiedData.length >= 1 ? (
-					<Popconfirm
-						title='Warning'
-						description='Are you sure to delete'
-						// open={open}
-						onConfirm={() => handleDeleteOrder(record)}
-						// okButtonProps={{
-						// 	loading: confirmLoading,
-						// }}
-						// onCancel={handleCancel}
+			render: record => (
+				<Space size='middle'>
+					<button className='btn btn-sm btn-outline-warning'>
+						<Edit />
+					</button>
+					<button
+						className='btn btn-sm btn-outline-danger'
+						onClick={() => handleDeleteOrder(record)}
 					>
-						<button
-							className='btn btn-sm btn-outline-danger'
-							// onClick={showPopconfirm}
-						>
-							<Trash />
-						</button>
-					</Popconfirm>
-				) : null,
-			// 	<Space size='middle'>
-			// 		<button className='btn btn-sm btn-outline-warning'>
-			// 			<Edit />
-			// 		</button>
-			// 		<button className='btn btn-sm btn-outline-danger'>
-			// 			<Trash />
-			// 		</button>
-			// 	</Space>
+						<Trash />
+					</button>
+				</Space>
+			),
 		},
 	];
-
 	//loop main column data
 	const data = orders.map(order => ({
 		key: order.entity_id.toString(),
@@ -514,20 +307,19 @@ const OrderTable = () => {
 									key: 'operation',
 									render: () => (
 										<Space size='small'>
-											<button className='btn btn-sm btn-outline-warning'>
-												<Edit />
-											</button>
-											<button className='btn btn-sm btn-outline-danger'>
-												<Trash />
-											</button>
+											<EditOutlined />
+											<DeleteOutlined
+												style={{ color: 'red' }}
+												onClick={() => handleDeleteOrder(record)}
+											/>
 										</Space>
 									),
 								},
-								{
-									title: 'Order_id',
-									dataIndex: 'order_id',
-									key: 'order_id',
-								},
+								// {
+								// 	title: 'Order_id',
+								// 	dataIndex: 'order_id',
+								// 	key: 'order_id',
+								// },
 								// {
 								// 	title: 'Supplier',
 								// 	dataIndex: 'supplier_name',
