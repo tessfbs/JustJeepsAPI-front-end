@@ -91,6 +91,12 @@ const OrderTable = () => {
 		console.log('editing');
 	};
 
+	const onFinish = values => {
+		const updatedOrders = [...orders];
+		updatedOrders.splice(editingRow, 1, { ...values, key: editingRow });
+		setOrders(updatedOrders);
+		setEditingRow(null);
+	};
 	//sort
 	const handleChange = (...sorter) => {
 		const { order, field } = sorter[2];
@@ -405,10 +411,7 @@ const OrderTable = () => {
 					>
 						<Trash />
 					</button>
-					<button
-						className='btn btn-sm btn-outline-success'
-						onClick={() => handleDeleteOrder(record)}
-					>
+					<button className='btn btn-sm btn-outline-success'>
 						<Save />
 					</button>
 				</Space>
@@ -417,7 +420,7 @@ const OrderTable = () => {
 	];
 	//loop main column data
 	const data = orders.map(order => ({
-		key: order.entity_id.toString(),
+		key: order.entity_id,
 		...order,
 	}));
 
