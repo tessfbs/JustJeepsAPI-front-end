@@ -26,24 +26,40 @@ const OrderTable = () => {
 	//load all data
 	const loadData = async () => {
 		setLoading(true);
-		const response = await axios.get('orderProductsJoin.json');
+		const response = await axios.get('orderProductsJoin.json'); //orderProductsJoin.json //api/orders
 
 		setOrders(response.data);
 		setLoading(false);
 	};
 
-	//delete
+	//delete an order
 	const handleDeleteOrder = record => {
-		deleteOrder(record.entity_id);
+		// deleteOrder(record.entity_id);
 		setOrders(pre => {
 			return pre.filter(order => order.entity_id !== record.entity_id);
 		});
 	};
+	//delete an backend order
+	// const deleteOrder = async id => {
+	// 	const response = await axios.delete(`api/orders/${id}`);
+	// 	setOrders(response.data);
+	// };
 
-	const deleteOrder = async id => {
-		const response = await axios.delete(`api/orders/${id}`);
-		setOrders(response.data);
+	console.log('orders', orders);
+	//delete an order-item
+	const handleDeleteOrderItem = record => {
+		console.log('order item record: ', record);
+		// deleteOrderItem(record.entity_id, record.items.id);
+		setOrders(pre => {
+			return pre.filter(order => order.items.sku !== record.items.sku);
+		});
 	};
+
+	//delete backend order-item
+	// const deleteOrderItem = async (id, itemId) => {
+	// 	const response = await axios.delete(`api/orders/${id}/items/${itemId}`);
+	// 	setOrders(response.data);
+	// };
 
 	//sort
 	const handleChange = (...sorter) => {
@@ -310,7 +326,7 @@ const OrderTable = () => {
 											<EditOutlined />
 											<DeleteOutlined
 												style={{ color: 'red' }}
-												onClick={() => handleDeleteOrder(record)}
+												onClick={() => handleDeleteOrderItem(record)}
 											/>
 										</Space>
 									),
