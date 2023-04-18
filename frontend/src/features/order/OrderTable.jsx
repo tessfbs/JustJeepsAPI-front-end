@@ -92,29 +92,48 @@ const OrderTable = () => {
 		console.log('editing');
 	};
 
-	const handleSave = () => {
+	//handle save button
+	const handleSave = id => {
+		console.log('handle save id: ', id);
+
 		form
 			.validateFields()
 			.then(values => {
 				onFinish(values);
+				updateOrder(values);
 			})
 			.catch(error => {
 				console.log('error', error);
 			});
 	};
+
+	//update orders frontend
 	const onFinish = values => {
 		console.log('values: ', values);
 		const updatedOrders = [...orders];
 		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
-		updatedOrders.splice(index, 1, { ...values, key: index });
+		updatedOrders.splice(index, 1, {
+			...values,
+			key: index,
+		});
 		console.log('values: ', values);
 		console.log('editingRow: ', editingRow);
-
 		console.log('updatedOrders: ', updatedOrders);
 
 		setOrders(updatedOrders);
 		setEditingRow(null);
 	};
+
+	//update order backend
+	const updateOrder = async formObj => {
+		console.log('formObj: ', formObj);
+		const {} = formObj;
+		const response = await axios.put(
+			`http://localhost:8080/api/orders/${formObj}/edit`
+		);
+		setOrders(response.data);
+	};
+
 	//sort
 	const handleChange = (...sorter) => {
 		const { order, field } = sorter[2];
@@ -244,6 +263,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.entity_id - b.entity_id,
 			sortOrder: sortedInfo.columnKey === 'entity_id' && sortedInfo.order,
 			...getColumnSearchProps('entity_id'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='entity_id'
+							rules={[
+								{
+									required: true,
+									message: 'entity_id is required',
+								},
+							]}
+						>
+							<Input disabled={true} />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Created_Date',
@@ -252,6 +290,24 @@ const OrderTable = () => {
 			sorter: (a, b) => a.created_at?.localeCompare(b.created_at),
 			sortOrder: sortedInfo.columnKey === 'created_at' && sortedInfo.order,
 			...getColumnSearchProps('created_at'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='created_at'
+							rules={[
+								{
+									required: true,
+								},
+							]}
+						>
+							<Input disabled={true} />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Email',
@@ -373,6 +429,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.increment_id - b.increment_id,
 			sortOrder: sortedInfo.columnKey === 'increment_id' && sortedInfo.order,
 			...getColumnSearchProps('increment_id'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='increment_id'
+							rules={[
+								{
+									required: true,
+									message: 'increment_id is required',
+								},
+							]}
+						>
+							<Input disabled={true} />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Total Qty',
@@ -421,6 +496,9 @@ const OrderTable = () => {
 											customer_lastname: record.customer_lastname,
 											grand_total: record.grand_total,
 											total_qty_ordered: record.total_qty_ordered,
+											entity_id: record.entity_id,
+											created_at: record.created_at,
+											increment_id: record.increment_id,
 										});
 									}}
 								>
@@ -452,7 +530,6 @@ const OrderTable = () => {
 		...order,
 	}));
 
-	// onFinish={onFinish} in the form before
 	return (
 		<>
 			<div className='container-xxl mt-5'>
