@@ -49,23 +49,27 @@ const OrderTable = () => {
 	};
 	// delete an backend order
 	const deleteOrder = async id => {
-		const response = await axios.delete(`api/orders/${id}`);
+		const response = await axios.delete(
+			`http://localhost:8080/api/orders/${id}`
+		);
 		setOrders(response.data);
 	};
 
-	console.log('orders', orders);
+	// console.log('orders', orders);
 	//delete an order-item
 	const handleDeleteOrderItem = record => {
-		// console.log('order item record: ', record);
-		deleteOrderItem(record.entity_id, record.items.id);
+		console.log('order item record: ', record);
+		deleteOrderItem(record.id);
 		setOrders(pre => {
-			return pre.filter(order => order.items[0].id !== record.items[0].id);
+			return pre.filter(order => `${order - products.id}` !== record.id);
 		});
 	};
 
-	// delete backend order-item
-	const deleteOrderItem = async (id, itemId) => {
-		const response = await axios.delete(`api/orders/${id}/items/${itemId}`);
+	// delete backend order-product
+	const deleteOrderItem = async id => {
+		const response = await axios.delete(
+			`http://localhost:8080/api/order-products/${id}/delete`
+		);
 		setOrders(response.data);
 	};
 
