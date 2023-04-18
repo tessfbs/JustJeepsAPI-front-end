@@ -1,4 +1,5 @@
 const Express = require("express");
+const { format, parseISO } = require('date-fns');
 const app = Express();
 const BodyParser = require("body-parser");
 const PORT = 8080;
@@ -70,6 +71,86 @@ app.post("/api/orders/:id", async (req, res) => {
   }
 });
 
+
+//* Routes for Product Orders *\\
+
+// Route for creating an order product
+app.post('/order-products', async (req, res) => {
+  try {
+    const { order_id, name, sku, base_price, base_price_incl_tax, discount_amount, discount_invoiced, discount_percent, original_price, price, price_incl_tax, product_id, qty_ordered } = req.body;
+    const createdOrderProduct = await prisma.orderProduct.create({
+      data: {
+        order_id: order_id,
+        name: name,
+        sku: sku,
+        base_price: base_price,
+        base_price_incl_tax: base_price_incl_tax,
+        discount_amount: discount_amount,
+        discount_invoiced: discount_invoiced,
+        discount_percent: discount_percent,
+        original_price: original_price,
+        price: price,
+        price_incl_tax: price_incl_tax,
+        product_id: product_id,
+        qty_ordered: qty_ordered,
+      },
+    });
+    res.json(createdOrderProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to create order product' });
+  }
+});
+
+// Route for editing an order product
+app.post('/order-products/:id/edit', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, sku, base_price, base_price_incl_tax, discount_amount, discount_invoiced, discount_percent, original_price, price, price_incl_tax, product_id, qty_ordered } = req.body;
+    const updatedOrderProduct = await prisma.orderProduct.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        name: name,
+        sku: sku,
+        base_price: base_price,
+        base_price_incl_tax: base_price_incl_tax,
+        discount_amount: discount_amount,
+        discount_invoiced: discount_invoiced,
+        discount_percent: discount_percent,
+        original_price: original_price,
+        price: price,
+        price_incl_tax: price_incl_tax,
+        product_id: product_id,
+        qty_ordered: qty_ordered,
+      },
+    });
+    res.json(updatedOrderProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to update order product' });
+  }
+});
+
+// Route for deleting an order product
+app.post('/order-products/:id/delete', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+
+    // Delete the order product from the database using Prisma
+    await prisma.orderProduct.delete({
+      where: { id }
+    });
+
+    res.sendStatus(204);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to delete order product' });
+  }
+});
+
+
 //* Routes for Vendor Products *\\
 
 // Route for getting all vendor products
@@ -104,6 +185,16 @@ app.get("/api/vendor-products/:sku", async (req, res) => {
     res.json(vendorProduct);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch vendor product" });
+  }
+});
+
+// Route for getting Vendors info
+app.get("/api/vendors", async (req, res) => {
+  try {
+    const vendors = await prisma.vendor.findMany();
+    res.json(vendors);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch vendors" });
   }
 });
 
@@ -224,15 +315,45 @@ app.post("/api/purchase-orders/:id/delete", async (req, res) => {
   }
 });
 
-
-//* Routes for Vendors Info *\\
-app.get("/api/vendors", async (req, res) => {
+// Route for getting the grand total of all orders
+app.get('/totalGrandTotal', async (req, res) => {
   try {
-    const vendors = await prisma.vendor.findMany();
-    res.json(vendors);
+    const result = await prisma.order.aggregate({
+      _sum: {
+        grand_total: true
+      },
+      _count: {
+        _all: true
+      }
+    });
+
+    const totalSum = result._sum.grand_total;
+    res.json({ total_sum: totalSum });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch vendors" });
+    console.error(`Error getting total sum of grand_total: ${error}`);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    await prisma.$disconnect();
   }
+});
+
+//Route for getting the total of all orders by month
+app.get('/totalGrandTotalByMonth', async (req, res) => {
+  try {
+    const orders = await prisma.order.findMany();
+    const totalByMonth = orders.reduce((acc, order) => {
+      const month = format(parseISO(order.created_at), 'yyyy-MM');
+      if (!acc[month]) {
+        acc[month] = 0;
+      }
+      acc[month] += order.grand_total;
+      return acc;
+    }, {});
+    res.json({ total_by_month: totalByMonth });
+  } catch (error) {
+    console.error(`Error getting total by month: ${error}`);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } 
 });
 
 app.listen(PORT, () => {
