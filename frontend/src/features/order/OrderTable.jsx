@@ -76,9 +76,7 @@ const OrderTable = () => {
 	};
 
 	//edit an order
-	const handleEditOrder = record => {
-		setIsEditing(true);
-	};
+	const handleEditOrder = record => {};
 
 	//sort
 	const handleChange = (...sorter) => {
@@ -379,17 +377,6 @@ const OrderTable = () => {
 					onChange={handleChange}
 					size='small'
 				/>
-				<Modal
-					title='Edit Order'
-					visible={isEditing}
-					okText='Save'
-					onCancel={() => {
-						setIsEditing(false);
-					}}
-					onOk={() => {
-						setIsEditing(false);
-					}}
-				></Modal>
 			</div>
 		</>
 	);
