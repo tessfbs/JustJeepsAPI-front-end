@@ -3,10 +3,11 @@ import {
 	SearchOutlined,
 	EditOutlined,
 	DeleteOutlined,
+	ExclamationCircleOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Badge, Dropdown, Space, Table, Input, Button } from 'antd';
+import { Badge, Dropdown, Space, Table, Input, Button, Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
 import { Edit, Trash } from '../../icons';
@@ -26,7 +27,7 @@ const OrderTable = () => {
 	//load all data
 	const loadData = async () => {
 		setLoading(true);
-		const response = await axios.get('orderProductsJoin.json'); //orderProductsJoin.json //api/orders
+		const response = await axios.get('http://localhost:8080/api/orders'); //orderProductsJoin.json //api/orders
 
 		setOrders(response.data);
 		setLoading(false);
@@ -34,32 +35,41 @@ const OrderTable = () => {
 
 	//delete an order
 	const handleDeleteOrder = record => {
-		// deleteOrder(record.entity_id);
-		setOrders(pre => {
-			return pre.filter(order => order.entity_id !== record.entity_id);
+		Modal.confirm({
+			title: 'Are you sure to delete this order?',
+			okText: 'Yes',
+			okType: 'danger',
+			onOk: () => {
+				deleteOrder(record.entity_id);
+				setOrders(pre => {
+					return pre.filter(order => order.entity_id !== record.entity_id);
+				});
+			},
 		});
 	};
-	//delete an backend order
-	// const deleteOrder = async id => {
-	// 	const response = await axios.delete(`api/orders/${id}`);
-	// 	setOrders(response.data);
-	// };
+	// delete an backend order
+	const deleteOrder = async id => {
+		const response = await axios.delete(`api/orders/${id}`);
+		setOrders(response.data);
+	};
 
 	console.log('orders', orders);
 	//delete an order-item
 	const handleDeleteOrderItem = record => {
-		console.log('order item record: ', record);
-		// deleteOrderItem(record.entity_id, record.items.id);
+		// console.log('order item record: ', record);
+		deleteOrderItem(record.entity_id, record.items.id);
 		setOrders(pre => {
-			return pre.filter(order => order.items.sku !== record.items.sku);
+			return pre.filter(order => order.items[0].id !== record.items[0].id);
 		});
 	};
 
-	//delete backend order-item
-	// const deleteOrderItem = async (id, itemId) => {
-	// 	const response = await axios.delete(`api/orders/${id}/items/${itemId}`);
-	// 	setOrders(response.data);
-	// };
+	// delete backend order-item
+	const deleteOrderItem = async (id, itemId) => {
+		const response = await axios.delete(`api/orders/${id}/items/${itemId}`);
+		setOrders(response.data);
+	};
+
+	//
 
 	//sort
 	const handleChange = (...sorter) => {
