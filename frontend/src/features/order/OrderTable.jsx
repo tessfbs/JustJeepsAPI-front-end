@@ -11,6 +11,7 @@ import { Badge, Dropdown, Space, Table, Input, Button, Modal } from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
 import { Edit, Trash } from '../../icons';
+import { batchEditFormRendered } from '@syncfusion/ej2-treegrid';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -19,6 +20,7 @@ const OrderTable = () => {
 	const [searchText, setSearchText] = useState('');
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
+	const [isEditing, setIsEditing] = useState(false);
 
 	useEffect(() => {
 		loadData();
@@ -73,7 +75,10 @@ const OrderTable = () => {
 		setOrders(response.data);
 	};
 
-	//
+	//edit an order
+	const handleEditOrder = record => {
+		setIsEditing(true);
+	};
 
 	//sort
 	const handleChange = (...sorter) => {
@@ -273,7 +278,12 @@ const OrderTable = () => {
 			key: 'operation',
 			render: record => (
 				<Space size='middle'>
-					<button className='btn btn-sm btn-outline-warning'>
+					<button
+						className='btn btn-sm btn-outline-warning'
+						onClick={() => {
+							handleEditOrder(record);
+						}}
+					>
 						<Edit />
 					</button>
 					<button
@@ -295,82 +305,91 @@ const OrderTable = () => {
 	return (
 		<>
 			<div className='container-xxl mt-5'>
-				<table className='table table-striped'>
-					<Table
-						columns={columns}
-						expandedRowRender={record => {
-							//render sub table here
-							const nestedColumns = [
-								{
-									title: 'ID',
-									dataIndex: 'id',
-									key: 'id',
-								},
-								{
-									title: 'Product',
-									dataIndex: 'name',
-									key: 'name',
-								},
-								{
-									title: 'SKU',
-									dataIndex: 'sku',
-									key: 'sku',
-								},
-								{
-									title: 'Price',
-									dataIndex: 'price',
-									key: 'price',
-								},
-								{
-									title: 'Product_id',
-									dataIndex: 'product_id',
-									key: 'product_id',
-								},
-								{
-									title: 'Quantity',
-									dataIndex: 'qty_ordered',
-									key: 'qty_ordered',
-								},
-								{
-									title: 'Action',
-									dataIndex: 'operation',
-									key: 'operation',
-									render: () => (
-										<Space size='small'>
-											<EditOutlined />
-											<DeleteOutlined
-												style={{ color: 'red' }}
-												onClick={() => handleDeleteOrderItem(record)}
-											/>
-										</Space>
-									),
-								},
-								// {
-								// 	title: 'Order_id',
-								// 	dataIndex: 'order_id',
-								// 	key: 'order_id',
-								// },
-								// {
-								// 	title: 'Supplier',
-								// 	dataIndex: 'supplier_name',
-								// 	key: 'supplier_name',
-								// },
-							];
-							return (
-								<Table
-									columns={nestedColumns}
-									dataSource={record.items}
-									pagination={false}
-								/>
-							);
-						}}
-						dataSource={data}
-						bordered
-						rowKey={record => record.id}
-						onChange={handleChange}
-						size='small'
-					/>
-				</table>
+				<Table
+					columns={columns}
+					expandedRowRender={record => {
+						//render sub table here
+						const nestedColumns = [
+							{
+								title: 'ID',
+								dataIndex: 'id',
+								key: 'id',
+							},
+							{
+								title: 'Product',
+								dataIndex: 'name',
+								key: 'name',
+							},
+							{
+								title: 'SKU',
+								dataIndex: 'sku',
+								key: 'sku',
+							},
+							{
+								title: 'Price',
+								dataIndex: 'price',
+								key: 'price',
+							},
+							{
+								title: 'Product_id',
+								dataIndex: 'product_id',
+								key: 'product_id',
+							},
+							{
+								title: 'Quantity',
+								dataIndex: 'qty_ordered',
+								key: 'qty_ordered',
+							},
+							{
+								title: 'Action',
+								dataIndex: 'operation',
+								key: 'operation',
+								render: () => (
+									<Space size='small'>
+										<EditOutlined />
+										<DeleteOutlined
+											style={{ color: 'red' }}
+											onClick={() => handleDeleteOrderItem(record)}
+										/>
+									</Space>
+								),
+							},
+							// {
+							// 	title: 'Order_id',
+							// 	dataIndex: 'order_id',
+							// 	key: 'order_id',
+							// },
+							// {
+							// 	title: 'Supplier',
+							// 	dataIndex: 'supplier_name',
+							// 	key: 'supplier_name',
+							// },
+						];
+						return (
+							<Table
+								columns={nestedColumns}
+								dataSource={record.items}
+								pagination={false}
+							/>
+						);
+					}}
+					dataSource={data}
+					bordered
+					rowKey={record => record.id}
+					onChange={handleChange}
+					size='small'
+				/>
+				<Modal
+					title='Edit Order'
+					visible={isEditing}
+					okText='Save'
+					onCancel={() => {
+						setIsEditing(false);
+					}}
+					onOk={() => {
+						setIsEditing(false);
+					}}
+				></Modal>
 			</div>
 		</>
 	);
