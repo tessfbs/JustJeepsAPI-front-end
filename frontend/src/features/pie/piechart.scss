@@ -1,0 +1,31 @@
+.piechart {
+  .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin:10px 100px;
+
+    .colorOption {
+      width: 15%;
+      height: 25px;
+      border-radius: 5px;
+      margin: 15px;
+      font-size: 20px;
+      line-height: 25px;
+      text-align: center;
+
+      &.optionA {
+        background-color: #0088FE;
+      }
+      &.optionB {
+        background-color: #00C49F;
+      }
+      &.optionC {
+        background-color: #FFBB28;
+      }
+      &.optionD {
+        background-color: #FF8042;
+      }
+    }
+  }
+}
