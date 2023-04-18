@@ -81,6 +81,9 @@ model VendorProduct {
   purchaseOrderLineItems PurchaseOrderLineItem[]
 }
 
+//get vendor name from product_sku
+
+
 model Vendor {
   id Int @id @default(autoincrement())
   name String
