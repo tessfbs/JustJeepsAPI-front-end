@@ -8,7 +8,17 @@ import {
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Badge, Dropdown, Space, Table, Input, Button, Modal } from 'antd';
+import {
+	Badge,
+	Dropdown,
+	Space,
+	Table,
+	Input,
+	Button,
+	Modal,
+	Form,
+	message,
+} from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
 import { Edit, Trash, Save } from '../../icons';
@@ -224,6 +234,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.customer_email?.localeCompare(b.customer_email),
 			sortOrder: sortedInfo.columnKey === 'customer_mail' && sortedInfo.order,
 			...getColumnSearchProps('customer_email'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='customer_email'
+							rules={[
+								{
+									required: true,
+									message: 'Email is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'First Name',
@@ -234,6 +263,25 @@ const OrderTable = () => {
 			sortOrder:
 				sortedInfo.columnKey === 'customer_firstname' && sortedInfo.order,
 			...getColumnSearchProps('customer_firstname'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='customer_firstname'
+							rules={[
+								{
+									required: true,
+									message: 'First name is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Last Name',
@@ -243,6 +291,25 @@ const OrderTable = () => {
 			sortOrder:
 				sortedInfo.columnKey === 'customer_lastname' && sortedInfo.order,
 			...getColumnSearchProps('customer_lastname'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='customer_lastname'
+							rules={[
+								{
+									required: true,
+									message: 'Last name is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Total',
@@ -252,6 +319,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.grand_total - b.grand_total,
 			sortOrder: sortedInfo.columnKey === 'grand_total' && sortedInfo.order,
 			...getColumnSearchProps('grand_total'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='grand_total'
+							rules={[
+								{
+									required: true,
+									message: 'Grand total is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Increment_id',
@@ -270,6 +356,25 @@ const OrderTable = () => {
 			sortOrder:
 				sortedInfo.columnKey === 'total_qty_ordered' && sortedInfo.order,
 			...getColumnSearchProps('total_qty_ordered'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='total_qty_ordered'
+							rules={[
+								{
+									required: true,
+									message: 'Total quantity is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Action',
