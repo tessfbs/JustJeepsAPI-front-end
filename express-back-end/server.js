@@ -21,7 +21,9 @@ app.get('/api/data', (req, res) => res.json({
   message: "Seems to work!",
 }));
 
-// Route for getting all orders
+//* Routes for Orders *\\
+
+// Route for getting all orders 
 app.get("/api/orders", async (req, res) => {
   try {
     //order including order products
@@ -51,6 +53,26 @@ app.get("/api/orders/:id", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch order" });
   }
 });
+
+// Route for updating an order status
+app.post("/api/orders/:id", async (req, res) => {
+  try {
+    const order = await prisma.order.update({
+      where: {
+        entity_id: Number(req.params.id),
+      },
+      data: {
+        status: req.body.status,
+      },
+    });
+    console.log(order);
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update order" });
+  }
+});
+
+//* Routes for Vendor Products *\\
 
 // Route for getting all vendor products
 app.get("/api/vendor-products", async (req, res) => {
@@ -86,6 +108,8 @@ app.get("/api/vendor-products/:sku", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch vendor product" });
   }
 });
+
+//* Routes for Purchase Orders *\\
 
 // Route for getting all Purchase Orders
 app.get('/api/purchase-orders', async (req, res) => {
@@ -129,6 +153,48 @@ app.get('/api/purchase-orders/:id', async (req, res) => {
   })
   res.json(purchaseOrder)
 })
+
+// Route for creating a Purchase Order
+app.post('/api/purchase-orders', async (req, res) => {
+  try {
+    const purchaseOrder = await prisma.purchaseOrder.create({
+      data: {
+        vendor_id: req.body.vendorId,
+        user_id: req.body.userId,
+        order_id: req.body.orderId,
+      },
+      include: {
+        vendor: true,
+        user: true,
+        order: true,
+        purchaseOrderLineItems: {
+          include: {
+            vendorProduct: true,
+            purchaseOrder: true,
+          },
+        },
+      },
+    })
+    res.json(purchaseOrder)
+  } catch (error) {
+    res.status(500).json({ error: "Failed to create purchase order" });
+  }
+})
+
+
+
+//* Routes for Vendors Info *\\
+app.get('/api/vendors', async (req, res) => {
+  try{
+    const vendors = await prisma.vendor.findMany()
+    res.json(vendors)
+  }
+  catch (error) {
+    res.status(500).json({ error: "Failed to fetch vendors" });
+  }
+})
+
+
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
