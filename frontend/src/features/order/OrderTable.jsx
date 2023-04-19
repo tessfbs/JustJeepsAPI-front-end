@@ -68,14 +68,14 @@ const OrderTable = () => {
 			});
 	};
 	// delete an backend order
-	// const deleteOrder = async order => {
-	// 	console.log('deleteOrder order: ', order);
-	// 	const id = order.entity_id;
-	// 	const response = await axios.delete(
-	// 		`http://localhost:8080/api/orders/${id}/delete`
-	// 	);
-	// 	setOrders(response.data);
-	// };
+	const deleteOrder = async order => {
+		console.log('deleteOrder order: ', order);
+		const id = order.entity_id;
+		const response = await axios.delete(
+			`http://localhost:8080/api/orders/${id}/delete`
+		);
+		setOrders(response.data);
+	};
 
 	// console.log('orders', orders);
 	//delete an order-item
@@ -104,7 +104,30 @@ const OrderTable = () => {
 
 	//handle save button sub row button
 	const handleSaveSub = () => {
-		console.log('save sub button');
+		form
+			.validateFields()
+			.then(values => {
+				onFinishSub(values);
+				updateOrder(values);
+			})
+			.catch(error => {
+				console.log('error', error);
+			});
+	};
+	const onFinishSub = values => {
+		console.log('values: ', values);
+		const updatedOrders = [...orders];
+		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
+		updatedOrders.splice(index, 1, {
+			...values,
+			key: index,
+		});
+		console.log('values: ', values);
+		console.log('editingRow: ', editingRow);
+		console.log('updatedOrders: ', updatedOrders);
+
+		setOrders(updatedOrders);
+		setEditingRow(null);
 	};
 
 	//handle save button main row button
@@ -551,6 +574,8 @@ const OrderTable = () => {
 					<Table
 						columns={columns}
 						expandedRowRender={record => {
+							console.log('expandedRowRender record: ', record);
+
 							//render sub table here
 							const nestedColumns = [
 								{
@@ -558,7 +583,9 @@ const OrderTable = () => {
 									dataIndex: 'id',
 									key: 'id',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										console.log('row id record id: ', record.id);
+										console.log('row id record key: ', record.key);
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='id'
@@ -582,7 +609,7 @@ const OrderTable = () => {
 									dataIndex: 'name',
 									key: 'name',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='id'
@@ -606,7 +633,7 @@ const OrderTable = () => {
 									dataIndex: 'sku',
 									key: 'sku',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='sku'
@@ -630,7 +657,7 @@ const OrderTable = () => {
 									dataIndex: 'price',
 									key: 'price',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='price'
@@ -654,7 +681,7 @@ const OrderTable = () => {
 									dataIndex: 'product_id',
 									key: 'product_id',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='product_id'
@@ -678,7 +705,7 @@ const OrderTable = () => {
 									dataIndex: 'qty_ordered',
 									key: 'qty_ordered',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='qty_ordered'
@@ -702,7 +729,7 @@ const OrderTable = () => {
 									dataIndex: 'supplier',
 									key: 'supplier',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='supplier'
@@ -726,7 +753,7 @@ const OrderTable = () => {
 									dataIndex: 'supplier_cost',
 									key: 'supplier_cost',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='supplier_cost'
@@ -750,6 +777,8 @@ const OrderTable = () => {
 									dataIndex: 'operation',
 									key: 'operation',
 									render: (_, record) => {
+										console.log('render record id: ', record.id);
+										console.log('render record key: ', record.key);
 										return (
 											<>
 												<Form.Item>
@@ -757,7 +786,7 @@ const OrderTable = () => {
 														<EditOutlined
 															style={{ color: 'orange' }}
 															onClick={() => {
-																setEditingRow(record.key);
+																setEditingRow(record.id);
 																form.setFieldValue({
 																	id: id,
 																	name: name,
