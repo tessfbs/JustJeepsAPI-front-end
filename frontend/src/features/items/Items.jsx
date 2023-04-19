@@ -296,7 +296,7 @@ export const Items = () => {
   ];
 
   return (
-    <div>
+
       <div
         style={{
           display: "flex",
@@ -306,7 +306,7 @@ export const Items = () => {
         }}
       >
         <FormControl sx={{ m: 1, minWidth: 400 }}>
-          <Select value={searchBy} onChange={handleSearchByChange}>
+          <Select value={"sku"} onChange={handleSearchByChange}>
             <MenuItem value="sku">SKU</MenuItem>
             <MenuItem value="brand">Brand</MenuItem>
           </Select>
@@ -339,7 +339,14 @@ export const Items = () => {
             />
           </div>
         ) : (
-          <div>
+          <div
+					style={{
+						display: "flex",
+						alignItems: "center",
+						justifyContent: "center",
+						flexDirection: "column",
+					}}
+					>
             <Autocomplete
               {...brands_for_autocomplete}
               sx={{ width: 400 }}
@@ -367,7 +374,7 @@ export const Items = () => {
           </div>
         )}
       </div>
-    </div>
+
   );
 };
 
