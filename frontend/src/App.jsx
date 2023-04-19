@@ -1,8 +1,6 @@
 import Navbar from './features/navbar/Navbar.jsx';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import OrdersList from './features/order/OrdersList.jsx';
-import OrderProductList from './features/order/OrderProductList.jsx';
 import OrderTable from './features/order/OrderTable.jsx';
 import { Route, Routes } from 'react-router-dom';
 import { SupplierTable } from './features/supplier/SupplierTable.jsx';
@@ -43,6 +41,7 @@ function App() {
 				</Route>
 				<Route path='/po' element={<PoForm />} />
 				<Route path='/items' element={<Items />} />
+				<Route path='/drawer' element={<Drawer />} />
 			</Routes>
 		</>
 	);
