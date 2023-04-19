@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Table, Input, Button } from "antd";
+import { Table, Button } from "antd";
 import axios from "axios";
 import ExcelJS from "exceljs";
 import saveAs from "file-saver";
@@ -145,7 +145,9 @@ export const Items = () => {
   console.log("brandData", brandData);
 
   function getProductsByBrand(products, brandName) {
-    return products.filter((product) => product.brand_name === brandName && product.status === 1);
+    return products.filter(
+      (product) => product.brand_name === brandName && product.status === 1
+    );
   }
 
   useEffect(() => {
@@ -276,9 +278,9 @@ export const Items = () => {
       title: "SKU",
       dataIndex: "sku",
       key: "sku",
-			sorter: (a, b) => a.sku.localeCompare(b.sku),
-			filter: true,
-		},
+      sorter: (a, b) => a.sku.localeCompare(b.sku),
+      filter: true,
+    },
     {
       title: "Image",
       dataIndex: "image",
@@ -294,7 +296,7 @@ export const Items = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
-			sorter: (a, b) => a.price - b.price,
+      sorter: (a, b) => a.price - b.price,
     },
     {
       title: "Manufacturer",
@@ -422,34 +424,42 @@ export const Items = () => {
         )}
       </div>
 
-      <div class="dashboardContainer"> 
-      {searchBy === "sku" ? (
-				<Table
-          dataSource={data}
-          columns={columns_by_sku}
-          rowKey="sku"
-          pagination={false} // Change pageSize as needed
-        />
-      ) : (
-			<div>
-				<br/>
-				<h4>Total products for <strong>{searchTermSku.brand_name}</strong>: {brandData.length}</h4>
-				
-				{/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
-        <Table
-          {...tableProps}
-          dataSource={brandData}
-          columns={columns_brands}
-          rowKey="sku"
-          pagination={{
-            pageSize: 10,
-          }}
-          loading={loading}
-        />
-			</div>
-      )}
+      <div class="dashboardContainer">
+        {searchBy === "sku" ? (
+          <Table
+            dataSource={data}
+            columns={columns_by_sku}
+            rowKey="sku"
+            pagination={false} // Change pageSize as needed
+          />
+        ) : (
+          <div>
+            <br />
+            <div className="widget">
+              <div className="left">
+                <span className="title">
+                  <strong>{searchTermSku.brand_name} </strong>TOTAL PRODUCTS:
+                </span>
+                <span className="counter">{brandData.length}</span>
+              </div>
+              <div className="right">{data.icon}</div>
+            </div>
+            <br />
+            {/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
+            <Table
+              {...tableProps}
+              dataSource={brandData}
+              columns={columns_brands}
+              rowKey="sku"
+              pagination={{
+                pageSize: 10,
+              }}
+              loading={loading}
+            />
+          </div>
+        )}
+      </div>
     </div>
-		</div>
   );
 };
 
