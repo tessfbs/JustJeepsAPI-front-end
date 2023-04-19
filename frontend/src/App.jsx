@@ -8,6 +8,7 @@ import { DashBoard } from './features/dashboard/DashBoard.jsx';
 import { DashBoardPO } from './features/dashboard/DashBoardPO.jsx';
 import { PoForm } from './features/po/PoForm.jsx';
 import { Items } from './features/items/Items.jsx';
+import { Drawer } from './features/drawer/Drawer.jsx';
 
 function App() {
 	const [data, setData] = useState('');
