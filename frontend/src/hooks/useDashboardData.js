@@ -5,6 +5,8 @@ const useDashboardData = () => {
   const [state, setState] = useState({
     totalSum: 0,
     totalByMonth: {},
+    totalCount: 0,
+    aveValue:0,
   });
 
   useEffect(() => {
@@ -12,12 +14,14 @@ const useDashboardData = () => {
       try {
         const all = await Promise.all([
           axios.get(`http://localhost:8080/totalGrandTotalByMonth`),
-          axios.get(`http://localhost:8080/totalGrandTotal`),
+          axios.get(`http://localhost:8080/totalOrderInfo`),
         ]);
         setState((prev) => ({
           ...prev,
-          totalSum: all[1].data.total_sum,
           totalByMonth: all[0].data.total_by_month,
+          totalSum: all[1].data.total_sum,
+          totalCount: all[1].data.count,
+          aveValue: all[1].data.avg,
         }));
       } catch (error) {
         console.error("Failed to fetch data from backend:", error);

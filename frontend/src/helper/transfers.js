@@ -2,7 +2,6 @@ export const transferMonth = (obj) => {
   const result = [];
   const element = {};
   const array = Object.keys(obj).reverse();
-  console.log(array);
   array.forEach((item) => {
     switch (item.slice(-2)) {
       case "01":

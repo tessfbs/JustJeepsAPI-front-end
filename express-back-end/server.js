@@ -505,8 +505,8 @@ app.post('/api/purchase_orders/:id/delete', async (req, res) => {
 	}
 });
 
-// Route for getting the grand total of all orders
-app.get('/totalGrandTotal', async (req, res) => {
+// Route for getting the grand total and total count of all orders
+app.get('/totalOrderInfo', async (req, res) => {
 	try {
 		const result = await prisma.order.aggregate({
 			_sum: {
@@ -515,10 +515,15 @@ app.get('/totalGrandTotal', async (req, res) => {
 			_count: {
 				_all: true,
 			},
+			_avg: {
+				grand_total: true,
+			}
 		});
-
+		console.log(result);
 		const totalSum = result._sum.grand_total;
-		res.json({ total_sum: totalSum });
+		const count = result._count._all;
+		const avg = result._avg.grand_total;
+		res.json({ total_sum: totalSum, count, avg});
 	} catch (error) {
 		console.error(`Error getting total sum of grand_total: ${error}`);
 		res.status(500).json({ error: 'Internal Server Error' });
@@ -545,6 +550,22 @@ app.get('/totalGrandTotalByMonth', async (req, res) => {
 		res.status(500).json({ error: 'Internal Server Error' });
 	}
 });
+
+// Route for total orders
+
+
+
+//Route for testing queryRaw
+app.get('/testraw', async (req, res) => {
+	try {
+		const results = await prisma.$queryRaw`select count(*) from "Order"`;
+		res.json({result:Number(results[0].count)});
+	} catch (error) {
+		console.error(`Error Testing Raw sql: ${error}`);
+		res.status(500).json({ error: 'Internal Server Error' });
+	}
+}
+)
 
 app.listen(PORT, () => {
 	// eslint-disable-next-line no-console
