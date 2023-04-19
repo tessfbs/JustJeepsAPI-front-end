@@ -13,11 +13,14 @@ const getAllSkus = async (callNumber, numParts) => {
       keystone_code: {
         not: "" // Exclude results where keystone_code is empty
       },
+      brand_name: {
+        in:[ "Napier Sportz","N-Fab", "NGK", "NOCO", "ODYSSEY Battery", "Old Man Emu","Optima Batteries", "Oracle Lighting", "Smittybilt", "AMP Research"]
+        // in:["NOCO"]
+      },
       status: 1
     }
   });
-
-  // console.log(`Total number of products with a Keystone Code: ${totalSkus}`);
+  console.log(`Total number of products with a Keystone Code: ${totalSkus}`);
 
   const itemsPerCall = Math.ceil(totalSkus / numParts); // Calculate number of items per call
   let skip = (callNumber - 1) * itemsPerCall; // Calculate skip based on callNumber
@@ -33,6 +36,11 @@ const getAllSkus = async (callNumber, numParts) => {
       keystone_code: {
         not: "", // Exclude results where keystone_code is empty
       },
+      status: 1,
+      brand_name: {
+        in:[ "Napier Sportz","N-Fab", "NGK", "NOCO", "ODYSSEY Battery", "Old Man Emu","Optima Batteries", "Oracle Lighting", "Smittybilt", "AMP Research"]
+        // in:["NOCO"]
+      },
     },
     select: {
       keystone_code: true,
@@ -40,6 +48,8 @@ const getAllSkus = async (callNumber, numParts) => {
     skip, // Skip items based on callNumber
     take, // Take limited items per call
   });
+
+  // console.log(`skus ${skus}`)
 
   return skus;
 };
@@ -103,7 +113,7 @@ const KeystoneCost = async (callNumber, numParts) => {
     }
 
     // Delay for 1 second between each API request to avoid rate limiting or IP blocking
-    await delay(1000);
+    await delay(2000);
   };
   // console.log(allItems);
   return allItems;
@@ -165,7 +175,7 @@ const CheckInventory = async (callNumber, numParts) => {
     } catch (error) {
       console.log(error.code);
     }
-    await delay(1000);
+    await delay(2000);
   }
 
   // console.log("Results: ", results);
@@ -200,7 +210,7 @@ async function getResultsFromCostAndInventoryKeystone(callNumber, numParts) {
       }
     });
 
-    // console.log('combinedResult',combinedResult); // Output the combined result
+    console.log('combinedResult',combinedResult); // Output the combined result
     console.log(`API call completed for callNumber ${callNumber}/${numParts}`); // Log a message indicating the completion of the API call
 
     return combinedResult;

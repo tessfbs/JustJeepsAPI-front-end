@@ -1,0 +1,23 @@
+.items {
+  display: flex;
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
+
+  .dashboardContainer {
+    flex: 8;
+
+
+  }
+
+  
+}
+
+.sidebar-brand{
+  background-color: #f8f9fa;
+  padding: 0.5rem 1.25rem;
+  font-size: 1.25rem;
+  // color: #343a40;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+  border-top-left-radius: .25rem;
+  border-top-right-radius: .25rem;
+}

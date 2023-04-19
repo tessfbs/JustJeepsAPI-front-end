@@ -44,6 +44,7 @@ app.get("/api/products", async (req, res) => {
       select: {
         sku: true,
         name: true,
+        status: true,
         price: true,
         image: true,
         brand_name: true,
@@ -176,7 +177,7 @@ app.get("/api/orders/:id", async (req, res) => {
 });
 
 // Route for updating an order status
-app.post("/api/orders/:id/update", async (req, res) => {
+app.post("/api/orders/:id/edit", async (req, res) => {
   try {
     const order = await prisma.order.update({
       where: {
@@ -184,6 +185,14 @@ app.post("/api/orders/:id/update", async (req, res) => {
       },
       data: {
         status: req.body.status,
+        customer_email: req.body.customer_email,
+        coupon_code: req.body.coupon_code,
+        customer_firstname: req.body.customer_firstname,
+        customer_lastname: req.body.customer_lastname,
+        grand_total: req.body.grand_total,
+        increment_id: req.body.increment_id,
+        order_currency_code: req.body.order_currency_code,
+        total_qty_ordered: req.body.total_qty_ordered,
       },
     });
     console.log(order);
@@ -194,18 +203,18 @@ app.post("/api/orders/:id/update", async (req, res) => {
 });
 
 //Route for deleting an order
-// app.delete("/api/orders/:id/delete", async (req, res) => {
-//   try {
-//     const order = await prisma.order.delete({
-//       where: {
-//         entity_id: Number(req.params.id),
-//       },
-//     });
-//     res.json(order);
-//   } catch (error) {
-//     res.status(500).json({ error: "Failed to delete order" });
-//   }
-// });
+app.post("/api/orders/:id/delete", async (req, res) => {
+  try {
+    const order = await prisma.order.delete({
+      where: {
+        entity_id: Number(req.params.id),
+      },
+    });
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete order" });
+  }
+});
 
 //* Routes for Product Orders *\\
 

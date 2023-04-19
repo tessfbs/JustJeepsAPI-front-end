@@ -1626,8 +1626,8 @@ module.exports = [
   {
     jj_prefix: "PRO",
     brand_name: "PRO COMP Alloy Wheels",
-    vendors: "Meyers",
-    keystone_code: "",
+    vendors: "Meyers, Keystone",
+    keystone_code: "P74",
     meyer_code: "PXA",
   },
   {
