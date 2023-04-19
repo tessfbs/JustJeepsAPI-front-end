@@ -97,11 +97,6 @@ const OrderTable = () => {
 		setOrders(response.data);
 	};
 
-	//edit an order
-	const handleEditOrder = record => {
-		console.log('editing');
-	};
-
 	//handle save button
 	const handleSave = id => {
 		console.log('handle save id: ', id);
@@ -136,12 +131,27 @@ const OrderTable = () => {
 
 	//update order backend
 	const updateOrder = async formObj => {
-		console.log('formObj: ', formObj);
-		const {} = formObj;
-		const response = await axios.put(
-			`http://localhost:8080/api/orders/${formObj}/edit`
-		);
-		setOrders(response.data);
+		const {
+			customer_email,
+			customer_firstname,
+			customer_lastname,
+			entity_id,
+			grand_total,
+			total_qty_ordered,
+		} = formObj;
+
+		return axios
+			.put(`http://localhost:8080/api/orders/${entity_id}/edit`)
+			.then(() => {
+				setOrders({
+					...state,
+					customer_email,
+					customer_firstname,
+					customer_lastname,
+					grand_total,
+					total_qty_ordered,
+				});
+			});
 	};
 
 	//sort
@@ -522,7 +532,6 @@ const OrderTable = () => {
 								</button>
 								<button
 									className='btn btn-sm btn-outline-success'
-									htmlType='submit'
 									onClick={handleSave}
 								>
 									<Save />
