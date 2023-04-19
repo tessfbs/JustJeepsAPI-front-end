@@ -1,10 +1,9 @@
 import {
-	DownOutlined,
 	SearchOutlined,
 	EditOutlined,
 	DeleteOutlined,
 	SaveOutlined,
-	ExclamationCircleOutlined,
+	GlobalOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
@@ -20,7 +19,6 @@ import {
 	message,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
-import orderProducts from '../../../orderProducts';
 import { Edit, Trash, Save } from '../../icons';
 
 const OrderTable = () => {
@@ -69,38 +67,46 @@ const OrderTable = () => {
 			});
 	};
 	// delete an backend order
-	// const deleteOrder = async order => {
-	// 	console.log('deleteOrder order: ', order);
-	// 	const id = order.entity_id;
-	// 	const response = await axios.delete(
-	// 		`http://localhost:8080/api/orders/${id}/delete`
-	// 	);
-	// 	setOrders(response.data);
-	// };
+	const deleteOrder = async order => {
+		console.log('deleteOrder order: ', order);
+		const id = order.entity_id;
+		const response = await axios.delete(
+			`http://localhost:8080/api/orders/${id}/delete`
+		);
+		setOrders(response.data);
+	};
 
 	// console.log('orders', orders);
 	//delete an order-item
 	const handleDeleteOrderItem = record => {
 		console.log('order item record: ', record);
+
 		deleteOrderItem(record.id);
-		setOrders(pre => {
-			return pre.filter(order => `${order.id}` !== record.id);
-		});
+		// setOrders(pre => {
+		// 	console.log('handleDeleteOrderItem: ', order);
+		// 	return pre.filter(order => `${order.id}` !== record.id);
+		// });
 	};
 
 	// delete backend order-product
 	const deleteOrderItem = async id => {
 		console.log('id: ', id);
-		const response = await axios.delete(
-			`http://localhost:8080/api/order-products/${id}/delete`
-		);
-		setOrders(response.data);
+
+		return axios
+			.delete(`http://localhost:8080/order_products/${id}/delete`)
+			.then(response => {
+				console.log('response', response);
+				setOrders(response.data);
+			});
 	};
 
-	//handle save button
-	const handleSave = id => {
-		console.log('handle save id: ', id);
+	//handle save button sub row button
+	const handleSaveSub = () => {
+		console.log('save sub button');
+	};
 
+	//handle save button main row button
+	const handleSave = () => {
 		form
 			.validateFields()
 			.then(values => {
@@ -562,46 +568,238 @@ const OrderTable = () => {
 									title: 'ID',
 									dataIndex: 'id',
 									key: 'id',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='id'
+													rules={[
+														{
+															required: true,
+															message: 'id is required',
+														},
+													]}
+												>
+													<Input disabled={true} />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
 								},
 								{
 									title: 'Product',
 									dataIndex: 'name',
 									key: 'name',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='id'
+													rules={[
+														{
+															required: true,
+															message: 'Product name is required',
+														},
+													]}
+												>
+													<Input />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
 								},
 								{
 									title: 'SKU',
 									dataIndex: 'sku',
 									key: 'sku',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='sku'
+													rules={[
+														{
+															required: true,
+															message: 'sku is required',
+														},
+													]}
+												>
+													<Input />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
 								},
 								{
 									title: 'Price',
 									dataIndex: 'price',
 									key: 'price',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='price'
+													rules={[
+														{
+															required: true,
+															message: 'price is required',
+														},
+													]}
+												>
+													<Input />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
 								},
 								{
 									title: 'Product_id',
 									dataIndex: 'product_id',
 									key: 'product_id',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='product_id'
+													rules={[
+														{
+															required: true,
+															message: 'product_id is required',
+														},
+													]}
+												>
+													<Input />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
 								},
 								{
 									title: 'Quantity',
 									dataIndex: 'qty_ordered',
 									key: 'qty_ordered',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='qty_ordered'
+													rules={[
+														{
+															required: true,
+															message: 'qty is required',
+														},
+													]}
+												>
+													<Input />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
+								},
+								{
+									title: 'Supplier',
+									dataIndex: 'supplier',
+									key: 'supplier',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='supplier'
+													rules={[
+														{
+															required: true,
+															message: 'supplier is required',
+														},
+													]}
+												>
+													<Input />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
+								},
+								{
+									title: 'Supplier Cost',
+									dataIndex: 'supplier_cost',
+									key: 'supplier_cost',
+									render: (text, record) => {
+										if (editingRow === record.key) {
+											return (
+												<Form.Item
+													name='supplier_cost'
+													rules={[
+														{
+															required: true,
+															message: 'supplier_cost is required',
+														},
+													]}
+												>
+													<Input />
+												</Form.Item>
+											);
+										} else {
+											return <p>{text}</p>;
+										}
+									},
 								},
 								{
 									title: 'Action',
 									dataIndex: 'operation',
 									key: 'operation',
-									render: () => (
-										<Space size='small'>
-											<EditOutlined style={{ color: 'blue' }} />
-											<DeleteOutlined
-												style={{ color: 'red' }}
-												onClick={() => handleDeleteOrderItem(record)}
-											/>
-											<SaveOutlined style={{ color: 'green' }} />
-										</Space>
-									),
+									render: (_, record) => {
+										return (
+											<>
+												<Form.Item>
+													<Space size='small'>
+														<EditOutlined
+															style={{ color: 'orange' }}
+															onClick={() => {
+																setEditingRow(record.key);
+																form.setFieldValue({
+																	id: id,
+																	name: name,
+																	sku: sku,
+																	price: price,
+																	product_id: product_id,
+																	qty_ordered: qty_ordered,
+																	supplier: supplier,
+																	supplier_cost: supplier_cost,
+																});
+															}}
+														/>
+														<DeleteOutlined
+															style={{ color: 'red' }}
+															onClick={() => handleDeleteOrderItem(record)}
+														/>
+														<SaveOutlined
+															style={{ color: 'green' }}
+															onClick={handleSaveSub}
+														/>
+														<GlobalOutlined
+															style={{ color: 'blue' }}
+															onClick={console.log(
+																'pop up vendor product info'
+															)}
+														/>
+													</Space>
+												</Form.Item>
+											</>
+										);
+									},
 								},
 								// {
 								// 	title: 'Order_id',
@@ -615,11 +813,13 @@ const OrderTable = () => {
 								// },
 							];
 							return (
-								<Table
-									columns={nestedColumns}
-									dataSource={record.items}
-									pagination={false}
-								/>
+								<Form form={form}>
+									<Table
+										columns={nestedColumns}
+										dataSource={record.items}
+										pagination={false}
+									/>
+								</Form>
 							);
 						}}
 						dataSource={data}
