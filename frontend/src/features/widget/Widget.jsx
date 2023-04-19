@@ -7,7 +7,7 @@ const Widget = (props) => {
   const {type} = props;
   let data;
   //temporary
-  const amount = 100;
+  const amount = props.value || "Unknown";
   const diff = 20;
 
   switch (type) {
