@@ -86,7 +86,7 @@ model VendorProduct {
   purchaseOrderLineItems PurchaseOrderLineItem[]
 }
 
-//get vendor name from product_sku
+//get all vendorproducts grouped by sku
 
 
 model Vendor {

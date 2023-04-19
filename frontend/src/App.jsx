@@ -20,7 +20,7 @@ function App() {
       try {
         const response = await axios.get('http://localhost:8080/api/data'); // Use Axios to send GET request to /api/data
         const responseData = response.data;
-        console.log('Data from backend:', responseData);
+        // console.log('Data from backend:', responseData);
         // Process the response data from backend if needed
         setData(responseData);
       } catch (error) {
