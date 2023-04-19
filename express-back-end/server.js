@@ -191,7 +191,7 @@ app.post("/api/orders/:id/edit", async (req, res) => {
         grand_total: req.body.grand_total,
         increment_id: req.body.increment_id,
         order_currency_code: req.body.order_currency_code,
-        total_qty_ordered:
+        total_qty_ordered:req.body.total_qty_ordered
       },
     });
     console.log(order);
