@@ -48,6 +48,7 @@ const OrderTable = () => {
 
 	//delete an order
 	const handleDeleteOrder = record => {
+		console.log('handleDeleteOrder record: ', record);
 		Modal.confirm({
 			title: 'Are you sure to delete this order?',
 			okText: 'Yes',
@@ -59,14 +60,23 @@ const OrderTable = () => {
 				});
 			},
 		});
+		const id = record.entity_id;
+		return axios
+			.delete(`http://localhost:8080/api/orders/${id}/delete`, data)
+			.then(response => {
+				console.log('response', response);
+				setOrders({ ...state });
+			});
 	};
 	// delete an backend order
-	const deleteOrder = async id => {
-		const response = await axios.delete(
-			`http://localhost:8080/api/orders/${id}/delete`
-		);
-		setOrders(response.data);
-	};
+	// const deleteOrder = async order => {
+	// 	console.log('deleteOrder order: ', order);
+	// 	const id = order.entity_id;
+	// 	const response = await axios.delete(
+	// 		`http://localhost:8080/api/orders/${id}/delete`
+	// 	);
+	// 	setOrders(response.data);
+	// };
 
 	// console.log('orders', orders);
 	//delete an order-item
