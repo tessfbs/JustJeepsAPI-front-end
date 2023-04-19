@@ -53,7 +53,7 @@ const OrderTable = () => {
 			okText: 'Yes',
 			okType: 'danger',
 			onOk: () => {
-				// deleteOrder(record); not delete backend
+				// deleteOrder(record);
 				setOrders(pre => {
 					return pre.filter(order => order.entity_id !== record.entity_id);
 				});
@@ -68,14 +68,14 @@ const OrderTable = () => {
 			});
 	};
 	// delete an backend order
-	// const deleteOrder = async order => {
-	// 	console.log('deleteOrder order: ', order);
-	// 	const id = order.entity_id;
-	// 	const response = await axios.delete(
-	// 		`http://localhost:8080/api/orders/${id}/delete`
-	// 	);
-	// 	setOrders(response.data);
-	// };
+	const deleteOrder = async order => {
+		console.log('deleteOrder order: ', order);
+		const id = order.entity_id;
+		const response = await axios.delete(
+			`http://localhost:8080/api/orders/${id}/delete`
+		);
+		setOrders(response.data);
+	};
 
 	// console.log('orders', orders);
 	//delete an order-item
@@ -104,7 +104,60 @@ const OrderTable = () => {
 
 	//handle save button sub row button
 	const handleSaveSub = () => {
-		console.log('save sub button');
+		form
+			.validateFields()
+			.then(values => {
+				onFinishSub(values);
+				updateOrderItem(values);
+			})
+			.catch(error => {
+				console.log('error', error);
+			});
+	};
+	const onFinishSub = values => {
+		console.log('values: ', values);
+		const updatedOrders = [...orders];
+		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
+		updatedOrders.splice(index, 1, {
+			...values,
+			key: index,
+		});
+		console.log('onFinishSub values: ', values);
+		console.log('onFinishSub editingRow: ', editingRow);
+		console.log('onFinishSub updatedOrders: ', updatedOrders);
+
+		setOrders(updatedOrders);
+		setEditingRow(null);
+	};
+
+	const updateOrderItem = async subRowRecord => {
+		console.log('subRowRecord: ', subRowRecord);
+
+		const {
+			id,
+			name,
+			sku,
+			price,
+			product_id,
+			qty_ordered,
+			supplier,
+			supplier_cost,
+		} = subRowRecord;
+
+		return axios
+			.put(`http://localhost:8080//order_products/${id}/edit`)
+			.then(() => {
+				setOrders({
+					...state,
+					name,
+					sku,
+					price,
+					product_id,
+					qty_ordered,
+					supplier,
+					supplier_cost,
+				});
+			});
 	};
 
 	//handle save button main row button
@@ -759,14 +812,14 @@ const OrderTable = () => {
 															onClick={() => {
 																setEditingRow(record.id);
 																form.setFieldValue({
-																	id: id,
-																	name: name,
-																	sku: sku,
-																	price: price,
-																	product_id: product_id,
-																	qty_ordered: qty_ordered,
-																	supplier: supplier,
-																	supplier_cost: supplier_cost,
+																	id: record.id,
+																	name: record.name,
+																	sku: record.sku,
+																	price: record.price,
+																	product_id: record.product_id,
+																	qty_ordered: record.qty_ordered,
+																	supplier: record.supplier,
+																	supplier_cost: record.supplier_cost,
 																});
 															}}
 														/>
@@ -800,13 +853,11 @@ const OrderTable = () => {
 								// },
 							];
 							return (
-								<Form form={form}>
-									<Table
-										columns={nestedColumns}
-										dataSource={record.items}
-										pagination={false}
-									/>
-								</Form>
+								<Table
+									columns={nestedColumns}
+									dataSource={record.items}
+									pagination={false}
+								/>
 							);
 						}}
 						dataSource={data}

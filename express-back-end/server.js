@@ -202,6 +202,19 @@ app.post("/api/orders/:id/edit", async (req, res) => {
 });
 
 //Route for deleting an order
+<<<<<<< HEAD
+app.delete('/api/orders/:id/delete', async (req, res) => {
+	try {
+		const order = await prisma.order.delete({
+			where: {
+				entity_id: Number(req.params.id),
+			},
+		});
+		res.json(order);
+	} catch (error) {
+		res.status(500).json({ error: 'Failed to delete order' });
+	}
+=======
 app.post("/api/orders/:id/delete", async (req, res) => {
   try {
     const order = await prisma.order.delete({
@@ -213,6 +226,7 @@ app.post("/api/orders/:id/delete", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Failed to delete order" });
   }
+>>>>>>> master
 });
 
 //* Routes for Product Orders *\\
