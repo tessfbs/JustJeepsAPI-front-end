@@ -20,6 +20,7 @@ import {
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save } from '../../icons';
+import DrawerSupplier from '../drawer/DrawerSupplier';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -779,7 +780,7 @@ const OrderTable = () => {
 														/>
 														<GlobalOutlined
 															style={{ color: 'blue' }}
-															onClick={showDrawer}
+															// onClick={showDrawer}
 														/>
 													</Space>
 												</Form.Item>
