@@ -39,7 +39,7 @@ const OrderTable = () => {
 	//load all data
 	const loadData = async () => {
 		setLoading(true);
-		const response = await axios.get('http://localhost:8080/api/orders'); //orderProductsJoin.json //api/orders
+		const response = await axios.get('http://localhost:8080/api/orders'); //orderProductsJoin.json //http://localhost:8080/api/orders
 
 		setOrders(response.data);
 		setLoading(false);
@@ -558,7 +558,7 @@ const OrderTable = () => {
 									dataIndex: 'id',
 									key: 'id',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='id'
@@ -582,7 +582,7 @@ const OrderTable = () => {
 									dataIndex: 'name',
 									key: 'name',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='id'
@@ -606,7 +606,7 @@ const OrderTable = () => {
 									dataIndex: 'sku',
 									key: 'sku',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='sku'
@@ -630,7 +630,7 @@ const OrderTable = () => {
 									dataIndex: 'price',
 									key: 'price',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='price'
@@ -654,7 +654,7 @@ const OrderTable = () => {
 									dataIndex: 'product_id',
 									key: 'product_id',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='product_id'
@@ -678,7 +678,7 @@ const OrderTable = () => {
 									dataIndex: 'qty_ordered',
 									key: 'qty_ordered',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='qty_ordered'
@@ -702,7 +702,7 @@ const OrderTable = () => {
 									dataIndex: 'supplier',
 									key: 'supplier',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='supplier'
@@ -726,7 +726,7 @@ const OrderTable = () => {
 									dataIndex: 'supplier_cost',
 									key: 'supplier_cost',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='supplier_cost'
@@ -757,7 +757,7 @@ const OrderTable = () => {
 														<EditOutlined
 															style={{ color: 'orange' }}
 															onClick={() => {
-																setEditingRow(record.key);
+																setEditingRow(record.id);
 																form.setFieldValue({
 																	id: id,
 																	name: name,
