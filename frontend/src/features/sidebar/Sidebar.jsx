@@ -1,6 +1,5 @@
 import "./sidebar.scss";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import { Link } from "react-router-dom";
 import StoreIcon from "@mui/icons-material/Store";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 
@@ -9,14 +8,18 @@ const Sidebar = () => {
     <div className="sidebar">
       <ul>
         <p className="title">MENU</p>
-        <li>
-          <CreditCardIcon className="icon" />
-          <span>Orders</span>
-        </li>
-        <li>
-          <StoreIcon className="icon" />
-          <span>Products</span>
-        </li>
+        <Link to="/dashboard" style={{ textDecoration: "none" }}>
+          <li>
+            <CreditCardIcon className="icon" />
+            <span>Orders</span>
+          </li>
+        </Link>
+        <Link to="/dashboard/po" style={{ textDecoration: "none" }}>
+          <li>
+            <StoreIcon className="icon" />
+            <span>Products</span>
+          </li>
+        </Link>
       </ul>
     </div>
   );

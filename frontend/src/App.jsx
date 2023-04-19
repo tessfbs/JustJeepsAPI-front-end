@@ -8,6 +8,7 @@ import Testing from './features/order/testing.jsx';
 import { Route, Routes } from 'react-router-dom';
 import { SupplierTable } from './features/supplier/SupplierTable.jsx';
 import { DashBoard } from './features/dashboard/DashBoard.jsx';
+import { DashBoardPO } from './features/dashboard/DashBoardPO.jsx';
 import { PoForm } from './features/po/PoForm.jsx';
 import { Items } from './features/items/Items.jsx';
 
@@ -40,7 +41,7 @@ function App() {
 				{/* <Route path='/dashboard' element={<DashBoard />} /> */}
         <Route path='/dashboard'>
           <Route index element={<DashBoard/>}/>
-          <Route path='po' element={<DashBoard/>}/>
+          <Route path='po' element={<DashBoardPO/>}/>
         </Route>
 				<Route path='/po' element={<PoForm />} />
 				<Route path='/items' element={<Items />} />

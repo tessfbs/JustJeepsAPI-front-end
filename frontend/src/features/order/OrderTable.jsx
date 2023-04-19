@@ -8,7 +8,17 @@ import {
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Badge, Dropdown, Space, Table, Input, Button, Modal } from 'antd';
+import {
+	Badge,
+	Dropdown,
+	Space,
+	Table,
+	Input,
+	Button,
+	Modal,
+	Form,
+	message,
+} from 'antd';
 import Highlighter from 'react-highlight-words';
 import orderProducts from '../../../orderProducts';
 import { Edit, Trash, Save } from '../../icons';
@@ -21,6 +31,7 @@ const OrderTable = () => {
 	const [searchedColumn, setSearchedColumn] = useState('');
 	const searchInput = useRef(null);
 	const [editingRow, setEditingRow] = useState(null);
+	const [form] = Form.useForm();
 
 	useEffect(() => {
 		loadData();
@@ -37,25 +48,35 @@ const OrderTable = () => {
 
 	//delete an order
 	const handleDeleteOrder = record => {
+		console.log('handleDeleteOrder record: ', record);
 		Modal.confirm({
 			title: 'Are you sure to delete this order?',
 			okText: 'Yes',
 			okType: 'danger',
 			onOk: () => {
-				deleteOrder(record.entity_id);
+				deleteOrder(record);
 				setOrders(pre => {
 					return pre.filter(order => order.entity_id !== record.entity_id);
 				});
 			},
 		});
+		const id = record.entity_id;
+		return axios
+			.delete(`http://localhost:8080/api/orders/${id}/delete`, data)
+			.then(response => {
+				console.log('response', response);
+				setOrders({ ...state });
+			});
 	};
 	// delete an backend order
-	const deleteOrder = async id => {
-		const response = await axios.delete(
-			`http://localhost:8080/api/orders/${id}/delete`
-		);
-		setOrders(response.data);
-	};
+	// const deleteOrder = async order => {
+	// 	console.log('deleteOrder order: ', order);
+	// 	const id = order.entity_id;
+	// 	const response = await axios.delete(
+	// 		`http://localhost:8080/api/orders/${id}/delete`
+	// 	);
+	// 	setOrders(response.data);
+	// };
 
 	// console.log('orders', orders);
 	//delete an order-item
@@ -63,20 +84,75 @@ const OrderTable = () => {
 		console.log('order item record: ', record);
 		deleteOrderItem(record.id);
 		setOrders(pre => {
-			return pre.filter(order => `${order - products.id}` !== record.id);
+			return pre.filter(order => `${order.id}` !== record.id);
 		});
 	};
 
 	// delete backend order-product
 	const deleteOrderItem = async id => {
+		console.log('id: ', id);
 		const response = await axios.delete(
 			`http://localhost:8080/api/order-products/${id}/delete`
 		);
 		setOrders(response.data);
 	};
 
-	//edit an order
-	const handleEditOrder = record => {};
+	//handle save button
+	const handleSave = id => {
+		console.log('handle save id: ', id);
+
+		form
+			.validateFields()
+			.then(values => {
+				onFinish(values);
+				updateOrder(values);
+			})
+			.catch(error => {
+				console.log('error', error);
+			});
+	};
+
+	//update orders frontend
+	const onFinish = values => {
+		console.log('values: ', values);
+		const updatedOrders = [...orders];
+		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
+		updatedOrders.splice(index, 1, {
+			...values,
+			key: index,
+		});
+		console.log('values: ', values);
+		console.log('editingRow: ', editingRow);
+		console.log('updatedOrders: ', updatedOrders);
+
+		setOrders(updatedOrders);
+		setEditingRow(null);
+	};
+
+	//update order backend
+	const updateOrder = async formObj => {
+		const {
+			customer_email,
+			customer_firstname,
+			customer_lastname,
+			entity_id,
+			grand_total,
+			total_qty_ordered,
+		} = formObj;
+
+		return axios
+			.put(`http://localhost:8080/api/orders/${entity_id}/edit`)
+			.then(() => {
+				setOrders({
+					...state,
+					customer_email,
+					customer_firstname,
+					customer_lastname,
+					grand_total,
+					total_qty_ordered,
+				});
+			});
+	};
 
 	//sort
 	const handleChange = (...sorter) => {
@@ -207,6 +283,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.entity_id - b.entity_id,
 			sortOrder: sortedInfo.columnKey === 'entity_id' && sortedInfo.order,
 			...getColumnSearchProps('entity_id'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='entity_id'
+							rules={[
+								{
+									required: true,
+									message: 'entity_id is required',
+								},
+							]}
+						>
+							<Input disabled={true} />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Created_Date',
@@ -215,6 +310,24 @@ const OrderTable = () => {
 			sorter: (a, b) => a.created_at?.localeCompare(b.created_at),
 			sortOrder: sortedInfo.columnKey === 'created_at' && sortedInfo.order,
 			...getColumnSearchProps('created_at'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='created_at'
+							rules={[
+								{
+									required: true,
+								},
+							]}
+						>
+							<Input disabled={true} />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Email',
@@ -224,6 +337,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.customer_email?.localeCompare(b.customer_email),
 			sortOrder: sortedInfo.columnKey === 'customer_mail' && sortedInfo.order,
 			...getColumnSearchProps('customer_email'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='customer_email'
+							rules={[
+								{
+									required: true,
+									message: 'Email is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'First Name',
@@ -234,6 +366,25 @@ const OrderTable = () => {
 			sortOrder:
 				sortedInfo.columnKey === 'customer_firstname' && sortedInfo.order,
 			...getColumnSearchProps('customer_firstname'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='customer_firstname'
+							rules={[
+								{
+									required: true,
+									message: 'First name is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Last Name',
@@ -243,6 +394,25 @@ const OrderTable = () => {
 			sortOrder:
 				sortedInfo.columnKey === 'customer_lastname' && sortedInfo.order,
 			...getColumnSearchProps('customer_lastname'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='customer_lastname'
+							rules={[
+								{
+									required: true,
+									message: 'Last name is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Total',
@@ -252,6 +422,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.grand_total - b.grand_total,
 			sortOrder: sortedInfo.columnKey === 'grand_total' && sortedInfo.order,
 			...getColumnSearchProps('grand_total'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='grand_total'
+							rules={[
+								{
+									required: true,
+									message: 'Grand total is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Increment_id',
@@ -260,6 +449,25 @@ const OrderTable = () => {
 			sorter: (a, b) => a.increment_id - b.increment_id,
 			sortOrder: sortedInfo.columnKey === 'increment_id' && sortedInfo.order,
 			...getColumnSearchProps('increment_id'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='increment_id'
+							rules={[
+								{
+									required: true,
+									message: 'increment_id is required',
+								},
+							]}
+						>
+							<Input disabled={true} />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Total Qty',
@@ -270,120 +478,157 @@ const OrderTable = () => {
 			sortOrder:
 				sortedInfo.columnKey === 'total_qty_ordered' && sortedInfo.order,
 			...getColumnSearchProps('total_qty_ordered'),
+			render: (text, record) => {
+				if (editingRow === record.key) {
+					return (
+						<Form.Item
+							name='total_qty_ordered'
+							rules={[
+								{
+									required: true,
+									message: 'Total quantity is required',
+								},
+							]}
+						>
+							<Input />
+						</Form.Item>
+					);
+				} else {
+					return <p>{text}</p>;
+				}
+			},
 		},
 		{
 			title: 'Action',
 			key: 'operation',
-			render: record => (
-				<Space size='middle'>
-					<button
-						className='btn btn-sm btn-outline-warning'
-						onClick={() => {
-							handleEditOrder(record);
-						}}
-					>
-						<Edit />
-					</button>
-					<button
-						className='btn btn-sm btn-outline-danger'
-						onClick={() => handleDeleteOrder(record)}
-					>
-						<Trash />
-					</button>
-					<button
-						className='btn btn-sm btn-outline-success'
-						onClick={() => handleDeleteOrder(record)}
-					>
-						<Save />
-					</button>
-				</Space>
-			),
+			render: (_, record) => {
+				return (
+					<>
+						<Form.Item>
+							<Space size='middle'>
+								<button
+									className='btn btn-sm btn-outline-warning'
+									onClick={() => {
+										setEditingRow(record.key);
+										form.setFieldsValue({
+											customer_email: record.customer_email,
+											customer_firstname: record.customer_firstname,
+											customer_lastname: record.customer_lastname,
+											grand_total: record.grand_total,
+											total_qty_ordered: record.total_qty_ordered,
+											entity_id: record.entity_id,
+											created_at: record.created_at,
+											increment_id: record.increment_id,
+										});
+									}}
+								>
+									<Edit />
+								</button>
+								<button
+									className='btn btn-sm btn-outline-danger'
+									onClick={() => handleDeleteOrder(record)}
+								>
+									<Trash />
+								</button>
+								<button
+									className='btn btn-sm btn-outline-success'
+									onClick={handleSave}
+								>
+									<Save />
+								</button>
+							</Space>
+						</Form.Item>
+					</>
+				);
+			},
 		},
 	];
 	//loop main column data
 	const data = orders.map(order => ({
-		key: order.entity_id.toString(),
+		key: order.entity_id,
 		...order,
 	}));
 
 	return (
 		<>
 			<div className='container-xxl mt-5'>
-				<Table
-					columns={columns}
-					expandedRowRender={record => {
-						//render sub table here
-						const nestedColumns = [
-							{
-								title: 'ID',
-								dataIndex: 'id',
-								key: 'id',
-							},
-							{
-								title: 'Product',
-								dataIndex: 'name',
-								key: 'name',
-							},
-							{
-								title: 'SKU',
-								dataIndex: 'sku',
-								key: 'sku',
-							},
-							{
-								title: 'Price',
-								dataIndex: 'price',
-								key: 'price',
-							},
-							{
-								title: 'Product_id',
-								dataIndex: 'product_id',
-								key: 'product_id',
-							},
-							{
-								title: 'Quantity',
-								dataIndex: 'qty_ordered',
-								key: 'qty_ordered',
-							},
-							{
-								title: 'Action',
-								dataIndex: 'operation',
-								key: 'operation',
-								render: () => (
-									<Space size='small'>
-										<EditOutlined style={{ color: 'blue' }} />
-										<DeleteOutlined
-											style={{ color: 'red' }}
-											onClick={() => handleDeleteOrderItem(record)}
-										/>
-										<SaveOutlined style={{ color: 'green' }} />
-									</Space>
-								),
-							},
-							// {
-							// 	title: 'Order_id',
-							// 	dataIndex: 'order_id',
-							// 	key: 'order_id',
-							// },
-							// {
-							// 	title: 'Supplier',
-							// 	dataIndex: 'supplier_name',
-							// 	key: 'supplier_name',
-							// },
-						];
-						return (
-							<Table
-								columns={nestedColumns}
-								dataSource={record.items}
-								pagination={false}
-							/>
-						);
-					}}
-					dataSource={data}
-					bordered
-					rowKey={record => record.id}
-					onChange={handleChange}
-					size='small'
-				/>
+				<Form form={form}>
+					<Table
+						columns={columns}
+						expandedRowRender={record => {
+							//render sub table here
+							const nestedColumns = [
+								{
+									title: 'ID',
+									dataIndex: 'id',
+									key: 'id',
+								},
+								{
+									title: 'Product',
+									dataIndex: 'name',
+									key: 'name',
+								},
+								{
+									title: 'SKU',
+									dataIndex: 'sku',
+									key: 'sku',
+								},
+								{
+									title: 'Price',
+									dataIndex: 'price',
+									key: 'price',
+								},
+								{
+									title: 'Product_id',
+									dataIndex: 'product_id',
+									key: 'product_id',
+								},
+								{
+									title: 'Quantity',
+									dataIndex: 'qty_ordered',
+									key: 'qty_ordered',
+								},
+								{
+									title: 'Action',
+									dataIndex: 'operation',
+									key: 'operation',
+									render: () => (
+										<Space size='small'>
+											<EditOutlined style={{ color: 'blue' }} />
+											<DeleteOutlined
+												style={{ color: 'red' }}
+												onClick={() => handleDeleteOrderItem(record)}
+											/>
+											<SaveOutlined style={{ color: 'green' }} />
+										</Space>
+									),
+								},
+								// {
+								// 	title: 'Order_id',
+								// 	dataIndex: 'order_id',
+								// 	key: 'order_id',
+								// },
+								// {
+								// 	title: 'Supplier',
+								// 	dataIndex: 'supplier_name',
+								// 	key: 'supplier_name',
+								// },
+							];
+							return (
+								<Table
+									columns={nestedColumns}
+									dataSource={record.items}
+									pagination={false}
+								/>
+							);
+						}}
+						dataSource={data}
+						bordered
+						rowKey={record => record.id}
+						onChange={handleChange}
+						size='small'
+					/>
+				</Form>
 			</div>
 		</>
 	);
