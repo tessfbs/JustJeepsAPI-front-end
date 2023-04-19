@@ -779,9 +779,7 @@ const OrderTable = () => {
 														/>
 														<GlobalOutlined
 															style={{ color: 'blue' }}
-															onClick={console.log(
-																'pop up vendor product info'
-															)}
+															onClick={showDrawer}
 														/>
 													</Space>
 												</Form.Item>
