@@ -53,7 +53,7 @@ const OrderTable = () => {
 			okText: 'Yes',
 			okType: 'danger',
 			onOk: () => {
-				deleteOrder(record);
+				// deleteOrder(record);
 				setOrders(pre => {
 					return pre.filter(order => order.entity_id !== record.entity_id);
 				});
@@ -108,7 +108,7 @@ const OrderTable = () => {
 			.validateFields()
 			.then(values => {
 				onFinishSub(values);
-				updateOrder(values);
+				updateOrderItem(values);
 			})
 			.catch(error => {
 				console.log('error', error);
@@ -122,12 +122,42 @@ const OrderTable = () => {
 			...values,
 			key: index,
 		});
-		console.log('values: ', values);
-		console.log('editingRow: ', editingRow);
-		console.log('updatedOrders: ', updatedOrders);
+		console.log('onFinishSub values: ', values);
+		console.log('onFinishSub editingRow: ', editingRow);
+		console.log('onFinishSub updatedOrders: ', updatedOrders);
 
 		setOrders(updatedOrders);
 		setEditingRow(null);
+	};
+
+	const updateOrderItem = async subRowRecord => {
+		console.log('subRowRecord: ', subRowRecord);
+
+		const {
+			id,
+			name,
+			sku,
+			price,
+			product_id,
+			qty_ordered,
+			supplier,
+			supplier_cost,
+		} = subRowRecord;
+
+		return axios
+			.put(`http://localhost:8080//order_products/${id}/edit`)
+			.then(() => {
+				setOrders({
+					...state,
+					name,
+					sku,
+					price,
+					product_id,
+					qty_ordered,
+					supplier,
+					supplier_cost,
+				});
+			});
 	};
 
 	//handle save button main row button
@@ -574,8 +604,6 @@ const OrderTable = () => {
 					<Table
 						columns={columns}
 						expandedRowRender={record => {
-							console.log('expandedRowRender record: ', record);
-
 							//render sub table here
 							const nestedColumns = [
 								{
@@ -583,8 +611,6 @@ const OrderTable = () => {
 									dataIndex: 'id',
 									key: 'id',
 									render: (text, record) => {
-										console.log('row id record id: ', record.id);
-										console.log('row id record key: ', record.key);
 										if (editingRow === record.id) {
 											return (
 												<Form.Item
@@ -777,8 +803,6 @@ const OrderTable = () => {
 									dataIndex: 'operation',
 									key: 'operation',
 									render: (_, record) => {
-										console.log('render record id: ', record.id);
-										console.log('render record key: ', record.key);
 										return (
 											<>
 												<Form.Item>
@@ -788,14 +812,14 @@ const OrderTable = () => {
 															onClick={() => {
 																setEditingRow(record.id);
 																form.setFieldValue({
-																	id: id,
-																	name: name,
-																	sku: sku,
-																	price: price,
-																	product_id: product_id,
-																	qty_ordered: qty_ordered,
-																	supplier: supplier,
-																	supplier_cost: supplier_cost,
+																	id: record.id,
+																	name: record.name,
+																	sku: record.sku,
+																	price: record.price,
+																	product_id: record.product_id,
+																	qty_ordered: record.qty_ordered,
+																	supplier: record.supplier,
+																	supplier_cost: record.supplier_cost,
 																});
 															}}
 														/>
