@@ -53,7 +53,7 @@ const OrderTable = () => {
 			okText: 'Yes',
 			okType: 'danger',
 			onOk: () => {
-				deleteOrder(record);
+				// deleteOrder(record); not delete backend
 				setOrders(pre => {
 					return pre.filter(order => order.entity_id !== record.entity_id);
 				});
