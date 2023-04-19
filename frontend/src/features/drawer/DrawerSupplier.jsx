@@ -2,7 +2,7 @@ import { Button, Drawer, Radio, Space } from 'antd';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Drawer = () => {
+const DrawerSupplier = () => {
 	const [open, setOpen] = useState(false);
 	const showDrawer = () => {
 		setOpen(true);
@@ -34,4 +34,4 @@ const Drawer = () => {
 		</Drawer>
 	);
 };
-export default Drawer;
+export default DrawerSupplier;
