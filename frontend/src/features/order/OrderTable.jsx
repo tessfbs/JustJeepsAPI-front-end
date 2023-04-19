@@ -63,29 +63,30 @@ const OrderTable = () => {
 			.delete(`http://localhost:8080/api/orders/${id}/delete`, data)
 			.then(response => {
 				console.log('response', response);
-				setOrders({ ...state });
+				setOrders(response.data);
 			});
 	};
 	// delete an backend order
-	const deleteOrder = async order => {
-		console.log('deleteOrder order: ', order);
-		const id = order.entity_id;
-		const response = await axios.delete(
-			`http://localhost:8080/api/orders/${id}/delete`
-		);
-		setOrders(response.data);
-	};
+	// const deleteOrder = async order => {
+	// 	console.log('deleteOrder order: ', order);
+	// 	const id = order.entity_id;
+	// 	const response = await axios.delete(
+	// 		`http://localhost:8080/api/orders/${id}/delete`
+	// 	);
+	// 	setOrders(response.data);
+	// };
 
 	// console.log('orders', orders);
 	//delete an order-item
 	const handleDeleteOrderItem = record => {
-		console.log('order item record: ', record);
-
-		deleteOrderItem(record.id);
-		// setOrders(pre => {
-		// 	console.log('handleDeleteOrderItem: ', order);
-		// 	return pre.filter(order => `${order.id}` !== record.id);
-		// });
+		Modal.confirm({
+			title: 'Are you sure to delete this item?',
+			okText: 'Yes',
+			okType: 'danger',
+			onOk: () => {
+				deleteOrderItem(record.id);
+			},
+		});
 	};
 
 	// delete backend order-product
