@@ -103,3 +103,5 @@ const seedMeyerVendorProducts = async () => {
 
 // seedMeyerVendorProducts();
 module.exports = seedMeyerVendorProducts;
+seedMeyerVendorProducts();
+

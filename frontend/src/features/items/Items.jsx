@@ -6,14 +6,93 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Table, Input, Button } from "antd";
 import axios from "axios";
+import ExcelJS from "exceljs";
+import saveAs from "file-saver";
+import "./items.scss";
 
 export const Items = () => {
   const [data, setData] = useState([]);
-  const [searchBy, setSearchBy] = useState("BST-51512-01"); // default search by SKU
+  const [searchBy, setSearchBy] = useState("sku"); // default search by SKU
   const [searchTermSku, setSearchTermSku] = useState("");
-  const [searchTermBrand, setSearchTermBrand] = useState("");
   const [sku, setSku] = useState([]);
   const [brandData, setBrandData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  console.log("branddata length", brandData.length);
+
+  const exportToExcel = () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet("Table Data");
+    const columns = Object.keys(brandData[0]);
+    const vendorProductColumns = [
+      "product_sku",
+      "vendor_sku",
+      "vendor_cost",
+      "vendor_inventory",
+      "vendor_name",
+    ];
+    const competitorProductColumns = [
+      "competitor_price",
+      "product_url",
+      "competitor_name",
+    ];
+    // Combine the vendor product and competitor product columns with the main columns
+    const allColumns = columns
+      .concat(vendorProductColumns)
+      .concat(competitorProductColumns);
+
+    // Add table headers
+    worksheet.addRow(allColumns);
+
+    // Add table data
+    brandData.forEach((row) => {
+      const vendorProducts = row.vendorProducts || [];
+      const competitorProducts = row.competitorProducts || [];
+      const maxRows = Math.max(
+        vendorProducts.length,
+        competitorProducts.length
+      );
+      if (maxRows > 0) {
+        for (let i = 0; i < maxRows; i++) {
+          const newRow = Object.assign({}, row);
+          // Add the vendor product details as separate columns
+          const vendorProduct = vendorProducts[i] || {};
+          newRow.product_sku = vendorProduct.product_sku || "";
+          newRow.vendor_sku = vendorProduct.vendor_sku || "";
+          newRow.vendor_cost = vendorProduct.vendor_cost || "";
+          newRow.vendor_inventory = vendorProduct.vendor_inventory || "";
+          newRow.vendor_name = (vendorProduct.vendor || {}).name || "";
+          // Add the competitor product details as separate columns
+          const competitorProduct = competitorProducts[i] || {};
+          newRow.competitor_price = competitorProduct.competitor_price || "";
+          newRow.product_url = competitorProduct.product_url || "";
+          newRow.competitor_name =
+            (competitorProduct.competitor || {}).name || "";
+          const values = allColumns.map((col) => newRow[col]);
+          worksheet.addRow(values);
+        }
+      } else {
+        const values = columns.map((col) => row[col]);
+        // Add empty cells for the vendor product and competitor product columns
+        vendorProductColumns
+          .concat(competitorProductColumns)
+          .forEach(() => values.push(""));
+        worksheet.addRow(values);
+      }
+    });
+
+    // Save the workbook
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "table.xlsx");
+    });
+  };
+
+  const tableProps = {
+    loading,
+  };
 
   useEffect(() => {
     const getProductBySku = async () => {
@@ -36,15 +115,14 @@ export const Items = () => {
     };
     getProductBySku();
   }, [searchTermSku]);
-  console.log("skuData", data);
 
   useEffect(() => {
     const getProductByBrand = async () => {
       try {
         // Add null check
-
         console.log("searchTermBrand", searchTermSku);
         if (searchTermSku && searchTermSku.brand_name) {
+          setLoading(true);
           await axios.get(`http://localhost:8080/api/products`).then((res) => {
             const responseData = res.data;
             const productsByBrand = getProductsByBrand(
@@ -54,6 +132,7 @@ export const Items = () => {
             console.log("productsByBrand", productsByBrand);
             // Process the response data from backend if needed
             setBrandData(productsByBrand);
+            setLoading(false);
           });
         }
       } catch (error) {
@@ -66,7 +145,7 @@ export const Items = () => {
   console.log("brandData", brandData);
 
   function getProductsByBrand(products, brandName) {
-    return products.filter((product) => product.brand_name === brandName);
+    return products.filter((product) => product.brand_name === brandName && product.status === 1);
   }
 
   useEffect(() => {
@@ -126,14 +205,6 @@ export const Items = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      render: (price, record) => (
-        <Input
-          value={price}
-          onChange={(e) => handlePriceChange(e, record.sku)}
-          style={{ width: 80 }}
-          prefix="$"
-        />
-      ),
     },
     {
       title: "Vendor Name",
@@ -205,7 +276,9 @@ export const Items = () => {
       title: "SKU",
       dataIndex: "sku",
       key: "sku",
-    },
+			sorter: (a, b) => a.sku.localeCompare(b.sku),
+			filter: true,
+		},
     {
       title: "Image",
       dataIndex: "image",
@@ -221,14 +294,12 @@ export const Items = () => {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      render: (price, record) => (
-        <Input
-          value={price}
-          onChange={(e) => handlePriceChange(e, record.sku)}
-          style={{ width: 80 }}
-          prefix="$"
-        />
-      ),
+			sorter: (a, b) => a.price - b.price,
+    },
+    {
+      title: "Manufacturer",
+      dataIndex: "brand_name",
+      key: "brand_name",
     },
     {
       title: "Vendor Name",
@@ -296,21 +367,15 @@ export const Items = () => {
   ];
 
   return (
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-        }}
-      >
+    <div class="items">
+      <div class="sidebar">
         <FormControl sx={{ m: 1, minWidth: 400 }}>
-          <Select value={"sku"} onChange={handleSearchByChange}>
+          <Select value={searchBy} onChange={handleSearchByChange}>
             <MenuItem value="sku">SKU</MenuItem>
             <MenuItem value="brand">Brand</MenuItem>
           </Select>
         </FormControl>
+
         {searchBy === "sku" ? (
           <div>
             <Autocomplete
@@ -331,22 +396,9 @@ export const Items = () => {
                 />
               )}
             />
-            <Table
-              dataSource={data}
-              columns={columns_by_sku}
-              rowKey="sku"
-              pagination={{ pageSize: 10 }} // Change pageSize as needed
-            />
           </div>
         ) : (
-          <div
-					style={{
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						flexDirection: "column",
-					}}
-					>
+          <div class="sidebar-brand">
             <Autocomplete
               {...brands_for_autocomplete}
               sx={{ width: 400 }}
@@ -365,16 +417,39 @@ export const Items = () => {
                 />
               )}
             />
-            <Table
-              dataSource={brandData}
-              columns={columns_brands}
-              rowKey="sku"
-              pagination={{ pageSize: 10 }} // Change pageSize as needed
-            />
+            <Button onClick={exportToExcel}>Export to Excel</Button>
           </div>
         )}
       </div>
 
+      <div class="dashboardContainer"> 
+      {searchBy === "sku" ? (
+				<Table
+          dataSource={data}
+          columns={columns_by_sku}
+          rowKey="sku"
+          pagination={false} // Change pageSize as needed
+        />
+      ) : (
+			<div>
+				<br/>
+				<h4>Total products for <strong>{searchTermSku.brand_name}</strong>: {brandData.length}</h4>
+				
+				{/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
+        <Table
+          {...tableProps}
+          dataSource={brandData}
+          columns={columns_brands}
+          rowKey="sku"
+          pagination={{
+            pageSize: 10,
+          }}
+          loading={loading}
+        />
+			</div>
+      )}
+    </div>
+		</div>
   );
 };
 
