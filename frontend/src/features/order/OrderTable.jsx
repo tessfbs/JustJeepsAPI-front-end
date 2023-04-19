@@ -799,13 +799,11 @@ const OrderTable = () => {
 								// },
 							];
 							return (
-								<Form form={form}>
-									<Table
-										columns={nestedColumns}
-										dataSource={record.items}
-										pagination={false}
-									/>
-								</Form>
+								<Table
+									columns={nestedColumns}
+									dataSource={record.items}
+									pagination={false}
+								/>
 							);
 						}}
 						dataSource={data}
