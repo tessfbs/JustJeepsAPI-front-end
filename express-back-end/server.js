@@ -1,7 +1,8 @@
 const Express = require("express");
 const { format, parseISO } = require("date-fns");
 const app = Express();
-const BodyParser = require("body-parser");
+const BodyParser = require('body-parser');
+const BodyParser = require('body-parser');
 const PORT = 8080;
 const cors = require("cors");
 const { PrismaClient } = require("@prisma/client");
@@ -277,51 +278,51 @@ app.post("/order_products", async (req, res) => {
 });
 
 // Route for editing an order product
-app.post("/order_products/:id/edit", async (req, res) => {
-  try {
-    const id = req.params.id;
-    const {
-      name,
-      sku,
-      base_price,
-      base_price_incl_tax,
-      discount_amount,
-      discount_invoiced,
-      discount_percent,
-      original_price,
-      price,
-      price_incl_tax,
-      product_id,
-      qty_ordered,
-      supplier,
-      supplier_cost,
-    } = req.body;
-    const updatedOrderProduct = await prisma.orderProduct.update({
-      where: {
-        id: Number(id),
-      },
-      data: {
-        name: name,
-        sku: sku,
-        base_price: base_price,
-        base_price_incl_tax: base_price_incl_tax,
-        discount_amount: discount_amount,
-        discount_invoiced: discount_invoiced,
-        discount_percent: discount_percent,
-        original_price: original_price,
-        price: price,
-        price_incl_tax: price_incl_tax,
-        product_id: product_id,
-        qty_ordered: qty_ordered,
-        supplier: supplier,
-        supplier_cost: supplier_cost,
-      },
-    });
-    res.json(updatedOrderProduct);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to update order product" });
-  }
+app.post('/order_products/:id/edit', async (req, res) => {
+	try {
+		const id = req.params.id;
+		const {
+			name,
+			sku,
+			base_price,
+			base_price_incl_tax,
+			discount_amount,
+			discount_invoiced,
+			discount_percent,
+			original_price,
+			price,
+			price_incl_tax,
+			product_id,
+			qty_ordered,
+			selected_supplier,
+			selected_supplier_cost,
+		} = req.body;
+		const updatedOrderProduct = await prisma.orderProduct.update({
+			where: {
+				id: Number(id),
+			},
+			data: {
+				name: name,
+				sku: sku,
+				base_price: base_price,
+				base_price_incl_tax: base_price_incl_tax,
+				discount_amount: discount_amount,
+				discount_invoiced: discount_invoiced,
+				discount_percent: discount_percent,
+				original_price: original_price,
+				price: price,
+				price_incl_tax: price_incl_tax,
+				product_id: product_id,
+				qty_ordered: qty_ordered,
+				selected_supplier: selected_supplier,
+				selected_supplier_cost: selected_supplier_cost,
+			},
+		});
+		res.json(updatedOrderProduct);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ error: 'Failed to update order product' });
+	}
 });
 
 // Route for deleting an order product

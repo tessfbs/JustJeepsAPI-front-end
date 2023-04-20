@@ -32,6 +32,7 @@ function App() {
 	return (
 		<>
 			<Navbar />
+			{/* <ProductTable /> */}
 			<Routes>
 				<Route path='/' element={<OrderTable />} />
 				<Route path='/orders' element={<OrderTable />} />

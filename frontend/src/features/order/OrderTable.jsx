@@ -50,7 +50,7 @@ const OrderTable = () => {
 	const handleDeleteOrder = record => {
 		console.log('handleDeleteOrder record: ', record);
 		Modal.confirm({
-			title: 'Are you sure to delete this order?',
+			title: 'Are you sure to cancel this order?',
 			okText: 'Yes',
 			okType: 'danger',
 			onOk: () => {
@@ -112,36 +112,28 @@ const OrderTable = () => {
 			});
 	};
 	const onFinishSub = (key, values) => {
-		const updatedOrders = [...orders];
+		const updatedOrders = [...orders]; //make a copy of the orders
 		const parentItem = updatedOrders.find(order => {
+			//find that order
 			return order.entity_id === key;
 		});
 		const index = parentItem.items.findIndex(obj => {
+			//find the particular item row
 			return obj.id === editingRow;
 		});
 
-		console.log('index: ', index);
-
 		updatedOrders.splice(index, 1, {
+			//remove the item, replace with the new value
 			...values,
 			key: index,
 		});
 
-		setOrders(updatedOrders);
+		setOrders(updatedOrders); //update orders
 		setEditingRow(null);
 	};
 
 	const updateOrderItem = async subRowRecord => {
-		const {
-			id,
-			// name,
-			// sku,
-			// price,
-			// product_id,
-			// qty_ordered,
-			// supplier,
-			// supplier_cost,
-		} = subRowRecord;
+		const { id } = subRowRecord;
 
 		return axios
 			.post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
@@ -151,22 +143,25 @@ const OrderTable = () => {
 				orders.forEach((order, index) => {
 					if (order.entity_id === data.data.order_id) {
 						parentItem = order;
-						parentIndex = index;
+						parentIndex = index; //give the index to the order
 					}
 				});
-
+				//find index
 				const index = parentItem.items.findIndex(order => {
 					return order.id === data.data.id;
 				});
+				//make copy
 				const modifiedParentItems = [...parentItem.items];
+				//replace with new value
 				modifiedParentItems.splice(index, 1, subRowRecord);
-
+				//modified the order items
 				const modifiedParent = { ...parentItem, items: modifiedParentItems };
+				//make copy of all orders
 				const copyOrders = [...orders];
-
+				//update the order
 				copyOrders.splice(parentIndex, 1, modifiedParent);
 				console.log('copyOrders: ', copyOrders);
-
+				//set state
 				setOrders(copyOrders);
 			});
 	};
@@ -213,7 +208,7 @@ const OrderTable = () => {
 			.post(`http://localhost:8080/api/orders/${entity_id}/edit`)
 			.then(() => {
 				setOrders({
-					...state,
+					...state, //state is not defined
 					customer_email,
 					customer_firstname,
 					customer_lastname,
@@ -760,13 +755,13 @@ const OrderTable = () => {
 								},
 								{
 									title: 'Supplier',
-									dataIndex: 'supplier',
-									key: 'supplier',
+									dataIndex: 'selected_supplier',
+									key: 'selected_supplier',
 									render: (text, record) => {
 										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='supplier'
+													name='selected_supplier'
 													rules={[
 														{
 															required: true,
@@ -784,17 +779,17 @@ const OrderTable = () => {
 								},
 								{
 									title: 'Supplier Cost',
-									dataIndex: 'supplier_cost',
-									key: 'supplier_cost',
+									dataIndex: 'selected_supplier_cost',
+									key: 'selected_supplier_cost',
 									render: (text, record) => {
 										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='supplier_cost'
+													name='selected_supplier_cost'
 													rules={[
 														{
 															required: true,
-															message: 'supplier_cost is required',
+															message: 'selected_supplier_cost is required',
 														},
 													]}
 												>
@@ -827,16 +822,17 @@ const OrderTable = () => {
 																	price: recordSub.price,
 																	product_id: recordSub.product_id,
 																	qty_ordered: recordSub.qty_ordered,
-																	supplier: recordSub.supplier,
-																	supplier_cost: recordSub.supplier_cost,
+																	selected_supplier:
+																		recordSub.selected_supplier,
+																	selected_supplier_cost:
+																		recordSub.selected_supplier_cost,
 																});
-																console.log('form', form.getFieldsValue(true));
 															}}
 														/>
-														<DeleteOutlined
+														{/* <DeleteOutlined
 															style={{ color: 'red' }}
 															onClick={() => handleDeleteOrderItem(record)}
-														/>
+														/> */}
 														<SaveOutlined
 															style={{ color: 'green' }}
 															onClick={() => handleSaveSub(record.key)}

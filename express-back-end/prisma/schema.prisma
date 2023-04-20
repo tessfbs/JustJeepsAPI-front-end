@@ -10,146 +10,138 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Order {
-  entity_id Int   @id
-  id Int @unique @default(autoincrement())
-  created_at String
-  status String?
-  customer_email String
-  coupon_code String?
-  customer_firstname String?
-  customer_lastname String?
-  grand_total Float
-  increment_id String
+  entity_id           Int             @id
+  id                  Int             @unique @default(autoincrement())
+  created_at          String
+  status              String?
+  customer_email      String
+  coupon_code         String?
+  customer_firstname  String?
+  customer_lastname   String?
+  grand_total         Float
+  increment_id        String
   order_currency_code String
-  total_qty_ordered Int
-  items OrderProduct[]
-  purchaseOrder PurchaseOrder[]
+  total_qty_ordered   Int
+  items               OrderProduct[]
+  purchaseOrder       PurchaseOrder[]
 }
 
-
-
 model OrderProduct {
-  id Int      @id @default(autoincrement())
-  name String
-  sku String
-  order_id Int
-  base_price Float
-  base_price_incl_tax Float?
-  discount_amount Float
-  discount_invoiced Float
-  discount_percent Float
-  original_price Float
-  price Float
-  price_incl_tax Float?
-  product_id Int?
-  qty_ordered Int
-  order Order @relation(fields: [order_id], references: [entity_id], onDelete: Cascade)
-  product Product? @relation(fields: [sku], references: [sku])
+  id                     Int      @id @default(autoincrement())
+  name                   String
+  sku                    String
+  order_id               Int
+  base_price             Float
+  base_price_incl_tax    Float?
+  discount_amount        Float
+  discount_invoiced      Float
+  discount_percent       Float
+  original_price         Float
+  price                  Float
+  price_incl_tax         Float?
+  product_id             Int?
+  qty_ordered            Int
+  order                  Order    @relation(fields: [order_id], references: [entity_id], onDelete: Cascade)
+  product                Product? @relation(fields: [sku], references: [sku])
+  selected_supplier      String?
+  selected_supplier_cost String?
 }
 
 //create a new order product to OrderProduct table
 
-
 model Product {
-  sku String @id @unique
-  status Int?
-  name String
-  price Float
-  searchableSku String
-  searchable_sku String?
-  jj_prefix String?
-  meyer_code String?
-  keystone_code String?
-  omix_code String?
-  vendors String?
-  brand_name String?
-  image String?
-  weight Float?
-  orderProducts OrderProduct[]
-  vendorProducts VendorProduct[]
-  competitorProducts CompetitorProduct[]  
+  sku                String              @id @unique
+  status             Int?
+  name               String
+  price              Float
+  searchableSku      String
+  searchable_sku     String?
+  jj_prefix          String?
+  meyer_code         String?
+  keystone_code      String?
+  omix_code          String?
+  vendors            String?
+  brand_name         String?
+  image              String?
+  weight             Float?
+  orderProducts      OrderProduct[]
+  vendorProducts     VendorProduct[]
+  competitorProducts CompetitorProduct[]
 }
 
-
-
 model VendorProduct {
-  id Int @id @default(autoincrement())
-  product_sku String
-  vendor_id Int
-  vendor_sku String @unique
-  vendor_cost Float
-  vendor_inventory Float?
-  vendor Vendor? @relation(fields: [vendor_id], references: [id])
-  product Product? @relation(fields: [product_sku], references: [sku])
+  id                     Int                     @id @default(autoincrement())
+  product_sku            String
+  vendor_id              Int
+  vendor_sku             String                  @unique
+  vendor_cost            Float
+  vendor_inventory       Float?
+  vendor                 Vendor?                 @relation(fields: [vendor_id], references: [id])
+  product                Product?                @relation(fields: [product_sku], references: [sku])
   purchaseOrderLineItems PurchaseOrderLineItem[]
 }
 
 //get all vendorproducts grouped by sku
 
-
 model Vendor {
-  id Int @id @default(autoincrement())
-  name String
-  website String
-  address String?
-  phone_number String?
-  main_contact String
-  username String
-  password String
+  id             Int             @id @default(autoincrement())
+  name           String
+  website        String
+  address        String?
+  phone_number   String?
+  main_contact   String
+  username       String
+  password       String
   vendorProducts VendorProduct[]
   purchaseOrders PurchaseOrder[]
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  firstname String
-  lastname String
-  username String
-  email String
-  password String
+  id             Int             @id @default(autoincrement())
+  firstname      String
+  lastname       String
+  username       String
+  email          String
+  password       String
   purchaseOrders PurchaseOrder[]
 }
 
 model PurchaseOrder {
-  id Int @id @default(autoincrement())
-  created_at DateTime @default(now())
-  user_id Int
-  user User @relation(fields: [user_id], references: [id])
-  order_id Int
-  order Order @relation(fields: [order_id], references: [entity_id])
-  vendor_id Int
-  vendor Vendor @relation(fields: [vendor_id], references: [id])
+  id                     Int                     @id @default(autoincrement())
+  created_at             DateTime                @default(now())
+  user_id                Int
+  user                   User                    @relation(fields: [user_id], references: [id])
+  order_id               Int
+  order                  Order                   @relation(fields: [order_id], references: [entity_id])
+  vendor_id              Int
+  vendor                 Vendor                  @relation(fields: [vendor_id], references: [id])
   purchaseOrderLineItems PurchaseOrderLineItem[]
-  }
+}
 
 model PurchaseOrderLineItem {
-  id Int @id @default(autoincrement())
-  purchase_order_id Int
-  vendor_product_id Int
+  id                 Int           @id @default(autoincrement())
+  purchase_order_id  Int
+  vendor_product_id  Int
   quantity_purchased Int
-  vendor_cost Float
-  purchaseOrder PurchaseOrder @relation(fields: [purchase_order_id], references: [id])
-  vendorProduct VendorProduct @relation(fields: [vendor_product_id], references: [id])
+  vendor_cost        Float
+  purchaseOrder      PurchaseOrder @relation(fields: [purchase_order_id], references: [id])
+  vendorProduct      VendorProduct @relation(fields: [vendor_product_id], references: [id])
 }
 
 model Competitor {
-  id Int @id @default(autoincrement())
-  name String
-  website String
+  id                 Int                 @id @default(autoincrement())
+  name               String
+  website            String
   competitorProducts CompetitorProduct[]
 }
 
 model CompetitorProduct {
-  id Int @id @default(autoincrement())
-  product_sku String
-  competitor_id Int
+  id               Int        @id @default(autoincrement())
+  product_sku      String
+  competitor_id    Int
   competitor_price Float
-  product_url String?
-  competitor Competitor @relation(fields: [competitor_id], references: [id])
-  product Product @relation(fields: [product_sku], references: [sku])
+  product_url      String?
+  competitor       Competitor @relation(fields: [competitor_id], references: [id])
+  product          Product    @relation(fields: [product_sku], references: [sku])
 }
-
-
-
