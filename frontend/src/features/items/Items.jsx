@@ -5,6 +5,7 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import { Table, Button } from "antd";
+import { UploadOutlined } from '@ant-design/icons';
 import axios from "axios";
 import ExcelJS from "exceljs";
 import saveAs from "file-saver";
@@ -18,8 +19,16 @@ export const Items = () => {
   const [brandData, setBrandData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log("branddata length", brandData.length);
+  function getProductsByBrand(products, brandName) {
+    return products.filter(
+      (product) =>
+        product.brand_name === brandName &&
+        product.status === 1 &&
+        product.price !== 0
+    );
+  }
 
+  //export to excel
   const exportToExcel = () => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet("Table Data");
@@ -90,10 +99,20 @@ export const Items = () => {
     });
   };
 
-  const tableProps = {
-    loading,
-  };
+  const prices = brandData.reduce((acc, product) => {
+    acc.push(product.price);
+    return acc;
+  }, []);
 
+  const totalPrice = productsByBrand.reduce((acc, product) => {
+    return acc + product.price;
+  }, 0);
+
+  const minPrice = Math.min(...prices);
+  const maxPrice = Math.max(...prices);
+  const averagePrice = totalPrice / productsByBrand.length;
+
+  //search by sku
   useEffect(() => {
     const getProductBySku = async () => {
       try {
@@ -116,6 +135,7 @@ export const Items = () => {
     getProductBySku();
   }, [searchTermSku]);
 
+  //search by brand
   useEffect(() => {
     const getProductByBrand = async () => {
       try {
@@ -144,12 +164,7 @@ export const Items = () => {
 
   console.log("brandData", brandData);
 
-  function getProductsByBrand(products, brandName) {
-    return products.filter(
-      (product) => product.brand_name === brandName && product.status === 1
-    );
-  }
-
+  //get all skus
   useEffect(() => {
     const getAllSkus = async () => {
       try {
@@ -187,6 +202,11 @@ export const Items = () => {
   };
 
   const columns_by_sku = [
+    {
+      title: "Manufacturer",
+      dataIndex: "brand_name",
+      key: "brand_name",
+    },
     {
       title: "SKU",
       dataIndex: "sku",
@@ -234,8 +254,12 @@ export const Items = () => {
         return vendorProducts.map((vendorProduct) => {
           const { vendor_cost } = vendorProduct;
           const margin = ((price - vendor_cost) / price) * 100;
+          const className = margin < 20 ? "red-margin" : "";
           return (
-            <div key={vendorProduct.vendor_id}>{`${margin.toFixed(2)}%`}</div>
+            <div
+              key={vendorProduct.vendor_id}
+              className={className}
+            >{`${margin.toFixed(2)}%`}</div>
           );
         });
       },
@@ -258,19 +282,19 @@ export const Items = () => {
           <div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
         )),
     },
-    {
-      title: "Competitor Price",
-      dataIndex: "competitorProducts",
-      key: "competitor_price",
-      render: (competitorProducts) =>
-        competitorProducts.length > 0 ? (
-          <div
-            key={competitorProducts[0].id}
-          >{`$${competitorProducts[0].competitor_price}`}</div>
-        ) : (
-          "-"
-        ),
-    },
+    // {
+    //   title: "Competitor Price",
+    //   dataIndex: "competitorProducts",
+    //   key: "competitor_price",
+    //   render: (competitorProducts) =>
+    //     competitorProducts.length > 0 ? (
+    //       <div
+    //         key={competitorProducts[0].id}
+    //       >{`$${competitorProducts[0].competitor_price}`}</div>
+    //     ) : (
+    //       "-"
+    //     ),
+    // },
   ];
 
   const columns_brands = [
@@ -329,12 +353,17 @@ export const Items = () => {
         return vendorProducts.map((vendorProduct) => {
           const { vendor_cost } = vendorProduct;
           const margin = ((price - vendor_cost) / price) * 100;
+          const className = margin < 20 ? "red-margin" : "";
           return (
-            <div key={vendorProduct.vendor_id}>{`${margin.toFixed(2)}%`}</div>
+            <div
+              key={vendorProduct.vendor_id}
+              className={className}
+            >{`${margin.toFixed(2)}%`}</div>
           );
         });
       },
     },
+
     {
       title: "Vendor Inventory",
       dataIndex: "vendorProducts",
@@ -367,6 +396,10 @@ export const Items = () => {
         ),
     },
   ];
+
+  const tableProps = {
+    loading,
+  };
 
   return (
     <div class="items">
@@ -419,10 +452,13 @@ export const Items = () => {
                 />
               )}
             />
-            <Button onClick={exportToExcel}>Export to Excel</Button>
+            <Button onClick={exportToExcel}>  
+              <UploadOutlined /> Export to Excel 
+            </Button>
           </div>
         )}
       </div>
+      {/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
 
       <div class="dashboardContainer">
         {searchBy === "sku" ? (
@@ -433,8 +469,9 @@ export const Items = () => {
             pagination={false} // Change pageSize as needed
           />
         ) : (
-          <div>
+          <div className="brand-statistic">
             <br />
+
             <div className="widget">
               <div className="left">
                 <span className="title">
@@ -444,15 +481,38 @@ export const Items = () => {
               </div>
               <div className="right">{data.icon}</div>
             </div>
+
+            <div className="widget">
+              <div className="left">
+                <span className="title">
+                  <strong>{searchTermSku.brand_name} </strong>Price Range:
+                </span>
+                <span className="counter">
+                  ${minPrice} -${maxPrice}{" "}
+                </span>
+              </div>
+              <div className="right">{data.icon}</div>
+            </div>
+
+            <div className="widget">
+              <div className="left">
+                <span className="title">
+                  <strong>{searchTermSku.brand_name} </strong>Price Average:
+                </span>
+                <span className="counter">${averagePrice.toFixed(2)}</span>
+              </div>
+              <div className="right">{data.icon}</div>
+            </div>
+
             <br />
-            {/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
+            {/* {brandData[0]["vendors"] && (<p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p>)} */}
             <Table
               {...tableProps}
               dataSource={brandData}
               columns={columns_brands}
               rowKey="sku"
               pagination={{
-                pageSize: 10,
+                pageSize: 20,
               }}
               loading={loading}
             />

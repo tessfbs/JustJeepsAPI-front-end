@@ -14,13 +14,13 @@ const getAllSkus = async (callNumber, numParts) => {
         not: "" // Exclude results where keystone_code is empty
       },
       brand_name: {
-        in:[ "Napier Sportz","N-Fab", "NGK", "NOCO", "ODYSSEY Battery", "Old Man Emu","Optima Batteries", "Oracle Lighting", "Smittybilt", "AMP Research"]
+        // in:[ "Napier Sportz","N-Fab", "NGK", "NOCO", "ODYSSEY Battery", "Old Man Emu","Optima Batteries", "Oracle Lighting", "Smittybilt", "AMP Research"]
         // in:["NOCO"]
       },
       status: 1
     }
   });
-  console.log(`Total number of products with a Keystone Code: ${totalSkus}`);
+  // console.log(`Total number of products with a Keystone Code: ${totalSkus}`);
 
   const itemsPerCall = Math.ceil(totalSkus / numParts); // Calculate number of items per call
   let skip = (callNumber - 1) * itemsPerCall; // Calculate skip based on callNumber
@@ -38,7 +38,7 @@ const getAllSkus = async (callNumber, numParts) => {
       },
       status: 1,
       brand_name: {
-        in:[ "Napier Sportz","N-Fab", "NGK", "NOCO", "ODYSSEY Battery", "Old Man Emu","Optima Batteries", "Oracle Lighting", "Smittybilt", "AMP Research"]
+        // in:[ "Napier Sportz","N-Fab", "NGK", "NOCO", "ODYSSEY Battery", "Old Man Emu","Optima Batteries", "Oracle Lighting", "Smittybilt", "AMP Research"]
         // in:["NOCO"]
       },
     },

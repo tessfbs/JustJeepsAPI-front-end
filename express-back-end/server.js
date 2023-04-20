@@ -96,6 +96,8 @@ app.get('/api/products/:sku', async (req, res) => {
 				name: true,
 				price: true,
 				image: true,
+				vendors: true,
+				brand_name: true,
 				vendorProducts: {
 					select: {
 						product_sku: true,
