@@ -173,6 +173,7 @@ async function main() {
       data: purchaseOrderLineItems,
     })
   }
+  console.log("Purchase Orders seeded");
 }
 
 main()
