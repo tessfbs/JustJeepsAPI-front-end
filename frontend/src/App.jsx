@@ -32,7 +32,7 @@ function App() {
 	return (
 		<>
 			<Navbar />
-			<ProductTable />
+			{/* <ProductTable /> */}
 			<Routes>
 				<Route path='/' element={<OrderTable />} />
 				<Route path='/orders' element={<OrderTable />} />
