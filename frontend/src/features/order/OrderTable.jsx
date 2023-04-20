@@ -32,6 +32,7 @@ const OrderTable = () => {
 	const [editingRow, setEditingRow] = useState(null);
 	const [form] = Form.useForm();
 
+	//initial loading data
 	useEffect(() => {
 		loadData();
 	}, []);
@@ -53,7 +54,7 @@ const OrderTable = () => {
 			okText: 'Yes',
 			okType: 'danger',
 			onOk: () => {
-				// deleteOrder(record);
+				// deleteOrder(record); need delete backend
 				setOrders(pre => {
 					return pre.filter(order => order.entity_id !== record.entity_id);
 				});
@@ -63,15 +64,13 @@ const OrderTable = () => {
 		return axios
 			.post(`http://localhost:8080/api/orders/${id}/delete`, data)
 			.then(response => {
-				console.log('response', response);
 				setOrders(response.data);
 			});
 	};
 	// delete an backend order
 	const deleteOrder = async order => {
-		console.log('deleteOrder order: ', order);
 		const id = order.entity_id;
-		const response = await axios.delete(
+		const response = await axios.post(
 			`http://localhost:8080/api/orders/${id}/delete`
 		);
 		setOrders(response.data);
@@ -92,10 +91,8 @@ const OrderTable = () => {
 
 	// delete backend order-product
 	const deleteOrderItem = async id => {
-		console.log('id: ', id);
-
 		return axios
-			.post(`http://localhost:8080/order_products/${id}/delete`)
+			.delete(`http://localhost:8080/order_products/${id}/delete`)
 			.then(response => {
 				console.log('response', response);
 				setOrders(response.data);
