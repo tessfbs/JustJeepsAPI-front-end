@@ -103,21 +103,28 @@ const OrderTable = () => {
 	};
 
 	//handle save button sub row button
-	const handleSaveSub = () => {
+	const handleSaveSub = key => {
 		form
 			.validateFields()
 			.then(values => {
-				onFinishSub(values);
+				onFinishSub(key, values);
 				updateOrderItem(values);
 			})
 			.catch(error => {
 				console.log('error', error);
 			});
 	};
-	const onFinishSub = values => {
-		console.log('values: ', values);
+	const onFinishSub = (key, values) => {
 		const updatedOrders = [...orders];
-		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
+		const parentItem = updatedOrders.find(order => {
+			return order.entity_id === key;
+		});
+		const index = parentItem.items.findIndex(obj => {
+			return obj.id === editingRow;
+		});
+
+		console.log('index: ', index);
+
 		updatedOrders.splice(index, 1, {
 			...values,
 			key: index,
@@ -145,18 +152,32 @@ const OrderTable = () => {
 		} = subRowRecord;
 
 		return axios
-			.put(`http://localhost:8080//order_products/${id}/edit`)
-			.then(() => {
-				setOrders({
-					...state,
-					name,
-					sku,
-					price,
-					product_id,
-					qty_ordered,
-					supplier,
-					supplier_cost,
+			.post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
+			.then(data => {
+				// console.log('data', data);
+				let parentIndex;
+				let parentItem;
+				orders.forEach((order, index) => {
+					if (order.entity_id === data.data.order_id) {
+						parentItem = order;
+						parentIndex = index;
+					}
 				});
+
+				// console.log(' parentItem.items: ', parentItem.items);
+				const index = parentItem.items.findIndex(order => {
+					return order.id === data.data.id;
+				});
+				const modifiedParentItems = [...parentItem.items];
+				modifiedParentItems.splice(index, 1, subRowRecord);
+				// console.log('modifiedParent: ', modifiedParentItems);
+				const modifiedParent = { ...parentItem, items: modifiedParentItems };
+				const copyOrders = [...orders];
+
+				copyOrders.splice(parentIndex, 1, modifiedParent);
+				console.log('copyOrders: ', copyOrders);
+
+				setOrders(copyOrders);
 			});
 	};
 
@@ -638,7 +659,7 @@ const OrderTable = () => {
 										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='id'
+													name='name'
 													rules={[
 														{
 															required: true,
@@ -802,7 +823,7 @@ const OrderTable = () => {
 									title: 'Action',
 									dataIndex: 'operation',
 									key: 'operation',
-									render: (_, record) => {
+									render: (_, recordSub) => {
 										return (
 											<>
 												<Form.Item>
@@ -810,17 +831,23 @@ const OrderTable = () => {
 														<EditOutlined
 															style={{ color: 'orange' }}
 															onClick={() => {
-																setEditingRow(record.id);
-																form.setFieldValue({
-																	id: record.id,
-																	name: record.name,
-																	sku: record.sku,
-																	price: record.price,
-																	product_id: record.product_id,
-																	qty_ordered: record.qty_ordered,
-																	supplier: record.supplier,
-																	supplier_cost: record.supplier_cost,
+																setEditingRow(recordSub.id);
+																console.log(
+																	'setEditingRow recordSub: ',
+																	recordSub
+																);
+
+																form.setFieldsValue({
+																	id: recordSub.id,
+																	name: recordSub.name,
+																	sku: recordSub.sku,
+																	price: recordSub.price,
+																	product_id: recordSub.product_id,
+																	qty_ordered: recordSub.qty_ordered,
+																	supplier: recordSub.supplier,
+																	supplier_cost: recordSub.supplier_cost,
 																});
+																console.log('form', form.getFieldsValue(true));
 															}}
 														/>
 														<DeleteOutlined
@@ -829,7 +856,7 @@ const OrderTable = () => {
 														/>
 														<SaveOutlined
 															style={{ color: 'green' }}
-															onClick={handleSaveSub}
+															onClick={() => handleSaveSub(record.key)}
 														/>
 														<GlobalOutlined
 															style={{ color: 'blue' }}
