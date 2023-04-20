@@ -41,7 +41,6 @@ function App() {
 				</Route>
 				<Route path='/po' element={<PoForm />} />
 				<Route path='/items' element={<Items />} />
-				<Route path='/drawer' element={<Drawer />} />
 			</Routes>
 		</>
 	);
