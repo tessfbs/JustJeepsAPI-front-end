@@ -4,6 +4,8 @@ import {
 	DeleteOutlined,
 	SaveOutlined,
 	GlobalOutlined,
+	CloseOutlined,
+	CheckOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
@@ -17,10 +19,12 @@ import {
 	Modal,
 	Form,
 	message,
+	Drawer,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save } from '../../icons';
 import DrawerSupplier from '../drawer/DrawerSupplier';
+import ProductTable from '../items/ProductTable';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -31,6 +35,8 @@ const OrderTable = () => {
 	const searchInput = useRef(null);
 	const [editingRow, setEditingRow] = useState(null);
 	const [form] = Form.useForm();
+	const [open, setOpen] = useState(false);
+	const [placement, setPlacement] = useState('top');
 
 	//initial loading data
 	useEffect(() => {
@@ -600,6 +606,14 @@ const OrderTable = () => {
 		...order,
 	}));
 
+	//drawer
+	const showDrawer = () => {
+		setOpen(true);
+	};
+	const onClose = () => {
+		setOpen(false);
+	};
+
 	return (
 		<>
 			<div className='container-xxl mt-5'>
@@ -839,7 +853,7 @@ const OrderTable = () => {
 														/>
 														<GlobalOutlined
 															style={{ color: 'blue' }}
-															// onClick={showDrawer}
+															onClick={showDrawer}
 														/>
 													</Space>
 												</Form.Item>
@@ -864,6 +878,15 @@ const OrderTable = () => {
 					/>
 				</Form>
 			</div>
+			<Drawer
+				title='Your special Helper here! '
+				placement={placement}
+				width={300}
+				onClose={onClose}
+				open={open}
+			>
+				<ProductTable />
+			</Drawer>
 		</>
 	);
 };
