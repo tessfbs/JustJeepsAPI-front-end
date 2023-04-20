@@ -295,6 +295,7 @@ app.post('/order_products/:id/edit', async (req, res) => {
 			qty_ordered,
 			supplier,
 			supplier_cost,
+			
 		} = req.body;
 		const updatedOrderProduct = await prisma.orderProduct.update({
 			where: {
