@@ -20,6 +20,7 @@ import {
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save } from '../../icons';
+import DrawerSupplier from '../drawer/DrawerSupplier';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -31,6 +32,7 @@ const OrderTable = () => {
 	const [editingRow, setEditingRow] = useState(null);
 	const [form] = Form.useForm();
 
+	//initial loading data
 	useEffect(() => {
 		loadData();
 	}, []);
@@ -38,7 +40,7 @@ const OrderTable = () => {
 	//load all data
 	const loadData = async () => {
 		setLoading(true);
-		const response = await axios.get('http://localhost:8080/api/orders'); //orderProductsJoin.json //api/orders
+		const response = await axios.get('http://localhost:8080/api/orders'); //orderProductsJoin.json //http://localhost:8080/api/orders
 
 		setOrders(response.data);
 		setLoading(false);
@@ -48,11 +50,11 @@ const OrderTable = () => {
 	const handleDeleteOrder = record => {
 		console.log('handleDeleteOrder record: ', record);
 		Modal.confirm({
-			title: 'Are you sure to delete this order?',
+			title: 'Are you sure to cancel this order?',
 			okText: 'Yes',
 			okType: 'danger',
 			onOk: () => {
-				deleteOrder(record);
+				// deleteOrder(record); need delete backend
 				setOrders(pre => {
 					return pre.filter(order => order.entity_id !== record.entity_id);
 				});
@@ -60,21 +62,19 @@ const OrderTable = () => {
 		});
 		const id = record.entity_id;
 		return axios
-			.delete(`http://localhost:8080/api/orders/${id}/delete`, data)
+			.post(`http://localhost:8080/api/orders/${id}/delete`, data)
 			.then(response => {
-				console.log('response', response);
 				setOrders(response.data);
 			});
 	};
 	// delete an backend order
-	// const deleteOrder = async order => {
-	// 	console.log('deleteOrder order: ', order);
-	// 	const id = order.entity_id;
-	// 	const response = await axios.delete(
-	// 		`http://localhost:8080/api/orders/${id}/delete`
-	// 	);
-	// 	setOrders(response.data);
-	// };
+	const deleteOrder = async order => {
+		const id = order.entity_id;
+		const response = await axios.post(
+			`http://localhost:8080/api/orders/${id}/delete`
+		);
+		setOrders(response.data);
+	};
 
 	// console.log('orders', orders);
 	//delete an order-item
@@ -91,8 +91,6 @@ const OrderTable = () => {
 
 	// delete backend order-product
 	const deleteOrderItem = async id => {
-		console.log('id: ', id);
-
 		return axios
 			.delete(`http://localhost:8080/order_products/${id}/delete`)
 			.then(response => {
@@ -102,11 +100,74 @@ const OrderTable = () => {
 	};
 
 	//handle save button sub row button
-	const handleSaveSub = () => {
-		console.log('save sub button');
+	const handleSaveSub = key => {
+		form
+			.validateFields()
+			.then(values => {
+				onFinishSub(key, values);
+				updateOrderItem(values);
+			})
+			.catch(error => {
+				console.log('error', error);
+			});
+	};
+	const onFinishSub = (key, values) => {
+		const updatedOrders = [...orders]; //make a copy of the orders
+		const parentItem = updatedOrders.find(order => {
+			//find that order
+			return order.entity_id === key;
+		});
+		const index = parentItem.items.findIndex(obj => {
+			//find the particular item row
+			return obj.id === editingRow;
+		});
+
+		updatedOrders.splice(index, 1, {
+			//remove the item, replace with the new value
+			...values,
+			key: index,
+		});
+
+		setOrders(updatedOrders); //update orders
+		setEditingRow(null);
+	};
+
+	const updateOrderItem = async subRowRecord => {
+		const { id } = subRowRecord;
+
+		return axios
+			.post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
+			.then(data => {
+				let parentIndex;
+				let parentItem;
+				orders.forEach((order, index) => {
+					if (order.entity_id === data.data.order_id) {
+						parentItem = order;
+						parentIndex = index; //give the index to the order
+					}
+				});
+				//find index
+				const index = parentItem.items.findIndex(order => {
+					return order.id === data.data.id;
+				});
+				//make copy
+				const modifiedParentItems = [...parentItem.items];
+				//replace with new value
+				modifiedParentItems.splice(index, 1, subRowRecord);
+				//modified the order items
+				const modifiedParent = { ...parentItem, items: modifiedParentItems };
+				//make copy of all orders
+				const copyOrders = [...orders];
+				//update the order
+				copyOrders.splice(parentIndex, 1, modifiedParent);
+				console.log('copyOrders: ', copyOrders);
+				//set state
+				setOrders(copyOrders);
+			});
 	};
 
 	//handle save button main row button
+	//need promise to make it work
 	const handleSave = () => {
 		form
 			.validateFields()
@@ -121,16 +182,12 @@ const OrderTable = () => {
 
 	//update orders frontend
 	const onFinish = values => {
-		console.log('values: ', values);
 		const updatedOrders = [...orders];
 		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
 		updatedOrders.splice(index, 1, {
 			...values,
 			key: index,
 		});
-		console.log('values: ', values);
-		console.log('editingRow: ', editingRow);
-		console.log('updatedOrders: ', updatedOrders);
 
 		setOrders(updatedOrders);
 		setEditingRow(null);
@@ -148,10 +205,10 @@ const OrderTable = () => {
 		} = formObj;
 
 		return axios
-			.put(`http://localhost:8080/api/orders/${entity_id}/edit`)
+			.post(`http://localhost:8080/api/orders/${entity_id}/edit`)
 			.then(() => {
 				setOrders({
-					...state,
+					...state, //state is not defined
 					customer_email,
 					customer_firstname,
 					customer_lastname,
@@ -557,7 +614,7 @@ const OrderTable = () => {
 									dataIndex: 'id',
 									key: 'id',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='id'
@@ -581,10 +638,10 @@ const OrderTable = () => {
 									dataIndex: 'name',
 									key: 'name',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='id'
+													name='name'
 													rules={[
 														{
 															required: true,
@@ -605,7 +662,7 @@ const OrderTable = () => {
 									dataIndex: 'sku',
 									key: 'sku',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='sku'
@@ -629,7 +686,7 @@ const OrderTable = () => {
 									dataIndex: 'price',
 									key: 'price',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='price'
@@ -653,7 +710,7 @@ const OrderTable = () => {
 									dataIndex: 'product_id',
 									key: 'product_id',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='product_id'
@@ -677,7 +734,7 @@ const OrderTable = () => {
 									dataIndex: 'qty_ordered',
 									key: 'qty_ordered',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
 													name='qty_ordered'
@@ -698,13 +755,13 @@ const OrderTable = () => {
 								},
 								{
 									title: 'Supplier',
-									dataIndex: 'supplier',
-									key: 'supplier',
+									dataIndex: 'selected_supplier',
+									key: 'selected_supplier',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='supplier'
+													name='selected_supplier'
 													rules={[
 														{
 															required: true,
@@ -722,17 +779,17 @@ const OrderTable = () => {
 								},
 								{
 									title: 'Supplier Cost',
-									dataIndex: 'supplier_cost',
-									key: 'supplier_cost',
+									dataIndex: 'selected_supplier_cost',
+									key: 'selected_supplier_cost',
 									render: (text, record) => {
-										if (editingRow === record.key) {
+										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='supplier_cost'
+													name='selected_supplier_cost'
 													rules={[
 														{
 															required: true,
-															message: 'supplier_cost is required',
+															message: 'selected_supplier_cost is required',
 														},
 													]}
 												>
@@ -748,7 +805,7 @@ const OrderTable = () => {
 									title: 'Action',
 									dataIndex: 'operation',
 									key: 'operation',
-									render: (_, record) => {
+									render: (_, recordSub) => {
 										return (
 											<>
 												<Form.Item>
@@ -756,30 +813,33 @@ const OrderTable = () => {
 														<EditOutlined
 															style={{ color: 'orange' }}
 															onClick={() => {
-																setEditingRow(record.key);
-																form.setFieldValue({
-																	id: id,
-																	name: name,
-																	sku: sku,
-																	price: price,
-																	product_id: product_id,
-																	qty_ordered: qty_ordered,
-																	supplier: supplier,
-																	supplier_cost: supplier_cost,
+																//use recordSub instead of record to avoid override record because we need the order key
+																setEditingRow(recordSub.id); //also need to use id, not key
+																form.setFieldsValue({
+																	id: recordSub.id,
+																	name: recordSub.name,
+																	sku: recordSub.sku,
+																	price: recordSub.price,
+																	product_id: recordSub.product_id,
+																	qty_ordered: recordSub.qty_ordered,
+																	selected_supplier:
+																		recordSub.selected_supplier,
+																	selected_supplier_cost:
+																		recordSub.selected_supplier_cost,
 																});
 															}}
 														/>
-														<DeleteOutlined
+														{/* <DeleteOutlined
 															style={{ color: 'red' }}
 															onClick={() => handleDeleteOrderItem(record)}
-														/>
+														/> */}
 														<SaveOutlined
 															style={{ color: 'green' }}
-															onClick={handleSaveSub}
+															onClick={() => handleSaveSub(record.key)}
 														/>
 														<GlobalOutlined
 															style={{ color: 'blue' }}
-															onClick={showDrawer}
+															// onClick={showDrawer}
 														/>
 													</Space>
 												</Form.Item>
@@ -787,25 +847,13 @@ const OrderTable = () => {
 										);
 									},
 								},
-								// {
-								// 	title: 'Order_id',
-								// 	dataIndex: 'order_id',
-								// 	key: 'order_id',
-								// },
-								// {
-								// 	title: 'Supplier',
-								// 	dataIndex: 'supplier_name',
-								// 	key: 'supplier_name',
-								// },
 							];
 							return (
-								<Form form={form}>
-									<Table
-										columns={nestedColumns}
-										dataSource={record.items}
-										pagination={false}
-									/>
-								</Form>
+								<Table
+									columns={nestedColumns}
+									dataSource={record.items}
+									pagination={false}
+								/>
 							);
 						}}
 						dataSource={data}
