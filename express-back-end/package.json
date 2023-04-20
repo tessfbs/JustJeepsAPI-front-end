@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "seed-hard-code": "node prisma/seeds/seed-hard-code.js"
+    "seed-hard-code": "node prisma/seeds/seed-hard-code.js",
+    "seed-po": "node prisma/seeds/seed-individual/seed-po.js"
   },
   "repository": {
     "type": "git",
