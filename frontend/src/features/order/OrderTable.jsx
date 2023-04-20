@@ -203,9 +203,6 @@ const OrderTable = () => {
 			...values,
 			key: index,
 		});
-		console.log('values: ', values);
-		console.log('editingRow: ', editingRow);
-		console.log('updatedOrders: ', updatedOrders);
 
 		setOrders(updatedOrders);
 		setEditingRow(null);
@@ -223,7 +220,7 @@ const OrderTable = () => {
 		} = formObj;
 
 		return axios
-			.put(`http://localhost:8080/api/orders/${entity_id}/edit`)
+			.post(`http://localhost:8080/api/orders/${entity_id}/edit`)
 			.then(() => {
 				setOrders({
 					...state,
@@ -831,12 +828,8 @@ const OrderTable = () => {
 														<EditOutlined
 															style={{ color: 'orange' }}
 															onClick={() => {
-																setEditingRow(recordSub.id);
-																console.log(
-																	'setEditingRow recordSub: ',
-																	recordSub
-																);
-
+																//use recordSub instead of record to avoid override record because we need the order key
+																setEditingRow(recordSub.id); //also need to use id, not key
 																form.setFieldsValue({
 																	id: recordSub.id,
 																	name: recordSub.name,
@@ -868,16 +861,6 @@ const OrderTable = () => {
 										);
 									},
 								},
-								// {
-								// 	title: 'Order_id',
-								// 	dataIndex: 'order_id',
-								// 	key: 'order_id',
-								// },
-								// {
-								// 	title: 'Supplier',
-								// 	dataIndex: 'supplier_name',
-								// 	key: 'supplier_name',
-								// },
 							];
 							return (
 								<Table
