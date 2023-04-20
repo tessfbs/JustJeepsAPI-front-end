@@ -1,20 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
-} from '@ant-design/icons';
-import { Layout, Menu, Button, theme } from 'antd';
+} from "@ant-design/icons";
+import { Layout, Menu, Button, theme } from "antd";
+import PoTableTest from "./PoTableTest";
 
 const { Header, Sider, Content } = Layout;
 
 export const PoForm = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [currentNav, setCurrentNav] = useState("nav1");
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const handleNavClick = (e) => {
+    setCurrentNav(e.key);
+  };
 
   return (
     <Layout>
@@ -23,24 +31,25 @@ export const PoForm = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
+          defaultSelectedKeys={["1"]}
           items={[
             {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'nav 1',
-            },
-            {
-              key: '2',
+              key: "nav1",
               icon: <VideoCameraOutlined />,
-              label: 'nav 2',
+              label: "Keystone",
             },
             {
-              key: '3',
+              key: "nav2",
+              icon: <UserOutlined />,
+              label: "Meyer",
+            },
+            {
+              key: "nav3",
               icon: <UploadOutlined />,
-              label: 'nav 3',
+              label: "Omix-Ada",
             },
           ]}
+          onSelect={handleNavClick}
         />
       </Sider>
       <Layout>
@@ -50,25 +59,36 @@ export const PoForm = () => {
             icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
             onClick={() => setCollapsed(!collapsed)}
             style={{
-              fontSize: '16px',
+              fontSize: "16px",
               width: 64,
               height: 64,
             }}
-          />
+          />{" "}
+          PURCHASE ORDERS DETAILS
         </Header>
         <Content
           style={{
-            margin: '24px 16px',
+            margin: "24px 16px",
             padding: 24,
             minHeight: 280,
             background: colorBgContainer,
           }}
         >
-          Content
+          {currentNav === "nav1" ? (
+            <div>
+              <PoTableTest vendorId="1" for Keystone />
+            </div>
+          ) : currentNav === "nav2" ? (
+            <div>
+              <PoTableTest vendorId="2" for Meyer />
+            </div>
+          ) : currentNav === "nav3" ? (
+            <div>
+              <PoTableTest vendorId="3" for Omix />
+            </div>
+          ) : null}
         </Content>
       </Layout>
     </Layout>
   );
 };
-
-export default PoForm;

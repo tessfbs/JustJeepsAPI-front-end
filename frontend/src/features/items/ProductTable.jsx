@@ -7,7 +7,6 @@ const ProductTable = () => {
   const [data, setData] = useState([]);
   const [searchTermSku, setSearchTermSku] = useState("");
 
-
   //search by sku
   useEffect(() => {
     const getProductBySku = async () => {
