@@ -10,7 +10,6 @@ import { NumericFormat } from "react-number-format";
 
 export const DashBoard = () => {
   const { state } = useDashboardData();
-
   return (
     <div className="dashboard">
       <Sidebar />
@@ -36,10 +35,10 @@ export const DashBoard = () => {
               />
             }
           />
-          <Widget type="totalqtyorder" />
+          <Widget type="totalqtyorder"  value={state.totalQty}/>
         </div>
         <div className="charts">
-          <Featured />
+          <Featured value={[state.totalCurMonth,state.totalLastMonth]}/>
           <Chart
             aspect={3 / 1}
             title="This year (Revenue)"
@@ -48,7 +47,7 @@ export const DashBoard = () => {
         </div>
         <div className="listContainer">
           <div className="listTitle">Order Status</div>
-          <List />
+          <List value={state.orders}/>
         </div>
       </div>
     </div>

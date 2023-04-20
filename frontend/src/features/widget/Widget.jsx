@@ -56,7 +56,7 @@ const Widget = (props) => {
       break;
     case "totalqtyorder":
       data = {
-        title: "total quantity ordered",
+        title: "TOTAL QUANTITY ORDERED",
         isMoney: false,
         icon: (
           <ShoppingCartOutlinedIcon

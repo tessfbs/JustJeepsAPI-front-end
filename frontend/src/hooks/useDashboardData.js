@@ -7,6 +7,10 @@ const useDashboardData = () => {
     totalByMonth: {},
     totalCount: 0,
     aveValue:0,
+    totalQty:0,
+    totalCurMonth:0,
+    totalLastMonth:0,
+    orders:[],
   });
 
   useEffect(() => {
@@ -18,10 +22,14 @@ const useDashboardData = () => {
         ]);
         setState((prev) => ({
           ...prev,
+          orders: all[0].data.orders,
           totalByMonth: all[0].data.total_by_month,
-          totalSum: all[1].data.total_sum,
+          totalCurMonth: all[0].data.total_this_month,
+          totalLastMonth: all[0].data.total_last_month,
+          totalSum: all[1].data.totalSum,
           totalCount: all[1].data.count,
           aveValue: all[1].data.avg,
+          totalQty: all[1].data.totalQty,
         }));
       } catch (error) {
         console.error("Failed to fetch data from backend:", error);
