@@ -2,6 +2,7 @@ const Express = require('express');
 const { format, parseISO } = require('date-fns');
 const app = Express();
 const BodyParser = require('body-parser');
+const BodyParser = require('body-parser');
 const PORT = 8080;
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
@@ -291,8 +292,8 @@ app.post('/order_products/:id/edit', async (req, res) => {
 			price_incl_tax,
 			product_id,
 			qty_ordered,
-			supplier,
-			supplier_cost,
+			selected_supplier,
+			selected_supplier_cost,
 		} = req.body;
 		const updatedOrderProduct = await prisma.orderProduct.update({
 			where: {
@@ -311,8 +312,8 @@ app.post('/order_products/:id/edit', async (req, res) => {
 				price_incl_tax: price_incl_tax,
 				product_id: product_id,
 				qty_ordered: qty_ordered,
-				supplier: supplier,
-				supplier_cost: supplier_cost,
+				selected_supplier: selected_supplier,
+				selected_supplier_cost: selected_supplier_cost,
 			},
 		});
 		res.json(updatedOrderProduct);

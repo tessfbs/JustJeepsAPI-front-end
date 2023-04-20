@@ -760,13 +760,13 @@ const OrderTable = () => {
 								},
 								{
 									title: 'Supplier',
-									dataIndex: 'supplier',
-									key: 'supplier',
+									dataIndex: 'selected_supplier',
+									key: 'selected_supplier',
 									render: (text, record) => {
 										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='supplier'
+													name='selected_supplier'
 													rules={[
 														{
 															required: true,
@@ -784,17 +784,17 @@ const OrderTable = () => {
 								},
 								{
 									title: 'Supplier Cost',
-									dataIndex: 'supplier_cost',
-									key: 'supplier_cost',
+									dataIndex: 'selected_supplier_cost',
+									key: 'selected_supplier_cost',
 									render: (text, record) => {
 										if (editingRow === record.id) {
 											return (
 												<Form.Item
-													name='supplier_cost'
+													name='selected_supplier_cost'
 													rules={[
 														{
 															required: true,
-															message: 'supplier_cost is required',
+															message: 'selected_supplier_cost is required',
 														},
 													]}
 												>
@@ -827,8 +827,10 @@ const OrderTable = () => {
 																	price: recordSub.price,
 																	product_id: recordSub.product_id,
 																	qty_ordered: recordSub.qty_ordered,
-																	supplier: recordSub.supplier,
-																	supplier_cost: recordSub.supplier_cost,
+																	selected_supplier:
+																		recordSub.selected_supplier,
+																	selected_supplier_cost:
+																		recordSub.selected_supplier_cost,
 																});
 																console.log('form', form.getFieldsValue(true));
 															}}
