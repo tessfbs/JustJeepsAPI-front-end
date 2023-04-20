@@ -61,7 +61,7 @@ const OrderTable = () => {
 		});
 		const id = record.entity_id;
 		return axios
-			.delete(`http://localhost:8080/api/orders/${id}/delete`, data)
+			.post(`http://localhost:8080/api/orders/${id}/delete`, data)
 			.then(response => {
 				console.log('response', response);
 				setOrders(response.data);
@@ -95,7 +95,7 @@ const OrderTable = () => {
 		console.log('id: ', id);
 
 		return axios
-			.delete(`http://localhost:8080/order_products/${id}/delete`)
+			.post(`http://localhost:8080/order_products/${id}/delete`)
 			.then(response => {
 				console.log('response', response);
 				setOrders(response.data);
@@ -129,32 +129,26 @@ const OrderTable = () => {
 			...values,
 			key: index,
 		});
-		console.log('onFinishSub values: ', values);
-		console.log('onFinishSub editingRow: ', editingRow);
-		console.log('onFinishSub updatedOrders: ', updatedOrders);
 
 		setOrders(updatedOrders);
 		setEditingRow(null);
 	};
 
 	const updateOrderItem = async subRowRecord => {
-		console.log('subRowRecord: ', subRowRecord);
-
 		const {
 			id,
-			name,
-			sku,
-			price,
-			product_id,
-			qty_ordered,
-			supplier,
-			supplier_cost,
+			// name,
+			// sku,
+			// price,
+			// product_id,
+			// qty_ordered,
+			// supplier,
+			// supplier_cost,
 		} = subRowRecord;
 
 		return axios
 			.post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
 			.then(data => {
-				// console.log('data', data);
 				let parentIndex;
 				let parentItem;
 				orders.forEach((order, index) => {
@@ -164,13 +158,12 @@ const OrderTable = () => {
 					}
 				});
 
-				// console.log(' parentItem.items: ', parentItem.items);
 				const index = parentItem.items.findIndex(order => {
 					return order.id === data.data.id;
 				});
 				const modifiedParentItems = [...parentItem.items];
 				modifiedParentItems.splice(index, 1, subRowRecord);
-				// console.log('modifiedParent: ', modifiedParentItems);
+
 				const modifiedParent = { ...parentItem, items: modifiedParentItems };
 				const copyOrders = [...orders];
 
@@ -182,6 +175,7 @@ const OrderTable = () => {
 	};
 
 	//handle save button main row button
+	//need promise to make it work
 	const handleSave = () => {
 		form
 			.validateFields()
@@ -196,7 +190,6 @@ const OrderTable = () => {
 
 	//update orders frontend
 	const onFinish = values => {
-		console.log('values: ', values);
 		const updatedOrders = [...orders];
 		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
 		updatedOrders.splice(index, 1, {
