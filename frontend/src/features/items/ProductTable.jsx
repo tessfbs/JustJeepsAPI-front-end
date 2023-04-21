@@ -62,10 +62,15 @@ const ProductTable = props => {
 					const margin = ((price - vendor_cost) / price) * 100;
 					const className = margin < 20 ? 'red-margin' : '';
 					return (
-						<div
+						// <div
+						// 	key={vendorProduct.vendor_id}
+						// 	className={className}
+						// >{`${margin.toFixed(2)}%`}</div>
+						<CopyText
 							key={vendorProduct.vendor_id}
 							className={className}
-						>{`${margin.toFixed(2)}%`}</div>
+							text={`${margin.toFixed(2)}%`}
+						/>
 					);
 				});
 			},
