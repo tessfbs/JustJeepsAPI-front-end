@@ -209,26 +209,20 @@ const OrderTable = () => {
 			total_qty_ordered,
 		} = formObj;
 
-		return axios
-			.post(`http://localhost:8080/api/orders/${entity_id}/edit`)
-			.then(() => {
-				setOrders({
-					...state, //state is not defined
-					customer_email,
-					customer_firstname,
-					customer_lastname,
-					grand_total,
-					total_qty_ordered,
-				});
-				// setOrders(prev => ({
-				// 	...prev,
-				// 	customer_email,
-				// 	customer_firstname,
-				// 	customer_lastname,
-				// 	grand_total,
-				// 	total_qty_ordered,
-				// }));
-			});
+		return axios.post(
+			`http://localhost:8080/api/orders/${entity_id}/edit`,
+			formObj
+		);
+		// .then(() => {
+		// 	// setOrders({
+		// 	// 	...state, //state is not defined
+		// 	// 	customer_email,
+		// 	// 	customer_firstname,
+		// 	// 	customer_lastname,
+		// 	// 	grand_total,
+		// 	// 	total_qty_ordered,
+		// 	// });
+		// });
 	};
 
 	//sort

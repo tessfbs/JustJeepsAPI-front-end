@@ -180,19 +180,20 @@ app.get('/api/orders/:id', async (req, res) => {
 // Route for updating an order status
 app.post('/api/orders/:id/edit', async (req, res) => {
 	try {
+		console.log(req.body);
 		const order = await prisma.order.update({
 			where: {
 				entity_id: Number(req.params.id),
 			},
 			data: {
-				status: req.body.status,
+				// status: req.body.status,
 				customer_email: req.body.customer_email,
-				coupon_code: req.body.coupon_code,
+				// coupon_code: req.body.coupon_code,
 				customer_firstname: req.body.customer_firstname,
 				customer_lastname: req.body.customer_lastname,
 				grand_total: req.body.grand_total,
-				increment_id: req.body.increment_id,
-				order_currency_code: req.body.order_currency_code,
+				// increment_id: req.body.increment_id,
+				// order_currency_code: req.body.order_currency_code,
 				total_qty_ordered: req.body.total_qty_ordered,
 			},
 		});
