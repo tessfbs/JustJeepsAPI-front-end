@@ -69,17 +69,47 @@ const Widget = (props) => {
         ),
       };
       break;
+      case "numproduct":
+      data = {
+        title: "NUMBER OF PRODUCTS",
+        isMoney: false,
+        icon: (
+          <ShoppingCartOutlinedIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(128, 0, 128, 0.2)",
+              color: "purple",
+            }}
+          />
+        ),
+      };
+      break;
+      case "totalordered":
+      data = {
+        title: "TOTAL PRODUCTS ORDERED",
+        isMoney: false,
+        icon: (
+          <ShoppingCartOutlinedIcon
+            className="icon"
+            style={{
+              backgroundColor: "rgba(128, 0, 128, 0.2)",
+              color: "purple",
+            }}
+          />
+        ),
+      };
+      break;
     default:
       break;
   }
 
   return (
     <div className="widget">
-      <div className="left">
-        <span className="title">{data.title}</span>
-        <span className="counter">{data.isMoney && "$"}{amount}</span>
+      <div className="leftw">
+        <div className="title">{data.title}</div>
+        <div className="counter">{data.isMoney && "$"}{amount}</div>
       </div>
-      <div className="right">
+      <div className="rightw">
         {data.icon}
       </div>
     </div>

@@ -559,23 +559,65 @@ app.get("/totalGrandTotalByMonth", async (req, res) => {
   }
 });
 
-// // Route for get all orders
-// app.get('/allOrders',async (req,res)=>{
-// 	try {
-// 		const orders = await prisma.order.findMany();
-// 	} catch (error) {
-
-// 	}
-// })
-// Route for total orders
-
-//Route for testing queryRaw
-app.get("/testraw", async (req, res) => {
+// // Route for get all products info
+app.get("/productinfo", async (req, res) => {
   try {
-    const results = await prisma.$queryRaw`select count(*) from "Order"`;
-    res.json({ result: Number(results[0].count) });
+    const countProduct = await prisma.product.aggregate({
+      _count: {
+        _all: true,
+      },
+    });
+    const orderProduct = await prisma.orderProduct.aggregate({
+      _sum: {
+        qty_ordered: true,
+      },
+    });
+    res.json({
+      numProduct: countProduct._count._all,
+      totalSold: orderProduct._sum.qty_ordered,
+    });
   } catch (error) {
-    console.error(`Error Testing Raw sql: ${error}`);
+    console.error(`Error getting products info: ${error}`);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Route for top 10 popular products
+app.get("/toppopularproduct", async (req, res) => {
+  const result3 = [];
+  try {
+    const result1 = await prisma.orderProduct.groupBy({
+      by: ["sku"],
+      _sum: {
+        qty_ordered: true,
+      },
+      orderBy: {
+        _sum: {
+          qty_ordered: "desc",
+        },
+      },
+      take: 10,
+    });
+    // const result3 = result1.map(async (item) => {
+    //   const result2 = await prisma.product.findUnique({
+    //     where: {
+    //       sku:item.sku,
+    //     }
+    //   });
+    //   return result2;
+    // })
+    // const result = await Promise.all(result3);
+    for (let i = 0; i < result1.length; i++) {
+      const result2 = await prisma.product.findUnique({
+        where: {
+          sku: result1[i].sku,
+        },
+      });
+      result3.push({...result1[i]._sum,...result2});
+    }
+    res.json(result3);
+  } catch (error) {
+    console.error(`Error getting top 10 popular products info: ${error}`);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

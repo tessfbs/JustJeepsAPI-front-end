@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useDashboardData = () => {
+export const useDashboardData = () => {
   const [state, setState] = useState({
     totalSum: 0,
     totalByMonth: {},
@@ -41,4 +41,37 @@ const useDashboardData = () => {
   return { state };
 };
 
-export default useDashboardData;
+export const useDashboardpoData = () => {
+  const [state, setState] = useState({
+    numProduct: 0,
+    totalSold: 0,
+    topPopular: []
+  });
+
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        try {
+          const all = await Promise.all([
+            axios.get(`http://localhost:8080/productinfo`),
+            axios.get(`http://localhost:8080/toppopularproduct`),
+          ]);
+          setState((prev) => ({
+            ...prev,
+            numProduct: all[0].data.numProduct,
+            totalSold:all[0].data.totalSold,
+            topPopular: all[1].data,
+          }));
+        } catch (error) {
+          console.error("Failed to fetch data from backend:", error);
+        }
+      };
+      fetchData();
+      
+    } catch (error) {
+      
+    }
+  },[]
+  );
+  return { state };
+}

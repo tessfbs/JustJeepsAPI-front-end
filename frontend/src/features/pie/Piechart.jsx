@@ -40,7 +40,7 @@ const Piechart = () => {
 
   return (
     <div className="piechart">
-      <ResponsiveContainer width="100%" aspect={2 / 1}>
+      <ResponsiveContainer width="100%" aspect={3.48 / 1}>
         <PieChart width={800} height={800}>
           <Pie
             data={data}
@@ -48,7 +48,7 @@ const Piechart = () => {
             cy="50%"
             labelLine={false}
             label={renderCustomizedLabel}
-            outerRadius={150}
+            outerRadius={120}
             fill="#8884d8"
             dataKey="value"
           >
