@@ -941,7 +941,9 @@ const OrderTable = () => {
 							style={{
 								color: 'black',
 							}}
-							onClick={() => resetDrawer}
+							onClick={() => {
+								resetDrawer();
+							}}
 						/>
 					</Space>
 				</div>
