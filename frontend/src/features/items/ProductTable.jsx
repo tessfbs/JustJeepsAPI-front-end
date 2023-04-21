@@ -46,7 +46,7 @@ const ProductTable = props => {
 				vendorProducts.map(vendorProduct => (
 					<CopyText
 						key={vendorProduct.id}
-						text={`$${vendorProduct.vendor_cost}`}
+						text={`${vendorProduct.vendor_cost}`}
 					/>
 				)),
 		},
