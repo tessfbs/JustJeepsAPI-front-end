@@ -11,14 +11,8 @@ import {
 	Space,
 } from 'antd';
 
-const PoPopUp = () => {
-	const [open, setOpen] = useState(false);
-	const showDrawer = () => {
-		setOpen(true);
-	};
-	const onClose = () => {
-		setOpen(false);
-	};
+const PoPopUp = ({ position, onClosePo, currentInfo }) => {
+	const [dataPo, setDataPo] = useState();
 
 	return (
 		<>
@@ -39,7 +33,7 @@ const PoPopUp = () => {
 					</Space>
 				}
 			>
-				<Form layout='vertical' hideRequiredMark>
+				<Form layout='vertical'>
 					<Row gutter={16}>
 						<Col span={12}>
 							<Form.Item
