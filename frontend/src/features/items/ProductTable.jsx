@@ -1,4 +1,5 @@
 import { Table } from 'antd';
+import CopyText from '../copyText/CopyText';
 
 const ProductTable = props => {
 	const columns_by_sku = [
@@ -34,7 +35,8 @@ const ProductTable = props => {
 			key: 'vendor_id',
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
-					<div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
+					// <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
+					<CopyText key={vendorProduct.id} text={vendorProduct.vendor.name} />
 				)),
 		},
 		{
@@ -43,7 +45,11 @@ const ProductTable = props => {
 			key: 'vendor_cost',
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
-					<div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
+					// <div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
+					<CopyText
+						key={vendorProduct.id}
+						text={`$${vendorProduct.vendor_cost}`}
+					/>
 				)),
 		},
 		{
