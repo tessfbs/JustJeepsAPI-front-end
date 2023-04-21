@@ -47,6 +47,7 @@ const PurchaseOrderTable = ({ vendorId }) => {
 
   const expandedRowRender = (record) => {
     const poLineItems = record.purchaseOrderLineItems;
+    console.log("poLineItems", poLineItems);
     const columns = [
       {
         title: "Product SKU",
@@ -60,8 +61,8 @@ const PurchaseOrderTable = ({ vendorId }) => {
       },
       {
         title: "Vendor Cost",
-        dataIndex: ["vendorProduct", "vendor_cost"],
-        key: "vendorProduct.vendor_cost",
+        dataIndex: "vendor_cost",
+        key: "vendor_cost",
       },
       {
         title: "Quantity Purchased",
@@ -77,7 +78,7 @@ const PurchaseOrderTable = ({ vendorId }) => {
     if (poLineItems && poLineItems.length) {
       const lineItemData = poLineItems.map((item) => ({
         ...item,
-        total_cost: item.vendorProduct.vendor_cost * item.quantity_purchased,
+        total_cost: item.vendor_cost * item.quantity_purchased,
       }));
       return (
         <Table columns={columns} dataSource={lineItemData} pagination={false} />
