@@ -63,6 +63,15 @@ const seedAllProducts = async () => {
           return acc;
         }, "");
 
+      const url_path =
+        custom_attributes &&
+        Object.keys(custom_attributes).reduce((acc, key) => {
+          if (custom_attributes[key].attribute_code === "url_path") {
+            return custom_attributes[key].value || "";
+          }
+          return acc;
+        }, "");
+
       // console.log("check sku", sku);
       //console.log the product when sku is undefined
       if (sku === undefined) {
@@ -100,6 +109,7 @@ const seedAllProducts = async () => {
                     media_gallery_entries[0]?.file || null
                   }`
                 : null,
+            url_path: `https://www.justjeeps.com/${url_path || null}`,
           },
         });
         // console.log(`Product with SKU ${sku} updated.`);
@@ -132,6 +142,7 @@ const seedAllProducts = async () => {
                     media_gallery_entries[0]?.file || null
                   }`
                 : null,
+            url_path: `https://www.justjeeps.com/${url_path || null}`,
           },
         });
         // console.log(`Product with SKU ${sku} created.`);
@@ -142,7 +153,6 @@ const seedAllProducts = async () => {
     console.log(`Products seeded successfully!! 
     Total products created: ${createdCount}
     Total products updated: ${updatedCount}`);
-
   } catch (error) {
     console.error("Error seeding data:", error);
   } finally {

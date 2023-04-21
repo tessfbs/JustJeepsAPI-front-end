@@ -22,6 +22,40 @@ app.get('/api/data', (req, res) =>
 	})
 );
 
+// Route for getting top 5 products by qty_ordered
+app.get('/top5skus', async (req, res) => {
+  try {
+		const top5Skus = await prisma.orderProduct.groupBy({
+      by: ['sku'],
+      _sum: {
+        qty_ordered: true,
+      },
+      orderBy: {
+        _sum: {
+          qty_ordered: 'desc',
+        },
+      },
+      take: 10,
+    });
+
+    const top5SkusWithProducts = await Promise.all(top5Skus.map(async (orderProduct) => {
+      const product = await prisma.product.findUnique({
+        where: {
+          sku: orderProduct.sku,
+        },
+      });
+      return {
+        ...orderProduct,
+        product,
+      };
+    }));
+
+    res.json(top5SkusWithProducts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 //Route for getting all products sku, only return the id
 app.get('/api/products_sku', async (req, res) => {

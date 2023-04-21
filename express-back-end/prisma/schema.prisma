@@ -65,6 +65,7 @@ model Product {
   brand_name         String?
   image              String?
   weight             Float?
+  url_path           String?
   orderProducts      OrderProduct[]
   vendorProducts     VendorProduct[]
   competitorProducts CompetitorProduct[]

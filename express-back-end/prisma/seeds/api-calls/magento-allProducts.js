@@ -11,7 +11,7 @@ async function getProductsFromPages() {
       const config = {
         method: 'get',
         maxBodyLength: Infinity,
-        url: `${baseUrl}?fields=items[sku,status,name,price,weight,media_gallery_entries[file],custom_attributes[searchable_sku]]&searchCriteria[PageSize]=5000&searchCriteria[CurrentPage]=${page}`,
+        url: `${baseUrl}?fields=items[sku,status,name,price,weight,media_gallery_entries[file],custom_attributes[searchable_sku,url_path]]&searchCriteria[PageSize]=5000&searchCriteria[CurrentPage]=${page}`,
         headers: { 
           'Authorization': token, 
           'Content-Type': 'application/json', 
