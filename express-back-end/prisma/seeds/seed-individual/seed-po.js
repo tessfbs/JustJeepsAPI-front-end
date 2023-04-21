@@ -11,13 +11,13 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 8,
-        vendor_product_id: 23086,
+        vendor_product_id: 18475,
         quantity_purchased: 5,
         vendor_cost: 0,
       },
       {
         purchase_order_id: 8,
-        vendor_product_id: 22822,
+        vendor_product_id: 18408,
         quantity_purchased: 3,
         vendor_cost: 0,
       },
@@ -30,7 +30,7 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 9,
-        vendor_product_id: 18464,
+        vendor_product_id: 18748,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
@@ -43,7 +43,7 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 10,
-        vendor_product_id: 19841,
+        vendor_product_id: 18840,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
@@ -56,7 +56,7 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 11,
-        vendor_product_id: 14710,
+        vendor_product_id: 5952,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
@@ -69,19 +69,19 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 12,
-        vendor_product_id: 12790,
+        vendor_product_id: 6251,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
       {
         purchase_order_id: 12,
-        vendor_product_id: 13109,
+        vendor_product_id: 6381,
         quantity_purchased: 4,
         vendor_cost: 0,
       },
       {
         purchase_order_id: 12,
-        vendor_product_id: 7029,
+        vendor_product_id: 6554,
         quantity_purchased: 5,
         vendor_cost: 0,
       },
@@ -94,13 +94,13 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 13,
-        vendor_product_id: 4825,
+        vendor_product_id: 661,
         quantity_purchased: 6,
         vendor_cost: 0,
       },
       {
         purchase_order_id: 13,
-        vendor_product_id: 1190,
+        vendor_product_id: 682,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
@@ -113,25 +113,25 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 15,
-        vendor_product_id: 3117,
+        vendor_product_id: 780,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
       {
         purchase_order_id: 15,
-        vendor_product_id: 5002,
+        vendor_product_id: 768,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
       {
         purchase_order_id: 15,
-        vendor_product_id: 1471,
+        vendor_product_id: 501,
         quantity_purchased: 3,
         vendor_cost: 0,
       },
       {
         purchase_order_id: 15,
-        vendor_product_id: 1492,
+        vendor_product_id: 231,
         quantity_purchased: 1,
         vendor_cost: 0,
       },
@@ -145,7 +145,7 @@ const data =  [
     purchaseOrderLineItems: [
       {
         purchase_order_id: 14,
-        vendor_product_id: 13222,
+        vendor_product_id: 3,
         quantity_purchased: 2,
         vendor_cost: 0,
       },
@@ -168,12 +168,12 @@ async function main() {
         purchase_order_id: purchaseOrder.id,
       }
     })
-
+    console.log(purchaseOrderLineItems)
     await prisma.purchaseOrderLineItem.createMany({
       data: purchaseOrderLineItems,
     })
   }
-  console.log("Purchase Orders seeded");
+  console.log(`Created ${data.length} purchase orders!`)
 }
 
 main()

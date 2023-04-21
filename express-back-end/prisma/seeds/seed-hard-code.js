@@ -441,58 +441,67 @@ const seedKeystone = async () => {
 
     // Loop through the vendorProductsData object and create/update vendor products
     for (data of keystoneData) {
-      // Check if a vendor product with the same vendor_sku already exists
-      const existingVendorProduct = await prisma.vendorProduct.findFirst({
-        where: {
-          vendor_sku: data.vendor_sku,
-        },
-      });
-
-      if (existingVendorProduct) {
-        // Vendor product already exists, update it
-
-        // Update the existing vendor product with the retrieved values and other data
-        const updatedVendorProductData = {
-          product_sku: existingVendorProduct.product_sku,
-          vendor_id: 1,
-          vendor_sku: data.vendor_sku,
-          vendor_cost: data.vendor_cost,
-          vendor_inventory: data.vendor_inventory,
-        };
-
-        await prisma.vendorProduct.update({
-          where: { id: existingVendorProduct.id },
-          data: updatedVendorProductData,
-        });
-
-        vendorProductUpdatedCount++; // Increment the updated count
-
-        //console.log to show the updated vendor product
-        // console.log(`Vendor product with vendor_sku ${data.vendor_sku} updated successfully!`);
-      } else {
-        // Vendor product doesn't exist, create it
-        const product = await prisma.product.findFirst({
+      // console.log("item", data);
+      try {
+        // Check if a vendor product with the same vendor_sku already exists
+        const existingVendorProduct = await prisma.vendorProduct.findFirst({
           where: {
-            keystone_code: data.vendor_sku,
+            vendor_sku: data.vendor_sku,
           },
         });
 
-        const newVendorProductData = {
-          product_sku: product.sku,
-          vendor_id: 1,
-          vendor_sku: data.vendor_sku,
-          vendor_cost: data.vendor_cost,
-          vendor_inventory: data.vendor_inventory,
-        };
+        if (existingVendorProduct) {
+          // Vendor product already exists, update it
 
-        await prisma.vendorProduct.create({
-          data: newVendorProductData,
-        });
+          // Update the existing vendor product with the retrieved values and other data
+          const updatedVendorProductData = {
+            product_sku: existingVendorProduct.product_sku,
+            vendor_id: 1,
+            vendor_sku: data.vendor_sku,
+            vendor_cost: data.vendor_cost,
+            vendor_inventory: data.vendor_inventory,
+          };
 
-        vendorProductCreatedCount++; // Increment the created count
+          await prisma.vendorProduct.update({
+            where: { id: existingVendorProduct.id },
+            data: updatedVendorProductData,
+          });
 
-        //console.log to show the created vendor product
-        // console.log(`Vendor product with vendor_sku ${keystoneCode} created successfully!`);
+          vendorProductUpdatedCount++; // Increment the updated count
+
+          //console.log to show the updated vendor product
+          // console.log(`Vendor product with vendor_sku ${data.vendor_sku} updated successfully!`);
+        } else {
+          // Vendor product doesn't exist, create it
+          // console.log("vendor sku", data.vendor_sku)
+          const product = await prisma.product.findFirst({
+            where: {
+              keystone_code: data.vendor_sku,
+            },
+          });
+          // console.log("product", product);
+
+          // console.log("product sku", product.sku)
+          const newVendorProductData = {
+            product_sku: product.sku,
+            vendor_id: 1,
+            vendor_sku: data.vendor_sku,
+            vendor_cost: data.vendor_cost,
+            vendor_inventory: data.vendor_inventory,
+          };
+
+          await prisma.vendorProduct.create({
+            data: newVendorProductData,
+          });
+
+          vendorProductCreatedCount++; // Increment the created count
+
+          //console.log to show the created vendor product
+          // console.log(`Vendor product with vendor_sku ${keystoneCode} created successfully!`);
+        }
+      } catch (error) {
+        // console.error("Error seeding Keystone vendor products:", error);
+        continue; // Continue to next order even if error occurs
       }
     }
 
@@ -505,5 +514,6 @@ const seedKeystone = async () => {
     await prisma.$disconnect();
   }
 };
+
 
 allseeds();

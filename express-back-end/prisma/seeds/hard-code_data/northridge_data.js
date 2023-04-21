@@ -51111,5 +51111,1755 @@ module.exports = {
         },
       ],
     },
+    {
+      "link": "https://www.northridge4x4.ca/brand/amp-research",
+      "selection1": [
+          {
+              "SKU": "MODEL #AMP75122-01A",
+              "Price": "CA$2075.66",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/75122-01a-amp-research-black-power-step"
+          },
+          {
+              "SKU": "MODEL #AMP75121-01A",
+              "Price": "CA$2075.66",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/75121-01a-amp-research-powersteps"
+          },
+          {
+              "SKU": "MODEL #AMP77140-01A",
+              "Price": "CA$2986.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/77140-01a-amp-research-power-step-xl-running-boards-led-lighting"
+          },
+          {
+              "SKU": "MODEL #AMP77135-01A",
+              "Price": "CA$2986.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/77135-01a-amp-research-powerstep-xl-led-illumination-black"
+          },
+          {
+              "SKU": "MODEL #AMP77133-01A",
+              "Price": "CA$2986.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/77133-01a-amp-research-powerstep-xl-electric-running-boards-black"
+          },
+          {
+              "SKU": "MODEL #AMP77122-01A",
+              "Price": "CA$2986.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/77122-01a-amp-research-powerstep-xl-electric-running-boards"
+          },
+          {
+              "SKU": "MODEL #AMP77121-01A",
+              "Price": "CA$2986.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/77121-01a-2007-2018-jeep-wrangler-jk-powerstep-xl-black"
+          },
+          {
+              "SKU": "MODEL #AMP77132-01A",
+              "Price": "CA$2986.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/77132-01a-amp-research-powerstep-xl-black"
+          },
+          {
+              "SKU": "MODEL #AMP78135-01A",
+              "Price": "CA$2852.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/78135-01a-amp-research-powerstep-xtreme-electric-running-boards-black"
+          },
+          {
+              "SKU": "MODEL #AMP78132-01A",
+              "Price": "CA$2852.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/78132-01a-amp-research-powerstep-xtreme-black"
+          },
+          {
+              "SKU": "MODEL #AMP78122-01A",
+              "Price": "CA$2852.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/78122-01a-amp-research-powerstep-xtreme"
+          },
+          {
+              "SKU": "MODEL #AMP78121-01A",
+              "Price": "CA$2852.86",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/78121-01a-amp-research-powerstep-xtreme"
+          },
+          {
+              "SKU": "MODEL #AMP75135-01A",
+              "Price": "CA$2745.66",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/75135-01a-amp-research-powerstep-electric-running-boards"
+          },
+          {
+              "SKU": "MODEL #AMP86132-01A",
+              "Price": "CA$2544.66",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/86132-01a-amp-research-powerstep-smart-series-running-boards-pair"
+          },
+          {
+              "SKU": "MODEL #AMP76140-01A",
+              "Price": "CA$2343.66",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/76140-01a-amp-research-powerstep-w-plug-n-play"
+          },
+          {
+              "SKU": "MODEL #AMP75132-01A",
+              "Price": "CA$2075.66",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/75132-01a-amp-research-powerstep-electric-running-boards-black"
+          },
+          {
+              "SKU": "MODEL #AMP75326-01A",
+              "Price": "CA$414.06",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/75326-01a-amp-research-bedstep-retractable-bumper-step-black"
+          },
+          {
+              "SKU": "MODEL #AMP74833-01A",
+              "Price": "CA$414.06",
+              "Price_url": "https://www.northridge4x4.ca/part/complete-racks/74833-01a-amp-research-bedxtender-hd-sport-truck-bed-extender-black"
+          },
+          {
+              "SKU": "MODEL #AMP75321-01A",
+              "Price": "CA$414.06",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/75321-01a-amp-research-bedstep-black"
+          },
+          {
+              "SKU": "MODEL #AMP75315-01A",
+              "Price": "CA$414.06",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/75315-01a-amp-research-powerstep-electric-running-boards-black"
+          },
+          {
+              "SKU": "MODEL #AMP79105-01A",
+              "Price": "CA$213.06",
+              "Price_url": "https://www.northridge4x4.ca/part/switches/79105-01a-amp-research-powerstep-override-switch-w-sta-controller"
+          }
+      ]
+  },
+  {
+      "link": "https://www.northridge4x4.ca/brand/pro-comp",
+      "selection1": [
+          {
+              "SKU": "MODEL #PCS97-7973",
+              "Price": "CA$238.98",
+              "Price_url": "https://www.northridge4x4.ca/part/non-beadlock-wheels/97-7973-pro-comp-97-series-wheel-17x9-5x5-19-05mm-offset-steel"
+          },
+          {
+              "SKU": "MODEL #PCS771237",
+              "Price": "CA$624.96",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/771237-pro-comp-37x12-50-r17-maximum-traction-tires"
+          },
+          {
+              "SKU": "MODEL #PCS51-7973",
+              "Price": "CA$226.98",
+              "Price_url": "https://www.northridge4x4.ca/part/non-beadlock-wheels/51-7973-pro-comp-series-51-steel-wheel-17x9-5x5-19mm-offset-gloss-black"
+          },
+          {
+              "SKU": "MODEL #PCS43512520",
+              "Price": "CA$574.85",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/43512520-pro-comp-35x12-50r20-all-terrain-sport-tire"
+          },
+          {
+              "SKU": "MODEL #PCS7046-7973",
+              "Price": "CA$340.48",
+              "Price_url": "https://www.northridge4x4.ca/part/non-beadlock-wheels/7046-7973-pro-comp-46-series-prodigy-wheel-17x9-5x5-satin-black"
+          },
+          {
+              "SKU": "MODEL #PCS5001-7973",
+              "Price": "CA$302.16",
+              "Price_url": "https://www.northridge4x4.ca/part/non-beadlock-wheels/5001-7973-pro-comp-xtreme-alloys-series-5001-17-x-9-5-on-5-black-wheels"
+          },
+          {
+              "SKU": "MODEL #PCS66130K",
+              "Price": "CA$300.15",
+              "Price_url": "https://www.northridge4x4.ca/part/coil-spacers/66130k-pro-comp-2in-spacer-leveling-kit"
+          },
+          {
+              "SKU": "MODEL #PCS11184B",
+              "Price": "CA$76.63",
+              "Price_url": "https://www.northridge4x4.ca/part/lug-nuts/11184b-pro-comp-black-chrome-lug-nuts-w-valve"
+          },
+          {
+              "SKU": "MODEL #PCS12128",
+              "Price": "CA$10.30",
+              "Price_url": "https://www.northridge4x4.ca/part/shock-accessories/12128-pro-comp-poly-vinyl-shock-boot-red-pair"
+          }
+      ]
+  },
+  {
+      "link": "https://www.northridge4x4.ca/brand/n-fab",
+      "selection1": [
+          {
+              "SKU": "MODEL #NFBHPJ0764-TX",
+              "Price": "CA$684.67",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj0764-tx-nfab-podium-wheel-to-wheel-nerf-steps-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ074RKR",
+              "Price": "CA$649.83",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/j074rkr-n-fab-rkr-step-system-rock-rails-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ0764",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j0764-n-fab-wheel-to-wheel-nerf-step-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ0746",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j0746-nfab-step-system-nerf-steps-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ1246",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1246-n-fab-wheel-to-wheel-steps-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ074RKRS4",
+              "Price": "CA$821.35",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j074rkrs4-nfab-rkr-step-system"
+          },
+          {
+              "SKU": "MODEL #NFBTSJ194-TX",
+              "Price": "CA$1108.11",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/tsj194-tx-n-fab-trail-slider-side-steps"
+          },
+          {
+              "SKU": "MODEL #NFBTSJ184-TX",
+              "Price": "CA$960.71",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/tsj184-tx-n-fab-trail-slider-side-steps"
+          },
+          {
+              "SKU": "MODEL #NFBHPJ1980T-SS",
+              "Price": "CA$856.19",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj1980t-ss-n-fab-podium-ss-nerf-step-system-black"
+          },
+          {
+              "SKU": "MODEL #NFBHPJ1866-SS",
+              "Price": "CA$856.19",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj1866-ss-nfab-podium-nerf-steps-polished-stainless"
+          },
+          {
+              "SKU": "MODEL #NFBHPJ0764-SS",
+              "Price": "CA$856.19",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj0764-ss-nfab-podium-wheel-to-wheel-nerf-step-polished"
+          },
+          {
+              "SKU": "MODEL #NFBHPJ0746-SS",
+              "Price": "CA$856.19",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj0746-ss-n-fab-step-system-podium-polished"
+          },
+          {
+              "SKU": "MODEL #NFBJ194TRKRS4",
+              "Price": "CA$821.35",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j194trkrs4-n-fab-rkr-step-system-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ184RKRS4",
+              "Price": "CA$821.35",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j184rkrs4-n-fab-rkr-step-system-cab-length-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBPRJ1980T-TX",
+              "Price": "CA$798.57",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/prj1980t-tx-n-fab-predator-pro-nerf-step-system-black"
+          },
+          {
+              "SKU": "MODEL #NFBPRJ1863-TX",
+              "Price": "CA$798.57",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/prj1863-tx-n-fab-predator-pro-step-system-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBHPJ1980T-TX",
+              "Price": "CA$684.67",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj1980t-tx-n-fab-podium-lg-nerf-step-system-black"
+          },
+          {
+              "SKU": "MODEL #NFBHPJ1866-TX",
+              "Price": "CA$684.67",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj1866-tx-nfab-podium-nerf-steps-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBHPJ0746-TX",
+              "Price": "CA$684.67",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/hpj0746-tx-n-fab-podium-wheel-to-wheel-nerf-step-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ194TRKR",
+              "Price": "CA$649.83",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/j194trkr-n-fab-rock-rails-rails-only-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ042RKRUS2",
+              "Price": "CA$649.83",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j042rkrus2-nfab-rkr-step-system"
+          },
+          {
+              "SKU": "MODEL #NFBJ182RKRS2",
+              "Price": "CA$649.83",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j182rkrs2-nfab-rkr-step-systems-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ972RKRS2",
+              "Price": "CA$649.83",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j972rkrs2-nfab-rkr-step-system-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ184RKR",
+              "Price": "CA$649.83",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/j184rkr-n-fab-rkr-rails-full-length-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBF2172B-TX",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/f2172b-tx-n-fab-step-systems-full-length-nerf-steps-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBF2172B",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/f2172b-n-fab-step-systems-full-length-nerf-steps-gloss-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ1980T-GB",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1980t-gb-n-fab-nerf-steps-gloss-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ1980T",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1980t-n-fab-nerf-steps-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ0764-GB",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j0764-gb-nfab-step-system-nerf-step"
+          },
+          {
+              "SKU": "MODEL #NFBJ1866-GB",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1866-gb-n-fab-nerf-step-wheel-to-wheel-gloss-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ1866",
+              "Price": "CA$596.23",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1866-n-fab-nerf-step-wheel-to-wheel-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBEXJ194T-TX",
+              "Price": "CA$590.87",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/exj194t-tx-n-fab-epyx-step-system-black"
+          },
+          {
+              "SKU": "MODEL #NFBEXJ074-TX",
+              "Price": "CA$590.87",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/exj074-tx-nfab-epyx-step-system"
+          },
+          {
+              "SKU": "MODEL #NFBEXJ184-TX",
+              "Price": "CA$590.87",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/exj184-tx-nfab-epyx-step-system"
+          },
+          {
+              "SKU": "MODEL #NFBJ182RKR",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/j182rkr-nfab-step-system-rock-rails-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ1846",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1846-nfab-nerf-step-system"
+          },
+          {
+              "SKU": "MODEL #NFBJ1246-GB",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1246-gb-nfab-nerf-step-system-gloss-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ1846-GB",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j1846-gb-nfab-nerf-step-system-gloss-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ9756U-TX",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j9756u-tx-nfab-step-system-nerf-steps-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ9756U",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j9756u-nfab-step-system-nerf-step-gloss-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ9746",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j9746-nfab-step-system-nerf-step-gloss-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ9746-TX",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/j9746-tx-nfab-step-system-nerf-steps-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFBJ972RKR",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/j972rkr-nfab-step-system-rock-rail"
+          },
+          {
+              "SKU": "MODEL #NFBJ072RKR",
+              "Price": "CA$566.75",
+              "Price_url": "https://www.northridge4x4.ca/part/rockers-sliders/j072rkr-nfab-rkr-step-system-rock-rails-textured-black"
+          },
+          {
+              "SKU": "MODEL #NFB519418012",
+              "Price": "CA$517.00",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/519418012-n-fab-nerf-step-rs"
+          },
+          {
+              "SKU": "MODEL #NFB518416612",
+              "Price": "CA$517.00",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/518416612-n-fab-nerf-steps-rs"
+          },
+          {
+              "SKU": "MODEL #NFB507416412",
+              "Price": "CA$517.00",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/507416412-n-fab-nerf-steps-rs"
+          },
+          {
+              "SKU": "MODEL #NFBEXJ072-TX",
+              "Price": "CA$447.49",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/exj072-tx-nfab-epyx-step-system"
+          },
+          {
+              "SKU": "MODEL #NFBGHS2018-TX",
+              "Price": "CA$168.77",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/ghs2018-tx-n-fab-growler-universal-hitch-step"
+          }
+      ]
+  },
+  {
+      "link": "https://www.northridge4x4.ca/brand/nitto",
+      "selection1": [
+          {
+              "SKU": "MODEL #WPRN205-880",
+              "Price": "CA$649.90",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n205-880-nitto-trail-grappler-37x12-50r-17lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN205-730",
+              "Price": "CA$541.36",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n205-730-nitto-trail-grappler-35-12-50r17-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN205-980",
+              "Price": "CA$747.72",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n205-980-nitto-trail-grappler-40x13-50r17-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-020",
+              "Price": "CA$530.64",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-020-nitto-ridge-grappler-35x12-50r17lt-e-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-050",
+              "Price": "CA$619.08",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-050-nitto-ridge-grappler-37x12-50r17lt-d-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN205-730-PACKAGE",
+              "Price": "CA$2706.80",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/n205-730-package-nitto-trail-grappler-35-12-50r17-full-tire-package"
+          },
+          {
+              "SKU": "MODEL #WPRN217-130",
+              "Price": "CA$578.88",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-130-nitto-ridge-grappler-tire-35x12-50r18lt"
+          },
+          {
+              "SKU": "MODEL #WPRN205-800",
+              "Price": "CA$730.30",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n205-800-nitto-trail-grappler-m-t-37x12-50r20lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN205-720",
+              "Price": "CA$671.34",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n205-720-nitto-trail-grappler-m-t-35x12-50r20lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN200-670",
+              "Price": "CA$552.08",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n200-670-nitto-mud-grappler-35-12-50r17lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-190",
+              "Price": "CA$517.24",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-190-nitto-ridge-grappler-lt33-12-50r18-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-180",
+              "Price": "CA$497.14",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-180-nitto-ridge-grappler-33x12-50r17lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-010",
+              "Price": "CA$415.40",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-010-nitto-ridge-grappler-lt285-70r17"
+          },
+          {
+              "SKU": "MODEL #WPRN200-770",
+              "Price": "CA$840.18",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n200-770-nitto-mud-grappler-40-13-50r17lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN374-200",
+              "Price": "CA$787.92",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n374-200-nitto-trail-grappler-m-t-38x13-50r17lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRNITTO40PKG",
+              "Price": "CA$5402.88",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/nitto40pkg-nitto-40in-tires-and-wheel-package"
+          },
+          {
+              "SKU": "MODEL #WPRNITTO37PKG",
+              "Price": "CA$5011.60",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/nitto37pkg-nitto-tires-and-wheel-package"
+          },
+          {
+              "SKU": "MODEL #WPRNITTO35PKG",
+              "Price": "CA$4577.44",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/nitto35pkg-nitto-35in-tires-and-wheel-package"
+          },
+          {
+              "SKU": "MODEL #WPRN205-980-PACKAGE",
+              "Price": "CA$3738.60",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/n205-980-package-nitto-trail-grappler-40x13-50r17-full-tire-package"
+          },
+          {
+              "SKU": "MODEL #WPRN205-880-PACKAGE",
+              "Price": "CA$3249.50",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/n205-880-package-nitto-trail-grappler-37-12-50r17lt-full-tire-package"
+          },
+          {
+              "SKU": "MODEL #WPRGRAPPLERPKG",
+              "Price": "CA$2653.20",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/grapplerpkg-nitto-grappler-tire-package"
+          },
+          {
+              "SKU": "MODEL #WPRRIDGEGRAPPLERPKG",
+              "Price": "CA$2653.20",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/ridgegrapplerpkg-nitto-ridge-grappler-tire-package"
+          },
+          {
+              "SKU": "MODEL #WPRBIGNITPKG",
+              "Price": "CA$2165.44",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-tires-package-deals/bignitpkg-nitto-trail-grappler-35in-40in-tire-package-set-of-4"
+          },
+          {
+              "SKU": "MODEL #WPRN374-160",
+              "Price": "CA$1137.66",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n374-160-nitto-trail-grappler-42x13-50r-20lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN206-850",
+              "Price": "CA$975.52",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n206-850-nitto-trail-grappler-m-t-40x15-50r20lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN205-830",
+              "Price": "CA$805.34",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n205-830-nitto-trail-grappler-m-t-lt325-50r22-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN205-420",
+              "Price": "CA$782.56",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n205-420-nitto-trail-grappler-m-t-37x13-50r20lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-980",
+              "Price": "CA$779.88",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-980-nitto-ridge-grappler-38x12-50r17lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-030",
+              "Price": "CA$708.86",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-030-nitto-ridge-grappler-37x12-50r20-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN200-600",
+              "Price": "CA$643.20",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n200-600-nitto-mud-grappler-37-13-50r17lt-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-040",
+              "Price": "CA$637.84",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-040-nitto-ridge-grappler-lt35-12-50r20-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-170",
+              "Price": "CA$636.50",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-170-nitto-ridge-grappler-lt295-60r20-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-060",
+              "Price": "CA$620.42",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-060-nitto-ridge-grappler-lt305-55r20-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-450",
+              "Price": "CA$589.60",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-450-nitto-ridge-grappler-lt37-13-50r-17-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-120",
+              "Price": "CA$527.96",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-120-nitto-ridge-grappler-lt295-70r18-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-000",
+              "Price": "CA$448.90",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-000-nitto-ridge-grappler-lt285-70r17-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN217-620",
+              "Price": "CA$408.70",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n217-620-nitto-ridge-grappler-lt285-75r16-tire"
+          },
+          {
+              "SKU": "MODEL #WPRN216-390",
+              "Price": "CA$314.90",
+              "Price_url": "https://www.northridge4x4.ca/part/tires/n216-390-nitto-terra-grappler-g2-285x70r17-tire"
+          }
+      ]
+  },
+  {
+      "link": "https://www.northridge4x4.ca/brand/oracle",
+      "selection1": [
+          {
+              "SKU": "MODEL #OCL5839-335",
+              "Price": "CA$928.50",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-335-oracle-oculus-colorshift-bc1-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5839-504-PSC",
+              "Price": "CA$758.57",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-504-psc-oracle-oculus-bi-led-projector-headlights-satin-silver"
+          },
+          {
+              "SKU": "MODEL #OCL5769-335",
+              "Price": "CA$541.49",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769-335-oracle-7-high-powered-led-headlights-black-bezel-colorshift-bc1"
+          },
+          {
+              "SKU": "MODEL #OCL5796-333",
+              "Price": "CA$132.61",
+              "Price_url": "https://www.northridge4x4.ca/part/underhood-rock-lights/5796-333-oracle-bluetooth-colorshift-underbody-rock-light-kit-4-pcs"
+          },
+          {
+              "SKU": "MODEL #OCL4211-003",
+              "Price": "CA$96.43",
+              "Price_url": "https://www.northridge4x4.ca/part/3rd-brake-light-solutions/4211-003-oracle-led-illuminated-wheel-ring-brake-light"
+          },
+          {
+              "SKU": "MODEL #OCL5870-005",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5870-005-oracle-pre-runner-style-led-grill-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5884-504",
+              "Price": "CA$482.35",
+              "Price_url": "https://www.northridge4x4.ca/part/tail-lights/5884-504-oracle-flush-mount-led-tail-lights"
+          },
+          {
+              "SKU": "MODEL #OCL5839-504",
+              "Price": "CA$758.57",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5839-504-oracle-lighting-oculus-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5882-504",
+              "Price": "CA$482.35",
+              "Price_url": "https://www.northridge4x4.ca/part/tail-lights/5882-504-oracle-flush-mount-led-tail-lights"
+          },
+          {
+              "SKU": "MODEL #OCL5891-504",
+              "Price": "CA$446.17",
+              "Price_url": "https://www.northridge4x4.ca/part/tail-lights/5891-504-oracle-flush-mount-led-tail-lights"
+          },
+          {
+              "SKU": "MODEL #OCL5881-504",
+              "Price": "CA$216.96",
+              "Price_url": "https://www.northridge4x4.ca/part/back-up-lights/5881-504-oracle-rear-bumper-led-reverse-lights-w-harness"
+          },
+          {
+              "SKU": "MODEL #OCL5839-111",
+              "Price": "CA$844.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-111-oracle-oculus-bi-led-projector-headlights-heated-lens"
+          },
+          {
+              "SKU": "MODEL #OCLV5245-001",
+              "Price": "CA$144.67",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-light-bulbs/v5245-001-oracle-vseries-led-headlight-bulb-conversion-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5889-005-T",
+              "Price": "CA$72.31",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5889-005-t-oracle-universal-raptor-style-led-grill-light-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5236-001",
+              "Price": "CA$229.09",
+              "Price_url": "https://www.northridge4x4.ca/part/headlight-bulbs/5236-001-oracle-led-bulb-headlight-conversion-kit-pair"
+          },
+          {
+              "SKU": "MODEL #OCL5874-504",
+              "Price": "CA$136.22",
+              "Price_url": "https://www.northridge4x4.ca/part/back-up-lights/5874-504-oracle-rear-bumper-led-reverse-lights"
+          },
+          {
+              "SKU": "MODEL #OCL5852-504",
+              "Price": "CA$361.75",
+              "Price_url": "https://www.northridge4x4.ca/part/tail-lights/5852-504-oracle-black-series-led-tail-lights"
+          },
+          {
+              "SKU": "MODEL #OCL504JLPKG",
+              "Price": "CA$1578.50",
+              "Price_url": "https://www.northridge4x4.ca/part/lighting-package-deals/504jlpkg-oracle-premium-vehicle-lighting-package"
+          },
+          {
+              "SKU": "MODEL #OCL504JTPKG",
+              "Price": "CA$1578.50",
+              "Price_url": "https://www.northridge4x4.ca/part/lighting-package-deals/504jtpkg-oracle-premium-vehicle-lighting-package"
+          },
+          {
+              "SKU": "MODEL #OCL5888-023-MF",
+              "Price": "CA$1321.72",
+              "Price_url": "https://www.northridge4x4.ca/part/light-bars/5888-023-mf-oracle-lighting-integrated-windshield-roof-led-light-bar-system-carbonized-grey"
+          },
+          {
+              "SKU": "MODEL #OCL5888-023",
+              "Price": "CA$1201.12",
+              "Price_url": "https://www.northridge4x4.ca/part/light-bars/5888-023-oracle-integrated-windshield-roof-led-light-bar-system-black"
+          },
+          {
+              "SKU": "MODEL #OCL5837-PRO",
+              "Price": "CA$1199.97",
+              "Price_url": "https://www.northridge4x4.ca/part/grilles/5837-pro-oracle-vector-series-full-led-grill-flat-black"
+          },
+          {
+              "SKU": "MODEL #OCL5817-PRO",
+              "Price": "CA$1199.97",
+              "Price_url": "https://www.northridge4x4.ca/part/grilles/5817-pro-oracle-vector-pro-series-full-led-grill-flat-black"
+          },
+          {
+              "SKU": "MODEL #OCL5891-504PKG",
+              "Price": "CA$1049.12",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5891-504pkg-oracle-headlights-and-tail-lights-package"
+          },
+          {
+              "SKU": "MODEL #OCL5886-023",
+              "Price": "CA$988.87",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5886-023-oracle-lighting-oculus-amber-white-switchback-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5839-333",
+              "Price": "CA$976.69",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-333-oracle-oculus-colorshift-bi-led-projector-headlights-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5886-005",
+              "Price": "CA$952.69",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5886-005-oracle-lighting-oculus-amber-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5886-001",
+              "Price": "CA$952.69",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5886-001-oracle-lighting-oculus-white-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5839-330",
+              "Price": "CA$951.41",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-330-oracle-oculus-colorshift-bi-led-projector-headlights-wireless-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5839-504-B",
+              "Price": "CA$868.20",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-504-b-oracle-oculus-colorshift-bi-led-projector-headlights-simple-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-333",
+              "Price": "CA$850.23",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-333-oracle-7in-high-powered-led-headlights-pair-colorshift-2-0"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-330",
+              "Price": "CA$842.99",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-330-oracle-7in-high-powered-led-headlights-pair-colorshift"
+          },
+          {
+              "SKU": "MODEL #OCL5839-334",
+              "Price": "CA$832.09",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-334-oracle-oculus-colorshift-bi-led-projector-headlights-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5876-333",
+              "Price": "CA$807.85",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5876-333-oracle-oculus-7in-colorshift-bi-led-projector-headlights-w-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5839-023",
+              "Price": "CA$806.81",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-023-oracle-oculus-switchback-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5876-330",
+              "Price": "CA$782.57",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5876-330-oracle-oculus-7in-colorshift-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5876-335",
+              "Price": "CA$759.66",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5876-335-oracle-oculus-7in-colorshift-bi-led-projector-headlights-w-bci-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5839-504-PAU",
+              "Price": "CA$758.57",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5839-504-pau-oracle-oculus-bi-led-projector-headlights-graphite-metallic"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-332",
+              "Price": "CA$722.39",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-332-oracle-lighting-7in-high-powered-led-headlights-pair-black-bezel-dynamic-colorshift"
+          },
+          {
+              "SKU": "MODEL #OCL5876-504",
+              "Price": "CA$699.36",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5876-504-oracle-oculus-7in-colorshift-bi-led-projector-headlights-w-simple-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-005",
+              "Price": "CA$686.21",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-005-oracle-7in-high-powered-led-headlights-pair-amber"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-004",
+              "Price": "CA$675.36",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-004-oracle-7in-high-powered-led-headlights-pair-green"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-002",
+              "Price": "CA$675.36",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-002-oracle-7in-high-powered-led-headlights-pair-blue"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-001",
+              "Price": "CA$663.30",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-001-oracle-7in-high-powered-headlights-pair-white"
+          },
+          {
+              "SKU": "MODEL #OCL5876-023",
+              "Price": "CA$663.25",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5876-023-oracle-oculus-7in-switchback-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5876-334",
+              "Price": "CA$663.25",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5876-334-oracle-oculus-7in-colorshift-bi-led-projector-headlights-w-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5769J-504",
+              "Price": "CA$621.09",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769j-504-oracle-7in-high-powered-led-headlights-pair-no-halo"
+          },
+          {
+              "SKU": "MODEL #OCL5876-001",
+              "Price": "CA$602.95",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5876-001-oracle-lighting-oculus-7in-bi-led-projector-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL5883-006",
+              "Price": "CA$566.77",
+              "Price_url": "https://www.northridge4x4.ca/part/skid-plates/5883-006-oracle-skid-plate-w-integrated-led-emitters-yellow-lens"
+          },
+          {
+              "SKU": "MODEL #OCL5883-001",
+              "Price": "CA$566.77",
+              "Price_url": "https://www.northridge4x4.ca/part/skid-plates/5883-001-oracle-skid-plate-w-integrated-led-emitters-clear-lens"
+          },
+          {
+              "SKU": "MODEL #OCL5835-330",
+              "Price": "CA$554.69",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5835-330-oracle-lighting-vector-series-grill-surface-mount-led-halo-kit-w-rf-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5892-504",
+              "Price": "CA$542.65",
+              "Price_url": "https://www.northridge4x4.ca/part/tail-lights/5892-504-oracle-flush-style-led-taillights"
+          },
+          {
+              "SKU": "MODEL #OCL5835-333",
+              "Price": "CA$530.59",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5835-333-oracle-lighting-vector-series-grill-surface-mount-led-halo-kit-w-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5894-001",
+              "Price": "CA$506.47",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5894-001-oracle-lighting-led-off-road-side-mirror-ditch-lights"
+          },
+          {
+              "SKU": "MODEL #OCL5855-001",
+              "Price": "CA$482.35",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5855-001-oracle-lighting-led-off-road-side-mirrors"
+          },
+          {
+              "SKU": "MODEL #OCL5856-334",
+              "Price": "CA$482.35",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5856-334-oracle-lighting-vector-grill-demon-eye-colorshift-projector-conversion-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5751-001",
+              "Price": "CA$482.35",
+              "Price_url": "https://www.northridge4x4.ca/part/door-mirror-accessories/5751-001-oracle-led-off-road-side-mirrors-pair"
+          },
+          {
+              "SKU": "MODEL #OCL4215-339",
+              "Price": "CA$477.52",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-accessories/4215-339-oracle-lighting-led-illuminated-wheel-rings-colorshift-rgb-w"
+          },
+          {
+              "SKU": "MODEL #OCL4215-332",
+              "Price": "CA$477.52",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/4215-332-oracle-lighting-dynamic-colorshift-wheel-rings"
+          },
+          {
+              "SKU": "MODEL #OCL5835-335",
+              "Price": "CA$446.10",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5835-335-oracle-lighting-vector-series-grill-colorshift-halo-kit-w-bc1-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1454-333",
+              "Price": "CA$446.05",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1454-333-oracle-colorshift-rgb-w-headlight-drl-upgrade-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5890-006",
+              "Price": "CA$434.11",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5890-006-oracle-triple-led-fog-light-kit-yellow"
+          },
+          {
+              "SKU": "MODEL #OCL5890-001",
+              "Price": "CA$434.11",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5890-001-oracle-triple-led-fog-light-kit-white"
+          },
+          {
+              "SKU": "MODEL #OCL5769-332",
+              "Price": "CA$434.11",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/5769-332-oracle-lighting-7in-high-powered-led-headlights-black-bezel-dynamic-colorshift"
+          },
+          {
+              "SKU": "MODEL #OCL5769-334",
+              "Price": "CA$420.89",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5769-334-oracle-7inch-high-powered-led-headlights-black-bezel"
+          },
+          {
+              "SKU": "MODEL #OCL1346-333",
+              "Price": "CA$420.84",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1346-333-oracle-colorshift-rgb-w-headlight-drl-upgrade-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1454-330",
+              "Price": "CA$420.77",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1454-330-oracle-colorshift-rgb-w-headlight-drl-upgrade-rf-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5898-333",
+              "Price": "CA$409.99",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5898-333-oracle-lighting-fiber-optic-wheel-liner-colorshift-rgb-w-kit-40w-led-600-fibers"
+          },
+          {
+              "SKU": "MODEL #OCL1471-333",
+              "Price": "CA$409.87",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1471-333-oracle-colorshift-headlight-halo-kit-w-drl-bar-base-headlights-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1454-335",
+              "Price": "CA$397.86",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1454-335-oracle-colorshift-rgb-w-headlight-drl-upgrade-bc1-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1346-330",
+              "Price": "CA$385.80",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1346-330-oracle-colorshift-rgb-w-headlight-drl-upgrade-wireless-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1468-333",
+              "Price": "CA$385.75",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1468-333-oracle-lighting-color-shift-rgb-w-headlight-halo-upgrade-kit-w-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1471-330",
+              "Price": "CA$384.59",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1471-330-oracle-colorshift-headlight-halo-kit-w-drl-bar-for-base-headlights-rf-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5835-504",
+              "Price": "CA$373.81",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5835-504-oracle-lighting-vector-series-grill-surface-mount-led-halo-kit-w-simple-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5769-123",
+              "Price": "CA$373.81",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5769-123-oracle-switchback-led-halo-headlights-pair"
+          },
+          {
+              "SKU": "MODEL #OCL1214-333",
+              "Price": "CA$372.65",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-333-oracle-led-colorshift-2-0-headlight-surface-mount-halo-kit"
+          },
+          {
+              "SKU": "MODEL #OCL1346-335",
+              "Price": "CA$368.98",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1346-335-oracle-colorshift-rgb-w-headlight-drl-upgrade-bc1"
+          },
+          {
+              "SKU": "MODEL #OCL1470-333",
+              "Price": "CA$361.75",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1470-333-oracle-lighting-led-halo-kit-base-headlights-w-2-0-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1471-335",
+              "Price": "CA$361.68",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1471-335-oracle-colorshift-headlight-halo-kit-w-drl-bar-base-headlights-bc1-controller"
+          },
+          {
+              "SKU": "MODEL #OCL4228-002",
+              "Price": "CA$360.59",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/4228-002-oracle-double-led-illuminated-wheel-rings-double-row-blue"
+          },
+          {
+              "SKU": "MODEL #OCL4228-003",
+              "Price": "CA$360.59",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/4228-003-oracle-double-led-illuminated-wheel-rings-double-row-red"
+          },
+          {
+              "SKU": "MODEL #OCL4228-001",
+              "Price": "CA$360.59",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/4228-001-oracle-illuminated-wheel-rings-double-led-white"
+          },
+          {
+              "SKU": "MODEL #OCL1468-330",
+              "Price": "CA$360.47",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1468-330-oracle-lighting-color-shift-rgb-w-headlight-halo-upgrade-kit-w-rf-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5769-001",
+              "Price": "CA$348.53",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5769-001-oracle-7in-high-powered-led-headlight-white-halo-pair"
+          },
+          {
+              "SKU": "MODEL #OCL1214-335",
+              "Price": "CA$348.48",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-335-oracle-led-colorshift-headlight-surface-mount-halo-kit-bc1"
+          },
+          {
+              "SKU": "MODEL #OCL1470-335",
+              "Price": "CA$337.56",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1470-335-oracle-lighting-led-halo-kit-base-headlights-w-bci-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1468-335",
+              "Price": "CA$337.56",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1468-335-oracle-lighting-color-shift-rgb-w-headlight-halo-upgrade-kit-w-bc1-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1454-504",
+              "Price": "CA$337.56",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1454-504-oracle-colorshift-rgb-w-headlight-drl-upgrade-simple-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1214-330",
+              "Price": "CA$336.47",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-330-oracle-led-colorshift-headlight-surface-mount-halo-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5835-001",
+              "Price": "CA$331.48",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5835-001-oracle-lighting-vector-series-grill-surface-mount-led-halo-kit-white"
+          },
+          {
+              "SKU": "MODEL #OCL1470-330",
+              "Price": "CA$325.57",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1470-330-oracle-lighting-led-halo-kit-base-headlights-w-rf-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5769-504",
+              "Price": "CA$324.41",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5769-504-oracle-7in-high-powered-led-headlights-no-halo-pair"
+          },
+          {
+              "SKU": "MODEL #OCL1346-504",
+              "Price": "CA$313.44",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1346-504-oracle-colorshift-rgb-w-headlight-drl-upgrade-simple"
+          },
+          {
+              "SKU": "MODEL #OCL1454-334",
+              "Price": "CA$301.45",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1454-334-oracle-colorshift-rgb-w-headlight-drl-upgrade-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1471-504",
+              "Price": "CA$301.38",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1471-504-oracle-colorshift-headlight-halo-kit-w-drl-bar-base-headlights-simple-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5819-333",
+              "Price": "CA$300.29",
+              "Price_url": "https://www.northridge4x4.ca/part/underhood-rock-lights/5819-333-oracle-bluetooth-rf-colorshift-underbody-rock-light-kit-8pcs"
+          },
+          {
+              "SKU": "MODEL #OCL4215-001",
+              "Price": "CA$300.29",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/4215-001-oracle-led-illuminated-wheel-rings-single-row-white"
+          },
+          {
+              "SKU": "MODEL #OCL4210-334",
+              "Price": "CA$277.37",
+              "Price_url": "https://www.northridge4x4.ca/part/wheel-accessories/4210-334-oracle-led-15in-illuminated-wheel-rings-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5846-334",
+              "Price": "CA$277.33",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5846-334-oracle-lighting-high-performance-20w-led-fog-lights-colotshift-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5846-332",
+              "Price": "CA$277.33",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5846-332-oracle-lighting-jeep-wrangler-jk-jl-gladiator-jt-high-performance-20w-led-fog-lights"
+          },
+          {
+              "SKU": "MODEL #OCL5847-334",
+              "Price": "CA$277.33",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5847-334-oracle-high-performance-20w-led-fog-lights-colorshift-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1346-334",
+              "Price": "CA$277.33",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1346-334-oracle-colorshift-rgb-w-headlight-drl-upgrade"
+          },
+          {
+              "SKU": "MODEL #OCL1468-504",
+              "Price": "CA$277.26",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1468-504-oracle-lighting-color-shift-rgb-w-headlight-halo-upgrade-kit"
+          },
+          {
+              "SKU": "MODEL #OCL1214-504",
+              "Price": "CA$276.17",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-504-oracle-led-colorshift-headlight-surface-mount-halo-kit-simple"
+          },
+          {
+              "SKU": "MODEL #OCL1214-005",
+              "Price": "CA$265.32",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-005-oracle-led-headlight-surface-mount-halo-kit-amber"
+          },
+          {
+              "SKU": "MODEL #OCL1214-004",
+              "Price": "CA$265.32",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-004-oracle-led-headlight-surface-mount-halo-kit-green"
+          },
+          {
+              "SKU": "MODEL #OCL1214-003",
+              "Price": "CA$265.32",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-003-oracle-led-headlight-surface-mount-halo-kit-red"
+          },
+          {
+              "SKU": "MODEL #OCL1214-002",
+              "Price": "CA$265.32",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-002-oracle-led-headlight-surface-mount-halo-kit-blue"
+          },
+          {
+              "SKU": "MODEL #OCL1471-334",
+              "Price": "CA$265.27",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1471-334-oracle-lighting-colorshift-headlight-halo-kit-w-drl-bar-base-headlights-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1470-504",
+              "Price": "CA$265.27",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1470-504-oracle-lighting-led-halo-kit-base-headlights-w-simple-controller"
+          },
+          {
+              "SKU": "MODEL #OCL2915-023",
+              "Price": "CA$253.21",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/2915-023-oracle-7in-multifunction-60w-led-spotlight-round-post-mount"
+          },
+          {
+              "SKU": "MODEL #OCL1214-001",
+              "Price": "CA$253.21",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/1214-001-oracle-led-headlight-surface-mount-halo-kit-white-halo"
+          },
+          {
+              "SKU": "MODEL #OCL1214-334",
+              "Price": "CA$252.05",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1214-334-oracle-led-colorshift-headlight-surface-mount-halo-kit-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1470-334",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/1470-334-oracle-lighting-led-headlight-halo-kit-base-headlights"
+          },
+          {
+              "SKU": "MODEL #OCL1468-334",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/headlights/1468-334-oracle-lighting-color-shift-rgb-w-headlight-halo-upgrade-kit-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5873-504",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5873-504-oracle-sidetrack-led-lighting-system"
+          },
+          {
+              "SKU": "MODEL #OCL5847-005",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5847-005-oracle-high-performance-20w-led-fog-lights-amber"
+          },
+          {
+              "SKU": "MODEL #OCL5847-004",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5847-004-oracle-high-performance-20w-led-fog-lights-green"
+          },
+          {
+              "SKU": "MODEL #OCL5847-003",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5847-003-oracle-high-performance-20w-led-fog-lights-red"
+          },
+          {
+              "SKU": "MODEL #OCL5847-002",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5847-002-oracle-high-performance-20w-led-fog-lights-blue"
+          },
+          {
+              "SKU": "MODEL #OCL5846-005",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5846-005-oracle-high-performance-20w-led-fog-lights-amber"
+          },
+          {
+              "SKU": "MODEL #OCL5846-003",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5846-003-oracle-high-performance-20w-led-fog-lights-red"
+          },
+          {
+              "SKU": "MODEL #OCL5846-002",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5846-002-oracle-high-performance-20w-led-fog-lights-blue"
+          },
+          {
+              "SKU": "MODEL #OCL5861-504",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5861-504-oracle-sidetrack-led-lighting-system"
+          },
+          {
+              "SKU": "MODEL #OCL5797-333",
+              "Price": "CA$241.15",
+              "Price_url": "https://www.northridge4x4.ca/part/underhood-rock-lights/5797-333-oracle-bluetooth-colorshift-underbody-rock-light-kit-8-pcs"
+          },
+          {
+              "SKU": "MODEL #OCL5847-001",
+              "Price": "CA$229.09",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5847-001-oracle-high-performance-20w-led-fog-lights-white"
+          },
+          {
+              "SKU": "MODEL #OCL5846-001",
+              "Price": "CA$229.09",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5846-001-oracle-high-performance-20w-led-fog-lights"
+          },
+          {
+              "SKU": "MODEL #OCL1470-001",
+              "Price": "CA$214.01",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/1470-001-oracle-lighting-led-headlight-halo-kit-base-headlights-white"
+          },
+          {
+              "SKU": "MODEL #OCL5895-339",
+              "Price": "CA$204.97",
+              "Price_url": "https://www.northridge4x4.ca/part/underhood-rock-lights/5895-339-oracle-lighting-colorshift-rgb-with-underbody-wheel-well-rock-light-kit-4-pcs"
+          },
+          {
+              "SKU": "MODEL #OCL5818-333",
+              "Price": "CA$192.91",
+              "Price_url": "https://www.northridge4x4.ca/part/underhood-rock-lights/5818-333-oracle-bluetooth-colorshift-underbody-rock-light-rf-kit"
+          },
+          {
+              "SKU": "MODEL #OCL1215-005",
+              "Price": "CA$185.84",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1215-005-oracle-led-surface-mount-fog-light-halo-kit-amber"
+          },
+          {
+              "SKU": "MODEL #OCL1215-004",
+              "Price": "CA$185.84",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1215-004-oracle-led-surface-mount-fog-light-halo-kit-green"
+          },
+          {
+              "SKU": "MODEL #OCL5887-001",
+              "Price": "CA$180.85",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5887-001-oracle-led-cargo-light-module"
+          },
+          {
+              "SKU": "MODEL #OCL5878-504",
+              "Price": "CA$180.85",
+              "Price_url": "https://www.northridge4x4.ca/part/back-up-lights/5878-504-oracle-lighting-rear-bumper-led-reverse-lights-no-harness"
+          },
+          {
+              "SKU": "MODEL #OCL5847-504",
+              "Price": "CA$180.85",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5847-504-oracle-high-performance-20w-led-fog-lights-no-halo"
+          },
+          {
+              "SKU": "MODEL #OCLV5236-001",
+              "Price": "CA$180.85",
+              "Price_url": "https://www.northridge4x4.ca/part/headlight-bulbs/v5236-001-oracle-vseries-h13-dot-compliant-headlight-led-bulb-conversion-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5846-504",
+              "Price": "CA$180.85",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5846-504-oracle-high-performance-20w-led-fog-lights-no-halo"
+          },
+          {
+              "SKU": "MODEL #OCL1215-333",
+              "Price": "CA$179.69",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1215-333-oracle-lighting-led-surface-mount-fog-light-halo-kit-colorshift-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL1215-001",
+              "Price": "CA$178.92",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/1215-001-oracle-led-surface-mount-fog-light-halo-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5858-023",
+              "Price": "CA$155.57",
+              "Price_url": "https://www.northridge4x4.ca/part/interior-lighting/5858-023-jl-cargo-led-light-module"
+          },
+          {
+              "SKU": "MODEL #OCLV5235-001",
+              "Price": "CA$144.67",
+              "Price_url": "https://www.northridge4x4.ca/part/headlight-bulbs/v5235-001-oracle-h11-v-series-led-headlight-bulb-conversion-kit"
+          },
+          {
+              "SKU": "MODEL #OCLV5239-001",
+              "Price": "CA$144.67",
+              "Price_url": "https://www.northridge4x4.ca/part/headlight-bulbs/v5239-001-oracle-9005-vseries-led-headlight-bulb-conversion-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5843-504",
+              "Price": "CA$143.51",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-light-mounts/5843-504-oracle-adjustable-7in-headlight-brackets-pair"
+          },
+          {
+              "SKU": "MODEL #OCL5875-001",
+              "Price": "CA$136.22",
+              "Price_url": "https://www.northridge4x4.ca/part/underhood-rock-lights/5875-001-oracle-underbody-wheel-well-rock-light-kit-white-4pcs"
+          },
+          {
+              "SKU": "MODEL #OCL4237-333",
+              "Price": "CA$132.61",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/4237-333-oracle-colorshift-fiber-optic-led-interior-dashboard-kit"
+          },
+          {
+              "SKU": "MODEL #OCL4227-333",
+              "Price": "CA$120.55",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/4227-333-oracle-universal-colorshift-led-underbody-kit"
+          },
+          {
+              "SKU": "MODEL #OCLS5231-001",
+              "Price": "CA$108.49",
+              "Price_url": "https://www.northridge4x4.ca/part/headlight-bulbs/s5231-001-oracle-h4-s3-led-headlight-bulb-conversion-kit"
+          },
+          {
+              "SKU": "MODEL #OCL1720-504",
+              "Price": "CA$108.49",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1720-504-oracle-bc1-bluetooth-colorshift-rgb-led-controller"
+          },
+          {
+              "SKU": "MODEL #OCL4211-334",
+              "Price": "CA$96.47",
+              "Price_url": "https://www.northridge4x4.ca/part/3rd-brake-light-solutions/4211-334-oracle-colorshift-led-illuminated-spare-tire-wheel-ring-third-brake-light-no-controller"
+          },
+          {
+              "SKU": "MODEL #OCL5853-504",
+              "Price": "CA$96.43",
+              "Price_url": "https://www.northridge4x4.ca/part/marker-lights/5853-504-oracle-smoked-lens-led-front-sidemarkers"
+          },
+          {
+              "SKU": "MODEL #OCL5854-504",
+              "Price": "CA$84.37",
+              "Price_url": "https://www.northridge4x4.ca/part/3rd-brake-light-solutions/5854-504-oracle-smoked-lens-led-third-brake-light"
+          },
+          {
+              "SKU": "MODEL #OCL5821-006",
+              "Price": "CA$72.31",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5821-006-oracle-lighting-60mm-15w-fog-beam-led-emitter-module-yellow"
+          },
+          {
+              "SKU": "MODEL #OCL5893-001",
+              "Price": "CA$72.31",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-lights/5893-001-oracle-lighting-60mm-15w-fog-beam-led-emitter-white"
+          },
+          {
+              "SKU": "MODEL #OCL5889-005-C",
+              "Price": "CA$72.31",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5889-005-c-oracle-universal-raptor-style-led-grill-light-kit"
+          },
+          {
+              "SKU": "MODEL #OCL3826-504",
+              "Price": "CA$60.29",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/3826-504-oracle-truck-bed-led-cargo-light-60-pair-w-switch"
+          },
+          {
+              "SKU": "MODEL #OCL5897-504",
+              "Price": "CA$60.25",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/5897-504-oracle-roof-light-bar-switched-wiring-harness"
+          },
+          {
+              "SKU": "MODEL #OCL4511-334",
+              "Price": "CA$60.25",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/4511-334-oracle-demon-eye-colorshift-projector-illumination-kit"
+          },
+          {
+              "SKU": "MODEL #OCL5857-504",
+              "Price": "CA$59.04",
+              "Price_url": "https://www.northridge4x4.ca/part/fog-driving-light-mounts/5857-504-oracle-lighting-led-fog-light-adapter-brackets-for-factory-steel-bumper"
+          },
+          {
+              "SKU": "MODEL #OCL5871-005",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5871-005-oracle-pre-runner-style-led-grill-light-kit-amber"
+          },
+          {
+              "SKU": "MODEL #OCL5871-004",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5871-004-oracle-pre-runner-style-led-grill-light-kit-green"
+          },
+          {
+              "SKU": "MODEL #OCL5871-003",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5871-003-oracle-pre-runner-style-led-grill-light-kit-red"
+          },
+          {
+              "SKU": "MODEL #OCL5871-002",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5871-002-oracle-pre-runner-style-led-grill-light-kit-blue"
+          },
+          {
+              "SKU": "MODEL #OCL5871-001",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5871-001-oracle-pre-runner-style-led-grill-light-kit-white"
+          },
+          {
+              "SKU": "MODEL #OCL5870-004",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5870-004-oracle-pre-runner-style-led-grill-light-kit-green"
+          },
+          {
+              "SKU": "MODEL #OCL5870-003",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5870-003-oracle-pre-runner-style-led-grill-light-kit-red"
+          },
+          {
+              "SKU": "MODEL #OCL5870-002",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5870-002-oracle-pre-runner-style-led-grill-light-kit-blue"
+          },
+          {
+              "SKU": "MODEL #OCL3825-504",
+              "Price": "CA$51.80",
+              "Price_url": "https://www.northridge4x4.ca/part/light-bars/3825-504-oracle-60-double-row-led-truck-tailgate-light-bar"
+          },
+          {
+              "SKU": "MODEL #OCL5899-504",
+              "Price": "CA$48.19",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/5899-504-oracle-roof-light-bar-factory-aux-wiring-harness"
+          },
+          {
+              "SKU": "MODEL #OCL4911-001",
+              "Price": "CA$48.19",
+              "Price_url": "https://www.northridge4x4.ca/part/stop-turn-light-bulbs/4911-001-oracle-wt21w-extreme-performance-led-reverse-light-bulbs-pair"
+          },
+          {
+              "SKU": "MODEL #OCL5133-001",
+              "Price": "CA$48.19",
+              "Price_url": "https://www.northridge4x4.ca/part/stop-turn-light-bulbs/5133-001-oracle-reverse-light-bulb-cool-white-pair"
+          },
+          {
+              "SKU": "MODEL #OCL5844-504",
+              "Price": "CA$48.19",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/5844-504-oracle-plug-play-h4-headlight-wiring-adapter-pair"
+          },
+          {
+              "SKU": "MODEL #OCL5916-504",
+              "Price": "CA$36.13",
+              "Price_url": "https://www.northridge4x4.ca/part/light-covers-guards/5916-504-oracle-lighting-magnetic-light-bar-cover-for-led-side-mirrors-pair"
+          },
+          {
+              "SKU": "MODEL #OCL3805-333",
+              "Price": "CA$36.13",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/3805-333-oracle-lighting-ambient-led-lighting-flexible-strip-footwell-kit-cdolorshift"
+          },
+          {
+              "SKU": "MODEL #OCL3805-001",
+              "Price": "CA$32.51",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/3805-001-oracle-lighting-ambient-led-lighting-flexible-strip-footwell-kit-white"
+          },
+          {
+              "SKU": "MODEL #OCL5912-001",
+              "Price": "CA$27.67",
+              "Price_url": "https://www.northridge4x4.ca/part/other-auxiliary-lighting/5912-001-oracle-lighting-led-puddle-light-upgrade-for-off-road-side-mirror-ditch-lights-pair"
+          },
+          {
+              "SKU": "MODEL #OCL5851-504",
+              "Price": "CA$24.07",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/5851-504-oracle-switchback-turn-signal-y-splitter-adapter-single"
+          },
+          {
+              "SKU": "MODEL #OCL5848-504",
+              "Price": "CA$15.62",
+              "Price_url": "https://www.northridge4x4.ca/part/universal-light-mounts-brackets/5848-504-oracle-magnet-adapter-kit-for-led-rock-lights-single"
+          },
+          {
+              "SKU": "MODEL #OCL1725-504",
+              "Price": "CA$12.01",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/1725-504-oracle-lighting-10ft-colorshift-rgb-w-rock-light-extension-cable"
+          },
+          {
+              "SKU": "MODEL #OCL5845-504",
+              "Price": "CA$12.01",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/5845-504-oracle-2-pin-6ft-extension-cable-for-illuminated-wheel-rings-single-color"
+          },
+          {
+              "SKU": "MODEL #OCL5814-504",
+              "Price": "CA$12.01",
+              "Price_url": "https://www.northridge4x4.ca/part/light-wiring/5814-504-oracle-underbody-rock-light-6ft-extension-cable"
+          }
+      ]
+  },
+  {
+      "link": "https://www.northridge4x4.ca/brand/outback-adventures",
+      "selection1": [
+          {
+              "SKU": "MODEL #OUTTGR-JL-B-BLK",
+              "Price": "CA$665.98",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jl-b-blk-outback-adventures-trailgater-w-bamboo-cutting-board-black"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JK-H-HT",
+              "Price": "CA$531.98",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jk-h-ht-trailgater-for-jeep-jk-wrangler-2007-2018-hdpe-cutting-board-hammertone-gray-powder-coat-backsplash"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-BR-B-BLK",
+              "Price": "CA$692.78",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-br-b-blk-outback-adventures-trailgater-w-bamboo-cutting-board-and-magnet-black"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-BR-B-HT",
+              "Price": "CA$692.78",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-br-b-ht-outback-adventures-trailgater-w-bamboo-cutting-board-and-magnet-hammertone"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JL-B-SS",
+              "Price": "CA$665.98",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jl-b-ss-outback-adventures-trailgater-w-bamboo-cutting-board-silver"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JL-B-HT",
+              "Price": "CA$665.98",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jl-b-ht-outback-adventures-trailgater-w-bamboo-cutting-board-hammertone-gray"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JK-B-BLK",
+              "Price": "CA$572.18",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jk-b-blk-outback-adventures-trailgater-w-cutting-board-black"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-UNV-B-HT",
+              "Price": "CA$572.18",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-unv-b-ht-outback-adventures-universal-trailgater-w-bamboo-cutting-board-hammertone"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JK-B-SS",
+              "Price": "CA$572.18",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jk-b-ss-outback-adventures-jk-trailgater-w-bamboo-cutting-board-silver"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JK-B-HT",
+              "Price": "CA$572.18",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jk-b-ht-outback-adventures-jk-trailgater-w-bamboo-cutting-board-hammertone"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JK-H-BLK",
+              "Price": "CA$531.98",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jk-h-blk-outback-adventures-jk-trailgater-w-hdpe-cutting-board-black"
+          },
+          {
+              "SKU": "MODEL #OUTTGR-JK-H-SS",
+              "Price": "CA$531.98",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/tgr-jk-h-ss-outback-adventures-trailgater-w-hdpe-cutting-board-silver"
+          },
+          {
+              "SKU": "MODEL #OUTJL_MAG",
+              "Price": "CA$49.58",
+              "Price_url": "https://www.northridge4x4.ca/part/overland-accessories/jl-mag-outback-adventures-utensil-magnet-for-trailgater"
+          }
+      ]
+  },
+  {
+      "link": "https://www.northridge4x4.ca/brand/smittybilt",
+      "selection1": [
+          {
+              "SKU": "MODEL #SMI769401",
+              "Price": "CA$16.20",
+              "Price_url": "https://www.northridge4x4.ca/part/door-handles/769401-smittybilt-adjustable-door-straps"
+          },
+          {
+              "SKU": "MODEL #SMI76851",
+              "Price": "CA$1282.35",
+              "Price_url": "https://www.northridge4x4.ca/part/rear-bumpers/76851-smittybilt-xrc-rear-bumper-w-tire-carrier"
+          },
+          {
+              "SKU": "MODEL #SMI2823",
+              "Price": "CA$54.52",
+              "Price_url": "https://www.northridge4x4.ca/part/tire-accessories/2823-smittybilt-r-a-d-rapid-air-deflator"
+          },
+          {
+              "SKU": "MODEL #SMI2747",
+              "Price": "CA$563.05",
+              "Price_url": "https://www.northridge4x4.ca/part/co2/2747-smittybilt-comp-air-10gal-c02-air-system"
+          },
+          {
+              "SKU": "MODEL #SMIJH45",
+              "Price": "CA$97.27",
+              "Price_url": "https://www.northridge4x4.ca/part/towing-hitches/smijh45-smittybilt-receiver-hitch"
+          },
+          {
+              "SKU": "MODEL #SMI2793",
+              "Price": "CA$306.58",
+              "Price_url": "https://www.northridge4x4.ca/part/tables/2793-smittybilt-tailgate-table"
+          },
+          {
+              "SKU": "MODEL #SMI2826",
+              "Price": "CA$210.77",
+              "Price_url": "https://www.northridge4x4.ca/part/recovery-kits-accessories/trail-bag-w-5-compartments"
+          },
+          {
+              "SKU": "MODEL #SMI13049B",
+              "Price": "CA$29.47",
+              "Price_url": "https://www.northridge4x4.ca/part/d-ring-shackles/13049b-smittybilt-d-ring-9500lbs"
+          },
+          {
+              "SKU": "MODEL #SMI471522",
+              "Price": "CA$306.58",
+              "Price_url": "https://www.northridge4x4.ca/part/seat-covers/471522-smittybilt-neoprene-front-and-rear-seat-covers-with-black-sides-charcoal-center"
+          },
+          {
+              "SKU": "MODEL #SMI8665",
+              "Price": "CA$184.24",
+              "Price_url": "https://www.northridge4x4.ca/part/light-covers-guards/8665-smittybilt-tail-light-guards-black"
+          },
+          {
+              "SKU": "MODEL #SMI561035",
+              "Price": "CA$191.61",
+              "Price_url": "https://www.northridge4x4.ca/part/cargo-top-covers/561035-smittybilt-cargo-restraint-system-black-diamond"
+          },
+          {
+              "SKU": "MODEL #SMI76896",
+              "Price": "CA$1400.27",
+              "Price_url": "https://www.northridge4x4.ca/part/rear-bumpers/smi76896-smittybilt-xrc-atlas-bumper-w-tire-carrier-and-hitch-rear"
+          },
+          {
+              "SKU": "MODEL #SMI45454",
+              "Price": "CA$781.21",
+              "Price_url": "https://www.northridge4x4.ca/part/complete-racks/45454-smittybilt-defender-rack-welded-roof-one-piece"
+          },
+          {
+              "SKU": "MODEL #SMI76794",
+              "Price": "CA$560.11",
+              "Price_url": "https://www.northridge4x4.ca/part/half-doors/76794-smittybilt-front-src-gen-ii-tube-doors"
+          },
+          {
+              "SKU": "MODEL #SMI76887",
+              "Price": "CA$324.27",
+              "Price_url": "https://www.northridge4x4.ca/part/body-armor/76887-smittybilt-xrc-body-armor-black"
+          },
+          {
+              "SKU": "MODEL #SMIJB48-FT",
+              "Price": "CA$294.79",
+              "Price_url": "https://www.northridge4x4.ca/part/front-bumpers/jb48-ft-smittybilt-tubular-front-bumper-hoop-texture-black"
+          },
+          {
+              "SKU": "MODEL #SMI94635",
+              "Price": "CA$191.61",
+              "Price_url": "https://www.northridge4x4.ca/part/soft-tops/94635-smittybilt-extended-top-black-diamond"
+          },
+          {
+              "SKU": "MODEL #SMI93635",
+              "Price": "CA$129.70",
+              "Price_url": "https://www.northridge4x4.ca/part/soft-tops/93635-smittybilt-extended-top-black-diamond"
+          },
+          {
+              "SKU": "MODEL #SMI94600",
+              "Price": "CA$107.59",
+              "Price_url": "https://www.northridge4x4.ca/part/shade-tops/94600-smittybilt-mesh-extended-top"
+          },
+          {
+              "SKU": "MODEL #SMI93600",
+              "Price": "CA$91.37",
+              "Price_url": "https://www.northridge4x4.ca/part/shadetops/93600-smittybilt-mesh-extended-top"
+          },
+          {
+              "SKU": "MODEL #SMI769530",
+              "Price": "CA$30.94",
+              "Price_url": "https://www.northridge4x4.ca/part/fire-extinguisher-mounts/769530-smittybilt-roll-bar-mount-1-lb-fire-extinguisher-holder"
+          },
+          {
+              "SKU": "MODEL #SMI7601",
+              "Price": "CA$22.10",
+              "Price_url": "https://www.northridge4x4.ca/part/hood-accessories/smi7601-smittybilt-stainless-steel-hood-catch-kit-black"
+          },
+          {
+              "SKU": "MODEL #SMI77714",
+              "Price": "CA$1120.23",
+              "Price_url": "https://www.northridge4x4.ca/part/rear-bumpers/77714-smittybilt-gen-2-src-rear-bumper-black"
+          },
+          {
+              "SKU": "MODEL #SMI45454JL",
+              "Price": "CA$647.07",
+              "Price_url": "https://www.northridge4x4.ca/part/complete-racks/45454jl-smittybilt-defender-roof-rack-system-4-5ft-x-4-5ft-x-4in"
+          },
+          {
+              "SKU": "MODEL #SMI76713",
+              "Price": "CA$601.38",
+              "Price_url": "https://www.northridge4x4.ca/part/complete-racks/76713-smittybilt-src-roof-rack-300-lbs"
+          },
+          {
+              "SKU": "MODEL #SMI2888",
+              "Price": "CA$555.68",
+              "Price_url": "https://www.northridge4x4.ca/part/annex-1/2888-smittybilt-overland-tent-annex-xl"
+          },
+          {
+              "SKU": "MODEL #SMIJN53-S4T",
+              "Price": "CA$358.17",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/jn53-s4t-smittybilt-sure-steps-side-steps-black"
+          },
+          {
+              "SKU": "MODEL #SMIJN51-S4B",
+              "Price": "CA$297.73",
+              "Price_url": "https://www.northridge4x4.ca/part/steps-foot-pegs/jn51-s4b-smittybilt-sure-step-3in-side-bar-gloss-black"
+          },
+          {
+              "SKU": "MODEL #SMI1071",
+              "Price": "CA$191.61",
+              "Price_url": "https://www.northridge4x4.ca/part/cargo-top-covers/1071-smittybilt-cab-cover-gray"
+          },
+          {
+              "SKU": "MODEL #SMI761015",
+              "Price": "CA$114.96",
+              "Price_url": "https://www.northridge4x4.ca/part/soft-tops/761015-smittybilt-tonneau-covers-black-demin"
+          },
+          {
+              "SKU": "MODEL #SMI7699",
+              "Price": "CA$88.43",
+              "Price_url": "https://www.northridge4x4.ca/part/hood-accessories/7699-smittybilt-complete-hood-kit-black"
+          },
+          {
+              "SKU": "MODEL #SMI56644",
+              "Price": "CA$53.05",
+              "Price_url": "https://www.northridge4x4.ca/part/interior-trims-accessories/56644-smittybilt-gear-sunvisor-organizer-cover"
+          },
+          {
+              "SKU": "MODEL #SMI90101",
+              "Price": "CA$38.31",
+              "Price_url": "https://www.northridge4x4.ca/part/top-install-components-accessories/90101-smittybilt-windshield-channel"
+          }
+      ]
+  }
   ],
 };

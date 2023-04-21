@@ -22,6 +22,7 @@ app.get("/api/data", (req, res) =>
   })
 );
 
+
 //Route for getting all products sku, only return the id
 app.get("/api/products_sku", async (req, res) => {
   try {
@@ -402,6 +403,21 @@ app.get("/api/vendors", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch vendors" });
   }
 });
+
+//get all vendornproducts by vendor id
+app.get("/api/vendor_products/vendor/:id", async (req, res) => {
+	try {
+		const vendorProducts = await prisma.vendorProduct.findMany({
+			where: {
+				vendor_id: parseInt(req.params.id),
+			},
+		});
+		res.json(vendorProducts);
+	} catch (error) {
+		res.status(500).json({ error: "Failed to fetch vendor products" });
+	}
+});
+
 
 //* Routes for Purchase Orders *\\
 
