@@ -4,8 +4,8 @@ import {
 	DeleteOutlined,
 	SaveOutlined,
 	GlobalOutlined,
-	CloseOutlined,
-	CheckOutlined,
+	ClearOutlined,
+	CoffeeOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
@@ -22,8 +22,7 @@ import {
 	Drawer,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { Edit, Trash, Save } from '../../icons';
-import DrawerSupplier from '../drawer/DrawerSupplier';
+import { Edit, Trash, Save, TableIcon } from '../../icons';
 import ProductTable from '../items/ProductTable';
 
 const OrderTable = () => {
@@ -37,8 +36,10 @@ const OrderTable = () => {
 	const [form] = Form.useForm();
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState('top');
-
-	//initial loading data
+	const [searchTermSku, setSearchTermSku] = useState('');
+	const [drawerData, setDrawerData] = useState('');
+	const [dataProduct, setDataProduct] = useState([]);
+	//initial loading data main table
 	useEffect(() => {
 		loadData();
 	}, []);
@@ -54,7 +55,6 @@ const OrderTable = () => {
 
 	//delete an order
 	const handleDeleteOrder = record => {
-		console.log('handleDeleteOrder record: ', record);
 		Modal.confirm({
 			title: 'Are you sure to cancel this order?',
 			okText: 'Yes',
@@ -96,11 +96,10 @@ const OrderTable = () => {
 	};
 
 	// delete backend order-product
-	const deleteOrderItem = async id => {
+	const deleteOrderItem = id => {
 		return axios
 			.delete(`http://localhost:8080/order_products/${id}/delete`)
 			.then(response => {
-				console.log('response', response);
 				setOrders(response.data);
 			});
 	};
@@ -138,7 +137,7 @@ const OrderTable = () => {
 		setEditingRow(null);
 	};
 
-	const updateOrderItem = async subRowRecord => {
+	const updateOrderItem = subRowRecord => {
 		const { id } = subRowRecord;
 
 		return axios
@@ -166,7 +165,7 @@ const OrderTable = () => {
 				const copyOrders = [...orders];
 				//update the order
 				copyOrders.splice(parentIndex, 1, modifiedParent);
-				console.log('copyOrders: ', copyOrders);
+
 				//set state
 				setOrders(copyOrders);
 			});
@@ -200,7 +199,7 @@ const OrderTable = () => {
 	};
 
 	//update order backend
-	const updateOrder = async formObj => {
+	const updateOrder = formObj => {
 		const {
 			customer_email,
 			customer_firstname,
@@ -221,6 +220,14 @@ const OrderTable = () => {
 					grand_total,
 					total_qty_ordered,
 				});
+				// setOrders(prev => ({
+				// 	...prev,
+				// 	customer_email,
+				// 	customer_firstname,
+				// 	customer_lastname,
+				// 	grand_total,
+				// 	total_qty_ordered,
+				// }));
 			});
 	};
 
@@ -606,12 +613,45 @@ const OrderTable = () => {
 		...order,
 	}));
 
-	//drawer
+	//drawer;
 	const showDrawer = () => {
 		setOpen(true);
 	};
 	const onClose = () => {
 		setOpen(false);
+	};
+
+	//drawer search
+	const handleDrawerChange = e => {
+		setSearchTermSku(e.target.value);
+	};
+
+	//load sku data
+	useEffect(() => {
+		getProductBySku(searchTermSku);
+	}, []);
+
+	const getProductBySku = searchTermSku => {
+		try {
+			if (searchTermSku) {
+				// Add null check
+				return axios
+					.get(`http://localhost:8080/api/products/${searchTermSku}`)
+					.then(res => {
+						const responseData = res.data;
+						// Process the response data from backend if needed
+						setDataProduct([responseData]);
+					});
+			}
+		} catch (error) {
+			console.error('Failed to fetch data from backend:', error);
+		}
+	};
+
+	//reset drawer button
+	const resetDrawer = () => {
+		setSearchTermSku('');
+		setDataProduct([]);
 	};
 
 	return (
@@ -878,14 +918,36 @@ const OrderTable = () => {
 					/>
 				</Form>
 			</div>
-			<Drawer
-				title='Your special Helper here! '
-				placement={placement}
-				width={300}
-				onClose={onClose}
-				open={open}
-			>
-				<ProductTable />
+			<Drawer placement={placement} width={300} onClose={onClose} open={open}>
+				<div className='mb-2'>
+					<Space>
+						<Input
+							placeholder='Enter your item'
+							onChange={handleDrawerChange}
+							type='text'
+							allowClear
+							value={searchTermSku}
+						/>
+						<CoffeeOutlined
+							size='middle'
+							style={{
+								width: 50,
+								color: 'black',
+							}}
+							onClick={() => getProductBySku(searchTermSku)}
+						/>
+						<ClearOutlined
+							size='middle'
+							style={{
+								color: 'black',
+							}}
+							onClick={() => resetDrawer}
+						/>
+					</Space>
+				</div>
+				<div>
+					<ProductTable searchTermSku={searchTermSku} data={dataProduct} />
+				</div>
 			</Drawer>
 		</>
 	);
