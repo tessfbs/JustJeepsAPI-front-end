@@ -123,11 +123,11 @@ model PurchaseOrder {
 model PurchaseOrderLineItem {
   id                 Int           @id @default(autoincrement())
   purchase_order_id  Int
-  vendor_product_id  Int
+  vendor_product_id  Int?
   quantity_purchased Int
   vendor_cost        Float?
   purchaseOrder      PurchaseOrder @relation(fields: [purchase_order_id], references: [id])
-  vendorProduct      VendorProduct @relation(fields: [vendor_product_id], references: [id])
+  vendorProduct      VendorProduct? @relation(fields: [vendor_product_id], references: [id])
 }
 
 model Competitor {

@@ -100,6 +100,7 @@ const OrderTable = () => {
     form
       .validateFields()
       .then((values) => {
+        console.log("values", values);
         onFinishSub(key, values);
         updateOrderItem(values);
       })
@@ -107,6 +108,7 @@ const OrderTable = () => {
         console.log("error", error);
       });
   };
+
   const onFinishSub = (key, values) => {
     const updatedOrders = [...orders]; //make a copy of the orders
     const parentItem = updatedOrders.find((order) => {
@@ -128,8 +130,57 @@ const OrderTable = () => {
     setEditingRow(null);
   };
 
+	const createPurchaseOrder = async (subRowRecord) => {
+		console.log("subRowRecord for PO creation", subRowRecord);
+		let vendor_id = 0;
+		if (subRowRecord.selected_supplier.toLowerCase() === "keystone") {
+			vendor_id = 1;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === "meyer") {
+			vendor_id = 2;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === "omix") {
+			vendor_id = 3;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === "quadratec") {
+			vendor_id = 4;
+		}
+		console.log("subRowRecord.selected_supplier.toLowerCase()", subRowRecord.selected_supplier.toLowerCase());
+		console.log("vendor_id", vendor_id);
+		try {
+			// create the purchase order
+			const newPurchaseOrder = await axios.post(
+				"http://localhost:8080/api/purchase_orders",
+				{
+					vendor_id: vendor_id,
+					user_id: 2,
+					order_id: subRowRecord.order_id,
+				}
+			);
+			console.log("created PO", newPurchaseOrder.data);
+	
+			// create the purchase order line item
+			const newPurchaseOrderLineItem = await axios.post(
+				"http://localhost:8080/purchaseOrderLineItem",
+				{
+					// purchaseOrderId: newPurchaseOrder.data.id,
+					// vendorProductId: null,
+					// quantityPurchased: subRowRecord.qty_ordered,
+					// vendorCost: subRowRecord.selected_supplier_cost,
+					"purchaseOrderId": newPurchaseOrder.data.id,
+					"vendorProductId": null,
+					"quantityPurchased": subRowRecord.qty_ordered,
+					"vendorCost": parseFloat(subRowRecord.selected_supplier_cost) || null,
+				}
+			);
+			console.log("created PO line item", newPurchaseOrderLineItem);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+	
+	
+
   const updateOrderItem = (subRowRecord) => {
     const { id } = subRowRecord;
+    console.log("subRowRecord", subRowRecord);
 
     return axios
       .post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
@@ -812,20 +863,20 @@ const OrderTable = () => {
           }
         },
       },
-			{
-				title: "Margin %",
-				key: "margin",
-				render: (text, record) => {
-					const cost = record.selected_supplier_cost;
-					const price = record.price;
-					if (cost && price) {
-						const margin = ((price - cost) / price) * 100;
-						return <span>{margin.toFixed(2)}%</span>;
-					} else {
-						return <span></span>;
-					}
-				}
-			},
+      {
+        title: "Margin %",
+        key: "margin",
+        render: (text, record) => {
+          const cost = record.selected_supplier_cost;
+          const price = record.price;
+          if (cost && price) {
+            const margin = ((price - cost) / price) * 100;
+            return <span>{margin.toFixed(2)}%</span>;
+          } else {
+            return <span></span>;
+          }
+        },
+      },
       {
         title: "Action",
         dataIndex: "operation",
@@ -870,15 +921,16 @@ const OrderTable = () => {
                   <Tooltip title="Add to PO">
                     <ShoppingCartOutlined
                       style={{ color: "purple" }}
-                      onClick={() =>
-                        showPoDrawer(
-                          recordSub.name,
-                          recordSub.sku,
-                          recordSub.qty_ordered,
-                          recordSub.selected_supplier,
-                          recordSub.selected_supplier_cost
-                        )
-                      }
+											onClick={() => createPurchaseOrder(recordSub)}
+                      // onClick={() =>
+                      //   showPoDrawer(
+                      //     recordSub.name,
+                      //     recordSub.sku,
+                      //     recordSub.qty_ordered,
+                      //     recordSub.selected_supplier,
+                      //     recordSub.selected_supplier_cost
+                      //   )
+                      // }
                     />
                   </Tooltip>
                 </Space>
@@ -887,7 +939,6 @@ const OrderTable = () => {
           );
         },
       },
-
     ];
     return (
       <Table

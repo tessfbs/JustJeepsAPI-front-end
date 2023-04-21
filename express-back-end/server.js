@@ -551,14 +551,59 @@ app.get("/api/purchase_orders/:id", async (req, res) => {
   res.json(purchaseOrder);
 });
 
+
+// Route for creating a Purchase Order
+// app.post("/api/purchase_orders", async (req, res) => {
+//   try {
+//     const purchaseOrder = await prisma.purchaseOrder.create({
+//       data: {
+//         vendor_id: req.body.vendor_id,
+//         user_id: req.body.user_id,
+//         order_id: req.body.order_id,
+//       },
+//       include: {
+//         vendor: true,
+//         user: true,
+//         order: true,
+//         purchaseOrderLineItems: {
+//           include: {
+//             vendorProduct: true,
+//             purchaseOrder: true,
+//           },
+//         },
+//       },
+//     });
+//     res.json(purchaseOrder);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Failed to create purchase order" });
+//   }
+// });
+
 // Route for creating a Purchase Order
 app.post("/api/purchase_orders", async (req, res) => {
   try {
+    const { vendor_id, user_id, order_id } = req.body;
+
+    // Check if a purchase order already exists for the given order_id and vendor_id
+    const existingPurchaseOrder = await prisma.purchaseOrder.findFirst({
+      where: {
+        vendor_id: vendor_id,
+        order_id: order_id,
+      },
+    });
+
+    if (existingPurchaseOrder) {
+      // A purchase order already exists, return it
+      return res.json(existingPurchaseOrder);
+    }
+
+    // Create a new purchase order
     const purchaseOrder = await prisma.purchaseOrder.create({
       data: {
-        vendor_id: req.body.vendor_id,
-        user_id: req.body.user_id,
-        order_id: req.body.order_id,
+        vendor_id: vendor_id,
+        user_id: user_id,
+        order_id: order_id,
       },
       include: {
         vendor: true,
@@ -572,10 +617,30 @@ app.post("/api/purchase_orders", async (req, res) => {
         },
       },
     });
+
     res.json(purchaseOrder);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Failed to create purchase order" });
+  }
+});
+
+
+// Route for creating a Purchase Order Line Item
+app.post('/purchaseOrderLineItem', async (req, res) => {
+  try {
+    const { purchaseOrderId, vendorProductId, quantityPurchased, vendorCost } = req.body;
+    const purchaseOrderLineItem = await prisma.purchaseOrderLineItem.create({
+      data: {
+        purchase_order_id: purchaseOrderId,
+        quantity_purchased: quantityPurchased,
+        vendor_cost: vendorCost,
+      },
+    });
+    res.status(201).json(purchaseOrderLineItem);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Something went wrong' });
   }
 });
 
@@ -622,6 +687,8 @@ app.post("/api/purchase_orders/:id/delete", async (req, res) => {
     res.status(500).json({ error: "Failed to delete purchase order" });
   }
 });
+
+
 
 // Route for getting the grand total and total count of all orders
 app.get("/totalOrderInfo", async (req, res) => {
