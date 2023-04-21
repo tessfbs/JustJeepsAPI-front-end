@@ -43,7 +43,7 @@ const Popup = ({ placement, onClose, sku }) => {
 						placeholder='Enter your item'
 						onChange={setSearchTermSku}
 						type='text'
-						allowClear
+						// allowClear
 						value={searchTermSku}
 					/>
 					<CoffeeOutlined
