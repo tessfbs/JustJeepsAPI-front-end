@@ -7,7 +7,7 @@ import {
 } from "@ant-design/icons";
 import { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
-import { Space, Table, Input, Button, Modal, Form } from "antd";
+import { Space, Table, Input, Button, Modal, Form, Tooltip } from "antd";
 import Highlighter from "react-highlight-words";
 import { Edit, Trash, Save } from "../../icons";
 import Popup from "./Popup";
@@ -15,7 +15,7 @@ import PoPopUp from "../po/PoPopUp";
 
 const OrderTable = () => {
   const [orders, setOrders] = useState([]);
-	const [originalOrders, setOriginalOrders] = useState([]);
+  const [originalOrders, setOriginalOrders] = useState([]);
   const [sortedInfo, setSortedInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -39,7 +39,7 @@ const OrderTable = () => {
   const loadData = useCallback(async () => {
     setLoading(true);
     const response = await axios.get("http://localhost:8080/api/orders"); //orderProductsJoin.json //http://localhost:8080/api/orders
-		setOriginalOrders(response.data);
+    setOriginalOrders(response.data);
     setOrders(response.data);
     setLoading(false);
   }, []);
@@ -641,7 +641,6 @@ const OrderTable = () => {
     }
   };
 
-
   const expandedRowRender = (record) => {
     //render sub table here
     const nestedColumns = [
@@ -846,44 +845,52 @@ const OrderTable = () => {
             <>
               <Form.Item>
                 <Space size="small">
-                  <EditOutlined
-                    style={{ color: "orange" }}
-                    onClick={() => {
-                      //use recordSub instead of record to avoid override record because we need the order key
-                      setEditingRow(recordSub.id); //also need to use id, not key
-                      form.setFieldsValue({
-                        id: recordSub.id,
-                        name: recordSub.name,
-                        sku: recordSub.sku,
-                        price: recordSub.price,
-                        product_id: recordSub.product_id,
-                        qty_ordered: recordSub.qty_ordered,
-                        selected_supplier: recordSub.selected_supplier,
-                        selected_supplier_cost:
-                          recordSub.selected_supplier_cost,
-                      });
-                    }}
-                  />
-                  <SaveOutlined
-                    style={{ color: "green" }}
-                    onClick={() => handleSaveSub(record.key)}
-                  />
-                  <GlobalOutlined
-                    style={{ color: "blue" }}
-                    onClick={() => showDrawer(recordSub.sku)}
-                  />
-                  <ShoppingCartOutlined
-                    style={{ color: "purple" }}
-                    onClick={() =>
-                      showPoDrawer(
-                        recordSub.name,
-                        recordSub.sku,
-                        recordSub.qty_ordered,
-                        recordSub.selected_supplier,
-                        recordSub.selected_supplier_cost
-                      )
-                    }
-                  />
+                  <Tooltip title="Edit">
+                    <EditOutlined
+                      style={{ color: "orange" }}
+                      onClick={() => {
+                        //use recordSub instead of record to avoid override record because we need the order key
+                        setEditingRow(recordSub.id); //also need to use id, not key
+                        form.setFieldsValue({
+                          id: recordSub.id,
+                          name: recordSub.name,
+                          sku: recordSub.sku,
+                          price: recordSub.price,
+                          product_id: recordSub.product_id,
+                          qty_ordered: recordSub.qty_ordered,
+                          selected_supplier: recordSub.selected_supplier,
+                          selected_supplier_cost:
+                            recordSub.selected_supplier_cost,
+                        });
+                      }}
+                    />
+                  </Tooltip>
+                  <Tooltip title="Save">
+                    <SaveOutlined
+                      style={{ color: "green" }}
+                      onClick={() => handleSaveSub(record.key)}
+                    />
+                  </Tooltip>
+                  <Tooltip title="See Vendor Costs">
+                    <GlobalOutlined
+                      style={{ color: "blue" }}
+                      onClick={() => showDrawer(recordSub.sku)}
+                    />
+                  </Tooltip>
+                  <Tooltip title="Add to PO">
+                    <ShoppingCartOutlined
+                      style={{ color: "purple" }}
+                      onClick={() =>
+                        showPoDrawer(
+                          recordSub.name,
+                          recordSub.sku,
+                          recordSub.qty_ordered,
+                          recordSub.selected_supplier,
+                          recordSub.selected_supplier_cost
+                        )
+                      }
+                    />
+                  </Tooltip>
                 </Space>
               </Form.Item>
             </>
