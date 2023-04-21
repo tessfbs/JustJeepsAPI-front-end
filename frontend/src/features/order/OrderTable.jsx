@@ -7,7 +7,7 @@ import {
 	ClearOutlined,
 	CoffeeOutlined,
 } from '@ant-design/icons';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
 import {
 	Badge,
@@ -24,6 +24,7 @@ import {
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save, TableIcon } from '../../icons';
 import ProductTable from '../items/ProductTable';
+import Popup from './Popup';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -36,22 +37,21 @@ const OrderTable = () => {
 	const [form] = Form.useForm();
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState('top');
-	const [searchTermSku, setSearchTermSku] = useState('');
-	const [drawerData, setDrawerData] = useState('');
-	const [dataProduct, setDataProduct] = useState([]);
+	const [currentSku, setCurrentSku] = useState(null);
+
 	//initial loading data main table
 	useEffect(() => {
 		loadData();
 	}, []);
 
 	//load all data
-	const loadData = async () => {
+	const loadData = useCallback(async () => {
 		setLoading(true);
 		const response = await axios.get('http://localhost:8080/api/orders'); //orderProductsJoin.json //http://localhost:8080/api/orders
 
 		setOrders(response.data);
 		setLoading(false);
-	};
+	}, []);
 
 	//delete an order
 	const handleDeleteOrder = record => {
@@ -213,16 +213,6 @@ const OrderTable = () => {
 			`http://localhost:8080/api/orders/${entity_id}/edit`,
 			formObj
 		);
-		// .then(() => {
-		// 	// setOrders({
-		// 	// 	...state, //state is not defined
-		// 	// 	customer_email,
-		// 	// 	customer_firstname,
-		// 	// 	customer_lastname,
-		// 	// 	grand_total,
-		// 	// 	total_qty_ordered,
-		// 	// });
-		// });
 	};
 
 	//sort
@@ -608,45 +598,19 @@ const OrderTable = () => {
 	}));
 
 	//drawer;
-	const showDrawer = () => {
+	const showDrawer = sku => {
+		setCurrentSku(sku);
 		setOpen(true);
 	};
 	const onClose = () => {
+		setCurrentSku(null);
 		setOpen(false);
 	};
 
 	//drawer search
-	const handleDrawerChange = e => {
-		setSearchTermSku(e.target.value);
-	};
-
-	//load sku data
-	useEffect(() => {
-		getProductBySku(searchTermSku);
-	}, []);
-
-	const getProductBySku = searchTermSku => {
-		try {
-			if (searchTermSku) {
-				// Add null check
-				return axios
-					.get(`http://localhost:8080/api/products/${searchTermSku}`)
-					.then(res => {
-						const responseData = res.data;
-						// Process the response data from backend if needed
-						setDataProduct([responseData]);
-					});
-			}
-		} catch (error) {
-			console.error('Failed to fetch data from backend:', error);
-		}
-	};
-
-	//reset drawer button
-	const resetDrawer = () => {
-		setSearchTermSku('');
-		setDataProduct([]);
-	};
+	// const handleDrawerChange = e => {
+	// 	setSearchTermSku(e.target.value);
+	// };
 
 	return (
 		<>
@@ -887,7 +851,7 @@ const OrderTable = () => {
 														/>
 														<GlobalOutlined
 															style={{ color: 'blue' }}
-															onClick={showDrawer}
+															onClick={() => showDrawer(recordSub.sku)}
 														/>
 													</Space>
 												</Form.Item>
@@ -912,39 +876,10 @@ const OrderTable = () => {
 					/>
 				</Form>
 			</div>
-			<Drawer placement={placement} width={300} onClose={onClose} open={open}>
-				<div className='mb-2'>
-					<Space>
-						<Input
-							placeholder='Enter your item'
-							onChange={handleDrawerChange}
-							type='text'
-							allowClear
-							value={searchTermSku}
-						/>
-						<CoffeeOutlined
-							size='middle'
-							style={{
-								width: 50,
-								color: 'black',
-							}}
-							onClick={() => getProductBySku(searchTermSku)}
-						/>
-						<ClearOutlined
-							size='middle'
-							style={{
-								color: 'black',
-							}}
-							onClick={() => {
-								resetDrawer();
-							}}
-						/>
-					</Space>
-				</div>
-				<div>
-					<ProductTable searchTermSku={searchTermSku} data={dataProduct} />
-				</div>
-			</Drawer>
+
+			{open && (
+				<Popup placement={placement} onClose={onClose} sku={currentSku} />
+			)}
 		</>
 	);
 };
