@@ -8,6 +8,7 @@
     "start": "node server.js",
     "seed-hard-code": "node prisma/seeds/seed-hard-code.js",
     "seed-po": "node prisma/seeds/seed-individual/seed-po.js"
+    "dev": "./node_modules/.bin/nodemon -L --ignore public/ server.js"
   },
   "repository": {
     "type": "git",
@@ -30,5 +31,8 @@
     "prisma": "^4.12.0",
     "xlsx": "^0.18.5",
     "xml2js": "^0.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
