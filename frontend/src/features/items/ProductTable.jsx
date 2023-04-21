@@ -35,7 +35,6 @@ const ProductTable = props => {
 			key: 'vendor_id',
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
-					// <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
 					<CopyText key={vendorProduct.id} text={vendorProduct.vendor.name} />
 				)),
 		},
@@ -45,7 +44,6 @@ const ProductTable = props => {
 			key: 'vendor_cost',
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
-					// <div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
 					<CopyText
 						key={vendorProduct.id}
 						text={`$${vendorProduct.vendor_cost}`}
@@ -62,10 +60,6 @@ const ProductTable = props => {
 					const margin = ((price - vendor_cost) / price) * 100;
 					const className = margin < 20 ? 'red-margin' : '';
 					return (
-						// <div
-						// 	key={vendorProduct.vendor_id}
-						// 	className={className}
-						// >{`${margin.toFixed(2)}%`}</div>
 						<CopyText
 							key={vendorProduct.vendor_id}
 							className={className}
