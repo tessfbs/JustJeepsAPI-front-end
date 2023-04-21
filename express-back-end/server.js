@@ -79,6 +79,7 @@ app.get('/api/products', async (req, res) => {
 			select: {
 				sku: true,
 				name: true,
+				url_path: true,
 				status: true,
 				price: true,
 				image: true,
@@ -129,6 +130,8 @@ app.get('/api/products/:sku', async (req, res) => {
 			select: {
 				sku: true,
 				name: true,
+				status: true,
+				url_path: true,
 				price: true,
 				image: true,
 				vendors: true,

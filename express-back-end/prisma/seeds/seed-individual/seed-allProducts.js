@@ -122,6 +122,7 @@ const seedAllProducts = async () => {
             sku,
             status,
             name,
+            
             price,
             weight,
             searchableSku,

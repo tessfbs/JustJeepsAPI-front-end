@@ -31,8 +31,11 @@ const PurchaseOrderTable = ({ vendorId }) => {
   );
   const [purchaseOrderData, setPurchaseOrderData] = useState([]);
 
+  console.log("purchaseOrderData", purchaseOrderData)
+
   const handleExpand = (expanded, record) => {
     if (expanded) {
+      console.log('record.order.entity_id' , record.order.entity_id)
       const filteredData = originalPurchaseOrderData.filter(
         (po) => po.order.entity_id === record.order.entity_id
       );

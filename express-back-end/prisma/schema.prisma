@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Order {
-  entity_id           Int             @id
+  entity_id           Int            @id
   id                  Int             @unique @default(autoincrement())
   created_at          String
   status              String?
