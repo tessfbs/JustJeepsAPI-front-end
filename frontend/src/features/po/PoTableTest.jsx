@@ -29,13 +29,15 @@ const PurchaseOrderTable = ({ vendorId }) => {
   const [originalPurchaseOrderData, setOriginalPurchaseOrderData] = useState(
     []
   );
+  const [subtableTotalCost, setSubtableTotalCost] = useState(0);
+
   const [purchaseOrderData, setPurchaseOrderData] = useState([]);
 
-  console.log("purchaseOrderData", purchaseOrderData)
+  console.log("purchaseOrderData", purchaseOrderData);
 
   const handleExpand = (expanded, record) => {
     if (expanded) {
-      console.log('record.order.entity_id' , record.order.entity_id)
+      console.log("record.order.entity_id", record.order.entity_id);
       const filteredData = originalPurchaseOrderData.filter(
         (po) => po.order.entity_id === record.order.entity_id
       );
@@ -51,13 +53,17 @@ const PurchaseOrderTable = ({ vendorId }) => {
     const columns = [
       {
         title: "Product SKU",
-        dataIndex: ["vendorProduct", "product_sku"],
-        key: "vendorProduct.product_sku",
+        dataIndex: "product_sku",
+        key: "product_sku",
       },
       {
         title: "Vendor SKU",
         dataIndex: ["vendorProduct", "vendor_sku"],
         key: "vendorProduct.vendor_sku",
+        //render product_sku + "2"
+        render: (text, record) => {
+          return record.product_sku.slice(record.product_sku.indexOf("-") + 1);
+        },
       },
       {
         title: "Vendor Cost",
@@ -80,8 +86,18 @@ const PurchaseOrderTable = ({ vendorId }) => {
         ...item,
         total_cost: item.vendor_cost * item.quantity_purchased,
       }));
+      const totalCost = lineItemData.reduce(
+        (total, item) => total + item.total_cost,
+        0
+      );
+      setSubtableTotalCost(totalCost);
       return (
-        <Table columns={columns} dataSource={lineItemData} pagination={false} />
+        <Table
+          columns={columns}
+          dataSource={lineItemData}
+          pagination={false}
+          footer={() => <div>Total Cost: {totalCost}</div>}
+        />
       );
     } else {
       return <p>No Purchase Order Line Items found.</p>;

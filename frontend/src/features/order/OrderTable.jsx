@@ -130,57 +130,9 @@ const OrderTable = () => {
     setEditingRow(null);
   };
 
-	const createPurchaseOrder = async (subRowRecord) => {
-		console.log("subRowRecord for PO creation", subRowRecord);
-		let vendor_id = 0;
-		if (subRowRecord.selected_supplier.toLowerCase() === "keystone") {
-			vendor_id = 1;
-		} else if (subRowRecord.selected_supplier.toLowerCase() === "meyer") {
-			vendor_id = 2;
-		} else if (subRowRecord.selected_supplier.toLowerCase() === "omix") {
-			vendor_id = 3;
-		} else if (subRowRecord.selected_supplier.toLowerCase() === "quadratec") {
-			vendor_id = 4;
-		}
-		console.log("subRowRecord.selected_supplier.toLowerCase()", subRowRecord.selected_supplier.toLowerCase());
-		console.log("vendor_id", vendor_id);
-		try {
-			// create the purchase order
-			const newPurchaseOrder = await axios.post(
-				"http://localhost:8080/api/purchase_orders",
-				{
-					vendor_id: vendor_id,
-					user_id: 2,
-					order_id: subRowRecord.order_id,
-				}
-			);
-			console.log("created PO", newPurchaseOrder.data);
-	
-			// create the purchase order line item
-			const newPurchaseOrderLineItem = await axios.post(
-				"http://localhost:8080/purchaseOrderLineItem",
-				{
-					// purchaseOrderId: newPurchaseOrder.data.id,
-					// vendorProductId: null,
-					// quantityPurchased: subRowRecord.qty_ordered,
-					// vendorCost: subRowRecord.selected_supplier_cost,
-					"purchaseOrderId": newPurchaseOrder.data.id,
-					"vendorProductId": null,
-					"quantityPurchased": subRowRecord.qty_ordered,
-					"vendorCost": parseFloat(subRowRecord.selected_supplier_cost) || null,
-				}
-			);
-			console.log("created PO line item", newPurchaseOrderLineItem);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-	
-	
-
   const updateOrderItem = (subRowRecord) => {
     const { id } = subRowRecord;
-    console.log("subRowRecord", subRowRecord);
+    console.log("subRowRecord to update order Item", subRowRecord);
 
     return axios
       .post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
@@ -948,6 +900,55 @@ const OrderTable = () => {
       />
     );
   };
+
+	const createPurchaseOrder = async (subRowRecord) => {
+		
+		console.log("subRowRecord for PO creation", subRowRecord);
+		// console.log("sku", subRowRecord.sku);
+		// console.log("searchablesku", subRowRecord.product.searchable_sku || null);
+
+		let vendor_id = 0;
+		if (subRowRecord.selected_supplier.toLowerCase() === "keystone") {
+			vendor_id = 1;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === "meyer") {
+			vendor_id = 2;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === "omix") {
+			vendor_id = 3;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === "quadratec") {
+			vendor_id = 4;
+		}
+	
+		try {
+			// create the purchase order
+			const newPurchaseOrder = await axios.post(
+				"http://localhost:8080/api/purchase_orders",
+				{
+					vendor_id: 1,
+					user_id: 2,
+					order_id: subRowRecord.order_id,
+				}
+			);
+			console.log("created PO", newPurchaseOrder);
+
+
+	
+			// create the purchase order line item
+			const newPurchaseOrderLineItem = await axios.post(
+				"http://localhost:8080/purchaseOrderLineItem",
+				{
+					"purchaseOrderId": newPurchaseOrder.data.id,
+					"vendorProductId": null,
+					"quantityPurchased": subRowRecord.qty_ordered,
+					"vendorCost": parseFloat(subRowRecord.selected_supplier_cost),
+					"product_sku": subRowRecord.sku,
+					// "vendor_sku": subRowRecord.product.searchable_sku || null,
+				}
+			);
+			console.log("created PO line item", newPurchaseOrderLineItem);
+		} catch (error) {
+			console.error(error);
+		}
+	};
 
   return (
     <>

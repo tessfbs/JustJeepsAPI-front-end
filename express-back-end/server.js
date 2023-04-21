@@ -189,10 +189,13 @@ app.get("/brands", async (req, res) => {
 // Route for getting all orders
 app.get("/api/orders", async (req, res) => {
   try {
-    //order including order products
     const orders = await prisma.order.findMany({
       include: {
-        items: true,
+        items: {
+          include: {
+            product: true,
+          },
+        },
       },
     });
     res.json(orders);
@@ -200,6 +203,7 @@ app.get("/api/orders", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch orders" });
   }
 });
+
 
 //Route for getting a single order
 app.get("/api/orders/:id", async (req, res) => {
@@ -517,7 +521,6 @@ app.get('/api/purchase_orders/vendor/:id', async (req, res) => {
 				},
 				purchaseOrderLineItems: {
 					include: {
-						vendorProduct: true,
 						purchaseOrder: true,
 					},
 				},
@@ -553,32 +556,7 @@ app.get("/api/purchase_orders/:id", async (req, res) => {
 
 
 // Route for creating a Purchase Order
-// app.post("/api/purchase_orders", async (req, res) => {
-//   try {
-//     const purchaseOrder = await prisma.purchaseOrder.create({
-//       data: {
-//         vendor_id: req.body.vendor_id,
-//         user_id: req.body.user_id,
-//         order_id: req.body.order_id,
-//       },
-//       include: {
-//         vendor: true,
-//         user: true,
-//         order: true,
-//         purchaseOrderLineItems: {
-//           include: {
-//             vendorProduct: true,
-//             purchaseOrder: true,
-//           },
-//         },
-//       },
-//     });
-//     res.json(purchaseOrder);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: "Failed to create purchase order" });
-//   }
-// });
+
 
 // Route for creating a Purchase Order
 app.post("/api/purchase_orders", async (req, res) => {
@@ -611,7 +589,6 @@ app.post("/api/purchase_orders", async (req, res) => {
         order: true,
         purchaseOrderLineItems: {
           include: {
-            vendorProduct: true,
             purchaseOrder: true,
           },
         },
@@ -629,12 +606,14 @@ app.post("/api/purchase_orders", async (req, res) => {
 // Route for creating a Purchase Order Line Item
 app.post('/purchaseOrderLineItem', async (req, res) => {
   try {
-    const { purchaseOrderId, vendorProductId, quantityPurchased, vendorCost } = req.body;
+    const { purchaseOrderId, vendorProductId, quantityPurchased, vendorCost, product_sku, vendor_sku } = req.body;
     const purchaseOrderLineItem = await prisma.purchaseOrderLineItem.create({
       data: {
         purchase_order_id: purchaseOrderId,
         quantity_purchased: quantityPurchased,
         vendor_cost: vendorCost,
+				product_sku: product_sku,
+				vendor_sku: vendor_sku,
       },
     });
     res.status(201).json(purchaseOrderLineItem);
@@ -643,6 +622,7 @@ app.post('/purchaseOrderLineItem', async (req, res) => {
     res.status(500).json({ message: 'Something went wrong' });
   }
 });
+
 
 // Route for updating a Purchase Order
 app.post("/api/purchase_orders/:id/update", async (req, res) => {
