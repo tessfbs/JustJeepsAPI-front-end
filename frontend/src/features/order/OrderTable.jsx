@@ -12,6 +12,7 @@ import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save } from '../../icons';
 import Popup from './Popup';
 import PoPopUp from '../po/PoPopUp';
+import ProductTable from '../items/ProductTable';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -29,6 +30,7 @@ const OrderTable = () => {
 	const [currentInfo, setCurrentInfo] = useState(null);
 	const [openPo, setOpenPo] = useState(false);
 	const [position, setPosition] = useState('left');
+	const [txtFromDrawer, setTextFromDrawer] = useState('');
 
 	//initial loading data main table
 	useEffect(() => {
@@ -656,28 +658,6 @@ const OrderTable = () => {
 		setOpen(false);
 	};
 
-	//po popup
-	const showPoDrawer = (
-		sku,
-		name,
-		qty_ordered,
-		selected_supplier,
-		selected_supplier_cost
-	) => {
-		setCurrentInfo(
-			sku,
-			name,
-			qty_ordered,
-			selected_supplier,
-			selected_supplier_cost
-		);
-		setOpenPo(true);
-	};
-	const onClosePo = () => {
-		setCurrentInfo(null);
-		setOpenPo(false);
-	};
-
 	const handleExpand = (expanded, record) => {
 		if (expanded) {
 			console.log('record', record);
@@ -690,6 +670,10 @@ const OrderTable = () => {
 			setOrders(originalOrders);
 		}
 	};
+
+	// const getTextValue = (text) => {
+	//   setTextFromDrawer(text)
+	// }
 
 	const expandedRowRender = record => {
 		//render sub table here
@@ -830,7 +814,8 @@ const OrderTable = () => {
 									},
 								]}
 							>
-								<Input />
+								{/* <Input /> */}
+								<ProductTable getTextValue />
 							</Form.Item>
 						);
 					} else {
@@ -921,15 +906,6 @@ const OrderTable = () => {
 										<ShoppingCartOutlined
 											style={{ color: 'purple' }}
 											onClick={() => createPurchaseOrder(recordSub)}
-											// onClick={() =>
-											//   showPoDrawer(
-											//     recordSub.name,
-											//     recordSub.sku,
-											//     recordSub.qty_ordered,
-											//     recordSub.selected_supplier,
-											//     recordSub.selected_supplier_cost
-											//   )
-											// }
 										/>
 									</Tooltip>
 								</Space>
