@@ -51,7 +51,7 @@ const OrderTable = () => {
 
 		setOrders(response.data);
 		setLoading(false);
-	},[]);
+	}, []);
 
 	//delete an order
 	const handleDeleteOrder = record => {
@@ -608,11 +608,9 @@ const OrderTable = () => {
 	};
 
 	//drawer search
-	const handleDrawerChange = e => {
-		setSearchTermSku(e.target.value);
-	};
-
-
+	// const handleDrawerChange = e => {
+	// 	setSearchTermSku(e.target.value);
+	// };
 
 	return (
 		<>
