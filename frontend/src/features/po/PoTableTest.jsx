@@ -96,7 +96,11 @@ const PurchaseOrderTable = ({ vendorId }) => {
           columns={columns}
           dataSource={lineItemData}
           pagination={false}
-          footer={() => <div>Total Cost: {totalCost}</div>}
+          footer={() => <div style={
+            {fontWeight: "bold", 
+            fontSize: "1.2em",          
+          }
+           }>Total Cost: {totalCost}</div>}
         />
       );
     } else {
