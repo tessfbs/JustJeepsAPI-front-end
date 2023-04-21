@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 const DrawerSupplier = () => {
 	const [open, setOpen] = useState(false);
+	const [placement, setPlacement] = useState('top');
+	const [searchTermSku, setSearchTermSku] = useState('');
 	const showDrawer = () => {
 		setOpen(true);
 	};
