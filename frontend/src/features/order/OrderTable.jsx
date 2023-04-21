@@ -815,8 +815,7 @@ const OrderTable = () => {
 									},
 								]}
 							>
-								{/* <Input /> */}
-								<ProductTable getTextValue />
+								<Input />
 							</Form.Item>
 						);
 					} else {
