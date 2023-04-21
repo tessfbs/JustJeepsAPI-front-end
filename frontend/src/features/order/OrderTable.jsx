@@ -342,6 +342,11 @@ const OrderTable = () => {
 			},
 		},
 		{
+			title: "Status",
+			dataIndex: "status",
+			key: "status",
+		},
+		{
 			title: 'Created_Date',
 			dataIndex: 'created_at',
 			key: 'created_at',
@@ -581,6 +586,7 @@ const OrderTable = () => {
 			},
 		},
 	];
+
 	//loop main column data
 	const data = orders.map(order => ({
 		key: order.entity_id,
