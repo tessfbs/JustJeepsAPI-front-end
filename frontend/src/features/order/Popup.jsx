@@ -1,10 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
-import { Space, Input, Drawer } from 'antd';
-import { ClearOutlined, CoffeeOutlined } from '@ant-design/icons';
+import { Space, Input, Drawer, Button } from 'antd';
+import {
+	ClearOutlined,
+	CoffeeOutlined,
+	CopyrightOutlined,
+} from '@ant-design/icons';
 import ProductTable from '../items/ProductTable';
 import axios from 'axios';
 
-const Popup = ({ placement, onClose, sku }) => {
+const Popup = ({ placement, onClose, sku, chooseMessage }) => {
 	const [searchTermSku, setSearchTermSku] = useState(sku);
 	const [dataProduct, setDataProduct] = useState([]);
 
@@ -61,6 +65,15 @@ const Popup = ({ placement, onClose, sku }) => {
 						}}
 						onClick={() => {
 							resetDrawer();
+						}}
+					/>
+					<CopyrightOutlined
+						size='middle'
+						style={{
+							color: 'black',
+						}}
+						onClick={() => {
+							chooseMessage('hello');
 						}}
 					/>
 				</Space>

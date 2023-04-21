@@ -29,6 +29,11 @@ const OrderTable = () => {
 	const [currentInfo, setCurrentInfo] = useState(null);
 	const [openPo, setOpenPo] = useState(false);
 	const [position, setPosition] = useState('left');
+	const [message, setMessage] = useState('');
+
+	const chooseMessage = message => {
+		setMessage(message);
+	};
 
 	//initial loading data main table
 	useEffect(() => {
@@ -656,28 +661,6 @@ const OrderTable = () => {
 		setOpen(false);
 	};
 
-	//po popup
-	const showPoDrawer = (
-		sku,
-		name,
-		qty_ordered,
-		selected_supplier,
-		selected_supplier_cost
-	) => {
-		setCurrentInfo(
-			sku,
-			name,
-			qty_ordered,
-			selected_supplier,
-			selected_supplier_cost
-		);
-		setOpenPo(true);
-	};
-	const onClosePo = () => {
-		setCurrentInfo(null);
-		setOpenPo(false);
-	};
-
 	const handleExpand = (expanded, record) => {
 		if (expanded) {
 			console.log('record', record);
@@ -830,7 +813,8 @@ const OrderTable = () => {
 									},
 								]}
 							>
-								<Input />
+								{/* <Input /> */}
+								<div> {message.selected_supplier}</div>
 							</Form.Item>
 						);
 					} else {
@@ -854,7 +838,8 @@ const OrderTable = () => {
 									},
 								]}
 							>
-								<Input />
+								{/* <Input /> */}
+								<div> {message.selected_supplier_cost}</div>
 							</Form.Item>
 						);
 					} else {
@@ -914,22 +899,15 @@ const OrderTable = () => {
 									<Tooltip title='See Vendor Costs'>
 										<GlobalOutlined
 											style={{ color: 'blue' }}
-											onClick={() => showDrawer(recordSub.sku)}
+											onClick={() => {
+												showDrawer(recordSub.sku);
+											}}
 										/>
 									</Tooltip>
 									<Tooltip title='Add to PO'>
 										<ShoppingCartOutlined
 											style={{ color: 'purple' }}
 											onClick={() => createPurchaseOrder(recordSub)}
-											// onClick={() =>
-											//   showPoDrawer(
-											//     recordSub.name,
-											//     recordSub.sku,
-											//     recordSub.qty_ordered,
-											//     recordSub.selected_supplier,
-											//     recordSub.selected_supplier_cost
-											//   )
-											// }
 										/>
 									</Tooltip>
 								</Space>
@@ -965,13 +943,11 @@ const OrderTable = () => {
 			</div>
 
 			{open && (
-				<Popup placement={placement} onClose={onClose} sku={currentSku} />
-			)}
-			{openPo && (
-				<PoPopUp
-					position={position}
-					onClose={onClosePo}
-					currentInfo={currentInfo}
+				<Popup
+					placement={placement}
+					onClose={onClose}
+					sku={currentSku}
+					chooseMessage={chooseMessage}
 				/>
 			)}
 		</>
