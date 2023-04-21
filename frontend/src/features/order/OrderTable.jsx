@@ -173,6 +173,7 @@ const OrderTable = () => {
 					vendorProductId: null,
 					quantityPurchased: subRowRecord.qty_ordered,
 					vendorCost: parseFloat(subRowRecord.selected_supplier_cost) || null,
+					product_sku: subRowRecord.sku,
 				}
 			);
 			console.log('created PO line item', newPurchaseOrderLineItem);
@@ -671,9 +672,9 @@ const OrderTable = () => {
 		}
 	};
 
-	// const getTextValue = (text) => {
-	//   setTextFromDrawer(text)
-	// }
+	const getTextValue = (text) => {
+	  setTextFromDrawer(text)
+	}
 
 	const expandedRowRender = record => {
 		//render sub table here
