@@ -741,30 +741,6 @@ const OrderTable = () => {
         },
       },
       {
-        title: "Product_id",
-        dataIndex: "product_id",
-        key: "product_id",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="product_id"
-                rules={[
-                  {
-                    required: true,
-                    message: "product_id is required",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
-      {
         title: "Quantity",
         dataIndex: "qty_ordered",
         key: "qty_ordered",
@@ -836,6 +812,20 @@ const OrderTable = () => {
           }
         },
       },
+			{
+				title: "Margin %",
+				key: "margin",
+				render: (text, record) => {
+					const cost = record.selected_supplier_cost;
+					const price = record.price;
+					if (cost && price) {
+						const margin = ((price - cost) / price) * 100;
+						return <span>{margin.toFixed(2)}%</span>;
+					} else {
+						return <span></span>;
+					}
+				}
+			},
       {
         title: "Action",
         dataIndex: "operation",
@@ -897,6 +887,7 @@ const OrderTable = () => {
           );
         },
       },
+
     ];
     return (
       <Table
