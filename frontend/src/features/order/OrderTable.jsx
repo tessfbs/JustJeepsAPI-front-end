@@ -942,8 +942,7 @@ const OrderTable = () => {
 								color: 'black',
 							}}
 							onClick={() => {
-								console.log('resetDrawer');
-								resetDrawer;
+								resetDrawer();
 							}}
 						/>
 					</Space>
