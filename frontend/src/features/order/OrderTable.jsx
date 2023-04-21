@@ -1,30 +1,17 @@
 import {
 	SearchOutlined,
 	EditOutlined,
-	DeleteOutlined,
 	SaveOutlined,
 	GlobalOutlined,
-	ClearOutlined,
-	CoffeeOutlined,
+	ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import {
-	Badge,
-	Dropdown,
-	Space,
-	Table,
-	Input,
-	Button,
-	Modal,
-	Form,
-	message,
-	Drawer,
-} from 'antd';
+import { Space, Table, Input, Button, Modal, Form } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { Edit, Trash, Save, TableIcon } from '../../icons';
-import ProductTable from '../items/ProductTable';
+import { Edit, Trash, Save } from '../../icons';
 import Popup from './Popup';
+import PoPopUp from '../po/PoPopUp';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -38,6 +25,9 @@ const OrderTable = () => {
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState('top');
 	const [currentSku, setCurrentSku] = useState(null);
+	const [currentInfo, setCurrentInfo] = useState(null);
+	const [openPo, setOpenPo] = useState(false);
+	const [position, setPosition] = useState('left');
 
 	//initial loading data main table
 	useEffect(() => {
@@ -607,10 +597,27 @@ const OrderTable = () => {
 		setOpen(false);
 	};
 
-	//drawer search
-	// const handleDrawerChange = e => {
-	// 	setSearchTermSku(e.target.value);
-	// };
+	//po popup
+	const showPoDrawer = (
+		sku,
+		name,
+		qty_ordered,
+		selected_supplier,
+		selected_supplier_cost
+	) => {
+		setCurrentInfo(
+			sku,
+			name,
+			qty_ordered,
+			selected_supplier,
+			selected_supplier_cost
+		);
+		setOpenPo(true);
+	};
+	const onClosePo = () => {
+		setCurrentInfo(null);
+		setOpenPo(false);
+	};
 
 	return (
 		<>
@@ -841,10 +848,6 @@ const OrderTable = () => {
 																});
 															}}
 														/>
-														{/* <DeleteOutlined
-															style={{ color: 'red' }}
-															onClick={() => handleDeleteOrderItem(record)}
-														/> */}
 														<SaveOutlined
 															style={{ color: 'green' }}
 															onClick={() => handleSaveSub(record.key)}
@@ -852,6 +855,18 @@ const OrderTable = () => {
 														<GlobalOutlined
 															style={{ color: 'blue' }}
 															onClick={() => showDrawer(recordSub.sku)}
+														/>
+														<ShoppingCartOutlined
+															style={{ color: 'purple' }}
+															onClick={() =>
+																showPoDrawer(
+																	recordSub.name,
+																	recordSub.sku,
+																	recordSub.qty_ordered,
+																	recordSub.selected_supplier,
+																	recordSub.selected_supplier_cost
+																)
+															}
 														/>
 													</Space>
 												</Form.Item>
@@ -879,6 +894,13 @@ const OrderTable = () => {
 
 			{open && (
 				<Popup placement={placement} onClose={onClose} sku={currentSku} />
+			)}
+			{openPo && (
+				<PoPopUp
+					position={position}
+					onClose={onClosePo}
+					currentInfo={currentInfo}
+				/>
 			)}
 		</>
 	);
