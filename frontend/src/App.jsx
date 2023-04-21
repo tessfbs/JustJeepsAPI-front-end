@@ -8,8 +8,6 @@ import { DashBoard } from './features/dashboard/DashBoard.jsx';
 import { DashBoardPO } from './features/dashboard/DashBoardPO.jsx';
 import { PoForm } from './features/po/PoForm.jsx';
 import { Items } from './features/items/Items.jsx';
-import ProductTable from './features/items/ProductTable.jsx';
-import DrawerSupplier from './features/drawer/DrawerSupplier.jsx';
 
 function App() {
 	const [data, setData] = useState('');
@@ -44,7 +42,6 @@ function App() {
 				</Route>
 				<Route path='/po' element={<PoForm />} />
 				<Route path='/items' element={<Items />} />
-				<Route path='/drawer' element={<DrawerSupplier />} />
 			</Routes>
 		</>
 	);

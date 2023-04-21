@@ -4,6 +4,8 @@ import {
 	DeleteOutlined,
 	SaveOutlined,
 	GlobalOutlined,
+	ClearOutlined,
+	CoffeeOutlined,
 } from '@ant-design/icons';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
@@ -17,10 +19,11 @@ import {
 	Modal,
 	Form,
 	message,
+	Drawer,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { Edit, Trash, Save } from '../../icons';
-import DrawerSupplier from '../drawer/DrawerSupplier';
+import { Edit, Trash, Save, TableIcon } from '../../icons';
+import ProductTable from '../items/ProductTable';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -31,8 +34,12 @@ const OrderTable = () => {
 	const searchInput = useRef(null);
 	const [editingRow, setEditingRow] = useState(null);
 	const [form] = Form.useForm();
-
-	//initial loading data
+	const [open, setOpen] = useState(false);
+	const [placement, setPlacement] = useState('top');
+	const [searchTermSku, setSearchTermSku] = useState('');
+	const [drawerData, setDrawerData] = useState('');
+	const [dataProduct, setDataProduct] = useState([]);
+	//initial loading data main table
 	useEffect(() => {
 		loadData();
 	}, []);
@@ -48,7 +55,6 @@ const OrderTable = () => {
 
 	//delete an order
 	const handleDeleteOrder = record => {
-		console.log('handleDeleteOrder record: ', record);
 		Modal.confirm({
 			title: 'Are you sure to cancel this order?',
 			okText: 'Yes',
@@ -90,11 +96,10 @@ const OrderTable = () => {
 	};
 
 	// delete backend order-product
-	const deleteOrderItem = async id => {
+	const deleteOrderItem = id => {
 		return axios
 			.delete(`http://localhost:8080/order_products/${id}/delete`)
 			.then(response => {
-				console.log('response', response);
 				setOrders(response.data);
 			});
 	};
@@ -132,7 +137,7 @@ const OrderTable = () => {
 		setEditingRow(null);
 	};
 
-	const updateOrderItem = async subRowRecord => {
+	const updateOrderItem = subRowRecord => {
 		const { id } = subRowRecord;
 
 		return axios
@@ -160,7 +165,7 @@ const OrderTable = () => {
 				const copyOrders = [...orders];
 				//update the order
 				copyOrders.splice(parentIndex, 1, modifiedParent);
-				console.log('copyOrders: ', copyOrders);
+
 				//set state
 				setOrders(copyOrders);
 			});
@@ -194,7 +199,7 @@ const OrderTable = () => {
 	};
 
 	//update order backend
-	const updateOrder = async formObj => {
+	const updateOrder = formObj => {
 		const {
 			customer_email,
 			customer_firstname,
@@ -204,18 +209,20 @@ const OrderTable = () => {
 			total_qty_ordered,
 		} = formObj;
 
-		return axios
-			.post(`http://localhost:8080/api/orders/${entity_id}/edit`)
-			.then(() => {
-				setOrders({
-					...state, //state is not defined
-					customer_email,
-					customer_firstname,
-					customer_lastname,
-					grand_total,
-					total_qty_ordered,
-				});
-			});
+		return axios.post(
+			`http://localhost:8080/api/orders/${entity_id}/edit`,
+			formObj
+		);
+		// .then(() => {
+		// 	// setOrders({
+		// 	// 	...state, //state is not defined
+		// 	// 	customer_email,
+		// 	// 	customer_firstname,
+		// 	// 	customer_lastname,
+		// 	// 	grand_total,
+		// 	// 	total_qty_ordered,
+		// 	// });
+		// });
 	};
 
 	//sort
@@ -600,6 +607,47 @@ const OrderTable = () => {
 		...order,
 	}));
 
+	//drawer;
+	const showDrawer = () => {
+		setOpen(true);
+	};
+	const onClose = () => {
+		setOpen(false);
+	};
+
+	//drawer search
+	const handleDrawerChange = e => {
+		setSearchTermSku(e.target.value);
+	};
+
+	//load sku data
+	useEffect(() => {
+		getProductBySku(searchTermSku);
+	}, []);
+
+	const getProductBySku = searchTermSku => {
+		try {
+			if (searchTermSku) {
+				// Add null check
+				return axios
+					.get(`http://localhost:8080/api/products/${searchTermSku}`)
+					.then(res => {
+						const responseData = res.data;
+						// Process the response data from backend if needed
+						setDataProduct([responseData]);
+					});
+			}
+		} catch (error) {
+			console.error('Failed to fetch data from backend:', error);
+		}
+	};
+
+	//reset drawer button
+	const resetDrawer = () => {
+		setSearchTermSku('');
+		setDataProduct([]);
+	};
+
 	return (
 		<>
 			<div className='container-xxl mt-5'>
@@ -839,7 +887,7 @@ const OrderTable = () => {
 														/>
 														<GlobalOutlined
 															style={{ color: 'blue' }}
-															// onClick={showDrawer}
+															onClick={showDrawer}
 														/>
 													</Space>
 												</Form.Item>
@@ -864,6 +912,39 @@ const OrderTable = () => {
 					/>
 				</Form>
 			</div>
+			<Drawer placement={placement} width={300} onClose={onClose} open={open}>
+				<div className='mb-2'>
+					<Space>
+						<Input
+							placeholder='Enter your item'
+							onChange={handleDrawerChange}
+							type='text'
+							allowClear
+							value={searchTermSku}
+						/>
+						<CoffeeOutlined
+							size='middle'
+							style={{
+								width: 50,
+								color: 'black',
+							}}
+							onClick={() => getProductBySku(searchTermSku)}
+						/>
+						<ClearOutlined
+							size='middle'
+							style={{
+								color: 'black',
+							}}
+							onClick={() => {
+								resetDrawer();
+							}}
+						/>
+					</Space>
+				</div>
+				<div>
+					<ProductTable searchTermSku={searchTermSku} data={dataProduct} />
+				</div>
+			</Drawer>
 		</>
 	);
 };
