@@ -156,36 +156,34 @@ const OrderTable = () => {
 		);
 		console.log('vendor_id', vendor_id);
 		try {
-			
-	
-				// create the purchase order
-				const newPurchaseOrder = await axios.post(
-					'http://localhost:8080/api/purchase_orders',
-					{
-						vendor_id: vendor_id,
-						user_id: 2,
-						order_id: subRowRecord.order_id,
-					}
-				);
-				console.log('created PO', newPurchaseOrder.data);
-	
-				// create the purchase order line item
-				const newPurchaseOrderLineItem = await axios.post(
-					'http://localhost:8080/purchaseOrderLineItem',
-					{
-						purchaseOrderId: newPurchaseOrder.data.id,
-						vendorProductId: null,
-						quantityPurchased: subRowRecord.qty_ordered,
-						vendorCost: parseFloat(subRowRecord.selected_supplier_cost) || null,
-						product_sku: subRowRecord.sku,
-					}
-				);
-				console.log('created PO line item', newPurchaseOrderLineItem);
-				const confirmedMessage = await Modal.info({
-					title: 'Add Item to Purchase Order',
-					content: `The ${subRowRecord.sku} has been added to the purchase order for ${subRowRecord.selected_supplier}`,
-					okText: 'Ok',
-				});
+			// create the purchase order
+			const newPurchaseOrder = await axios.post(
+				'http://localhost:8080/api/purchase_orders',
+				{
+					vendor_id: vendor_id,
+					user_id: 2,
+					order_id: subRowRecord.order_id,
+				}
+			);
+			console.log('created PO', newPurchaseOrder.data);
+
+			// create the purchase order line item
+			const newPurchaseOrderLineItem = await axios.post(
+				'http://localhost:8080/purchaseOrderLineItem',
+				{
+					purchaseOrderId: newPurchaseOrder.data.id,
+					vendorProductId: null,
+					quantityPurchased: subRowRecord.qty_ordered,
+					vendorCost: parseFloat(subRowRecord.selected_supplier_cost) || null,
+					product_sku: subRowRecord.sku,
+				}
+			);
+			console.log('created PO line item', newPurchaseOrderLineItem);
+			const confirmedMessage = await Modal.info({
+				title: 'Add Item to Purchase Order',
+				content: `The ${subRowRecord.sku} has been added to the purchase order for ${subRowRecord.selected_supplier}`,
+				okText: 'Ok',
+			});
 		} catch (error) {
 			console.error(error);
 		}
@@ -355,7 +353,7 @@ const OrderTable = () => {
 			/>
 		),
 		onFilter: (value, record) =>
-			record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+			record[dataIndex]?.toString().toLowerCase().includes(value.toLowerCase()),
 		onFilterDropdownOpenChange: visible => {
 			if (visible) {
 				setTimeout(() => searchInput.current?.select(), 100);
@@ -410,6 +408,8 @@ const OrderTable = () => {
 			title: 'Status',
 			dataIndex: 'status',
 			key: 'status',
+			sorter: (a, b) => a.status?.localeCompare(b.status),
+			...getColumnSearchProps('status'),
 		},
 		{
 			title: 'Created_Date',
@@ -607,7 +607,7 @@ const OrderTable = () => {
 			},
 		},
 		{
-			title: 'Action',
+			title: 'Actions',
 			key: 'operation',
 			render: (_, record) => {
 				return (
@@ -657,11 +657,11 @@ const OrderTable = () => {
 		key: order.entity_id,
 		...order,
 	}));
-	
+
 	// console.log('currentSku', currentSku);
 	// console.log('currentOrderProductID', currentOrderProductID);
 	//drawer;
-	const showDrawer = (sku,id) => {
+	const showDrawer = (sku, id) => {
 		setCurrentSku(sku);
 		setCurrentOrderProductID(id);
 		setOpen(true);
@@ -997,7 +997,12 @@ const OrderTable = () => {
 			</div>
 
 			{open && (
-				<Popup placement={placement} onClose={onClose} sku={currentSku} orderProductId={currentOrderProductID} />
+				<Popup
+					placement={placement}
+					onClose={onClose}
+					sku={currentSku}
+					orderProductId={currentOrderProductID}
+				/>
 			)}
 		</>
 	);
