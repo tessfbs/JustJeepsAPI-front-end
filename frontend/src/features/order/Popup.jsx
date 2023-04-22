@@ -4,9 +4,10 @@ import { ClearOutlined, CoffeeOutlined } from '@ant-design/icons';
 import ProductTable from '../items/ProductTable';
 import axios from 'axios';
 
-const Popup = ({ placement, onClose, sku }) => {
+const Popup = ({ placement, onClose, sku, orderProductId }) => {
 	const [searchTermSku, setSearchTermSku] = useState(sku);
 	const [dataProduct, setDataProduct] = useState([]);
+	const [dataOrderProductID, setDataOrderProductID] = useState(orderProductId);
 
 	const resetDrawer = useCallback(() => {
 		setSearchTermSku('');
@@ -66,7 +67,7 @@ const Popup = ({ placement, onClose, sku }) => {
 				</Space>
 			</div>
 			<div>
-				<ProductTable searchTermSku={searchTermSku} data={dataProduct} />
+				<ProductTable searchTermSku={searchTermSku} data={dataProduct} orderProductId={dataOrderProductID} />
 			</div>
 		</Drawer>
 	);

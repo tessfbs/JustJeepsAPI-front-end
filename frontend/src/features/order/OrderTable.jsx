@@ -35,6 +35,7 @@ const OrderTable = () => {
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState('top');
 	const [currentSku, setCurrentSku] = useState(null);
+	const [currentOrderProductID, setCurrentOrderProductID] = useState(null);
 	const { Option } = Select;
 
 	//initial loading data main table
@@ -655,10 +656,13 @@ const OrderTable = () => {
 		key: order.entity_id,
 		...order,
 	}));
-
+	
+	// console.log('currentSku', currentSku);
+	// console.log('currentOrderProductID', currentOrderProductID);
 	//drawer;
-	const showDrawer = sku => {
+	const showDrawer = (sku,id) => {
 		setCurrentSku(sku);
+		setCurrentOrderProductID(id);
 		setOpen(true);
 	};
 	const onClose = () => {
@@ -924,7 +928,7 @@ const OrderTable = () => {
 										<GlobalOutlined
 											style={{ color: 'blue' }}
 											onClick={() => {
-												showDrawer(recordSub.sku);
+												showDrawer(recordSub.sku, recordSub.id);
 											}}
 										/>
 									</Tooltip>
@@ -967,7 +971,7 @@ const OrderTable = () => {
 			</div>
 
 			{open && (
-				<Popup placement={placement} onClose={onClose} sku={currentSku} />
+				<Popup placement={placement} onClose={onClose} sku={currentSku} orderProductId={currentOrderProductID} />
 			)}
 		</>
 	);
