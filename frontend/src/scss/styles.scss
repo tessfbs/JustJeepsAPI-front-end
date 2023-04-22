@@ -2,6 +2,12 @@
 @import 'bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
+.container-fluid {
+	background-color: #2938c3;
+	background-image: url('https://www.transparenttextures.com/patterns/binding-dark.png');
+	height: 100%;
+	padding-top: 30px;
+}
 .navbar {
 	background-color: $yellow-500;
 	padding: 30px;

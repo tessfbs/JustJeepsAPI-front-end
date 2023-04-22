@@ -994,20 +994,21 @@ const OrderTable = () => {
 
 	return (
 		<>
-			<div className='container-xxl mt-5'>
-				<Form form={form}>
-					<Table
-						columns={columns}
-						expandable={{ expandedRowRender, onExpand: handleExpand }}
-						dataSource={data}
-						bordered
-						rowKey={record => record.id}
-						onChange={handleChange}
-						size='small'
-					/>
-				</Form>
+			<div className='container-fluid'>
+				<div className='container-xxl'>
+					<Form form={form}>
+						<Table
+							columns={columns}
+							expandable={{ expandedRowRender, onExpand: handleExpand }}
+							dataSource={data}
+							bordered
+							rowKey={record => record.id}
+							onChange={handleChange}
+							size='small'
+						/>
+					</Form>
+				</div>
 			</div>
-
 			{open && (
 				<Popup
 					placement={placement}

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
 	return (
 		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
-			<div className='container-fluid'>
+			<div className='container'>
 				<Link className='nav-link active fs-5 mx-4' to='/'>
 					<img src={helper_black} alt='logo' width='120' height='80' />
 				</Link>
