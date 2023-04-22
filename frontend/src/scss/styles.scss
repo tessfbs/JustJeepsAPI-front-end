@@ -11,6 +11,9 @@
 .navbar {
 	background-color: $yellow-500;
 	padding: 30px;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Space Mono', monospace;
+	font-size: larger;
 }
 
 .nav_link .btn {
@@ -70,10 +73,8 @@ nav .nav_right {
 
 .ant-table-column-title {
 	text-align: center;
-	text-overflow: ellipsis;
 }
 
 .ant-table-content .ant-table-thead .ant-table-cell {
 	text-align: center;
-	text-overflow: ellipsis;
 }
