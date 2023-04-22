@@ -21,7 +21,7 @@ import {
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save, Reload } from '../../icons';
 import Popup from './Popup';
-import DropdownList from '../dropdown/DropDownList';
+import TableTop from '../tabletop/TableTop';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -996,6 +996,10 @@ const OrderTable = () => {
 		<>
 			<div className='container-fluid'>
 				<div className='container-xl'>
+					<div className='container mb-3'>
+						<TableTop />
+					</div>
+
 					<Form form={form}>
 						<Table
 							columns={columns}
