@@ -1008,6 +1008,7 @@ const OrderTable = () => {
 						/>
 					</Form>
 				</div>
+				<div id='footer'>© 2023, Helper.com, Inc. All Rights Reserved</div>
 			</div>
 			{open && (
 				<Popup
