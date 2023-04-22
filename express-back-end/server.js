@@ -23,37 +23,39 @@ app.get("/api/data", (req, res) =>
 );
 
 // Route for getting top 5 products by qty_ordered
-app.get('/top5skus', async (req, res) => {
+app.get("/top5skus", async (req, res) => {
   try {
-		const top5Skus = await prisma.orderProduct.groupBy({
-      by: ['sku'],
+    const top5Skus = await prisma.orderProduct.groupBy({
+      by: ["sku"],
       _sum: {
         qty_ordered: true,
       },
       orderBy: {
         _sum: {
-          qty_ordered: 'desc',
+          qty_ordered: "desc",
         },
       },
       take: 10,
     });
 
-    const top5SkusWithProducts = await Promise.all(top5Skus.map(async (orderProduct) => {
-      const product = await prisma.product.findUnique({
-        where: {
-          sku: orderProduct.sku,
-        },
-      });
-      return {
-        ...orderProduct,
-        product,
-      };
-    }));
+    const top5SkusWithProducts = await Promise.all(
+      top5Skus.map(async (orderProduct) => {
+        const product = await prisma.product.findUnique({
+          where: {
+            sku: orderProduct.sku,
+          },
+        });
+        return {
+          ...orderProduct,
+          product,
+        };
+      })
+    );
 
     res.json(top5SkusWithProducts);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -73,99 +75,99 @@ app.get("/api/products_sku", async (req, res) => {
 });
 
 //Route for getting all products
-app.get('/api/products', async (req, res) => {
-	try {
-		const products = await prisma.product.findMany({
-			select: {
-				sku: true,
-				name: true,
-				url_path: true,
-				status: true,
-				price: true,
-				image: true,
-				brand_name: true,
-				vendors: true,
-				vendorProducts: {
-					select: {
-						product_sku: true,
-						vendor_sku: true,
-						vendor_cost: true,
-						vendor_inventory: true,
-						vendor: {
-							select: {
-								name: true,
-							},
-						},
-					},
-				},
-				competitorProducts: {
-					select: {
-						competitor_price: true,
-						product_url: true,
-						competitor: {
-							select: {
-								name: true,
-							},
-						},
-					},
-				},
-			},
-			// take: 20
-		});
+app.get("/api/products", async (req, res) => {
+  try {
+    const products = await prisma.product.findMany({
+      select: {
+        sku: true,
+        name: true,
+        url_path: true,
+        status: true,
+        price: true,
+        image: true,
+        brand_name: true,
+        vendors: true,
+        vendorProducts: {
+          select: {
+            product_sku: true,
+            vendor_sku: true,
+            vendor_cost: true,
+            vendor_inventory: true,
+            vendor: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+        competitorProducts: {
+          select: {
+            competitor_price: true,
+            product_url: true,
+            competitor: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      // take: 20
+    });
 
-		res.json(products);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Failed to fetch products' });
-	}
+    res.json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
 });
 
 //Route for getting all products by sku
-app.get('/api/products/:sku', async (req, res) => {
-	try {
-		const product = await prisma.product.findUnique({
-			where: {
-				sku: req.params.sku,
-			},
-			select: {
-				sku: true,
-				name: true,
-				status: true,
-				url_path: true,
-				price: true,
-				image: true,
-				vendors: true,
-				brand_name: true,
-				vendorProducts: {
-					select: {
-						product_sku: true,
-						vendor_sku: true,
-						vendor_cost: true,
-						vendor_inventory: true,
-						vendor: {
-							select: {
-								name: true,
-							},
-						},
-					},
-				},
-				competitorProducts: {
-					select: {
-						competitor_price: true,
-						product_url: true,
-						competitor: {
-							select: {
-								name: true,
-							},
-						},
-					},
-				},
-			},
-		});
-		res.json(product);
-	} catch (error) {
-		res.status(500).json({ error: 'Failed to fetch product' });
-	}
+app.get("/api/products/:sku", async (req, res) => {
+  try {
+    const product = await prisma.product.findUnique({
+      where: {
+        sku: req.params.sku,
+      },
+      select: {
+        sku: true,
+        name: true,
+        status: true,
+        url_path: true,
+        price: true,
+        image: true,
+        vendors: true,
+        brand_name: true,
+        vendorProducts: {
+          select: {
+            product_sku: true,
+            vendor_sku: true,
+            vendor_cost: true,
+            vendor_inventory: true,
+            vendor: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+        competitorProducts: {
+          select: {
+            competitor_price: true,
+            product_url: true,
+            competitor: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch product" });
+  }
 });
 
 app.get("/brands", async (req, res) => {
@@ -204,7 +206,6 @@ app.get("/api/orders", async (req, res) => {
   }
 });
 
-
 //Route for getting a single order
 app.get("/api/orders/:id", async (req, res) => {
   try {
@@ -220,44 +221,44 @@ app.get("/api/orders/:id", async (req, res) => {
 });
 
 // Route for updating an order status
-app.post('/api/orders/:id/edit', async (req, res) => {
-	try {
-		console.log(req.body);
-		const order = await prisma.order.update({
-			where: {
-				entity_id: Number(req.params.id),
-			},
-			data: {
-				// status: req.body.status,
-				customer_email: req.body.customer_email,
-				// coupon_code: req.body.coupon_code,
-				customer_firstname: req.body.customer_firstname,
-				customer_lastname: req.body.customer_lastname,
-				grand_total: req.body.grand_total,
-				// increment_id: req.body.increment_id,
-				// order_currency_code: req.body.order_currency_code,
-				total_qty_ordered: req.body.total_qty_ordered,
-			},
-		});
-		console.log(order);
-		res.json(order);
-	} catch (error) {
-		res.status(500).json({ error: 'Failed to update order' });
-	}
+app.post("/api/orders/:id/edit", async (req, res) => {
+  try {
+    console.log(req.body);
+    const order = await prisma.order.update({
+      where: {
+        entity_id: Number(req.params.id),
+      },
+      data: {
+        // status: req.body.status,
+        customer_email: req.body.customer_email,
+        // coupon_code: req.body.coupon_code,
+        customer_firstname: req.body.customer_firstname,
+        customer_lastname: req.body.customer_lastname,
+        grand_total: req.body.grand_total,
+        // increment_id: req.body.increment_id,
+        // order_currency_code: req.body.order_currency_code,
+        total_qty_ordered: req.body.total_qty_ordered,
+      },
+    });
+    console.log(order);
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to update order" });
+  }
 });
 
 //Route for deleting an order
-app.post('/api/orders/:id/delete', async (req, res) => {
-	try {
-		const order = await prisma.order.delete({
-			where: {
-				entity_id: Number(req.params.id),
-			},
-		});
-		res.json(order);
-	} catch (error) {
-		res.status(500).json({ error: 'Failed to delete order' });
-	}
+app.post("/api/orders/:id/delete", async (req, res) => {
+  try {
+    const order = await prisma.order.delete({
+      where: {
+        entity_id: Number(req.params.id),
+      },
+    });
+    res.json(order);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete order" });
+  }
 });
 
 //* Routes for Product Orders *\\
@@ -320,51 +321,51 @@ app.post("/order_products", async (req, res) => {
 });
 
 // Route for editing an order product
-app.post('/order_products/:id/edit', async (req, res) => {
-	try {
-		const id = req.params.id;
-		const {
-			name,
-			sku,
-			base_price,
-			base_price_incl_tax,
-			discount_amount,
-			discount_invoiced,
-			discount_percent,
-			original_price,
-			price,
-			price_incl_tax,
-			product_id,
-			qty_ordered,
-			selected_supplier,
-			selected_supplier_cost,
-		} = req.body;
-		const updatedOrderProduct = await prisma.orderProduct.update({
-			where: {
-				id: Number(id),
-			},
-			data: {
-				name: name,
-				sku: sku,
-				base_price: base_price,
-				base_price_incl_tax: base_price_incl_tax,
-				discount_amount: discount_amount,
-				discount_invoiced: discount_invoiced,
-				discount_percent: discount_percent,
-				original_price: original_price,
-				price: price,
-				price_incl_tax: price_incl_tax,
-				product_id: product_id,
-				qty_ordered: qty_ordered,
-				selected_supplier: selected_supplier,
-				selected_supplier_cost: selected_supplier_cost,
-			},
-		});
-		res.json(updatedOrderProduct);
-	} catch (error) {
-		console.error(error);
-		res.status(500).json({ error: 'Failed to update order product' });
-	}
+app.post("/order_products/:id/edit", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const {
+      name,
+      sku,
+      base_price,
+      base_price_incl_tax,
+      discount_amount,
+      discount_invoiced,
+      discount_percent,
+      original_price,
+      price,
+      price_incl_tax,
+      product_id,
+      qty_ordered,
+      selected_supplier,
+      selected_supplier_cost,
+    } = req.body;
+    const updatedOrderProduct = await prisma.orderProduct.update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        name: name,
+        sku: sku,
+        base_price: base_price,
+        base_price_incl_tax: base_price_incl_tax,
+        discount_amount: discount_amount,
+        discount_invoiced: discount_invoiced,
+        discount_percent: discount_percent,
+        original_price: original_price,
+        price: price,
+        price_incl_tax: price_incl_tax,
+        product_id: product_id,
+        qty_ordered: qty_ordered,
+        selected_supplier: selected_supplier,
+        selected_supplier_cost: selected_supplier_cost,
+      },
+    });
+    res.json(updatedOrderProduct);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to update order product" });
+  }
 });
 
 // Route for deleting an order product
@@ -448,18 +449,17 @@ app.get("/api/vendors", async (req, res) => {
 
 //get all vendornproducts by vendor id
 app.get("/api/vendor_products/vendor/:id", async (req, res) => {
-	try {
-		const vendorProducts = await prisma.vendorProduct.findMany({
-			where: {
-				vendor_id: parseInt(req.params.id),
-			},
-		});
-		res.json(vendorProducts);
-	} catch (error) {
-		res.status(500).json({ error: "Failed to fetch vendor products" });
-	}
+  try {
+    const vendorProducts = await prisma.vendorProduct.findMany({
+      where: {
+        vendor_id: parseInt(req.params.id),
+      },
+    });
+    res.json(vendorProducts);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch vendor products" });
+  }
 });
-
 
 //* Routes for Purchase Orders *\\
 
@@ -490,47 +490,47 @@ app.get("/api/vendor_products/vendor/:id", async (req, res) => {
 //   }
 // });
 
-app.get('/api/purchase_orders', async (req, res) => {
-	try {
-		const purchaseOrders = await prisma.purchaseOrder.findMany({
-			include: {
-				purchaseOrderLineItems: true,
-			},
-		});
-		res.json(purchaseOrders);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Failed to fetch purchase orders' });
-	}
+app.get("/api/purchase_orders", async (req, res) => {
+  try {
+    const purchaseOrders = await prisma.purchaseOrder.findMany({
+      include: {
+        purchaseOrderLineItems: true,
+      },
+    });
+    res.json(purchaseOrders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed to fetch purchase orders" });
+  }
 });
 
 // Route for getting all Purchase Orders by vendor
-app.get('/api/purchase_orders/vendor/:id', async (req, res) => {
-	try {
-		const purchaseOrders = await prisma.purchaseOrder.findMany({
-			where: {
-				vendor_id: Number(req.params.id),
-			},
-			include: {
-				vendor: true,
-				user: true,
-				order: {
-					include: {
-						items: true,
-					},
-				},
-				purchaseOrderLineItems: {
-					include: {
-						purchaseOrder: true,
-					},
-				},
-			},
-		});
-		res.json(purchaseOrders);
-	} catch (error) {
-		console.log(error);
-		res.status(500).json({ error: 'Failed to fetch purchase orders' });
-	}
+app.get("/api/purchase_orders/vendor/:id", async (req, res) => {
+  try {
+    const purchaseOrders = await prisma.purchaseOrder.findMany({
+      where: {
+        vendor_id: Number(req.params.id),
+      },
+      include: {
+        vendor: true,
+        user: true,
+        order: {
+          include: {
+            items: true,
+          },
+        },
+        purchaseOrderLineItems: {
+          include: {
+            purchaseOrder: true,
+          },
+        },
+      },
+    });
+    res.json(purchaseOrders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Failed to fetch purchase orders" });
+  }
 });
 
 // Route for getting a single Purchase Order
@@ -554,9 +554,7 @@ app.get("/api/purchase_orders/:id", async (req, res) => {
   res.json(purchaseOrder);
 });
 
-
 // Route for creating a Purchase Order
-
 
 // Route for creating a Purchase Order
 app.post("/api/purchase_orders", async (req, res) => {
@@ -602,27 +600,56 @@ app.post("/api/purchase_orders", async (req, res) => {
   }
 });
 
-
-// Route for creating a Purchase Order Line Item
-app.post('/purchaseOrderLineItem', async (req, res) => {
+// Route for creating or updating a Purchase Order Line Item
+app.post("/purchaseOrderLineItem", async (req, res) => {
   try {
-    const { purchaseOrderId, vendorProductId, quantityPurchased, vendorCost, product_sku, vendor_sku } = req.body;
-    const purchaseOrderLineItem = await prisma.purchaseOrderLineItem.create({
-      data: {
+    const {
+      purchaseOrderId,
+      vendorProductId,
+      quantityPurchased,
+      vendorCost,
+      product_sku,
+      vendor_sku,
+    } = req.body;
+
+    console.log(req.body);
+    let purchaseOrderLineItem = await prisma.purchaseOrderLineItem.findFirst({
+      where: {
         purchase_order_id: purchaseOrderId,
-        quantity_purchased: quantityPurchased,
-        vendor_cost: vendorCost,
-				product_sku: product_sku,
-				vendor_sku: vendor_sku,
+        product_sku: product_sku,
       },
     });
+
+    console.log(purchaseOrderLineItem);
+
+    if (!purchaseOrderLineItem) {
+      purchaseOrderLineItem = await prisma.purchaseOrderLineItem.create({
+        data: {
+          purchase_order_id: purchaseOrderId,
+          quantity_purchased: quantityPurchased,
+          vendor_cost: vendorCost,
+          product_sku: product_sku,
+          vendor_sku: vendor_sku,
+        },
+      });
+    } else {
+      purchaseOrderLineItem = await prisma.purchaseOrderLineItem.update({
+        where: {
+          id: purchaseOrderLineItem.id,
+        },
+        data: {
+          quantity_purchased: quantityPurchased,
+          vendor_cost: vendorCost,
+        },
+      });
+    }
+
     res.status(201).json(purchaseOrderLineItem);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Something went wrong' });
+    res.status(500).json({ message: "Something went wrong" });
   }
 });
-
 
 // Route for updating a Purchase Order
 app.post("/api/purchase_orders/:id/update", async (req, res) => {
@@ -667,8 +694,6 @@ app.post("/api/purchase_orders/:id/delete", async (req, res) => {
     res.status(500).json({ error: "Failed to delete purchase order" });
   }
 });
-
-
 
 // Route for getting the grand total and total count of all orders
 app.get("/totalOrderInfo", async (req, res) => {
@@ -778,7 +803,7 @@ app.get("/toppopularproduct", async (req, res) => {
           sku: result1[i].sku,
         },
       });
-      result3.push({...result1[i]._sum,...result2});
+      result3.push({ ...result1[i]._sum, ...result2 });
     }
     res.json(result3);
   } catch (error) {
