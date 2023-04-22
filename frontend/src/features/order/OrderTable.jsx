@@ -995,11 +995,11 @@ const OrderTable = () => {
 	return (
 		<>
 			<div className='container-fluid'>
-				<div className='container-xxl'>
+				<div className='container-xl'>
 					<Form form={form}>
 						<Table
 							columns={columns}
-							expandable={{ expandedRowRender, onExpand: handleExpand }}
+							expandable={{ expandedRowRender }} //, onExpand: handleExpand remove expandable
 							dataSource={data}
 							bordered
 							rowKey={record => record.id}
