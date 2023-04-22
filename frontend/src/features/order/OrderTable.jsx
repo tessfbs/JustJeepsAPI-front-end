@@ -666,7 +666,8 @@ const OrderTable = () => {
 		setCurrentOrderProductID(id);
 		setOpen(true);
 	};
-	const onClose = () => {
+	const onClose = (record) => {
+		console.log('record on close', record);
 		setCurrentSku(null);
 		setOpen(false);
 	};
