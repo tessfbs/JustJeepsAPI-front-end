@@ -154,33 +154,36 @@ const OrderTable = () => {
 		);
 		console.log('vendor_id', vendor_id);
 		try {
-			// create the purchase order
-			const newPurchaseOrder = await axios.post(
-				'http://localhost:8080/api/purchase_orders',
-				{
-					vendor_id: vendor_id,
-					user_id: 2,
-					order_id: subRowRecord.order_id,
-				}
-			);
-			console.log('created PO', newPurchaseOrder.data);
-
-			// create the purchase order line item
-			const newPurchaseOrderLineItem = await axios.post(
-				'http://localhost:8080/purchaseOrderLineItem',
-				{
-					// purchaseOrderId: newPurchaseOrder.data.id,
-					// vendorProductId: null,
-					// quantityPurchased: subRowRecord.qty_ordered,
-					// vendorCost: subRowRecord.selected_supplier_cost,
-					purchaseOrderId: newPurchaseOrder.data.id,
-					vendorProductId: null,
-					quantityPurchased: subRowRecord.qty_ordered,
-					vendorCost: parseFloat(subRowRecord.selected_supplier_cost) || null,
-					product_sku: subRowRecord.sku,
-				}
-			);
-			console.log('created PO line item', newPurchaseOrderLineItem);
+			
+	
+				// create the purchase order
+				const newPurchaseOrder = await axios.post(
+					'http://localhost:8080/api/purchase_orders',
+					{
+						vendor_id: vendor_id,
+						user_id: 2,
+						order_id: subRowRecord.order_id,
+					}
+				);
+				console.log('created PO', newPurchaseOrder.data);
+	
+				// create the purchase order line item
+				const newPurchaseOrderLineItem = await axios.post(
+					'http://localhost:8080/purchaseOrderLineItem',
+					{
+						purchaseOrderId: newPurchaseOrder.data.id,
+						vendorProductId: null,
+						quantityPurchased: subRowRecord.qty_ordered,
+						vendorCost: parseFloat(subRowRecord.selected_supplier_cost) || null,
+						product_sku: subRowRecord.sku,
+					}
+				);
+				console.log('created PO line item', newPurchaseOrderLineItem);
+				const confirmedMessage = await Modal.info({
+					title: 'Add Item to Purchase Order',
+					content: `The ${subRowRecord.sku} has been added to the purchase order for ${subRowRecord.selected_supplier}`,
+					okText: 'Ok',
+				});
 		} catch (error) {
 			console.error(error);
 		}
