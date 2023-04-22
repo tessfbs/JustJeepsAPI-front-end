@@ -1,9 +1,9 @@
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../../datatablesource.jsx";
+import { transferOrder,userColumns } from "../../helper/transfers.jsx";
 import "./list.scss";
 
-const List = () => {
-
+const List = ({value}) => {
+  const userRows = transferOrder(value);
   return (
     <div className="datatable">
 

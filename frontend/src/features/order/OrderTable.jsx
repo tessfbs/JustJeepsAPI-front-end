@@ -7,14 +7,24 @@ import {
 } from '@ant-design/icons';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { Space, Table, Input, Button, Modal, Form } from 'antd';
+import {
+	Space,
+	Table,
+	Input,
+	Button,
+	Modal,
+	Form,
+	Tooltip,
+	Select,
+} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save } from '../../icons';
 import Popup from './Popup';
-import PoPopUp from '../po/PoPopUp';
+import DropdownList from '../dropdown/DropDownList';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
+	const [originalOrders, setOriginalOrders] = useState([]);
 	const [sortedInfo, setSortedInfo] = useState({});
 	const [loading, setLoading] = useState(false);
 	const [searchText, setSearchText] = useState('');
@@ -25,9 +35,7 @@ const OrderTable = () => {
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState('top');
 	const [currentSku, setCurrentSku] = useState(null);
-	const [currentInfo, setCurrentInfo] = useState(null);
-	const [openPo, setOpenPo] = useState(false);
-	const [position, setPosition] = useState('left');
+	const { Option } = Select;
 
 	//initial loading data main table
 	useEffect(() => {
@@ -38,7 +46,7 @@ const OrderTable = () => {
 	const loadData = useCallback(async () => {
 		setLoading(true);
 		const response = await axios.get('http://localhost:8080/api/orders'); //orderProductsJoin.json //http://localhost:8080/api/orders
-
+		setOriginalOrders(response.data);
 		setOrders(response.data);
 		setLoading(false);
 	}, []);
@@ -106,6 +114,7 @@ const OrderTable = () => {
 				console.log('error', error);
 			});
 	};
+
 	const onFinishSub = (key, values) => {
 		const updatedOrders = [...orders]; //make a copy of the orders
 		const parentItem = updatedOrders.find(order => {
@@ -127,8 +136,59 @@ const OrderTable = () => {
 		setEditingRow(null);
 	};
 
+	const createPurchaseOrder = async subRowRecord => {
+		console.log('subRowRecord for PO creation', subRowRecord);
+		let vendor_id = 0;
+		if (subRowRecord.selected_supplier.toLowerCase() === 'keystone') {
+			vendor_id = 1;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === 'meyer') {
+			vendor_id = 2;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === 'omix') {
+			vendor_id = 3;
+		} else if (subRowRecord.selected_supplier.toLowerCase() === 'quadratec') {
+			vendor_id = 4;
+		}
+		console.log(
+			'subRowRecord.selected_supplier.toLowerCase()',
+			subRowRecord.selected_supplier.toLowerCase()
+		);
+		console.log('vendor_id', vendor_id);
+		try {
+			// create the purchase order
+			const newPurchaseOrder = await axios.post(
+				'http://localhost:8080/api/purchase_orders',
+				{
+					vendor_id: vendor_id,
+					user_id: 2,
+					order_id: subRowRecord.order_id,
+				}
+			);
+			console.log('created PO', newPurchaseOrder.data);
+
+			// create the purchase order line item
+			const newPurchaseOrderLineItem = await axios.post(
+				'http://localhost:8080/purchaseOrderLineItem',
+				{
+					// purchaseOrderId: newPurchaseOrder.data.id,
+					// vendorProductId: null,
+					// quantityPurchased: subRowRecord.qty_ordered,
+					// vendorCost: subRowRecord.selected_supplier_cost,
+					purchaseOrderId: newPurchaseOrder.data.id,
+					vendorProductId: null,
+					quantityPurchased: subRowRecord.qty_ordered,
+					vendorCost: parseFloat(subRowRecord.selected_supplier_cost) || null,
+					product_sku: subRowRecord.sku,
+				}
+			);
+			console.log('created PO line item', newPurchaseOrderLineItem);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	const updateOrderItem = subRowRecord => {
 		const { id } = subRowRecord;
+		console.log('subRowRecord', subRowRecord);
 
 		return axios
 			.post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
@@ -340,6 +400,11 @@ const OrderTable = () => {
 					return <p>{text}</p>;
 				}
 			},
+		},
+		{
+			title: 'Status',
+			dataIndex: 'status',
+			key: 'status',
 		},
 		{
 			title: 'Created_Date',
@@ -581,6 +646,7 @@ const OrderTable = () => {
 			},
 		},
 	];
+
 	//loop main column data
 	const data = orders.map(order => ({
 		key: order.entity_id,
@@ -597,26 +663,288 @@ const OrderTable = () => {
 		setOpen(false);
 	};
 
-	//po popup
-	const showPoDrawer = (
-		sku,
-		name,
-		qty_ordered,
-		selected_supplier,
-		selected_supplier_cost
-	) => {
-		setCurrentInfo(
-			sku,
-			name,
-			qty_ordered,
-			selected_supplier,
-			selected_supplier_cost
-		);
-		setOpenPo(true);
+	const handleExpand = (expanded, record) => {
+		if (expanded) {
+			console.log('record', record);
+			const selectedOrder = originalOrders.filter(
+				order => order.entity_id === record.entity_id
+			);
+			setOrders(selectedOrder);
+			console.log('selectedOrder', selectedOrder);
+		} else {
+			setOrders(originalOrders);
+		}
 	};
-	const onClosePo = () => {
-		setCurrentInfo(null);
-		setOpenPo(false);
+
+	const getTextValue = text => {
+		setTextFromDrawer(text);
+	};
+
+	const expandedRowRender = record => {
+		//render sub table here
+		const nestedColumns = [
+			{
+				title: 'ID',
+				dataIndex: 'id',
+				key: 'id',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='id'
+								rules={[
+									{
+										required: true,
+										message: 'id is required',
+									},
+								]}
+							>
+								<Input disabled={true} />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Product',
+				dataIndex: 'name',
+				key: 'name',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='name'
+								rules={[
+									{
+										required: true,
+										message: 'Product name is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'SKU',
+				dataIndex: 'sku',
+				key: 'sku',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='sku'
+								rules={[
+									{
+										required: true,
+										message: 'sku is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Price',
+				dataIndex: 'price',
+				key: 'price',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='price'
+								rules={[
+									{
+										required: true,
+										message: 'price is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Quantity',
+				dataIndex: 'qty_ordered',
+				key: 'qty_ordered',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='qty_ordered'
+								rules={[
+									{
+										required: true,
+										message: 'qty is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Supplier',
+				dataIndex: 'selected_supplier',
+				key: 'selected_supplier',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							// <Form.Item
+							// 	name='selected_supplier'
+							// 	rules={[
+							// 		{
+							// 			required: true,
+							// 			message: 'supplier is required',
+							// 		},
+							// 	]}
+							// >
+							// 	{/* <Input /> */}
+							// 	<DropdownList />
+							// </Form.Item>
+							<Form.Item
+								name='selected_supplier'
+								rules={[
+									{
+										required: true,
+										message: 'supplier is required',
+									},
+								]}
+							>
+								<Select placeholder='Select a supplier'>
+									<Option value='Keyston'>Keyston</Option>
+									<Option value='Meyer'>Meyer</Option>
+									<Option value='Omix'>Omix</Option>
+									<Option value='Quadratec'>Quaddratec</Option>
+								</Select>
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Supplier Cost',
+				dataIndex: 'selected_supplier_cost',
+				key: 'selected_supplier_cost',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='selected_supplier_cost'
+								rules={[
+									{
+										required: true,
+										message: 'selected_supplier_cost is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Margin %',
+				key: 'margin',
+				render: (text, record) => {
+					const cost = record.selected_supplier_cost;
+					const price = record.price;
+					if (cost && price) {
+						const margin = ((price - cost) / price) * 100;
+						return <span>{margin.toFixed(2)}%</span>;
+					} else {
+						return <span></span>;
+					}
+				},
+			},
+			{
+				title: 'Action',
+				dataIndex: 'operation',
+				key: 'operation',
+				render: (_, recordSub) => {
+					return (
+						<>
+							<Form.Item>
+								<Space size='small'>
+									<Tooltip title='Edit'>
+										<EditOutlined
+											style={{ color: 'orange' }}
+											onClick={() => {
+												//use recordSub instead of record to avoid override record because we need the order key
+												setEditingRow(recordSub.id); //also need to use id, not key
+												form.setFieldsValue({
+													id: recordSub.id,
+													name: recordSub.name,
+													sku: recordSub.sku,
+													price: recordSub.price,
+													product_id: recordSub.product_id,
+													qty_ordered: recordSub.qty_ordered,
+													selected_supplier: recordSub.selected_supplier,
+													selected_supplier_cost:
+														recordSub.selected_supplier_cost,
+												});
+											}}
+										/>
+									</Tooltip>
+									<Tooltip title='Save'>
+										<SaveOutlined
+											style={{ color: 'green' }}
+											onClick={() => handleSaveSub(record.key)}
+										/>
+									</Tooltip>
+									<Tooltip title='See Vendor Costs'>
+										<GlobalOutlined
+											style={{ color: 'blue' }}
+											onClick={() => {
+												showDrawer(recordSub.sku);
+											}}
+										/>
+									</Tooltip>
+									<Tooltip title='Add to PO'>
+										<ShoppingCartOutlined
+											style={{ color: 'purple' }}
+											onClick={() => createPurchaseOrder(recordSub)}
+										/>
+									</Tooltip>
+								</Space>
+							</Form.Item>
+						</>
+					);
+				},
+			},
+		];
+		return (
+			<Table
+				columns={nestedColumns}
+				dataSource={record.items}
+				pagination={false}
+			/>
+		);
 	};
 
 	return (
@@ -625,264 +953,7 @@ const OrderTable = () => {
 				<Form form={form}>
 					<Table
 						columns={columns}
-						expandedRowRender={record => {
-							//render sub table here
-							const nestedColumns = [
-								{
-									title: 'ID',
-									dataIndex: 'id',
-									key: 'id',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='id'
-													rules={[
-														{
-															required: true,
-															message: 'id is required',
-														},
-													]}
-												>
-													<Input disabled={true} />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'Product',
-									dataIndex: 'name',
-									key: 'name',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='name'
-													rules={[
-														{
-															required: true,
-															message: 'Product name is required',
-														},
-													]}
-												>
-													<Input />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'SKU',
-									dataIndex: 'sku',
-									key: 'sku',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='sku'
-													rules={[
-														{
-															required: true,
-															message: 'sku is required',
-														},
-													]}
-												>
-													<Input />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'Price',
-									dataIndex: 'price',
-									key: 'price',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='price'
-													rules={[
-														{
-															required: true,
-															message: 'price is required',
-														},
-													]}
-												>
-													<Input />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'Product_id',
-									dataIndex: 'product_id',
-									key: 'product_id',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='product_id'
-													rules={[
-														{
-															required: true,
-															message: 'product_id is required',
-														},
-													]}
-												>
-													<Input />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'Quantity',
-									dataIndex: 'qty_ordered',
-									key: 'qty_ordered',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='qty_ordered'
-													rules={[
-														{
-															required: true,
-															message: 'qty is required',
-														},
-													]}
-												>
-													<Input />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'Supplier',
-									dataIndex: 'selected_supplier',
-									key: 'selected_supplier',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='selected_supplier'
-													rules={[
-														{
-															required: true,
-															message: 'supplier is required',
-														},
-													]}
-												>
-													<Input />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'Supplier Cost',
-									dataIndex: 'selected_supplier_cost',
-									key: 'selected_supplier_cost',
-									render: (text, record) => {
-										if (editingRow === record.id) {
-											return (
-												<Form.Item
-													name='selected_supplier_cost'
-													rules={[
-														{
-															required: true,
-															message: 'selected_supplier_cost is required',
-														},
-													]}
-												>
-													<Input />
-												</Form.Item>
-											);
-										} else {
-											return <p>{text}</p>;
-										}
-									},
-								},
-								{
-									title: 'Action',
-									dataIndex: 'operation',
-									key: 'operation',
-									render: (_, recordSub) => {
-										return (
-											<>
-												<Form.Item>
-													<Space size='small'>
-														<EditOutlined
-															style={{ color: 'orange' }}
-															onClick={() => {
-																//use recordSub instead of record to avoid override record because we need the order key
-																setEditingRow(recordSub.id); //also need to use id, not key
-																form.setFieldsValue({
-																	id: recordSub.id,
-																	name: recordSub.name,
-																	sku: recordSub.sku,
-																	price: recordSub.price,
-																	product_id: recordSub.product_id,
-																	qty_ordered: recordSub.qty_ordered,
-																	selected_supplier:
-																		recordSub.selected_supplier,
-																	selected_supplier_cost:
-																		recordSub.selected_supplier_cost,
-																});
-															}}
-														/>
-														<SaveOutlined
-															style={{ color: 'green' }}
-															onClick={() => handleSaveSub(record.key)}
-														/>
-														<GlobalOutlined
-															style={{ color: 'blue' }}
-															onClick={() => showDrawer(recordSub.sku)}
-														/>
-														<ShoppingCartOutlined
-															style={{ color: 'purple' }}
-															onClick={() =>
-																showPoDrawer(
-																	recordSub.name,
-																	recordSub.sku,
-																	recordSub.qty_ordered,
-																	recordSub.selected_supplier,
-																	recordSub.selected_supplier_cost
-																)
-															}
-														/>
-													</Space>
-												</Form.Item>
-											</>
-										);
-									},
-								},
-							];
-							return (
-								<Table
-									columns={nestedColumns}
-									dataSource={record.items}
-									pagination={false}
-								/>
-							);
-						}}
+						expandable={{ expandedRowRender, onExpand: handleExpand }}
 						dataSource={data}
 						bordered
 						rowKey={record => record.id}
@@ -894,13 +965,6 @@ const OrderTable = () => {
 
 			{open && (
 				<Popup placement={placement} onClose={onClose} sku={currentSku} />
-			)}
-			{openPo && (
-				<PoPopUp
-					position={position}
-					onClose={onClosePo}
-					currentInfo={currentInfo}
-				/>
 			)}
 		</>
 	);

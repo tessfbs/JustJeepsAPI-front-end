@@ -8,13 +8,14 @@
   border-radius: 10px;
   height: 100px;
 
-  .left {
+  .leftw {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 2;
 
     .title {
-      font-size: 14px;
+      font-size: 18px;
       font-weight: bold;
       color: rgb(160, 160, 160);
     }
@@ -27,10 +28,11 @@
 
   }
 
-  .right {
+  .rightw {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    flex: 1;
 
     .icon {
       font-size: 25px;

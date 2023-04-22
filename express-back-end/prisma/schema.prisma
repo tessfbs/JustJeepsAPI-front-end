@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Order {
-  entity_id           Int             @id
+  entity_id           Int            @id
   id                  Int             @unique @default(autoincrement())
   created_at          String
   status              String?
@@ -80,7 +80,6 @@ model VendorProduct {
   vendor_inventory       Float?
   vendor                 Vendor?                 @relation(fields: [vendor_id], references: [id])
   product                Product?                @relation(fields: [product_sku], references: [sku])
-  purchaseOrderLineItems PurchaseOrderLineItem[]
 }
 
 //get all vendorproducts grouped by sku
@@ -122,12 +121,14 @@ model PurchaseOrder {
 
 model PurchaseOrderLineItem {
   id                 Int           @id @default(autoincrement())
+  product_sku        String?
+  vendor_sku         String?
   purchase_order_id  Int
-  vendor_product_id  Int
+  vendor_product_id  Int?
   quantity_purchased Int
   vendor_cost        Float?
   purchaseOrder      PurchaseOrder @relation(fields: [purchase_order_id], references: [id])
-  vendorProduct      VendorProduct @relation(fields: [vendor_product_id], references: [id])
+
 }
 
 model Competitor {

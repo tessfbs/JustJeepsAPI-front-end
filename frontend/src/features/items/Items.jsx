@@ -219,9 +219,14 @@ export const Items = () => {
       render: (image) => <img src={image} alt="Product" width="50" />,
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: (name, vendorProducts) => (
+        <a href={vendorProducts.url_path} target="_blank" onClick={() => console.log(vendorProducts)}>
+          {name}
+        </a>
+      ),
     },
     {
       title: "Price",
@@ -296,7 +301,6 @@ export const Items = () => {
     //     ),
     // },
   ];
-
   const columns_brands = [
     {
       title: "SKU",
@@ -312,9 +316,14 @@ export const Items = () => {
       render: (image) => <img src={image} alt="Product" width="50" />,
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+      render: (name, vendorProducts) => (
+        <a href={vendorProducts.url_path} target="_blank" onClick={() => console.log(vendorProducts)}>
+          {name}
+        </a>
+      ),
     },
     {
       title: "Price",
@@ -326,6 +335,7 @@ export const Items = () => {
       title: "Manufacturer",
       dataIndex: "brand_name",
       key: "brand_name",
+      
     },
     {
       title: "Vendor Name",

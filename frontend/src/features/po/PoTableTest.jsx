@@ -29,10 +29,15 @@ const PurchaseOrderTable = ({ vendorId }) => {
   const [originalPurchaseOrderData, setOriginalPurchaseOrderData] = useState(
     []
   );
+  const [subtableTotalCost, setSubtableTotalCost] = useState(0);
+
   const [purchaseOrderData, setPurchaseOrderData] = useState([]);
+
+  console.log("purchaseOrderData", purchaseOrderData);
 
   const handleExpand = (expanded, record) => {
     if (expanded) {
+      console.log("record.order.entity_id", record.order.entity_id);
       const filteredData = originalPurchaseOrderData.filter(
         (po) => po.order.entity_id === record.order.entity_id
       );
@@ -44,21 +49,26 @@ const PurchaseOrderTable = ({ vendorId }) => {
 
   const expandedRowRender = (record) => {
     const poLineItems = record.purchaseOrderLineItems;
+    console.log("poLineItems", poLineItems);
     const columns = [
       {
         title: "Product SKU",
-        dataIndex: ["vendorProduct", "product_sku"],
-        key: "vendorProduct.product_sku",
+        dataIndex: "product_sku",
+        key: "product_sku",
       },
       {
         title: "Vendor SKU",
         dataIndex: ["vendorProduct", "vendor_sku"],
         key: "vendorProduct.vendor_sku",
+        //render product_sku + "2"
+        render: (text, record) => {
+          return record.product_sku.slice(record.product_sku.indexOf("-") + 1);
+        },
       },
       {
         title: "Vendor Cost",
-        dataIndex: ["vendorProduct", "vendor_cost"],
-        key: "vendorProduct.vendor_cost",
+        dataIndex: "vendor_cost",
+        key: "vendor_cost",
       },
       {
         title: "Quantity Purchased",
@@ -74,10 +84,24 @@ const PurchaseOrderTable = ({ vendorId }) => {
     if (poLineItems && poLineItems.length) {
       const lineItemData = poLineItems.map((item) => ({
         ...item,
-        total_cost: item.vendorProduct.vendor_cost * item.quantity_purchased,
+        total_cost: item.vendor_cost * item.quantity_purchased,
       }));
+      const totalCost = lineItemData.reduce(
+        (total, item) => total + item.total_cost,
+        0
+      );
+      setSubtableTotalCost(totalCost);
       return (
-        <Table columns={columns} dataSource={lineItemData} pagination={false} />
+        <Table
+          columns={columns}
+          dataSource={lineItemData}
+          pagination={false}
+          footer={() => <div style={
+            {fontWeight: "bold", 
+            fontSize: "1.2em",          
+          }
+           }>Total Cost: {totalCost}</div>}
+        />
       );
     } else {
       return <p>No Purchase Order Line Items found.</p>;
