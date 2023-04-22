@@ -1,4 +1,8 @@
-import { DollarCircleOutlined, LikeOutlined } from '@ant-design/icons';
+import {
+	DollarCircleOutlined,
+	LikeOutlined,
+	CalendarOutlined,
+} from '@ant-design/icons';
 import { Card, Col, Row, Statistic } from 'antd';
 import { useDashboardData } from '../../hooks/useDashboardData';
 
@@ -6,7 +10,7 @@ const TableTop = () => {
 	const { state } = useDashboardData();
 	return (
 		<Row gutter={16}>
-			<Col span={12}>
+			<Col span={8}>
 				<Card bordered={false}>
 					<Statistic
 						title='Total Orders'
@@ -19,7 +23,20 @@ const TableTop = () => {
 					/>
 				</Card>
 			</Col>
-			<Col span={12}>
+			<Col span={8}>
+				<Card bordered={false}>
+					<Statistic
+						title='Today is AMAZING!'
+						value={new Date().toLocaleString() + ''}
+						// precision={2}
+						valueStyle={{
+							color: '#4B0082',
+						}}
+						prefix={<CalendarOutlined />}
+					/>
+				</Card>
+			</Col>
+			<Col span={8}>
 				<Card bordered={false}>
 					<Statistic
 						title='Total Revenue'
