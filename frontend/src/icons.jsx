@@ -147,24 +147,24 @@ export const ImageAvatars = () => {
 		<Space size={16} wrap>
 			<Avatar
 				style={{
-					backgroundColor: '#fde3cf',
-					color: '#f56a00',
+					backgroundColor: '#145DA0',
+					color: '#D4F1F4',
 				}}
 			>
 				YZ
 			</Avatar>
 			<Avatar
 				style={{
-					backgroundColor: '#fde3cf',
-					color: '#f56a00',
+					backgroundColor: '#DF265E',
+					color: '#D4F1F4',
 				}}
 			>
 				TS
 			</Avatar>
 			<Avatar
 				style={{
-					backgroundColor: '#fde3cf',
-					color: '#f56a00',
+					backgroundColor: '#0F1114',
+					color: '#D4F1F4',
 				}}
 			>
 				RL
