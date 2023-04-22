@@ -14,27 +14,40 @@ const Navbar = () => {
 				<div className='collapse navbar-collapse' id='navbarSupportedContent'>
 					<ul className='navbar-nav me-auto mb-2 mb-lg-0'>
 						<li className='nav-item'>
-							<Link className='nav-link active fs-5 mx-4' to='/orders'>
+							<Link
+								className='nav-link active fs-5 mx-4'
+								aria-current='page'
+								to='/orders'
+							>
 								Orders
 							</Link>
 						</li>
 						<li className='nav-item'>
-							<Link className='nav-link active fs-5 mx-4' to='/po'>
+							<Link className='aria-current nav-link active fs-5 mx-4' to='/po'>
 								POs
 							</Link>
 						</li>
 						<li className='nav-item'>
-							<Link className='nav-link active fs-5 mx-4' to='/dashboard'>
+							<Link
+								className='aria-current nav-link active fs-5 mx-4'
+								to='/dashboard'
+							>
 								Dashboard
 							</Link>
 						</li>
 						<li className='nav-item'>
-							<Link className='nav-link active fs-5 mx-4' to='/suppliers'>
+							<Link
+								className='aria-current nav-link active fs-5 mx-4'
+								to='/suppliers'
+							>
 								Suppliers
 							</Link>
 						</li>
 						<li className='nav-item'>
-							<Link className='nav-link active fs-5 mx-4' to='/items'>
+							<Link
+								className='aria-current nav-link active fs-5 mx-4'
+								to='/items'
+							>
 								Items
 							</Link>
 						</li>
