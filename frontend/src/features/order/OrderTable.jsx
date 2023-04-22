@@ -7,11 +7,20 @@ import {
 } from '@ant-design/icons';
 import { useEffect, useState, useRef, useCallback } from 'react';
 import axios from 'axios';
-import { Space, Table, Input, Button, Modal, Form, Tooltip } from 'antd';
+import {
+	Space,
+	Table,
+	Input,
+	Button,
+	Modal,
+	Form,
+	Tooltip,
+	Select,
+} from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save } from '../../icons';
 import Popup from './Popup';
-import PoPopUp from '../po/PoPopUp';
+import DropdownList from '../dropdown/DropDownList';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -26,14 +35,7 @@ const OrderTable = () => {
 	const [open, setOpen] = useState(false);
 	const [placement, setPlacement] = useState('top');
 	const [currentSku, setCurrentSku] = useState(null);
-	const [currentInfo, setCurrentInfo] = useState(null);
-	const [openPo, setOpenPo] = useState(false);
-	const [position, setPosition] = useState('left');
-	const [message, setMessage] = useState('');
-
-	const chooseMessage = message => {
-		setMessage(message);
-	};
+	const { Option } = Select;
 
 	//initial loading data main table
 	useEffect(() => {
@@ -105,7 +107,6 @@ const OrderTable = () => {
 		form
 			.validateFields()
 			.then(values => {
-				console.log('values', values);
 				onFinishSub(key, values);
 				updateOrderItem(values);
 			})
@@ -804,6 +805,18 @@ const OrderTable = () => {
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
+							// <Form.Item
+							// 	name='selected_supplier'
+							// 	rules={[
+							// 		{
+							// 			required: true,
+							// 			message: 'supplier is required',
+							// 		},
+							// 	]}
+							// >
+							// 	{/* <Input /> */}
+							// 	<DropdownList />
+							// </Form.Item>
 							<Form.Item
 								name='selected_supplier'
 								rules={[
@@ -813,8 +826,12 @@ const OrderTable = () => {
 									},
 								]}
 							>
-								{/* <Input /> */}
-								<div> {message.selected_supplier}</div>
+								<Select placeholder='Select a supplier'>
+									<Option value='Keyston'>Keyston</Option>
+									<Option value='Meyer'>Meyer</Option>
+									<Option value='Omix'>Omix</Option>
+									<Option value='Quadratec'>Quaddratec</Option>
+								</Select>
 							</Form.Item>
 						);
 					} else {
@@ -838,8 +855,7 @@ const OrderTable = () => {
 									},
 								]}
 							>
-								{/* <Input /> */}
-								<div> {message.selected_supplier_cost}</div>
+								<Input />
 							</Form.Item>
 						);
 					} else {
@@ -943,12 +959,7 @@ const OrderTable = () => {
 			</div>
 
 			{open && (
-				<Popup
-					placement={placement}
-					onClose={onClose}
-					sku={currentSku}
-					chooseMessage={chooseMessage}
-				/>
+				<Popup placement={placement} onClose={onClose} sku={currentSku} />
 			)}
 		</>
 	);
