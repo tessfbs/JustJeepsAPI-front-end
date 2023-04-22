@@ -21,7 +21,7 @@ import {
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save, Reload } from '../../icons';
 import Popup from './Popup';
-import DropdownList from '../dropdown/DropDownList';
+import TableTop from '../tabletop/TableTop';
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -995,20 +995,26 @@ const OrderTable = () => {
 
 	return (
 		<>
-			<div className='container-xxl mt-5'>
-				<Form form={form}>
-					<Table
-						columns={columns}
-						expandable={{ expandedRowRender, onExpand: handleExpand }}
-						dataSource={data}
-						bordered
-						rowKey={record => record.id}
-						onChange={handleChange}
-						size='small'
-					/>
-				</Form>
-			</div>
+			<div className='container-fluid'>
+				<div className='container-xl'>
+					<div className='container mb-3'>
+						<TableTop />
+					</div>
 
+					<Form form={form}>
+						<Table
+							columns={columns}
+							expandable={{ expandedRowRender }} //, onExpand: handleExpand remove expandable
+							dataSource={data}
+							bordered
+							rowKey={record => record.id}
+							onChange={handleChange}
+							size='small'
+						/>
+					</Form>
+				</div>
+				<div id='footer'>© 2023, Helper.com, Inc. All Rights Reserved</div>
+			</div>
 			{open && (
 				<Popup
 					placement={placement}
