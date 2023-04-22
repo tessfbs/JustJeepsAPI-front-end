@@ -376,7 +376,8 @@ const OrderTable = () => {
 	});
 
 	//refresh page
-	const refreshPage = () => {
+	const refreshPage = e => {
+		e.preventDefault();
 		window.location.reload(false);
 	};
 
