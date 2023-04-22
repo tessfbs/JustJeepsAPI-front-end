@@ -70,8 +70,10 @@ nav .nav_right {
 
 .ant-table-column-title {
 	text-align: center;
+	text-overflow: ellipsis;
 }
 
 .ant-table-content .ant-table-thead .ant-table-cell {
 	text-align: center;
+	text-overflow: ellipsis;
 }

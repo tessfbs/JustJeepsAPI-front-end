@@ -584,7 +584,7 @@ const OrderTable = () => {
 			},
 		},
 		{
-			title: 'Total Qty',
+			title: 'Qty',
 			dataIndex: 'total_qty_ordered',
 			key: 'total_qty_ordered',
 			editTable: true,
@@ -614,8 +614,9 @@ const OrderTable = () => {
 		},
 		{
 			title: 'Actions',
+			dataIndex: 'operation',
 			key: 'operation',
-			render: (_, record) => {
+			render: (text, record) => {
 				return (
 					<>
 						<Form.Item>
@@ -678,7 +679,7 @@ const OrderTable = () => {
 		setCurrentOrderProductID(id);
 		setOpen(true);
 	};
-	const onClose = (record) => {
+	const onClose = record => {
 		console.log('record on close', record);
 		setCurrentSku(null);
 		setOpen(false);
@@ -854,7 +855,7 @@ const OrderTable = () => {
 				},
 			},
 			{
-				title: 'Supplier Cost',
+				title: 'SupplierCost',
 				dataIndex: 'selected_supplier_cost',
 				key: 'selected_supplier_cost',
 				render: (text, record) => {
@@ -878,7 +879,7 @@ const OrderTable = () => {
 				},
 			},
 			{
-				title: 'Margin %',
+				title: 'Margin%',
 				key: 'margin',
 				render: (text, record) => {
 					const cost = record.selected_supplier_cost;
@@ -929,7 +930,7 @@ const OrderTable = () => {
 				},
 			},
 			{
-				title: 'Action',
+				title: 'Actions',
 				dataIndex: 'operation',
 				key: 'operation',
 				render: (_, recordSub) => {
@@ -996,7 +997,7 @@ const OrderTable = () => {
 	return (
 		<>
 			<div className='container-fluid'>
-				<div className='container-xl'>
+				<div className='container-xxl'>
 					<div className='container mb-3'>
 						<TableTop />
 					</div>
