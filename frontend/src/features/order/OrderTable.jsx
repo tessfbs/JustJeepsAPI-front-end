@@ -19,7 +19,7 @@ import {
 	Badge,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { Edit, Trash, Save } from '../../icons';
+import { Edit, Trash, Save, Reload } from '../../icons';
 import Popup from './Popup';
 import DropdownList from '../dropdown/DropDownList';
 
@@ -375,6 +375,11 @@ const OrderTable = () => {
 			),
 	});
 
+	//refresh page
+	const refreshPage = () => {
+		window.location.reload(false);
+	};
+
 	//set up main column
 	const columns = [
 		{
@@ -643,6 +648,12 @@ const OrderTable = () => {
 									onClick={handleSave}
 								>
 									<Save />
+								</button>
+								<button
+									className='btn btn-sm btn-outline-info'
+									onClick={refreshPage}
+								>
+									<Reload />
 								</button>
 							</Space>
 						</Form.Item>
