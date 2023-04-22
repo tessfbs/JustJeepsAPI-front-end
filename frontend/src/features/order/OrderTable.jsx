@@ -16,6 +16,7 @@ import {
 	Form,
 	Tooltip,
 	Select,
+	Badge,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save } from '../../icons';
@@ -813,18 +814,6 @@ const OrderTable = () => {
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
-							// <Form.Item
-							// 	name='selected_supplier'
-							// 	rules={[
-							// 		{
-							// 			required: true,
-							// 			message: 'supplier is required',
-							// 		},
-							// 	]}
-							// >
-							// 	{/* <Input /> */}
-							// 	<DropdownList />
-							// </Form.Item>
 							<Form.Item
 								name='selected_supplier'
 								rules={[
@@ -882,6 +871,43 @@ const OrderTable = () => {
 						return <span>{margin.toFixed(2)}%</span>;
 					} else {
 						return <span></span>;
+					}
+				},
+			},
+			{
+				title: 'Status',
+				dataIndex: 'status',
+				key: 'status',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='status'
+								rules={[
+									{
+										required: true,
+										message: 'sku is required',
+									},
+								]}
+							>
+								<Select placeholder='Update Status'>
+									<Option value='Completed'>
+										<Badge status='success' text='Completed' />
+									</Option>
+									<Option value='Warning'>
+										<Badge status='warning' text='No Stock' />
+									</Option>
+									<Option value='PO Sent'>
+										<Badge status='processing' text='PO Sent' />
+									</Option>
+									<Option value='Cancel'>
+										<Badge status='error' text='Cancel' />
+									</Option>
+								</Select>
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
 					}
 				},
 			},
