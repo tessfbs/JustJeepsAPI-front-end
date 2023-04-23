@@ -22,81 +22,84 @@ export const PoForm = () => {
 	};
 
 	return (
-		<Layout>
-			<Sider
-				trigger={null}
-				collapsible
-				collapsed={collapsed}
-				style={{ backgroundColor: '#2938c3' }}
-			>
-				<div className='logo' />
-				<Menu
-					mode='inline'
-					defaultSelectedKeys={['1']}
-					style={{
-						backgroundColor: '#2938c3',
-						color: '#D4F1F4',
-						height: '15px',
-						marginTop: '80px',
-					}}
-					items={[
-						{
-							key: 'nav1',
-							icon: <img src={keystone} alt='keystone' width='100px' />,
-						},
-						{
-							key: 'nav2',
-							icon: <img src={meyer} alt='meyer' width='100px' />,
-						},
-						{
-							key: 'nav3',
-							icon: <img src={omix} alt='omix' width='100px' />,
-						},
-						{
-							key: 'nav4',
-							icon: <img src={quadratec} alt='quadratec' width='100px' />,
-						},
-					]}
-					onSelect={handleNavClick}
-				/>
-			</Sider>
+		<>
 			<Layout>
-				<Header style={{ padding: 0, background: colorBgContainer }}>
-					<Button
-						type='text'
-						icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-						onClick={() => setCollapsed(!collapsed)}
-						style={{
-							fontSize: '16px',
-							width: 64,
-							height: 64,
-						}}
-					/>{' '}
-					PURCHASE ORDERS DETAILS
-				</Header>
-				<Content
-					style={{
-						margin: '24px 16px',
-						padding: 24,
-						minHeight: 700,
-						background: colorBgContainer,
-					}}
+				<Sider
+					trigger={null}
+					collapsible
+					collapsed={collapsed}
+					style={{ backgroundColor: '#2938c3' }}
 				>
-					{currentNav === 'nav1' ? (
-						<div>
-							<PoTableTest vendorId='1' for Keystone />
-						</div>
-					) : currentNav === 'nav2' ? (
-						<div>
-							<PoTableTest vendorId='2' for Meyer />
-						</div>
-					) : currentNav === 'nav3' ? (
-						<div>
-							<PoTableTest vendorId='3' for Omix />
-						</div>
-					) : null}
-				</Content>
+					<div className='logo' />
+					<Menu
+						mode='inline'
+						defaultSelectedKeys={['1']}
+						style={{
+							backgroundColor: '#2938c3',
+							color: '#D4F1F4',
+							height: '15px',
+							marginTop: '80px',
+						}}
+						items={[
+							{
+								key: 'nav1',
+								icon: <img src={keystone} alt='keystone' width='100px' />,
+							},
+							{
+								key: 'nav2',
+								icon: <img src={meyer} alt='meyer' width='100px' />,
+							},
+							{
+								key: 'nav3',
+								icon: <img src={omix} alt='omix' width='100px' />,
+							},
+							{
+								key: 'nav4',
+								icon: <img src={quadratec} alt='quadratec' width='100px' />,
+							},
+						]}
+						onSelect={handleNavClick}
+					/>
+				</Sider>
+				<Layout>
+					<Header style={{ padding: 0, background: colorBgContainer }}>
+						<Button
+							type='text'
+							icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+							onClick={() => setCollapsed(!collapsed)}
+							style={{
+								fontSize: '16px',
+								width: 64,
+								height: 64,
+							}}
+						/>{' '}
+						PURCHASE ORDERS DETAILS
+					</Header>
+					<Content
+						style={{
+							margin: '24px 16px',
+							padding: 24,
+							minHeight: 650,
+							background: colorBgContainer,
+						}}
+					>
+						{currentNav === 'nav1' ? (
+							<div>
+								<PoTableTest vendorId='1' for Keystone />
+							</div>
+						) : currentNav === 'nav2' ? (
+							<div>
+								<PoTableTest vendorId='2' for Meyer />
+							</div>
+						) : currentNav === 'nav3' ? (
+							<div>
+								<PoTableTest vendorId='3' for Omix />
+							</div>
+						) : null}
+					</Content>
+					<span id='footer'>© 2023, Helper.com, Inc. All Rights Reserved</span>
+				</Layout>
 			</Layout>
-		</Layout>
+		</>
 	);
 };
