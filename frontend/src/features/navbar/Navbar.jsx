@@ -15,6 +15,14 @@ const Navbar = () => {
 					<ul className='navbar-nav me-auto mb-2 mb-lg-0'>
 						<li className='nav-item'>
 							<Link
+								className='aria-current nav-link active fs-5 mx-4'
+								to='/dashboard'
+							>
+								Dashboard
+							</Link>
+						</li>
+						<li className='nav-item'>
+							<Link
 								className='nav-link active fs-5 mx-4'
 								aria-current='page'
 								to='/orders'
@@ -27,14 +35,7 @@ const Navbar = () => {
 								POs
 							</Link>
 						</li>
-						<li className='nav-item'>
-							<Link
-								className='aria-current nav-link active fs-5 mx-4'
-								to='/dashboard'
-							>
-								Dashboard
-							</Link>
-						</li>
+
 						<li className='nav-item'>
 							<Link
 								className='aria-current nav-link active fs-5 mx-4'
@@ -48,7 +49,7 @@ const Navbar = () => {
 								className='aria-current nav-link active fs-5 mx-4'
 								to='/items'
 							>
-								Items
+								Explore
 							</Link>
 						</li>
 					</ul>
