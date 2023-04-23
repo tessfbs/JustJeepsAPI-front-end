@@ -1011,6 +1011,7 @@ const OrderTable = () => {
 							rowKey={record => record.id}
 							onChange={handleChange}
 							size='small'
+							loading={loading}
 						/>
 					</Form>
 				</div>
