@@ -12,7 +12,7 @@ const ProductTable = props => {
 const handleVendorCostClick = (vendorProduct) => {
 	console.log('vendorProduct', vendorProduct);
 	setSelectedVendorCost(vendorProduct.vendor_cost);
-	axios.post(`http://localhost:8080/order_products/${props.orderProductId}/edit`, {
+	axios.post(`http://localhost:8080/order_products/${props.orderProductId}/edit/selected_supplier`, {
 		selected_supplier_cost: vendorProduct.vendor_cost.toString()
 	})
 	.then(res => {

@@ -32,7 +32,7 @@ function App() {
 			<Navbar />
 
 			<Routes>
-				<Route path='/' element={<OrderTable />} />
+				<Route path='/' element={<DashBoard />} />
 				<Route path='/orders' element={<OrderTable />} />
 				<Route path='/suppliers' element={<SupplierTable />} />
 				<Route path='/dashboard'>
