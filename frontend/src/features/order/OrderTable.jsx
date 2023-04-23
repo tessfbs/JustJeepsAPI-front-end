@@ -384,7 +384,7 @@ const OrderTable = () => {
 	//set up main column
 	const columns = [
 		{
-			title: 'Order_id',
+			title: 'OrderId',
 			dataIndex: 'entity_id',
 			key: 'entity_id',
 			sorter: (a, b) => a.entity_id - b.entity_id,
@@ -444,7 +444,7 @@ const OrderTable = () => {
 			},
 		},
 		{
-			title: 'Customer Email',
+			title: 'Email',
 			dataIndex: 'customer_email',
 			key: 'customer_email',
 			editTable: true,
@@ -472,7 +472,7 @@ const OrderTable = () => {
 			},
 		},
 		{
-			title: 'First Name',
+			title: 'First Name ',
 			dataIndex: 'customer_firstname',
 			key: 'customer_firstname',
 			sorter: (a, b) =>
@@ -557,7 +557,7 @@ const OrderTable = () => {
 			},
 		},
 		{
-			title: 'Increment_id',
+			title: 'IncrementId',
 			dataIndex: 'increment_id',
 			key: 'increment_id',
 			sorter: (a, b) => a.increment_id - b.increment_id,
@@ -997,7 +997,7 @@ const OrderTable = () => {
 	return (
 		<>
 			<div className='container-fluid'>
-				<div className='container-xxl'>
+				<div className='container-xl'>
 					<div className='container mb-3'>
 						<TableTop />
 					</div>

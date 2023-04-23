@@ -35,7 +35,6 @@ function App() {
 				<Route path='/' element={<OrderTable />} />
 				<Route path='/orders' element={<OrderTable />} />
 				<Route path='/suppliers' element={<SupplierTable />} />
-				{/* <Route path='/dashboard' element={<DashBoard />} /> */}
 				<Route path='/dashboard'>
 					<Route index element={<DashBoard />} />
 					<Route path='po' element={<DashBoardPO />} />
