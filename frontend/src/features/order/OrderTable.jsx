@@ -38,6 +38,8 @@ const OrderTable = () => {
 	const [currentSku, setCurrentSku] = useState(null);
 	const [currentOrderProductID, setCurrentOrderProductID] = useState(null);
 	const { Option } = Select;
+	const [selectedOrder, setSelectedOrder] = useState(null);
+
 
 	//initial loading data main table
 	useEffect(() => {
@@ -683,7 +685,7 @@ const OrderTable = () => {
 		console.log('record on close', record);
 		setCurrentSku(null);
 		setOpen(false);
-	};
+		loadData()	};
 
 	const handleExpand = (expanded, record) => {
 		if (expanded) {
@@ -691,6 +693,7 @@ const OrderTable = () => {
 			const selectedOrder = originalOrders.filter(
 				order => order.entity_id === record.entity_id
 			);
+			setSelectedOrder(selectedOrder);
 			setOrders(selectedOrder);
 			console.log('selectedOrder', selectedOrder);
 		} else {
