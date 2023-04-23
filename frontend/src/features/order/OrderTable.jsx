@@ -444,7 +444,7 @@ const OrderTable = () => {
 			},
 		},
 		{
-			title: 'Email',
+			title: 'Customer Email',
 			dataIndex: 'customer_email',
 			key: 'customer_email',
 			editTable: true,
