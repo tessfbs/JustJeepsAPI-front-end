@@ -419,11 +419,11 @@ export const Items = () => {
 	return (
 		<div className='items'>
 			<div className='sidebar'>
-				<FormControl sx={{ mt: 10, width: 300, border: '#e9e9e9' }}>
+				<FormControl sx={{ mt: 10, width: 300 }}>
 					<Select
 						value={searchBy}
 						onChange={handleSearchByChange}
-						style={{ width: 300, color: '#e9e9e9', margin: 0, padding: 0 }}
+						style={{ width: 300, margin: 0, padding: 0 }}
 					>
 						<MenuItem value='sku'>SKU</MenuItem>
 						<MenuItem value='brand'>Brand</MenuItem>
@@ -434,7 +434,7 @@ export const Items = () => {
 					<div className='sidebar-sku'>
 						<Autocomplete
 							{...skus_for_autocomplete}
-							sx={{ width: 300, color: '#e9e9e9', borderColor: '#e9e9e9' }}
+							sx={{ width: 300 }}
 							id='clear-on-escape'
 							clearOnEscape
 							value={null}
@@ -443,7 +443,7 @@ export const Items = () => {
 							}}
 							renderInput={params => (
 								<TextField
-									className='search'
+									className='textfield'
 									{...params}
 									label='Search SKU'
 									variant='standard'
@@ -456,7 +456,7 @@ export const Items = () => {
 					<div className='sidebar-brand'>
 						<Autocomplete
 							{...brands_for_autocomplete}
-							sx={{ width: 200, color: '#e9e9e9' }}
+							sx={{ width: 200 }}
 							id='clear-on-escape'
 							clearOnEscape
 							value={null}
@@ -469,7 +469,6 @@ export const Items = () => {
 									label='Search brand'
 									variant='standard'
 									onChange={handleSearchTermChange}
-									style={{ color: '#e9e9e9' }}
 								/>
 							)}
 						/>

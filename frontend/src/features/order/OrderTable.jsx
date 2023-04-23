@@ -40,7 +40,6 @@ const OrderTable = () => {
 	const { Option } = Select;
 	const [selectedOrder, setSelectedOrder] = useState(null);
 
-
 	//initial loading data main table
 	useEffect(() => {
 		loadData();
@@ -685,7 +684,8 @@ const OrderTable = () => {
 		console.log('record on close', record);
 		setCurrentSku(null);
 		setOpen(false);
-		loadData()	};
+		loadData();
+	};
 
 	const handleExpand = (expanded, record) => {
 		if (expanded) {
@@ -845,7 +845,7 @@ const OrderTable = () => {
 								]}
 							>
 								<Select placeholder='Select a supplier'>
-									<Option value='Keyston'>Keyston</Option>
+									<Option value='Keystone'>Keystone</Option>
 									<Option value='Meyer'>Meyer</Option>
 									<Option value='Omix'>Omix</Option>
 									<Option value='Quadratec'>Quaddratec</Option>
