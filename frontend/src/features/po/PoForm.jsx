@@ -77,7 +77,6 @@ export const PoForm = () => {
 				<Content
 					style={{
 						margin: '24px 16px',
-						fontFamily: 'Space Mono',
 						padding: 24,
 						minHeight: 700,
 						background: colorBgContainer,
