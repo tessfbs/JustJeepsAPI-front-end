@@ -2,14 +2,15 @@
 @import 'bootstrap/scss/bootstrap';
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
-.navbar {
-	background-color: $yellow-500;
-	padding: 30px;
+* {
+  font-family: 'Nunito', sans-serif;
+  margin: 0;
 }
 
-.nav_link .btn {
-	font-family: 'Source Sans Pro', sans-serif;
+.navbar {
+	background-color: $yellow-500;
 }
+
 nav svg {
 	width: 40px;
 	$thumbnail-border-radius: var(--#{$prefix}border-radius);
