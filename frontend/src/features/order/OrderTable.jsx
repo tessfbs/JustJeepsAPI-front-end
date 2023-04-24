@@ -1122,6 +1122,7 @@ const OrderTable = () => {
               onChange={handleChange}
               size="large"
               loading={loading}
+							pagination={true}
               onRow={(record, rowIndex) => {
                 return {
                   onClick: (event) => {

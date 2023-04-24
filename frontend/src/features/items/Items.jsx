@@ -204,22 +204,26 @@ export const Items = () => {
 			title: 'Manufacturer',
 			dataIndex: 'brand_name',
 			key: 'brand_name',
+			align: "center",
 		},
 		{
 			title: 'SKU',
 			dataIndex: 'sku',
 			key: 'sku',
+			align: "center",
 		},
 		{
 			title: 'Image',
 			dataIndex: 'image',
 			key: 'image',
+			align: "center",
 			render: image => <img src={image} alt='Product' width='50' />,
 		},
 		{
 			title: 'Name',
 			dataIndex: 'name',
 			key: 'name',
+			align: "center",
 			render: (name, vendorProducts) => (
 				<a
 					href={vendorProducts.url_path}
@@ -234,11 +238,13 @@ export const Items = () => {
 			title: 'Price',
 			dataIndex: 'price',
 			key: 'price',
+			align: "center",
 		},
 		{
 			title: 'Vendor Name',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_id',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
@@ -248,6 +254,7 @@ export const Items = () => {
 			title: 'Vendor Cost',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_cost',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
@@ -256,6 +263,7 @@ export const Items = () => {
 		{
 			title: 'Margin %',
 			key: 'margin',
+			align: "center",
 			render: record => {
 				const { price, vendorProducts } = record;
 				return vendorProducts.map(vendorProduct => {
@@ -275,6 +283,7 @@ export const Items = () => {
 			title: 'Vendor Inventory',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_inventory',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
@@ -284,6 +293,7 @@ export const Items = () => {
 			title: 'Vendor SKU   ',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_sku',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
@@ -308,6 +318,7 @@ export const Items = () => {
 			title: 'SKU',
 			dataIndex: 'sku',
 			key: 'sku',
+			align: "center",
 			sorter: (a, b) => a.sku.localeCompare(b.sku),
 			filter: true,
 		},
@@ -315,12 +326,14 @@ export const Items = () => {
 			title: 'Image',
 			dataIndex: 'image',
 			key: 'image',
+			align: "center",
 			render: image => <img src={image} alt='Product' width='50' />,
 		},
 		{
 			title: 'Name',
 			dataIndex: 'name',
 			key: 'name',
+			align: "left",
 			render: (name, vendorProducts) => (
 				<a
 					href={vendorProducts.url_path}
@@ -335,17 +348,20 @@ export const Items = () => {
 			title: 'Price',
 			dataIndex: 'price',
 			key: 'price',
+			align: "center",
 			sorter: (a, b) => a.price - b.price,
 		},
 		{
 			title: 'Manufacturer',
 			dataIndex: 'brand_name',
 			key: 'brand_name',
+			align: "center",
 		},
 		{
 			title: 'Vendor Name',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_id',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
@@ -355,6 +371,7 @@ export const Items = () => {
 			title: 'Vendor Cost',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_cost',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
@@ -363,6 +380,7 @@ export const Items = () => {
 		{
 			title: 'Margin %',
 			key: 'margin',
+			align: "center",
 			render: record => {
 				const { price, vendorProducts } = record;
 				return vendorProducts.map(vendorProduct => {
@@ -383,6 +401,7 @@ export const Items = () => {
 			title: 'Vendor Inventory',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_inventory',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
@@ -392,6 +411,7 @@ export const Items = () => {
 			title: 'Vendor SKU   ',
 			dataIndex: 'vendorProducts',
 			key: 'vendor_sku',
+			align: "center",
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
 					<div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
@@ -401,6 +421,7 @@ export const Items = () => {
 			title: 'Competitor Price',
 			dataIndex: 'competitorProducts',
 			key: 'competitor_price',
+			align: "center",
 			render: competitorProducts =>
 				competitorProducts.length > 0 ? (
 					<div
@@ -489,14 +510,15 @@ export const Items = () => {
 						pagination={false} // Change pageSize as needed
 					/>
 				) : (
-					<div className='brand-statistic'>
+					<div >
+						<div className='brand-statistic'>
 						<br />
 
 						<div className='widget'>
 							<div className='left'>
 								<span className='title'>
 									<strong>{searchTermSku.brand_name} </strong>TOTAL PRODUCTS:
-								</span>
+								</span><br />
 								<span className='counter'>{brandData.length}</span>
 							</div>
 							<div className='right'>{data.icon}</div>
@@ -506,7 +528,7 @@ export const Items = () => {
 							<div className='left'>
 								<span className='title'>
 									<strong>{searchTermSku.brand_name} </strong>Price Range:
-								</span>
+								</span><br />
 								<span className='counter'>
 									${minPrice} -${maxPrice}{' '}
 								</span>
@@ -518,13 +540,14 @@ export const Items = () => {
 							<div className='left'>
 								<span className='title'>
 									<strong>{searchTermSku.brand_name} </strong>Price Average:
-								</span>
+								</span><br />
 								<span className='counter'>${averagePrice.toFixed(2)}</span>
 							</div>
 							<div className='right'>{data.icon}</div>
 						</div>
-
 						<br />
+						</div>
+
 						{/* {brandData[0]["vendors"] && (<p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p>)} */}
 						<Table
 							{...tableProps}
