@@ -767,33 +767,33 @@ const OrderTable = () => {
 					}
 				},
 			},
-			{
-				title: 'Image',
-				dataIndex: 'image',
-				key: 'image',
-				align: 'center',
-				render: (text, record) => {
-					console.log('record from image', record.product.image);
-					//render image here
-					return (
-						<>
-							{record.product.image ? (
-								<img
-									src={record.product.image}
-									alt='product'
-									style={{ width: '50px', height: '50px' }}
-								/>
-							) : (
-								<img
-									src='https://via.placeholder.com/50'
-									alt='product'
-									style={{ width: '50px', height: '50px' }}
-								/>
-							)}
-						</>
-					);
-				},
-			},
+			// {
+			// 	title: 'Image',
+			// 	dataIndex: 'image',
+			// 	key: 'image',
+			// 	align: 'center',
+			// 	render: (text, record) => {
+			// 		// console.log('record from image', record.product?.image);
+			// 		//render image here
+			// 		return (
+			// 			<>
+			// 				{record.product?.image ? (
+			// 					<img
+			// 						src={record.product.image}
+			// 						alt='product'
+			// 						style={{ width: '50px', height: '50px' }}
+			// 					/>
+			// 				) : (
+			// 					<img
+			// 						src='https://via.placeholder.com/50'
+			// 						alt='product'
+			// 						style={{ width: '50px', height: '50px' }}
+			// 					/>
+			// 				)}
+			// 			</>
+			// 		);
+			// 	},
+			// },
 			{
 				title: 'Product',
 				dataIndex: 'name',
@@ -865,7 +865,7 @@ const OrderTable = () => {
 							</Form.Item>
 						);
 					} else {
-						return <p>${text}</p>;
+						return <p>{text}</p>;
 					}
 				},
 			},
@@ -945,17 +945,8 @@ const OrderTable = () => {
 							</Form.Item>
 						);
 					} else {
-						return <p>${text}</p>;
+						return <p>{text}</p>;
 					}
-				},
-			},
-			{
-				title: 'Total',
-				dataIndex: 'total',
-				key: 'total',
-				align: 'center',
-				render: (text, record) => {
-					return <p>${record.qty_ordered * record.selected_supplier_cost}</p>;
 				},
 			},
 			{
@@ -972,7 +963,7 @@ const OrderTable = () => {
 						return <span></span>;
 					}
 				},
-			},			
+			},
 			{
 				title: 'Status',
 				dataIndex: 'status',
@@ -1023,7 +1014,7 @@ const OrderTable = () => {
 								<Space size='small'>
 									<Tooltip title='Edit'>
 										<EditOutlined
-											style={{ color: 'orange' }}
+											style={{ color: 'orange', fontSize: '30px' }}
 											onClick={() => {
 												//use recordSub instead of record to avoid override record because we need the order key
 												setEditingRow(recordSub.id); //also need to use id, not key
@@ -1043,13 +1034,13 @@ const OrderTable = () => {
 									</Tooltip>
 									<Tooltip title='Save'>
 										<SaveOutlined
-											style={{ color: 'green' }}
+											style={{ color: 'green', fontSize: '30px' }}
 											onClick={() => handleSaveSub(record.key)}
 										/>
 									</Tooltip>
 									<Tooltip title='See Vendor Costs'>
 										<GlobalOutlined
-											style={{ color: 'blue' }}
+											style={{ color: 'blue', fontSize: '30px' }}
 											onClick={() => {
 												showDrawer(recordSub.sku, recordSub.id);
 											}}
@@ -1057,7 +1048,7 @@ const OrderTable = () => {
 									</Tooltip>
 									<Tooltip title='Add to PO'>
 										<ShoppingCartOutlined
-											style={{ color: 'purple' }}
+											style={{ color: 'purple', fontSize: '30px' }}
 											onClick={() => createPurchaseOrder(recordSub)}
 										/>
 									</Tooltip>
