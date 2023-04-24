@@ -2,27 +2,30 @@ import { Table, Button } from 'antd';
 import CopyText from '../copyText/CopyText';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { CheckSquareOutlined } from '@ant-design/icons';
 
 const ProductTable = props => {
 	console.log('props.orderProductId', props.orderProductId);
 	const [selectedVendorCost, setSelectedVendorCost] = useState(null);
 
-
-// Function to update an order product
-const handleVendorCostClick = (vendorProduct) => {
-	console.log('vendorProduct', vendorProduct);
-	setSelectedVendorCost(vendorProduct.vendor_cost);
-	axios.post(`http://localhost:8080/order_products/${props.orderProductId}/edit/selected_supplier`, {
-		selected_supplier_cost: vendorProduct.vendor_cost.toString()
-	})
-	.then(res => {
-		console.log(res.data);
-	})
-	.catch(error => {
-		console.error(error);
-	});
-}
-
+	// Function to update an order product
+	const handleVendorCostClick = vendorProduct => {
+		console.log('vendorProduct', vendorProduct);
+		setSelectedVendorCost(vendorProduct.vendor_cost);
+		axios
+			.post(
+				`http://localhost:8080/order_products/${props.orderProductId}/edit/selected_supplier`,
+				{
+					selected_supplier_cost: vendorProduct.vendor_cost.toString(),
+				}
+			)
+			.then(res => {
+				console.log(res.data);
+			})
+			.catch(error => {
+				console.error(error);
+			});
+	};
 
 	const columns_by_sku = [
 		{
@@ -66,16 +69,29 @@ const handleVendorCostClick = (vendorProduct) => {
 			key: 'vendor_cost',
 			render: vendorProducts =>
 				vendorProducts.map(vendorProduct => (
-					<div key={vendorProduct.id} style={{ display: 'flex', justifyContent: 'space-between' }}>
+					<div
+						key={vendorProduct.id}
+						style={{ display: 'flex', justifyContent: 'space-between' }}
+					>
 						<CopyText text={`${vendorProduct.vendor_cost}`}>
-							<span style={{ marginRight: 8 }}>{`${vendorProduct.vendor_cost}`}</span>
+							<span
+								style={{ marginRight: 8 }}
+							>{`${vendorProduct.vendor_cost}`}</span>
 						</CopyText>
-						<Button onClick={() => handleVendorCostClick(vendorProduct)}>Select</Button>
+						<CheckSquareOutlined
+							style={{
+								color: 'green',
+								fontSize: '25px',
+							}}
+							onClick={() => handleVendorCostClick(vendorProduct)}
+						/>
+						{/* <Button onClick={() => handleVendorCostClick(vendorProduct)}>
+							Select
+						</Button> */}
 					</div>
 				)),
 		},
-		
-		
+
 		{
 			title: 'Margin %',
 			key: 'margin',
