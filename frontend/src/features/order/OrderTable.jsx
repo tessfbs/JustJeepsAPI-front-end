@@ -391,7 +391,7 @@ const OrderTable = () => {
 			title: 'OrderId',
 			dataIndex: 'entity_id',
 			key: 'entity_id',
-			style: { background: "red"},
+			align: 'center',
 			sorter: (a, b) => a.entity_id - b.entity_id,
 			sortOrder: sortedInfo.columnKey === 'entity_id' && sortedInfo.order,
 			...getColumnSearchProps('entity_id'),
@@ -419,6 +419,7 @@ const OrderTable = () => {
 			title: 'Status',
 			dataIndex: 'status',
 			key: 'status',
+			align: 'center',
 			sorter: (a, b) => a.status?.localeCompare(b.status),
 			...getColumnSearchProps('status'),
 			render: (status) => {
@@ -451,6 +452,7 @@ const OrderTable = () => {
 			title: 'Created_Date',
 			dataIndex: 'created_at',
 			key: 'created_at',
+				align: 'center',
 			sorter: (a, b) => a.created_at?.localeCompare(b.created_at),
 			sortOrder: sortedInfo.columnKey === 'created_at' && sortedInfo.order,
 			...getColumnSearchProps('created_at'),
@@ -477,6 +479,7 @@ const OrderTable = () => {
 			title: 'Email',
 			dataIndex: 'customer_email',
 			key: 'customer_email',
+			align: 'center',
 			editTable: true,
 			sorter: (a, b) => a.customer_email?.localeCompare(b.customer_email),
 			sortOrder: sortedInfo.columnKey === 'customer_mail' && sortedInfo.order,
@@ -505,6 +508,7 @@ const OrderTable = () => {
 			title: 'First Name ',
 			dataIndex: 'customer_firstname',
 			key: 'customer_firstname',
+			align: 'center',
 			sorter: (a, b) =>
 				a.customer_firstname?.localeCompare(b.customer_firstname),
 			sortOrder:
@@ -534,6 +538,7 @@ const OrderTable = () => {
 			title: 'Last Name',
 			dataIndex: 'customer_lastname',
 			key: 'customer_lastname',
+			align: 'center',
 			sorter: (a, b) => a.customer_lastname?.localeCompare(b.customer_lastname),
 			sortOrder:
 				sortedInfo.columnKey === 'customer_lastname' && sortedInfo.order,
@@ -562,6 +567,7 @@ const OrderTable = () => {
 			title: 'Total',
 			dataIndex: 'grand_total',
 			key: 'grand_total',
+			align: 'center',
 			editTable: true,
 			sorter: (a, b) => a.grand_total - b.grand_total,
 			sortOrder: sortedInfo.columnKey === 'grand_total' && sortedInfo.order,
@@ -590,6 +596,7 @@ const OrderTable = () => {
 			title: 'IncrementId',
 			dataIndex: 'increment_id',
 			key: 'increment_id',
+			align: 'center',
 			sorter: (a, b) => a.increment_id - b.increment_id,
 			sortOrder: sortedInfo.columnKey === 'increment_id' && sortedInfo.order,
 			...getColumnSearchProps('increment_id'),
@@ -618,6 +625,7 @@ const OrderTable = () => {
 			dataIndex: 'total_qty_ordered',
 			key: 'total_qty_ordered',
 			editTable: true,
+			align: 'center',
 			sorter: (a, b) => a.total_qty_ordered - b.total_qty_ordered,
 			sortOrder:
 				sortedInfo.columnKey === 'total_qty_ordered' && sortedInfo.order,
@@ -646,6 +654,7 @@ const OrderTable = () => {
 			title: 'Actions',
 			dataIndex: 'operation',
 			key: 'operation',
+			align: 'center',
 			render: (text, record) => {
 				return (
 					<>
@@ -741,6 +750,7 @@ const OrderTable = () => {
 				title: 'ID',
 				dataIndex: 'id',
 				key: 'id',
+				align: 'center',
 					render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -765,6 +775,7 @@ const OrderTable = () => {
 				title: 'Image',
 				dataIndex: 'image',
 				key: 'image',
+				align: 'center',
 				render: (text, record) => {
 					console.log('record from image', record.product.image);
 					//render image here
@@ -791,6 +802,7 @@ const OrderTable = () => {
 				title: 'Product',
 				dataIndex: 'name',
 				key: 'name',
+				align: 'center',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -815,6 +827,7 @@ const OrderTable = () => {
 				title: 'SKU',
 				dataIndex: 'sku',
 				key: 'sku',
+				align: 'center',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -839,6 +852,7 @@ const OrderTable = () => {
 				title: 'Price',
 				dataIndex: 'price',
 				key: 'price',
+				align: 'center',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -863,6 +877,7 @@ const OrderTable = () => {
 				title: 'Quantity',
 				dataIndex: 'qty_ordered',
 				key: 'qty_ordered',
+				align: 'center',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -887,6 +902,7 @@ const OrderTable = () => {
 				title: 'Supplier',
 				dataIndex: 'selected_supplier',
 				key: 'selected_supplier',
+				align: 'center',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -916,6 +932,7 @@ const OrderTable = () => {
 				title: 'SupplierCost',
 				dataIndex: 'selected_supplier_cost',
 				key: 'selected_supplier_cost',
+				align: 'center',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -939,6 +956,7 @@ const OrderTable = () => {
 			{
 				title: 'Margin%',
 				key: 'margin',
+				align: 'center',
 				render: (text, record) => {
 					const cost = record.selected_supplier_cost;
 					const price = record.price;
@@ -954,6 +972,7 @@ const OrderTable = () => {
 				title: 'Status',
 				dataIndex: 'status',
 				key: 'status',
+				align: 'center',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
@@ -991,6 +1010,7 @@ const OrderTable = () => {
 				title: 'Actions',
 				dataIndex: 'operation',
 				key: 'operation',
+				align: 'center',
 				render: (_, recordSub) => {
 					return (
 						<>
@@ -1048,6 +1068,7 @@ const OrderTable = () => {
 				columns={nestedColumns}
 				dataSource={record.items}
 				pagination={false}
+				size='large'
 			/>
 		);
 	};
@@ -1068,8 +1089,16 @@ const OrderTable = () => {
 							bordered
 							rowKey={record => record.id}
 							onChange={handleChange}
-							size='small'
+							size='large'
 							loading={loading}
+							onRow={(record, rowIndex) => {
+								return {
+									onClick: event => {
+										setCurrentOrderProductID(record.id);
+										setCurrentSku(record.sku);
+									},
+								};
+							}}
 						/>
 					</Form>
 				</div>
