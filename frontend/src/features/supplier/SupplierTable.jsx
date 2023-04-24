@@ -1,12 +1,11 @@
 import { Table, Space, Form, Input, Button } from 'antd';
 import Card from './Card';
-import keystone_logo from '../po/keystone-Logo-White.png';
-import meyer_logo from '../po/meyerlogo_small.png';
-import omix_logo from '../po/omix-logo.png';
-import quadratec_logo from '../po/quadratec_logo.png';
+import keystone_logo from './keystone-Logo-White.png';
+import meyer_logo from './meyerlogo_small.png';
+import omix_logo from './omix-logo.png';
+import quadratec_logo from './quadratec_logo.png';
 import './suppliertable.scss';
 import { useRef, useState } from 'react';
-import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 
 const columns = [
 	{
