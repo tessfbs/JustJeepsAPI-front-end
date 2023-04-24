@@ -1,9 +1,9 @@
 import { Table, Space, Form, Input, Button } from 'antd';
 import Card from './Card';
-import keystone_logo from './keystone-Logo-White.png';
-import meyer_logo from './meyerlogo_small.png';
-import omix_logo from './omix-logo.png';
-import quadratec_logo from './quadratec_logo.png';
+import keystone_logo from '../../assets/keystone.png';
+import meyer_logo from '../../assets/meyer.png';
+import omix_logo from '../../assets/omix.png';
+import quadratec_logo from '../../assets/quadratec.png';
 import './suppliertable.scss';
 import { useRef, useState } from 'react';
 
