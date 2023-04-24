@@ -22,6 +22,8 @@ import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save, Reload } from '../../icons';
 import Popup from './Popup';
 import TableTop from '../tabletop/TableTop';
+import './order.scss';
+
 
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
@@ -388,6 +390,7 @@ const OrderTable = () => {
 			title: 'OrderId',
 			dataIndex: 'entity_id',
 			key: 'entity_id',
+			style: { background: "red"},
 			sorter: (a, b) => a.entity_id - b.entity_id,
 			sortOrder: sortedInfo.columnKey === 'entity_id' && sortedInfo.order,
 			...getColumnSearchProps('entity_id'),
@@ -712,7 +715,7 @@ const OrderTable = () => {
 				title: 'ID',
 				dataIndex: 'id',
 				key: 'id',
-				render: (text, record) => {
+					render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
 							<Form.Item
@@ -730,6 +733,32 @@ const OrderTable = () => {
 					} else {
 						return <p>{text}</p>;
 					}
+				},
+			},
+			{
+				title: 'Image',
+				dataIndex: 'image',
+				key: 'image',
+				render: (text, record) => {
+					console.log('record from image', record.product.image);
+					//render image here
+					return (
+						<>
+							{record.product.image ? (
+								<img
+									src={record.product.image}
+									alt='product'
+									style={{ width: '50px', height: '50px' }}
+								/>
+							) : (
+								<img
+									src='https://via.placeholder.com/50'
+									alt='product'
+									style={{ width: '50px', height: '50px' }}
+								/>
+							)}
+						</>
+					);
 				},
 			},
 			{

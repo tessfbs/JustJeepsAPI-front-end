@@ -8,6 +8,7 @@ import { DashBoard } from './features/dashboard/DashBoard.jsx';
 import { DashBoardPO } from './features/dashboard/DashBoardPO.jsx';
 import { PoForm } from './features/po/PoForm.jsx';
 import { Items } from './features/items/Items.jsx';
+// import Test from './Test.jsx';
 
 function App() {
 	const [data, setData] = useState('');
@@ -30,6 +31,7 @@ function App() {
 	return (
 		<>
 			<Navbar />
+			{/* <Test /> */}
 
 			<Routes>
 				<Route path='/' element={<DashBoard />} />

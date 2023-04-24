@@ -1,0 +1,25 @@
+// .ant-table-tbody .ant-table-cell:nth-child(even) {
+//   background-color: #b8b8b8;
+// }
+
+// change antd Table row height and font size
+.ant-table-row {
+  font-size: 16px;
+  height: 64px;
+}
+
+//change antd Table row color
+.ant-table-tbody .ant-table-row:nth-child(even) {
+  background-color: #F5F5F5;
+}
+
+//change antd Table header color
+.ant-table-thead .ant-table-cell {
+  background-color: rgb(181, 181, 181) !important;
+  font-size: 16px !important;
+  // color: white !important;
+  }
+
+  .ant-table-expanded-row .ant-table-thead > tr {
+    background-color: #ec2222 !important; /* change this to the desired color */
+  }
