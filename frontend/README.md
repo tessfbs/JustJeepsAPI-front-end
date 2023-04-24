@@ -14,3 +14,5 @@ Helper is a single page, Vite React project.
 ### Start
 
 `npm run dev`
+
+- connect to `http://localhost:5173/`
