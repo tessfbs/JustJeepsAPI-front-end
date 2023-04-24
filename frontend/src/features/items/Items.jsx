@@ -484,18 +484,18 @@ export const Items = () => {
                     variant="standard"
                     onChange={handleSearchTermChange}
                     //label size
-                    InputLabelProps={{
-                      style: {
-                        fontSize: 16,
-                        // fontWeight: 'bold',
-                      },
-                    }}
-                    //input size
-                    InputProps={{
-                      style: { 
-												fontSize: 20
-											},
-                    }}
+                    // InputLabelProps={{
+                    //   style: {
+                    //     fontSize: 16,
+                    //     // fontWeight: 'bold',
+                    //   },
+                    // }}
+                    // //input size
+                    // InputProps={{
+                    //   style: { 
+										// 		fontSize: 20
+										// 	},
+                    // }}
                   />
                 )}
               />
@@ -520,23 +520,23 @@ export const Items = () => {
 								}}
                 renderInput={(params) => (
                   <TextField
+									className="textfield"
                     {...params}
                     label="Search brand"
-				
                     variant="standard"
                     onChange={handleSearchTermChange}
-										InputLabelProps={{
-                      style: {
-                        fontSize: 16,
-                        // fontWeight: 'bold',
-                      },
-                    }}
-                    //input size
-                    InputProps={{
-                      style: { 
-												fontSize: 20
-											},
-                    }}
+										// InputLabelProps={{
+                    //   style: {
+                    //     fontSize: 16,
+                    //     // fontWeight: 'bold',
+                    //   },
+                    // }}
+                    // //input size
+                    // InputProps={{
+                    //   style: { 
+										// 		fontSize: 20
+										// 	},
+                    // }}
                   />
                 )}
               />
