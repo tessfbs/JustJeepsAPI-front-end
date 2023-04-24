@@ -42,9 +42,13 @@ This app streamlines the sales representatives' ordering process. It was inspire
 
 ![explores brand](frontend/public/explore_brand.png)
 
+### Database ERD
+
+![ERD](frontend/public/ERD.png)
+
 ## Tech Stacks
 
-- React
+- React, React Router, Axios
 - NodeJS, Prisma
 - Postgres
 - API, Ant Design, Material UI

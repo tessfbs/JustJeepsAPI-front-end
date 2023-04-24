@@ -915,7 +915,7 @@ const OrderTable = () => {
 									<Option value='Completed'>
 										<Badge status='success' text='Completed' />
 									</Option>
-									<Option value='Warning'>
+									<Option value='No Stock'>
 										<Badge status='warning' text='No Stock' />
 									</Option>
 									<Option value='PO Sent'>
