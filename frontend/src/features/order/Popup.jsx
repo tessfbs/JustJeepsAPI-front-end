@@ -48,17 +48,18 @@ const Popup = ({ placement, onClose, sku, orderProductId }) => {
 						value={searchTermSku}
 					/>
 					<CoffeeOutlined
-						size='middle'
 						style={{
 							width: 50,
-							color: 'black',
+							color: 'orange',
+							fontSize: '25px',
 						}}
 						onClick={() => getProductBySku(searchTermSku)}
 					/>
 					<ClearOutlined
 						size='middle'
 						style={{
-							color: 'black',
+							color: 'brown',
+							fontSize: '25px',
 						}}
 						onClick={() => {
 							resetDrawer();
@@ -67,7 +68,11 @@ const Popup = ({ placement, onClose, sku, orderProductId }) => {
 				</Space>
 			</div>
 			<div>
-				<ProductTable searchTermSku={searchTermSku} data={dataProduct} orderProductId={dataOrderProductID} />
+				<ProductTable
+					searchTermSku={searchTermSku}
+					data={dataProduct}
+					orderProductId={dataOrderProductID}
+				/>
 			</div>
 		</Drawer>
 	);
