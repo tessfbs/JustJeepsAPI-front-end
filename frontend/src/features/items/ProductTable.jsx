@@ -85,9 +85,13 @@ const ProductTable = props => {
 								style={{ marginRight: 8 }}
 							>{`${vendorProduct.vendor_cost}`}</span>
 						</CopyText>
-						<Button onClick={() => handleVendorCostClick(vendorProduct)}>
+						{/* <Button onClick={() => handleVendorCostClick(vendorProduct)}>
 							Select
-						</Button>
+						</Button> */}
+						<CheckSquareOutlined
+							onClick={() => handleVendorCostClick(vendorProduct)}
+							style={{ color: 'green' }}
+						/>
 					</div>
 				)),
 		},
