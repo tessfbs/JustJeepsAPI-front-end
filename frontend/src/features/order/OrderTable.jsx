@@ -39,7 +39,8 @@ const OrderTable = () => {
 	const [placement, setPlacement] = useState('top');
 	const [currentSku, setCurrentSku] = useState(null);
 	const [currentOrderProductID, setCurrentOrderProductID] = useState(null);
-	const [currentOrderProductPrice, setCurrentOrderProductPrice] = useState(null);
+	const [currentOrderProductPrice, setCurrentOrderProductPrice] =
+		useState(null);
 	const { Option } = Select;
 	const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -707,22 +708,22 @@ const OrderTable = () => {
 		...order,
 	}));
 
-  // console.log('currentSku', currentSku);
-  // console.log('currentOrderProductID', currentOrderProductID);
-  //drawer;
-  const showDrawer = (sku, id, price) => {
-    setCurrentSku(sku);
-    setCurrentOrderProductID(id);
+	// console.log('currentSku', currentSku);
+	// console.log('currentOrderProductID', currentOrderProductID);
+	//drawer;
+	const showDrawer = (sku, id, price) => {
+		setCurrentSku(sku);
+		setCurrentOrderProductID(id);
 		setCurrentOrderProductPrice(price);
 		console.log('all data', sku, id, price);
-    setOpen(true);
-  };
-  const onClose = (record) => {
-    console.log("record on close", record);
-    setCurrentSku(null);
-    setOpen(false);
-    loadData();
-  };
+		setOpen(true);
+	};
+	const onClose = record => {
+		console.log('record on close', record);
+		setCurrentSku(null);
+		setOpen(false);
+		loadData();
+	};
 
 	const handleExpand = (expanded, record) => {
 		if (expanded) {
@@ -742,367 +743,372 @@ const OrderTable = () => {
 		setTextFromDrawer(text);
 	};
 
-  const expandedRowRender = (record) => {
-    //render sub table here
-    const nestedColumns = [
-      {
-        title: "ID",
-        dataIndex: "id",
-        key: "id",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="id"
-                rules={[
-                  {
-                    required: true,
-                    message: "id is required",
-                  },
-                ]}
-              >
-                <Input disabled={true} />
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
-      {
-        title: "Image",
-        dataIndex: "image",
-        key: "image",
-        align: "center",
-        render: (text, record) => {
-          console.log("record from image", record.product.image);
-          //render image here
-          return (
-            <>
-              {record.product.image ? (
-                <img
-                  src={record.product.image}
-                  alt="product"
-                  style={{ width: "50px", height: "50px" }}
-                />
-              ) : (
-                <img
-                  src="https://via.placeholder.com/50"
-                  alt="product"
-                  style={{ width: "50px", height: "50px" }}
-                />
-              )}
-            </>
-          );
-        },
-      },
-      {
-        title: "Product",
-        dataIndex: "name",
-        key: "name",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="name"
-                rules={[
-                  {
-                    required: true,
-                    message: "Product name is required",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
-      {
-        title: "SKU",
-        dataIndex: "sku",
-        key: "sku",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="sku"
-                rules={[
-                  {
-                    required: true,
-                    message: "sku is required",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
-      {
-        title: "Price",
-        dataIndex: "price",
-        key: "price",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="price"
-                rules={[
-                  {
-                    required: true,
-                    message: "price is required",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            );
-          } else {
-            return <p>${text}</p>;
-          }
-        },
-      },
-      {
-        title: "Quantity",
-        dataIndex: "qty_ordered",
-        key: "qty_ordered",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="qty_ordered"
-                rules={[
-                  {
-                    required: true,
-                    message: "qty is required",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
-      {
-        title: "Supplier",
-        dataIndex: "selected_supplier",
-        key: "selected_supplier",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="selected_supplier"
-                rules={[
-                  {
-                    required: true,
-                    message: "supplier is required",
-                  },
-                ]}
-              >
-                <Select placeholder="Select a supplier">
-                  <Option value="Keystone">Keystone</Option>
-                  <Option value="Meyer">Meyer</Option>
-                  <Option value="Omix">Omix</Option>
-                  <Option value="Quadratec">Quaddratec</Option>
-                </Select>
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
-      {
-        title: "SupplierCost",
-        dataIndex: "selected_supplier_cost",
-        key: "selected_supplier_cost",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="selected_supplier_cost"
-                rules={[
-                  {
-                    required: true,
-                    message: "selected_supplier_cost is required",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
-            );
-          } else {
-            return <p>${text}</p>;
-          }
-        },
-      },
-      {
-        title: "Total",
-        dataIndex: "total",
-        key: "total",
-        align: "center",
-        render: (text, record) => {
-          return <p>${record.qty_ordered * record.selected_supplier_cost}</p>;
-        },
-      },
-      {
-        title: "Margin%",
-        key: "margin",
-        align: "center",
-        render: (text, record) => {
-          const cost = record.selected_supplier_cost;
-          const price = record.price;
-          if (cost && price) {
-            const margin = ((price - cost) / price) * 100;
-            return <span>{margin.toFixed(2)}%</span>;
-          } else {
-            return <span></span>;
-          }
-        },
-      },
-      {
-        title: "Status",
-        dataIndex: "status",
-        key: "status",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="status"
-                rules={[
-                  {
-                    required: true,
-                    message: "sku is required",
-                  },
-                ]}
-              >
-                <Select placeholder="Update Status">
-                  <Option value="Completed">
-                    <Badge status="success" text="Completed" />
-                  </Option>
-                  <Option value="No Stock">
-                    <Badge status="warning" text="No Stock" />
-                  </Option>
-                  <Option value="PO Sent">
-                    <Badge status="processing" text="PO Sent" />
-                  </Option>
-                  <Option value="Cancel">
-                    <Badge status="error" text="Cancel" />
-                  </Option>
-                </Select>
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
-      {
-        title: "Actions",
-        dataIndex: "operation",
-        key: "operation",
-        align: "center",
-        render: (_, recordSub) => {
-          return (
-            <>
-              <Form.Item>
-                <Space size="small">
-                  <Tooltip title="Edit">
-                    <EditOutlined
-                      style={{ color: "orange" }}
-                      onClick={() => {
-                        //use recordSub instead of record to avoid override record because we need the order key
-                        setEditingRow(recordSub.id); //also need to use id, not key
-                        form.setFieldsValue({
-                          id: recordSub.id,
-                          name: recordSub.name,
-                          sku: recordSub.sku,
-                          price: recordSub.price,
-                          product_id: recordSub.product_id,
-                          qty_ordered: recordSub.qty_ordered,
-                          selected_supplier: recordSub.selected_supplier,
-                          selected_supplier_cost:
-                            recordSub.selected_supplier_cost,
-                        });
-                      }}
-                    />
-                  </Tooltip>
-                  <Tooltip title="Save">
-                    <SaveOutlined
-                      style={{ color: "green" }}
-                      onClick={() => handleSaveSub(record.key)}
-                    />
-                  </Tooltip>
-                  <Tooltip title="See Vendor Costs">
-                    <GlobalOutlined
-                      style={{ color: "blue" }}
-                      onClick={() => {
-                        showDrawer(recordSub.sku, recordSub.id, recordSub.price);
-                      }}
-                    />
-                  </Tooltip>
-                  <Tooltip title="Add to PO">
-                    <ShoppingCartOutlined
-                      style={{ color: "purple" }}
-                      onClick={() => createPurchaseOrder(recordSub)}
-                    />
-                  </Tooltip>
-                </Space>
-              </Form.Item>
-            </>
-          );
-        },
-      },
-    ];
-    const total_cost = record.items.reduce(
-      (acc, record) => acc + record.qty_ordered * record.selected_supplier_cost,
-      0
-    );
+	const expandedRowRender = record => {
+		//render sub table here
+		const nestedColumns = [
+			{
+				title: 'ID',
+				dataIndex: 'id',
+				key: 'id',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='id'
+								rules={[
+									{
+										required: true,
+										message: 'id is required',
+									},
+								]}
+							>
+								<Input disabled={true} />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Image',
+				dataIndex: 'image',
+				key: 'image',
+				align: 'center',
+				render: (text, record) => {
+					console.log('record from image', record.product.image);
+					//render image here
+					return (
+						<>
+							{record.product.image ? (
+								<img
+									src={record.product.image}
+									alt='product'
+									style={{ width: '50px', height: '50px' }}
+								/>
+							) : (
+								<img
+									src='https://via.placeholder.com/50'
+									alt='product'
+									style={{ width: '50px', height: '50px' }}
+								/>
+							)}
+						</>
+					);
+				},
+			},
+			{
+				title: 'Product',
+				dataIndex: 'name',
+				key: 'name',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='name'
+								rules={[
+									{
+										required: true,
+										message: 'Product name is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'SKU',
+				dataIndex: 'sku',
+				key: 'sku',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='sku'
+								rules={[
+									{
+										required: true,
+										message: 'sku is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Price',
+				dataIndex: 'price',
+				key: 'price',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='price'
+								rules={[
+									{
+										required: true,
+										message: 'price is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>${text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Quantity',
+				dataIndex: 'qty_ordered',
+				key: 'qty_ordered',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='qty_ordered'
+								rules={[
+									{
+										required: true,
+										message: 'qty is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Supplier',
+				dataIndex: 'selected_supplier',
+				key: 'selected_supplier',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='selected_supplier'
+								rules={[
+									{
+										required: true,
+										message: 'supplier is required',
+									},
+								]}
+							>
+								<Select placeholder='Select a supplier'>
+									<Option value='Keystone'>Keystone</Option>
+									<Option value='Meyer'>Meyer</Option>
+									<Option value='Omix'>Omix</Option>
+									<Option value='Quadratec'>Quaddratec</Option>
+								</Select>
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'SupplierCost',
+				dataIndex: 'selected_supplier_cost',
+				key: 'selected_supplier_cost',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='selected_supplier_cost'
+								rules={[
+									{
+										required: true,
+										message: 'selected_supplier_cost is required',
+									},
+								]}
+							>
+								<Input />
+							</Form.Item>
+						);
+					} else {
+						return <p>${text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Total',
+				dataIndex: 'total',
+				key: 'total',
+				align: 'center',
+				render: (text, record) => {
+					return <p>${record.qty_ordered * record.selected_supplier_cost}</p>;
+				},
+			},
+			{
+				title: 'Margin%',
+				key: 'margin',
+				align: 'center',
+				render: (text, record) => {
+					const cost = record.selected_supplier_cost;
+					const price = record.price;
+					if (cost && price) {
+						const margin = ((price - cost) / price) * 100;
+						return <span>{margin.toFixed(2)}%</span>;
+					} else {
+						return <span></span>;
+					}
+				},
+			},
+			{
+				title: 'Status',
+				dataIndex: 'status',
+				key: 'status',
+				align: 'center',
+				render: (text, record) => {
+					if (editingRow === record.id) {
+						return (
+							<Form.Item
+								name='status'
+								rules={[
+									{
+										required: true,
+										message: 'sku is required',
+									},
+								]}
+							>
+								<Select placeholder='Update Status'>
+									<Option value='Completed'>
+										<Badge status='success' text='Completed' />
+									</Option>
+									<Option value='No Stock'>
+										<Badge status='warning' text='No Stock' />
+									</Option>
+									<Option value='PO Sent'>
+										<Badge status='processing' text='PO Sent' />
+									</Option>
+									<Option value='Cancel'>
+										<Badge status='error' text='Cancel' />
+									</Option>
+								</Select>
+							</Form.Item>
+						);
+					} else {
+						return <p>{text}</p>;
+					}
+				},
+			},
+			{
+				title: 'Actions',
+				dataIndex: 'operation',
+				key: 'operation',
+				align: 'center',
+				render: (_, recordSub) => {
+					return (
+						<>
+							<Form.Item>
+								<Space size='small'>
+									<Tooltip title='Edit'>
+										<EditOutlined
+											style={{ color: 'orange', fontSize: '25px' }}
+											onClick={() => {
+												//use recordSub instead of record to avoid override record because we need the order key
+												setEditingRow(recordSub.id); //also need to use id, not key
+												form.setFieldsValue({
+													id: recordSub.id,
+													name: recordSub.name,
+													sku: recordSub.sku,
+													price: recordSub.price,
+													product_id: recordSub.product_id,
+													qty_ordered: recordSub.qty_ordered,
+													selected_supplier: recordSub.selected_supplier,
+													selected_supplier_cost:
+														recordSub.selected_supplier_cost,
+												});
+											}}
+										/>
+									</Tooltip>
+									<Tooltip title='Save'>
+										<SaveOutlined
+											style={{ color: 'green', fontSize: '25px' }}
+											onClick={() => handleSaveSub(record.key)}
+										/>
+									</Tooltip>
+									<Tooltip title='See Vendor Costs'>
+										<GlobalOutlined
+											style={{ color: 'blue', fontSize: '25px' }}
+											onClick={() => {
+												showDrawer(
+													recordSub.sku,
+													recordSub.id,
+													recordSub.price
+												);
+											}}
+										/>
+									</Tooltip>
+									<Tooltip title='Add to PO'>
+										<ShoppingCartOutlined
+											style={{ color: 'purple', fontSize: '25px' }}
+											onClick={() => createPurchaseOrder(recordSub)}
+										/>
+									</Tooltip>
+								</Space>
+							</Form.Item>
+						</>
+					);
+				},
+			},
+		];
+		const total_cost = record.items.reduce(
+			(acc, record) => acc + record.qty_ordered * record.selected_supplier_cost,
+			0
+		);
 		const total_price = record.items.reduce(
-      (acc, record) => acc + record.price *  record.qty_ordered ,
-      0
-    );
-    return (
-      <Table
-        columns={nestedColumns}
-        dataSource={record.items}
-        pagination={false}
-        size="large"
-        footer={() => (
-          <span
-            style={{
-              fontWeight: "bold",
-              display: "inline-block",
-              textAlign: "right",
-              width: "100%",
-							fontSize: "1.2rem",
-            }}
-          >
+			(acc, record) => acc + record.price * record.qty_ordered,
+			0
+		);
+		return (
+			<Table
+				columns={nestedColumns}
+				dataSource={record.items}
+				pagination={false}
+				size='large'
+				footer={() => (
+					<span
+						style={{
+							fontWeight: 'bold',
+							display: 'inline-block',
+							textAlign: 'right',
+							width: '100%',
+							fontSize: '1.2rem',
+						}}
+					>
 						Total Purchased : ${total_price.toFixed(2)} <br />
-            Total Cost : ${total_cost.toFixed(2)} <br />
-						Total Margin : {((total_price - total_cost) / total_price * 100).toFixed(2)}%
-          </span>
-        )}
-      />
-    );
-  };
+						Total Cost : ${total_cost.toFixed(2)} <br />
+						Total Margin :{' '}
+						{(((total_price - total_cost) / total_price) * 100).toFixed(2)}%
+					</span>
+				)}
+			/>
+		);
+	};
 
 	return (
 		<>
@@ -1112,42 +1118,42 @@ const OrderTable = () => {
 						<TableTop />
 					</div>
 
-          <Form form={form}>
-            <Table
-              columns={columns}
-              expandable={{ expandedRowRender }} //, onExpand: handleExpand remove expandable
-              dataSource={data}
-              bordered
-              rowKey={(record) => record.id}
-              onChange={handleChange}
-              size="large"
-              loading={loading}
+					<Form form={form}>
+						<Table
+							columns={columns}
+							expandable={{ expandedRowRender }} //, onExpand: handleExpand remove expandable
+							dataSource={data}
+							bordered
+							rowKey={record => record.id}
+							onChange={handleChange}
+							size='large'
+							loading={loading}
 							pagination={true}
-              onRow={(record, rowIndex) => {
-                return {
-                  onClick: (event) => {
-                    setCurrentOrderProductID(record.id);
-                    setCurrentSku(record.sku);
+							onRow={(record, rowIndex) => {
+								return {
+									onClick: event => {
+										setCurrentOrderProductID(record.id);
+										setCurrentSku(record.sku);
 										setCurrentOrderProductPrice(record.price);
-                  },
-                };
-              }}
-            />
-          </Form>
-        </div>
-        <div id="footer">© 2023, Helper.com, Inc. All Rights Reserved</div>
-      </div>
-      {open && (
-        <Popup
-          placement={placement}
-          onClose={onClose}
-          sku={currentSku}
-          orderProductId={currentOrderProductID}
+									},
+								};
+							}}
+						/>
+					</Form>
+				</div>
+				<div id='footer'>© 2023, Helper.com, Inc. All Rights Reserved</div>
+			</div>
+			{open && (
+				<Popup
+					placement={placement}
+					onClose={onClose}
+					sku={currentSku}
+					orderProductId={currentOrderProductID}
 					orderProductPrice={currentOrderProductPrice}
-        />
-      )}
-    </>
-  );
+				/>
+			)}
+		</>
+	);
 };
 
 export default OrderTable;
