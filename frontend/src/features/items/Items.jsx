@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Table, Button } from "antd";
+import { Table, Button, Tag } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import ExcelJS from "exceljs";
@@ -214,6 +214,27 @@ export const Items = () => {
       dataIndex: "sku",
       key: "sku",
       align: "center",
+    },
+		{
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      align: "center",
+      sorter: (a, b) => a.sku.localeCompare(b.sku),
+      filter: true,
+			//render if status is 1 is enableed, if status is 2 is disabled
+			render: (status) => (
+				<div>
+					{status === 1 ? (
+						//tag green
+						<Tag color="green">Enabled</Tag>
+					) : (
+						//tag red
+						<Tag color="red">Disabled</Tag>
+					)}
+				</div>
+
+			),
     },
     {
       title: "Image",
