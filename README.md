@@ -64,3 +64,19 @@ This app streamlines the sales representatives' ordering process. It was inspire
 - sale rep can search an item with autocomplete feature
 - sale rep can sort, search in each column
 - sale rep can update the status of each order line
+
+### Project start
+
+`npm install`
+
+### Frontend Vite React
+
+`npm run dev`
+
+### Backend NodeJS
+
+`npm start`
+
+### Prisma
+
+Refer to the instruction in the backend folder
