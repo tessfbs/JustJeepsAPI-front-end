@@ -584,7 +584,7 @@ const OrderTable = () => {
 						</Form.Item>
 					);
 				} else {
-					return <p>{text}</p>;
+					return <p>${text}</p>;
 				}
 			},
 		},
@@ -865,7 +865,7 @@ const OrderTable = () => {
 							</Form.Item>
 						);
 					} else {
-						return <p>{text}</p>;
+						return <p>${text}</p>;
 					}
 				},
 			},
@@ -945,8 +945,17 @@ const OrderTable = () => {
 							</Form.Item>
 						);
 					} else {
-						return <p>{text}</p>;
+						return <p>${text}</p>;
 					}
+				},
+			},
+			{
+				title: 'Total',
+				dataIndex: 'total',
+				key: 'total',
+				align: 'center',
+				render: (text, record) => {
+					return <p>${record.qty_ordered * record.selected_supplier_cost}</p>;
 				},
 			},
 			{
@@ -963,7 +972,7 @@ const OrderTable = () => {
 						return <span></span>;
 					}
 				},
-			},
+			},			
 			{
 				title: 'Status',
 				dataIndex: 'status',
