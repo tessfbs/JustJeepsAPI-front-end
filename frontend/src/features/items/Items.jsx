@@ -501,7 +501,7 @@ export const Items = () => {
 			</div>
 			{/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
 
-			<div class='dashboardContainer'>
+			<div class='explore-content'>
 				{searchBy === 'sku' ? (
 					<Table
 						dataSource={data}
