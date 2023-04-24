@@ -39,6 +39,7 @@ const OrderTable = () => {
   const [placement, setPlacement] = useState("top");
   const [currentSku, setCurrentSku] = useState(null);
   const [currentOrderProductID, setCurrentOrderProductID] = useState(null);
+	const [currentOrderProductPrice, setCurrentOrderProductPrice] = useState(null);
   const { Option } = Select;
   const [selectedOrder, setSelectedOrder] = useState(null);
 
@@ -711,9 +712,11 @@ const OrderTable = () => {
   // console.log('currentSku', currentSku);
   // console.log('currentOrderProductID', currentOrderProductID);
   //drawer;
-  const showDrawer = (sku, id) => {
+  const showDrawer = (sku, id, price) => {
     setCurrentSku(sku);
     setCurrentOrderProductID(id);
+		setCurrentOrderProductPrice(price);
+		console.log('all data', sku, id, price);
     setOpen(true);
   };
   const onClose = (record) => {
@@ -1053,7 +1056,7 @@ const OrderTable = () => {
                     <GlobalOutlined
                       style={{ color: "blue" }}
                       onClick={() => {
-                        showDrawer(recordSub.sku, recordSub.id);
+                        showDrawer(recordSub.sku, recordSub.id, recordSub.price);
                       }}
                     />
                   </Tooltip>
@@ -1126,6 +1129,7 @@ const OrderTable = () => {
                   onClick: (event) => {
                     setCurrentOrderProductID(record.id);
                     setCurrentSku(record.sku);
+										setCurrentOrderProductPrice(record.price);
                   },
                 };
               }}
@@ -1140,6 +1144,7 @@ const OrderTable = () => {
           onClose={onClose}
           sku={currentSku}
           orderProductId={currentOrderProductID}
+					orderProductPrice={currentOrderProductPrice}
         />
       )}
     </>
