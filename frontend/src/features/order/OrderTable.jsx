@@ -25,7 +25,6 @@ import Popup from './Popup';
 import TableTop from '../tabletop/TableTop';
 import './order.scss';
 
-
 const OrderTable = () => {
 	const [orders, setOrders] = useState([]);
 	const [originalOrders, setOriginalOrders] = useState([]);
@@ -421,8 +420,9 @@ const OrderTable = () => {
 			key: 'status',
 			align: 'center',
 			sorter: (a, b) => a.status?.localeCompare(b.status),
+			sortOrder: sortedInfo.columnKey === 'status' && sortedInfo.order,
 			...getColumnSearchProps('status'),
-			render: (status) => {
+			render: status => {
 				let tagColor;
 				switch (status) {
 					case 'processing':
@@ -440,19 +440,15 @@ const OrderTable = () => {
 					default:
 						tagColor = 'volcano';
 				}
-				return (
-					<Tag color={tagColor}>
-						{status.toUpperCase()}
-					</Tag>
-				);
+				return <Tag color={tagColor}>{status.toUpperCase()}</Tag>;
 			},
 		},
-		
+
 		{
 			title: 'Created_Date',
 			dataIndex: 'created_at',
 			key: 'created_at',
-				align: 'center',
+			align: 'center',
 			sorter: (a, b) => a.created_at?.localeCompare(b.created_at),
 			sortOrder: sortedInfo.columnKey === 'created_at' && sortedInfo.order,
 			...getColumnSearchProps('created_at'),
@@ -751,7 +747,7 @@ const OrderTable = () => {
 				dataIndex: 'id',
 				key: 'id',
 				align: 'center',
-					render: (text, record) => {
+				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
 							<Form.Item

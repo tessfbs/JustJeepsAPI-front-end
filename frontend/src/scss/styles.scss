@@ -13,12 +13,19 @@
 	max-width: 100%;
 }
 
+.container-xl {
+	margin-top: 120px;
+}
+
 .navbar {
 	background-color: $yellow-500;
 	padding: 30px;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-family: 'Space Mono', monospace;
 	font-size: larger;
+	position: fixed;
+	z-index: 10;
+	width: 100%;
 }
 
 nav svg {
