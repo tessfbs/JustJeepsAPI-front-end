@@ -17,6 +17,7 @@ import {
 	Tooltip,
 	Select,
 	Badge,
+	Tag,
 } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { Edit, Trash, Save, Reload } from '../../icons';
@@ -420,7 +421,32 @@ const OrderTable = () => {
 			key: 'status',
 			sorter: (a, b) => a.status?.localeCompare(b.status),
 			...getColumnSearchProps('status'),
+			render: (status) => {
+				let tagColor;
+				switch (status) {
+					case 'processing':
+						tagColor = 'yellow';
+						break;
+					case 'pending':
+						tagColor = 'blue';
+						break;
+					case 'canceled':
+						tagColor = 'volcano';
+						break;
+					case 'complete':
+						tagColor = 'green';
+						break;
+					default:
+						tagColor = 'volcano';
+				}
+				return (
+					<Tag color={tagColor}>
+						{status.toUpperCase()}
+					</Tag>
+				);
+			},
 		},
+		
 		{
 			title: 'Created_Date',
 			dataIndex: 'created_at',
