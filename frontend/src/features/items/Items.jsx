@@ -375,12 +375,12 @@ export const Items = () => {
       align: "center",
       sorter: (a, b) => a.price - b.price,
     },
-    {
-      title: "Manufacturer",
-      dataIndex: "brand_name",
-      key: "brand_name",
-      align: "center",
-    },
+    // {
+    //   title: "Manufacturer",
+    //   dataIndex: "brand_name",
+    //   key: "brand_name",
+    //   align: "center",
+    // },
     {
       title: "Vendor Name",
       dataIndex: "vendorProducts",
