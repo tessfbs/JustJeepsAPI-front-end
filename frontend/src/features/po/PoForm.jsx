@@ -28,34 +28,36 @@ export const PoForm = () => {
           trigger={null}
           collapsible
           collapsed={collapsed}
-          style={{ backgroundColor: "#2938c3" }}
+          style={{ backgroundColor: "#e9e9e9" }}
         >
           <div className="logo" />
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}
             style={{
-              backgroundColor: "#2938c3",
-              color: "#D4F1F4",
+              backgroundColor: "#e9e9e9",
+              // color: "#D4F1F4",
+              color:"#888",
               height: "15px",
               marginTop: "80px",
+              fontWeight:"800",
             }}
             items={[
               {
                 key: "nav1",
-                icon: <img src={keystone} alt="keystone" width="100px" />,
+                label:"Keystone",
               },
               {
                 key: "nav2",
-                icon: <img src={meyer} alt="meyer" width="100px" />,
+                label:"Meyer",
               },
               {
                 key: "nav3",
-                icon: <img src={omix} alt="omix" width="100px" />,
+                label:"Omix",
               },
               {
                 key: "nav4",
-                icon: <img src={quadratec} alt="quadratec" width="100px" />,
+                label:"Quadratec",
               },
             ]}
             onSelect={handleNavClick}
@@ -73,7 +75,7 @@ export const PoForm = () => {
                 height: 64,
               }}
             />{" "}
-            PURCHASE ORDERS DETAILS
+            <b>PURCHASE ORDERS DETAILS</b>
           </Header>
           <Content
             style={{
