@@ -14,13 +14,13 @@
   background-color: #F5F5F5;
 }
 
+.ant-table-tbody .ant-table-row:nth-child(odd) {
+  background-color: #ffffff;
+}
+
 //change antd Table header color
 .ant-table-thead .ant-table-cell {
   background-color: rgb(181, 181, 181) !important;
   font-size: 16px !important;
   // color: white !important;
-  }
-
-  .ant-table-expanded-row .ant-table-thead > tr {
-    background-color: #ec2222 !important; /* change this to the desired color */
   }
