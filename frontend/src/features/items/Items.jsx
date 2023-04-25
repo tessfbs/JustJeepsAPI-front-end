@@ -4,7 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Table, Button, Tag, Drawer } from "antd";
+import { Table, Button, Tag, InputNumber } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import ExcelJS from "exceljs";
@@ -20,6 +20,14 @@ export const Items = () => {
   const [sku, setSku] = useState([]);
   const [brandData, setBrandData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [discount, setDiscount] = useState("1");
+
+  const onChange = (value) => {
+    console.log("changed", value);
+    setDiscount(value);
+  };
+
+  console.log("discount", discount);
 
   function getProductsByBrand(products, brandName) {
     return products.filter(
@@ -328,8 +336,8 @@ export const Items = () => {
   const columns_brands = [
     {
       title: "PRODUCT",
-			align: "center",
-			children: [
+      align: "center",
+      children: [
         {
           title: "SKU",
           dataIndex: "sku",
@@ -353,7 +361,8 @@ export const Items = () => {
           width: "30%",
 
           render: (name, vendorProducts) => (
-            <a style={{ color: 'navy' }}
+            <a
+              style={{ color: "navy" }}
               href={vendorProducts.url_path}
               target="_blank"
               onClick={() => console.log(vendorProducts)}
@@ -369,7 +378,14 @@ export const Items = () => {
           align: "center",
           sorter: (a, b) => a.price - b.price,
           //add $ sign to price
-          render: (price) => <div>{`$${price}`}</div>,
+          render: (price) => {
+            if (discount > 0) {
+              const discountedPrice = price * (1 - discount / 100);
+              return `$${discountedPrice.toFixed(2)}`;
+            } else {
+              return `$${price}`;
+            }
+          },
         },
       ],
     },
@@ -382,11 +398,11 @@ export const Items = () => {
           dataIndex: "vendorProducts",
           key: "vendor_id",
           align: "center",
-					onHeaderCell: (column) => {
-						return {
-							style: { backgroundColor: "red" },
-						};
-					},
+          onHeaderCell: (column) => {
+            return {
+              style: { backgroundColor: "red" },
+            };
+          },
           render: (vendorProducts) =>
             vendorProducts.map((vendorProduct) => (
               <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
@@ -410,9 +426,16 @@ export const Items = () => {
           align: "center",
           render: (record) => {
             const { price, vendorProducts } = record;
+            let discountedPrice = 0;
+            if (discount > 0) {
+              discountedPrice = price * (1 - discount / 100);
+            } else {
+              discountedPrice = price;
+            }
             return vendorProducts.map((vendorProduct) => {
               const { vendor_cost } = vendorProduct;
-              const margin = ((price - vendor_cost) / price) * 100;
+              const margin =
+                ((discountedPrice - vendor_cost) / discountedPrice) * 100;
               const className = margin < 20 ? "red-margin" : "";
               return (
                 <div
@@ -440,33 +463,39 @@ export const Items = () => {
       dataIndex: "vendorProducts",
       key: "lowest_cost",
       align: "center",
-			render: (vendorProducts, record) => {
-				const vendorsWithInventory = vendorProducts.filter(
-					(vp) => vp.vendor_inventory > 0
-				);
-				if (vendorsWithInventory.length === 0) {
-					return "-";
-				}
-				const minVendorProduct = vendorsWithInventory.reduce((min, curr) => {
-					if (curr.vendor_cost < min.vendor_cost) {
-						return curr;
-					}
-					return min;
-				}, vendorsWithInventory[0]);
-			
-				const margin =
-					((record.price - minVendorProduct.vendor_cost) / record.price) * 100;
-	
-			
-				return (
-					<div>
-						<div>{minVendorProduct.vendor.name}</div>
-						<div>{`$${minVendorProduct.vendor_cost}`}</div>
-						<div> {`${margin.toFixed(0)}%`} </div>
-					</div>
-				);
-			},
-			
+      render: (vendorProducts, record) => {
+        let discountedPrice = 0;
+        if (discount > 0) {
+          discountedPrice = record.price * (1 - discount / 100);
+        } else {
+          discountedPrice = record.price;
+        }
+
+        const vendorsWithInventory = vendorProducts.filter(
+          (vp) => vp.vendor_inventory > 0
+        );
+        if (vendorsWithInventory.length === 0) {
+          return "-";
+        }
+        const minVendorProduct = vendorsWithInventory.reduce((min, curr) => {
+          if (curr.vendor_cost < min.vendor_cost) {
+            return curr;
+          }
+          return min;
+        }, vendorsWithInventory[0]);
+
+        const margin =
+          ((discountedPrice - minVendorProduct.vendor_cost) / discountedPrice) *
+          100;
+
+        return (
+          <div>
+            <div>{minVendorProduct.vendor.name}</div>
+            <div>{`$${minVendorProduct.vendor_cost}`}</div>
+            <div> {`${margin.toFixed(0)}%`} </div>
+          </div>
+        );
+      },
     },
     // {
     //   title: "Vendor SKU   ",
@@ -497,7 +526,6 @@ export const Items = () => {
   const tableProps = {
     loading,
   };
-
 
   return (
     <div className="items">
@@ -557,7 +585,6 @@ export const Items = () => {
             <div className="sidebar-brand">
               <Autocomplete
                 {...brands_for_autocomplete}
-          
                 sx={{
                   width: 300,
                   backgroundColor: "white",
@@ -610,6 +637,13 @@ export const Items = () => {
             columns={columns_by_sku}
             rowKey="sku"
             pagination={false} // Change pageSize as needed
+            title={() => (
+              <div>
+                {data.length > 0 && (
+                  <h5>Vendors for this Brand: {data[0].vendors}</h5>
+                )}
+              </div>
+            )}
           />
         ) : (
           <div>
@@ -627,6 +661,56 @@ export const Items = () => {
                     style={{
                       color: "purple",
                       backgroundColor: "rgba(255, 0, 0, 0.2)",
+                      fontSize: "30px",
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="widget">
+                <div className="left">
+                  <span className="title">
+                    <strong>{searchTermSku.brand_name} </strong>Vendors:
+                  </span>
+                  {brandData.length > 0 && (
+                    <span className="counter" style={{ fontSize: 18 }}>
+                      {brandData[0].vendors}
+                    </span>
+                  )}
+                </div>
+                <div className="right">
+                  <MonetizationOnOutlinedIcon
+                    className="icon"
+                    style={{
+                      backgroundColor: "rgba(218, 165, 32, 0.2)",
+                      color: "goldenrod",
+                      fontSize: "30px",
+                    }}
+                  />
+                </div>
+              </div>
+
+              <div className="widget">
+                <div className="left">
+                  <span className="title">
+                    <strong> Promotion Simulation:</strong>
+                  </span>
+                  <InputNumber
+                    min={0}
+                    max={50}
+                    defaultValue={3}
+                    onChange={onChange}
+                    formatter={(value) => `${value}%`}
+                    parser={(value) => value.replace("%", "")}
+										size="large"
+                  />
+                </div>
+                <div className="right">
+                  <MonetizationOnOutlinedIcon
+                    className="icon"
+                    style={{
+                      backgroundColor: "rgba(218, 165, 32, 0.2)",
+                      color: "goldenrod",
                       fontSize: "30px",
                     }}
                   />
@@ -661,14 +745,16 @@ export const Items = () => {
                   </span>
                   <span className="counter">${averagePrice.toFixed(2)}</span>
                 </div>
-                <div className="right"><MonetizationOnOutlinedIcon
+                <div className="right">
+                  <MonetizationOnOutlinedIcon
                     className="icon"
                     style={{
                       backgroundColor: "rgba(0, 128, 0, 0.2)",
                       color: "green",
                       fontSize: "30px",
                     }}
-                  /></div>
+                  />
+                </div>
               </div>
             </div>
 
