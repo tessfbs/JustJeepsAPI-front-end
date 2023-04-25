@@ -586,7 +586,7 @@ const OrderTable = () => {
 						</Form.Item>
 					);
 				} else {
-					return <p>${text}</p>;
+					return <p>${text.toFixed(2)}</p>;
 				}
 			},
 		},
@@ -658,6 +658,7 @@ const OrderTable = () => {
 					<>
 						<Form.Item>
 							<Space size='middle'>
+							<Tooltip title='Edit Order'>
 								<button
 									className='btn btn-sm btn-outline-warning'
 									onClick={() => {
@@ -676,24 +677,36 @@ const OrderTable = () => {
 								>
 									<Edit />
 								</button>
+								</Tooltip>
+								<Tooltip title='Delete Order'>
+
 								<button
 									className='btn btn-sm btn-outline-danger'
 									onClick={() => handleDeleteOrder(record)}
 								>
+
 									<Trash />
 								</button>
+								</Tooltip>
+								<Tooltip title='Save changes'>
+
 								<button
 									className='btn btn-sm btn-outline-success'
 									onClick={handleSave}
 								>
 									<Save />
 								</button>
+								</Tooltip>
+								<Tooltip title='Refresh'>
+
 								<button
 									className='btn btn-sm btn-outline-info'
 									onClick={refreshPage}
 								>
 									<Reload />
 								</button>
+								</Tooltip>
+
 							</Space>
 						</Form.Item>
 					</>
@@ -803,7 +816,7 @@ const OrderTable = () => {
 				dataIndex: 'name',
 				key: 'name',
 				align: 'center',
-				width: '30%',
+				width: '0%',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (
