@@ -7,21 +7,29 @@ const columns = [
 		title: 'Order ID',
 		dataIndex: ['order', 'entity_id'],
 		key: 'order_id',
+    align: 'center',
+    width: '25%',
 	},
 	{
 		title: 'PO ID',
 		dataIndex: 'id',
 		key: 'id',
+    align: 'center',
+    width: '25%',
 	},
 	{
 		title: 'Created At',
 		dataIndex: 'created_at',
 		key: 'created_at',
+    align: 'center',
+    width: '25%',
 	},
 	{
 		title: 'User',
 		dataIndex: ['user', 'firstname'],
 		key: 'user',
+    align: 'center',
+    width: '25%',
 	},
 ];
 
@@ -55,11 +63,13 @@ const PurchaseOrderTable = ({ vendorId }) => {
 				title: 'Product SKU',
 				dataIndex: 'product_sku',
 				key: 'product_sku',
+        align: 'center',
 			},
 			{
 				title: 'Vendor SKU',
 				dataIndex: ['vendorProduct', 'vendor_sku'],
 				key: 'vendorProduct.vendor_sku',
+        align: 'center',
 				//render product_sku + "2"
 				render: (text, record) => {
 					return record?.product_sku?.slice(
@@ -71,16 +81,27 @@ const PurchaseOrderTable = ({ vendorId }) => {
 				title: 'Vendor Cost',
 				dataIndex: 'vendor_cost',
 				key: 'vendor_cost',
+        align: 'center',
+        //render vendor_cost with $ sign and 2 decimal places
+        render: (text, record) => {
+          return `$${record.vendor_cost.toFixed(2)}`
+        }
 			},
 			{
 				title: 'Quantity Purchased',
 				dataIndex: 'quantity_purchased',
 				key: 'quantity_purchased',
+        align: 'center',
 			},
 			{
 				title: 'Total Cost',
 				dataIndex: 'total_cost',
 				key: 'total_cost',
+        align: 'center',
+        //render total_cost with $ sign and 2 decimal places
+        render: (text, record) => {
+          return `$${record.total_cost.toFixed(2)}`
+        }
 			},
 		];
 		if (poLineItems && poLineItems.length) {
@@ -99,8 +120,14 @@ const PurchaseOrderTable = ({ vendorId }) => {
 					dataSource={lineItemData}
 					pagination={false}
 					footer={() => (
-						<div style={{ fontWeight: 'bold', fontSize: '1.2em' }}>
-							Total Cost: {totalCost}
+						<div 						style={{
+							fontWeight: 'bold',
+							display: 'inline-block',
+							textAlign: 'right',
+							width: '100%',
+							fontSize: '1.2rem',
+						}}>
+							Total Cost: ${totalCost.toFixed(2)}
 						</div>
 					)}
 				/>

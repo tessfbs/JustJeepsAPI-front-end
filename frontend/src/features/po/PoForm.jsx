@@ -28,19 +28,23 @@ export const PoForm = () => {
           trigger={null}
           collapsible
           collapsed={collapsed}
-          style={{ backgroundColor: "#e9e9e9" }}
+          style={{ backgroundColor: "#2938c3" }}
+          width={200}
         >
           <div className="logo" />
           <Menu
             mode="inline"
+            //change hover color to pink
+            theme="dark"
             defaultSelectedKeys={["1"]}
             style={{
-              backgroundColor: "#e9e9e9",
+              backgroundColor: "#2938c3",
               // color: "#D4F1F4",
-              color:"#888",
+              color:"white",
               height: "15px",
               marginTop: "80px",
-              fontWeight:"800",
+              fontWeight:"700",
+              fontSize:"22px",
             }}
             items={[
               {
@@ -70,12 +74,17 @@ export const PoForm = () => {
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
               onClick={() => setCollapsed(!collapsed)}
               style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
+                fontSize: "20px",
+                width: 72,
+                height: 72,
               }}
             />{" "}
-            <b>PURCHASE ORDERS DETAILS</b>
+            <b style={
+              {
+                fontSize:"large",
+              }
+            } 
+            >PURCHASE ORDERS DETAILS</b>
           </Header>
           <Content
             style={{
