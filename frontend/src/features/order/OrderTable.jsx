@@ -247,8 +247,13 @@ const OrderTable = () => {
 	const onFinish = values => {
 		const updatedOrders = [...orders];
 		const index = updatedOrders.findIndex(obj => obj.entity_id === editingRow);
+		console.log('updated orders::', updatedOrders[index]);
+		const updatedOrdersStatus = updatedOrders[index].status;
+		console.log('updatedOrdersStatus::', updatedOrdersStatus);
+		const addStatusToValues = {...values, status: updatedOrdersStatus}
+		console.log('values::', addStatusToValues);
 		updatedOrders.splice(index, 1, {
-			...values,
+			...addStatusToValues,
 			key: index,
 		});
 
@@ -442,7 +447,7 @@ const OrderTable = () => {
 					default:
 						tagColor = 'volcano';
 				}
-				return <Tag color={tagColor}>{status.toUpperCase()}</Tag>;
+				return <Tag color={tagColor}>{status?.toUpperCase()}</Tag>;
 			},
 		},
 
@@ -586,7 +591,7 @@ const OrderTable = () => {
 						</Form.Item>
 					);
 				} else {
-					return <p>${text?.toFixed(2)}</p>;
+					return <p>${text}</p>;
 				}
 			},
 		},
@@ -672,6 +677,7 @@ const OrderTable = () => {
 												entity_id: record.entity_id,
 												created_at: record.created_at,
 												increment_id: record.increment_id,
+												status: record.status,
 											});
 										}}
 									>
