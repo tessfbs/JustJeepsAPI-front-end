@@ -17,6 +17,7 @@ const ProductTable = props => {
 				`http://localhost:8080/order_products/${props.orderProductId}/edit/selected_supplier`,
 				{
 					selected_supplier_cost: vendorProduct.vendor_cost.toString(),
+					selected_supplier: vendorProduct.vendor.name,
 				}
 			)
 			.then(res => {
@@ -83,7 +84,7 @@ const ProductTable = props => {
 				}, vendorsWithInventory[0]);
 			
 				const margin =
-					((record.price - minVendorProduct.vendor_cost) / record.price) * 100;
+					((props.orderProductPrice - minVendorProduct.vendor_cost) / props.orderProductPrice) * 100;
 	
 			
 				return (

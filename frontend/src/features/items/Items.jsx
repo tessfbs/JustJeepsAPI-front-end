@@ -436,7 +436,7 @@ export const Items = () => {
       ],
     },
     {
-      title: "Lowest Cost",
+      title: "Suggested Vendor",
       dataIndex: "vendorProducts",
       key: "lowest_cost",
       align: "center",
