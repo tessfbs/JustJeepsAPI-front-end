@@ -29165,7 +29165,7 @@ module.exports = [
       "vendor_id": 2,
       "vendor_sku": "SMB812101",
       "vendor_cost": 85.64,
-      "vendor_inventory": 0
+      "vendor_inventory": 5
   },
   {
       "id": 9517,
@@ -31701,7 +31701,7 @@ module.exports = [
       "vendor_id": 2,
       "vendor_sku": "SYN8059",
       "vendor_cost": 124.34,
-      "vendor_inventory": 0
+      "vendor_inventory": 38
   },
   {
       "id": 9834,
@@ -45213,7 +45213,7 @@ module.exports = [
       "vendor_id": 2,
       "vendor_sku": "WRR60742",
       "vendor_cost": 79.34,
-      "vendor_inventory": 0
+      "vendor_inventory": 5
   },
   {
       "id": 11560,
@@ -62277,7 +62277,7 @@ module.exports = [
       "vendor_id": 2,
       "vendor_sku": "RAM99306",
       "vendor_cost": 336.52,
-      "vendor_inventory": 0
+      "vendor_inventory": 2
   },
   {
       "id": 13701,
@@ -63991,13 +63991,14 @@ module.exports = [
       "vendor_cost": 237.85,
       "vendor_inventory": 4
   },
+
   {
       "id": 13918,
       "product_sku": "SB-76500",
       "vendor_id": 2,
       "vendor_sku": "SMB76500",
       "vendor_cost": 595.34,
-      "vendor_inventory": 0
+      "vendor_inventory": 3
   },
   {
       "id": 13919,
@@ -68373,7 +68374,7 @@ module.exports = [
       "vendor_id": 2,
       "vendor_sku": "CAS55056633AB",
       "vendor_cost": 313.09,
-      "vendor_inventory": 0
+      "vendor_inventory": 3
   },
   {
       "id": 14467,
@@ -99037,7 +99038,7 @@ module.exports = [
       "vendor_id": 2,
       "vendor_sku": "DVED-JL-190052-PIL",
       "vendor_cost": 324.34,
-      "vendor_inventory": 0
+      "vendor_inventory": 39
   },
   {
       "id": 18307,
@@ -100238,5 +100239,13 @@ module.exports = [
       "vendor_sku": "CTFKDF193890",
       "vendor_cost": 441.75,
       "vendor_inventory": 0
-  }
+  },
+  {
+    "id": 30000,
+    "product_sku": "KEN-70002",
+    "vendor_id": 2,
+    "vendor_sku": "KEN70002",
+    "vendor_cost": 42.85,
+    "vendor_inventory": 4
+},
 ]

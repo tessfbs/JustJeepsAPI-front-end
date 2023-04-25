@@ -190,21 +190,29 @@ app.get('/brands', async (req, res) => {
 
 // Route for getting all orders
 app.get('/api/orders', async (req, res) => {
-	try {
-		const orders = await prisma.order.findMany({
-			include: {
-				items: {
-					include: {
-						product: true,
-					},
-				},
-			},
-		});
-		res.json(orders);
-	} catch (error) {
-		res.status(500).json({ error: 'Failed to fetch orders' });
-	}
+  try {
+    const orders = await prisma.order.findMany({
+      include: {
+        items: {
+          include: {
+            product: true,
+          },
+          where: {
+            base_price: {
+              gt: 0
+            },
+          },
+        },
+      },
+    });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({
+      error: 'Failed to fetch orders'
+    });
+  }
 });
+
 
 //Route for getting a single order
 app.get('/api/orders/:id', async (req, res) => {

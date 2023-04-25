@@ -229,7 +229,6 @@ export const Items = () => {
       dataIndex: "status",
       key: "status",
       align: "center",
-      sorter: (a, b) => a.sku.localeCompare(b.sku),
       filter: true,
       //render if status is 1 is enableed, if status is 2 is disabled
       render: (status) => (
@@ -271,6 +270,8 @@ export const Items = () => {
       dataIndex: "price",
       key: "price",
       align: "center",
+      //render price with $ sign and 2 decimals
+      render: (price) => <div>{`$${price.toFixed(2)}`}</div>,
     },
     {
       title: "Vendor Name",
@@ -279,7 +280,15 @@ export const Items = () => {
       align: "center",
       render: (vendorProducts) =>
         vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
+          <div
+            key={vendorProduct.id}
+            style={{
+              padding: "5px",
+              marginBottom: "7px",
+            }}
+          >
+            {vendorProduct.vendor.name}
+          </div>
         )),
     },
     {
@@ -289,7 +298,13 @@ export const Items = () => {
       align: "center",
       render: (vendorProducts) =>
         vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
+          <div
+            key={vendorProduct.id}
+            style={{
+              padding: "5px",
+              marginBottom: "7px",
+            }}
+          >{`$${vendorProduct.vendor_cost.toFixed(2)}`}</div>
         )),
     },
     {
@@ -303,10 +318,22 @@ export const Items = () => {
           const margin = ((price - vendor_cost) / price) * 100;
           const className = margin < 20 ? "red-margin" : "";
           return (
-            <div
-              key={vendorProduct.vendor_id}
-              className={className}
-            >{`${margin.toFixed(2)}%`}</div>
+            <div key={vendorProduct.vendor_id}>
+              {margin > 20 ? (
+                <Tag
+                  color="darkgreen"
+                  style={{
+                    fontSize: "12px",
+                    padding: "5px",
+                    marginBottom: "7px",
+                  }}
+                >
+                  {margin.toFixed(2)}%
+                </Tag>
+              ) : (
+                <Tag color="red">{margin.toFixed(2)}%</Tag>
+              )}
+            </div>
           );
         });
       },
@@ -318,7 +345,15 @@ export const Items = () => {
       align: "center",
       render: (vendorProducts) =>
         vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
+          <div
+            key={vendorProduct.id}
+            style={{
+              padding: "5px",
+              marginBottom: "7px",
+            }}
+          >
+            {vendorProduct.vendor_inventory}
+          </div>
         )),
     },
     {
@@ -328,8 +363,56 @@ export const Items = () => {
       align: "center",
       render: (vendorProducts) =>
         vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
+          <div
+            key={vendorProduct.id}
+            style={{
+              padding: "5px",
+              marginBottom: "7px",
+            }}
+          >
+            {vendorProduct.vendor_sku}
+          </div>
         )),
+    },
+    {
+      title: "Suggested Vendor",
+      dataIndex: "vendorProducts",
+      key: "lowest_cost",
+      align: "center",
+      render: (vendorProducts, record) => {
+        let discountedPrice = 0;
+        if (discount > 0) {
+          discountedPrice = record.price * (1 - discount / 100);
+        } else {
+          discountedPrice = record.price;
+        }
+        const vendorsWithInventory = vendorProducts.filter(
+          (vp) => vp.vendor_inventory > 0
+        );
+        if (vendorsWithInventory.length === 0) {
+          return "-";
+        }
+        const minVendorProduct = vendorsWithInventory.reduce((min, curr) => {
+          if (curr.vendor_cost < min.vendor_cost) {
+            return curr;
+          }
+          return min;
+        }, vendorsWithInventory[0]);
+
+        const margin =
+          ((discountedPrice - minVendorProduct.vendor_cost) / discountedPrice) *
+          100;
+
+        const className = margin < 20 ? "red-margin" : "";
+
+        return (
+          <div>
+            <div>{minVendorProduct.vendor.name}</div>
+            <div>{`$${minVendorProduct.vendor_cost}`}</div>
+            <div className={className}> {`${margin.toFixed(0)}%`} </div>
+          </div>
+        );
+      },
     },
   ];
 
@@ -405,7 +488,15 @@ export const Items = () => {
           },
           render: (vendorProducts) =>
             vendorProducts.map((vendorProduct) => (
-              <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
+              <div
+                key={vendorProduct.id}
+                style={{
+                  padding: "5px",
+                  marginBottom: "7px",
+                }}
+              >
+                {vendorProduct.vendor.name}
+              </div>
             )),
         },
         {
@@ -417,6 +508,10 @@ export const Items = () => {
             vendorProducts.map((vendorProduct) => (
               <div
                 key={vendorProduct.id}
+                style={{
+                  padding: "5px",
+                  marginBottom: "7px",
+                }}
               >{`$${vendorProduct.vendor_cost}`}</div>
             )),
         },
@@ -438,10 +533,22 @@ export const Items = () => {
                 ((discountedPrice - vendor_cost) / discountedPrice) * 100;
               const className = margin < 20 ? "red-margin" : "";
               return (
-                <div
-                  key={vendorProduct.vendor_id}
-                  className={className}
-                >{`${margin.toFixed(0)}%`}</div>
+                <div key={vendorProduct.vendor_id}>
+                  {margin > 20 ? (
+                    <Tag
+                      color="darkgreen"
+                      style={{
+                        fontSize: "12px",
+                        padding: "5px",
+                        marginBottom: "7px",
+                      }}
+                    >
+                      {margin.toFixed(2)}%
+                    </Tag>
+                  ) : (
+                    <Tag color="red">{margin.toFixed(2)}%</Tag>
+                  )}
+                </div>
               );
             });
           },
@@ -453,7 +560,15 @@ export const Items = () => {
           align: "center",
           render: (vendorProducts) =>
             vendorProducts.map((vendorProduct) => (
-              <div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
+              <div
+                key={vendorProduct.id}
+                style={{
+                  padding: "5px",
+                  marginBottom: "7px",
+                }}
+              >
+                {vendorProduct.vendor_inventory}
+              </div>
             )),
         },
       ],
@@ -470,7 +585,6 @@ export const Items = () => {
         } else {
           discountedPrice = record.price;
         }
-
         const vendorsWithInventory = vendorProducts.filter(
           (vp) => vp.vendor_inventory > 0
         );
@@ -488,11 +602,13 @@ export const Items = () => {
           ((discountedPrice - minVendorProduct.vendor_cost) / discountedPrice) *
           100;
 
+        const className = margin < 20 ? "red-margin" : "";
+
         return (
           <div>
             <div>{minVendorProduct.vendor.name}</div>
             <div>{`$${minVendorProduct.vendor_cost}`}</div>
-            <div> {`${margin.toFixed(0)}%`} </div>
+            <div className={className}> {`${margin.toFixed(0)}%`} </div>
           </div>
         );
       },
@@ -698,11 +814,11 @@ export const Items = () => {
                   <InputNumber
                     min={0}
                     max={50}
-                    defaultValue={3}
+                    defaultValue={0}
                     onChange={onChange}
                     formatter={(value) => `${value}%`}
                     parser={(value) => value.replace("%", "")}
-										size="large"
+                    size="large"
                   />
                 </div>
                 <div className="right">

@@ -12429,7 +12429,7 @@ module.exports = [
       "vendor_id": 1,
       "vendor_sku": "L2214093",
       "vendor_cost": 100.84,
-      "vendor_inventory": 0
+      "vendor_inventory": 67
   },
   {
       "id": 20047,
@@ -34509,7 +34509,7 @@ module.exports = [
       "vendor_id": 1,
       "vendor_sku": "S5376500",
       "vendor_cost": 968.05,
-      "vendor_inventory": 0
+      "vendor_inventory": 5
   },
   {
       "id": 22839,
@@ -34725,7 +34725,7 @@ module.exports = [
       "vendor_id": 1,
       "vendor_sku": "S5376651D",
       "vendor_cost": 587.5,
-      "vendor_inventory": 0
+      "vendor_inventory": 3
   },
   {
       "id": 22868,
@@ -36149,7 +36149,7 @@ module.exports = [
       "vendor_id": 1,
       "vendor_sku": "S53812101",
       "vendor_cost": 111.53,
-      "vendor_inventory": 0
+      "vendor_inventory": 25
   },
   {
       "id": 23055,
@@ -44597,7 +44597,7 @@ module.exports = [
       "vendor_id": 1,
       "vendor_sku": "KEN70002",
       "vendor_cost": 39.71,
-      "vendor_inventory": 0
+      "vendor_inventory": 12
   },
   {
       "id": 23942,
@@ -54308,8 +54308,8 @@ module.exports = [
       "product_sku": "RPG-99306",
       "vendor_id": 1,
       "vendor_sku": "R9299306",
-      "vendor_cost": 336.98,
-      "vendor_inventory": 0
+      "vendor_cost": 310.98,
+      "vendor_inventory": 15
   },
   {
       "id": 25255,
@@ -70445,7 +70445,7 @@ module.exports = [
       "vendor_id": 1,
       "vendor_sku": "W4560742",
       "vendor_cost": 111.44,
-      "vendor_inventory": 0
+      "vendor_inventory": 7
   },
   {
       "id": 27212,
