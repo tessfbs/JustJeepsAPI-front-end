@@ -10,8 +10,8 @@ import axios from "axios";
 import ExcelJS from "exceljs";
 import saveAs from "file-saver";
 import "./items.scss";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import PrecisionManufacturingOutlinedIcon from "@mui/icons-material/PrecisionManufacturingOutlined";
+import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 
 export const Items = () => {
   const [data, setData] = useState([]);
@@ -323,19 +323,6 @@ export const Items = () => {
           <div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
         )),
     },
-    // {
-    //   title: "Competitor Price",
-    //   dataIndex: "competitorProducts",
-    //   key: "competitor_price",
-    //   render: (competitorProducts) =>
-    //     competitorProducts.length > 0 ? (
-    //       <div
-    //         key={competitorProducts[0].id}
-    //       >{`$${competitorProducts[0].competitor_price}`}</div>
-    //     ) : (
-    //       "-"
-    //     ),
-    // },
   ];
 
   const columns_brands = [
@@ -387,12 +374,6 @@ export const Items = () => {
       ],
     },
 
-    // {
-    //   title: "Manufacturer",
-    //   dataIndex: "brand_name",
-    //   key: "brand_name",
-    //   align: "center",
-    // },
     {
       title: "Vendors",
       children: [
@@ -584,19 +565,6 @@ export const Items = () => {
                     label="Search SKU"
                     variant="standard"
                     onChange={handleSearchTermChange}
-                    //label size
-                    // InputLabelProps={{
-                    //   style: {
-                    //     fontSize: 16,
-                    //     // fontWeight: 'bold',
-                    //   },
-                    // }}
-                    // //input size
-                    // InputProps={{
-                    //   style: {
-                    // 		fontSize: 20
-                    // 	},
-                    // }}
                   />
                 )}
               />
@@ -606,8 +574,10 @@ export const Items = () => {
               <Autocomplete
                 {...brands_for_autocomplete}
                 sx={{
+                sx={{
                   width: 300,
                   backgroundColor: "white",
+                  height: 55,
                   height: 55,
                 }}
                 id="clear-on-escape"
@@ -619,8 +589,12 @@ export const Items = () => {
                 style={{
                   borderRadius: 5,
                 }}
+                style={{
+                  borderRadius: 5,
+                }}
                 renderInput={(params) => (
                   <TextField
+                    className="textfield"
                     className="textfield"
                     {...params}
                     label="Search brand"
@@ -647,10 +621,9 @@ export const Items = () => {
             </div>
           )}
         </div>
-        {/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
       </div>
 
-      <div class="explore-content">
+      <div className="explore-content">
         {searchBy === "sku" ? (
           <Table
             dataSource={data}
@@ -661,17 +634,23 @@ export const Items = () => {
         ) : (
           <div>
             <div className="brand-statistic">
-              <br />
-
               <div className="widget">
                 <div className="left">
                   <span className="title">
                     <strong>{searchTermSku.brand_name} </strong>TOTAL PRODUCTS:
                   </span>
-                  <br />
                   <span className="counter">{brandData.length}</span>
                 </div>
-                <div className="right">{data.icon}</div>
+                <div className="right">
+                  <PrecisionManufacturingOutlinedIcon
+                    className="icon"
+                    style={{
+                      color: "purple",
+                      backgroundColor: "rgba(255, 0, 0, 0.2)",
+                      fontSize: "30px",
+                    }}
+                  />
+                </div>
               </div>
 
               <div className="widget">
@@ -679,12 +658,20 @@ export const Items = () => {
                   <span className="title">
                     <strong>{searchTermSku.brand_name} </strong>Price Range:
                   </span>
-                  <br />
                   <span className="counter">
                     ${minPrice} -${maxPrice}{" "}
                   </span>
                 </div>
-                <div className="right">{data.icon}</div>
+                <div className="right">
+                  <MonetizationOnOutlinedIcon
+                    className="icon"
+                    style={{
+                      backgroundColor: "rgba(218, 165, 32, 0.2)",
+                      color: "goldenrod",
+                      fontSize: "30px",
+                    }}
+                  />
+                </div>
               </div>
 
               <div className="widget">
@@ -692,15 +679,19 @@ export const Items = () => {
                   <span className="title">
                     <strong>{searchTermSku.brand_name} </strong>Price Average:
                   </span>
-                  <br />
                   <span className="counter">${averagePrice.toFixed(2)}</span>
                 </div>
-                <div className="right">{data.icon}</div>
+                <div className="right"><MonetizationOnOutlinedIcon
+                    className="icon"
+                    style={{
+                      backgroundColor: "rgba(0, 128, 0, 0.2)",
+                      color: "green",
+                      fontSize: "30px",
+                    }}
+                  /></div>
               </div>
-              <br />
             </div>
 
-            {/* {brandData[0]["vendors"] && (<p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p>)} */}
             <Table
               {...tableProps}
               dataSource={brandData}
