@@ -4,13 +4,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Table, Button, Tag } from "antd";
+import { Table, Button, Tag, Drawer } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 import ExcelJS from "exceljs";
 import saveAs from "file-saver";
 import "./items.scss";
-import Paper from "@mui/material/Paper";
+import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
 export const Items = () => {
   const [data, setData] = useState([]);
@@ -163,7 +164,7 @@ export const Items = () => {
     getProductByBrand();
   }, [searchTermSku]);
 
-  console.log("brandData", brandData);
+  // console.log("brandData", brandData);
 
   //get all skus
   useEffect(() => {
@@ -215,26 +216,25 @@ export const Items = () => {
       key: "sku",
       align: "center",
     },
-		{
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
       align: "center",
       sorter: (a, b) => a.sku.localeCompare(b.sku),
       filter: true,
-			//render if status is 1 is enableed, if status is 2 is disabled
-			render: (status) => (
-				<div>
-					{status === 1 ? (
-						//tag green
-						<Tag color="green">Enabled</Tag>
-					) : (
-						//tag red
-						<Tag color="red">Disabled</Tag>
-					)}
-				</div>
-
-			),
+      //render if status is 1 is enableed, if status is 2 is disabled
+      render: (status) => (
+        <div>
+          {status === 1 ? (
+            //tag green
+            <Tag color="green">Enabled</Tag>
+          ) : (
+            //tag red
+            <Tag color="red">Disabled</Tag>
+          )}
+        </div>
+      ),
     },
     {
       title: "Image",
@@ -337,44 +337,56 @@ export const Items = () => {
     //     ),
     // },
   ];
+
   const columns_brands = [
     {
-      title: "SKU",
-      dataIndex: "sku",
-      key: "sku",
-      align: "center",
-      sorter: (a, b) => a.sku.localeCompare(b.sku),
-      filter: true,
+      title: "PRODUCT",
+			align: "center",
+			children: [
+        {
+          title: "SKU",
+          dataIndex: "sku",
+          key: "sku",
+          align: "center",
+          sorter: (a, b) => a.sku.localeCompare(b.sku),
+          filter: true,
+        },
+        {
+          title: "Image",
+          dataIndex: "image",
+          key: "image",
+          align: "center",
+          render: (image) => <img src={image} alt="Product" width="50" />,
+        },
+        {
+          title: "Name",
+          dataIndex: "name",
+          key: "name",
+          align: "left",
+          width: "30%",
+
+          render: (name, vendorProducts) => (
+            <a style={{ color: 'navy' }}
+              href={vendorProducts.url_path}
+              target="_blank"
+              onClick={() => console.log(vendorProducts)}
+            >
+              {name}
+            </a>
+          ),
+        },
+        {
+          title: "Price",
+          dataIndex: "price",
+          key: "price",
+          align: "center",
+          sorter: (a, b) => a.price - b.price,
+          //add $ sign to price
+          render: (price) => <div>{`$${price}`}</div>,
+        },
+      ],
     },
-    {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      align: "center",
-      render: (image) => <img src={image} alt="Product" width="50" />,
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      align: "left",
-      render: (name, vendorProducts) => (
-        <a
-          href={vendorProducts.url_path}
-          target="_blank"
-          onClick={() => console.log(vendorProducts)}
-        >
-          {name}
-        </a>
-      ),
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-      align: "center",
-      sorter: (a, b) => a.price - b.price,
-    },
+
     // {
     //   title: "Manufacturer",
     //   dataIndex: "brand_name",
@@ -382,84 +394,145 @@ export const Items = () => {
     //   align: "center",
     // },
     {
-      title: "Vendor Name",
+      title: "Vendors",
+      children: [
+        {
+          title: "Name",
+          dataIndex: "vendorProducts",
+          key: "vendor_id",
+          align: "center",
+					onHeaderCell: (column) => {
+						return {
+							style: { backgroundColor: "red" },
+						};
+					},
+          render: (vendorProducts) =>
+            vendorProducts.map((vendorProduct) => (
+              <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
+            )),
+        },
+        {
+          title: "Cost",
+          dataIndex: "vendorProducts",
+          key: "vendor_cost",
+          align: "center",
+          render: (vendorProducts) =>
+            vendorProducts.map((vendorProduct) => (
+              <div
+                key={vendorProduct.id}
+              >{`$${vendorProduct.vendor_cost}`}</div>
+            )),
+        },
+        {
+          title: "Margin %",
+          key: "margin",
+          align: "center",
+          render: (record) => {
+            const { price, vendorProducts } = record;
+            return vendorProducts.map((vendorProduct) => {
+              const { vendor_cost } = vendorProduct;
+              const margin = ((price - vendor_cost) / price) * 100;
+              const className = margin < 20 ? "red-margin" : "";
+              return (
+                <div
+                  key={vendorProduct.vendor_id}
+                  className={className}
+                >{`${margin.toFixed(0)}%`}</div>
+              );
+            });
+          },
+        },
+        {
+          title: "Inventory",
+          dataIndex: "vendorProducts",
+          key: "vendor_inventory",
+          align: "center",
+          render: (vendorProducts) =>
+            vendorProducts.map((vendorProduct) => (
+              <div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
+            )),
+        },
+      ],
+    },
+    {
+      title: "Lowest Cost",
       dataIndex: "vendorProducts",
-      key: "vendor_id",
+      key: "lowest_cost",
       align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
-        )),
+			render: (vendorProducts, record) => {
+				const vendorsWithInventory = vendorProducts.filter(
+					(vp) => vp.vendor_inventory > 0
+				);
+				if (vendorsWithInventory.length === 0) {
+					return "-";
+				}
+				const minVendorProduct = vendorsWithInventory.reduce((min, curr) => {
+					if (curr.vendor_cost < min.vendor_cost) {
+						return curr;
+					}
+					return min;
+				}, vendorsWithInventory[0]);
+			
+				const margin =
+					((record.price - minVendorProduct.vendor_cost) / record.price) * 100;
+	
+			
+				return (
+					<div>
+						<div>{minVendorProduct.vendor.name}</div>
+						<div>{`$${minVendorProduct.vendor_cost}`}</div>
+						<div> {`${margin.toFixed(0)}%`} </div>
+					</div>
+				);
+			},
+			
     },
-    {
-      title: "Vendor Cost",
-      dataIndex: "vendorProducts",
-      key: "vendor_cost",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
-        )),
-    },
-    {
-      title: "Margin %",
-      key: "margin",
-      align: "center",
-      render: (record) => {
-        const { price, vendorProducts } = record;
-        return vendorProducts.map((vendorProduct) => {
-          const { vendor_cost } = vendorProduct;
-          const margin = ((price - vendor_cost) / price) * 100;
-          const className = margin < 20 ? "red-margin" : "";
-          return (
-            <div
-              key={vendorProduct.vendor_id}
-              className={className}
-            >{`${margin.toFixed(2)}%`}</div>
-          );
-        });
-      },
-    },
-
-    {
-      title: "Vendor Inventory",
-      dataIndex: "vendorProducts",
-      key: "vendor_inventory",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
-        )),
-    },
-    {
-      title: "Vendor SKU   ",
-      dataIndex: "vendorProducts",
-      key: "vendor_sku",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
-        )),
-    },
-    {
-      title: "Competitor Price",
-      dataIndex: "competitorProducts",
-      key: "competitor_price",
-      align: "center",
-      render: (competitorProducts) =>
-        competitorProducts.length > 0 ? (
-          <div
-            key={competitorProducts[0].id}
-          >{`$${competitorProducts[0].competitor_price}`}</div>
-        ) : (
-          "-"
-        ),
-    },
+    // {
+    //   title: "Vendor SKU   ",
+    //   dataIndex: "vendorProducts",
+    //   key: "vendor_sku",
+    //   align: "center",
+    //   render: (vendorProducts) =>
+    //     vendorProducts.map((vendorProduct) => (
+    //       <div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
+    //     )),
+    // },
+    // {
+    //   title: "Competitor Price",
+    //   dataIndex: "competitorProducts",
+    //   key: "competitor_price",
+    //   align: "center",
+    //   render: (competitorProducts) =>
+    //     competitorProducts.length > 0 ? (
+    //       <div
+    //         key={competitorProducts[0].id}
+    //       >{`$${competitorProducts[0].competitor_price}`}</div>
+    //     ) : (
+    //       "-"
+    //     ),
+    // },
   ];
 
   const tableProps = {
     loading,
   };
+
+	const tableCSS = css({
+		margin: '40px 120px',
+		backgroundColor: 'white',
+		'& table': {
+			borderCollapse: 'collapse'
+		},
+		'& thead > tr > th': {
+			backgroundColor: 'darkblue',
+			color: 'white',
+		},
+		'& thead > tr': {
+			borderWidth: '2px',
+			borderColor: 'yellow',
+			borderStyle: 'solid'
+		}
+	});
 
   return (
     <div className="items">
@@ -470,7 +543,14 @@ export const Items = () => {
             <Select
               value={searchBy}
               onChange={handleSearchByChange}
-              style={{ width: 300, margin: 0, padding: 0, borderRadius: 10, height: 55, backgroundColor: "white" }}		
+              style={{
+                width: 300,
+                margin: 0,
+                padding: 0,
+                borderRadius: 10,
+                height: 55,
+                backgroundColor: "white",
+              }}
             >
               <MenuItem value="sku">SKU</MenuItem>
               <MenuItem value="brand">Brand</MenuItem>
@@ -486,7 +566,7 @@ export const Items = () => {
                 sx={{
                   width: 300,
                   backgroundColor: "white",
-									height: 55,
+                  height: 55,
                 }}
                 id="clear-on-escape"
                 clearOnEscape
@@ -494,9 +574,9 @@ export const Items = () => {
                 onChange={(event, newValue) => {
                   setSearchTermSku(newValue);
                 }}
-								style={{
-									borderRadius: 5,
-								}}
+                style={{
+                  borderRadius: 5,
+                }}
                 renderInput={(params) => (
                   <TextField
                     className="textfield"
@@ -513,9 +593,9 @@ export const Items = () => {
                     // }}
                     // //input size
                     // InputProps={{
-                    //   style: { 
-										// 		fontSize: 20
-										// 	},
+                    //   style: {
+                    // 		fontSize: 20
+                    // 	},
                     // }}
                   />
                 )}
@@ -525,10 +605,10 @@ export const Items = () => {
             <div className="sidebar-brand">
               <Autocomplete
                 {...brands_for_autocomplete}
-								sx={{
+                sx={{
                   width: 300,
                   backgroundColor: "white",
-									height: 55,
+                  height: 55,
                 }}
                 id="clear-on-escape"
                 clearOnEscape
@@ -536,17 +616,17 @@ export const Items = () => {
                 onChange={(event, newValue) => {
                   setSearchTermSku(newValue);
                 }}
-								style={{
-									borderRadius: 5,
-								}}
+                style={{
+                  borderRadius: 5,
+                }}
                 renderInput={(params) => (
                   <TextField
-									className="textfield"
+                    className="textfield"
                     {...params}
                     label="Search brand"
                     variant="standard"
                     onChange={handleSearchTermChange}
-										// InputLabelProps={{
+                    // InputLabelProps={{
                     //   style: {
                     //     fontSize: 16,
                     //     // fontWeight: 'bold',
@@ -554,9 +634,9 @@ export const Items = () => {
                     // }}
                     // //input size
                     // InputProps={{
-                    //   style: { 
-										// 		fontSize: 20
-										// 	},
+                    //   style: {
+                    // 		fontSize: 20
+                    // 	},
                     // }}
                   />
                 )}

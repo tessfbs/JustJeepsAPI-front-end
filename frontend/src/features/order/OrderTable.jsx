@@ -803,6 +803,7 @@ const OrderTable = () => {
 				dataIndex: 'name',
 				key: 'name',
 				align: 'center',
+				width: '30%',
 				render: (text, record) => {
 					if (editingRow === record.id) {
 						return (

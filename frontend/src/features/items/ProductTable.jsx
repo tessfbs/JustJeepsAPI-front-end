@@ -1,4 +1,4 @@
-import { Table, Button } from 'antd';
+import { Table, Button, Checkbox } from 'antd';
 import CopyText from '../copyText/CopyText';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -48,6 +48,7 @@ const ProductTable = props => {
 			title: 'Name',
 			dataIndex: 'name',
 			key: 'name',
+			width: '30%',
 		},
 		{
 			title: 'Price',
@@ -61,6 +62,44 @@ const ProductTable = props => {
 				}
 			},
 		},
+		{
+      title: "Suggested Vendor",
+      dataIndex: "vendorProducts",
+      key: "lowest_cost",
+      align: "center",
+			width: '10%',
+			render: (vendorProducts, record) => {
+				const vendorsWithInventory = vendorProducts.filter(
+					(vp) => vp.vendor_inventory > 0
+				);
+				if (vendorsWithInventory.length === 0) {
+					return "-";
+				}
+				const minVendorProduct = vendorsWithInventory.reduce((min, curr) => {
+					if (curr.vendor_cost < min.vendor_cost) {
+						return curr;
+					}
+					return min;
+				}, vendorsWithInventory[0]);
+			
+				const margin =
+					((record.price - minVendorProduct.vendor_cost) / record.price) * 100;
+	
+			
+				return (
+					<div>
+						<div>{minVendorProduct.vendor.name}</div>
+						<div>{`$${minVendorProduct.vendor_cost}`}</div>
+						<div> {`${margin.toFixed(0)}%`} </div>
+						<Checkbox
+							onChange={() => handleVendorCostClick(minVendorProduct)}
+							style={{ color: 'green' }}
+						/>
+					</div>
+				);
+			},
+			
+    },
 		{
 			title: 'Vendor Name',
 			dataIndex: 'vendorProducts',
@@ -81,20 +120,16 @@ const ProductTable = props => {
 						style={{ display: 'flex', justifyContent: 'space-between' }}
 					>
 						<CopyText text={`${vendorProduct.vendor_cost}`}>
-							<span
-								style={{ marginRight: 8 }}
-							>{`${vendorProduct.vendor_cost}`}</span>
+							<span style={{ marginRight: 8 }}>{`${vendorProduct.vendor_cost}`}</span>
 						</CopyText>
-						{/* <Button onClick={() => handleVendorCostClick(vendorProduct)}>
-							Select
-						</Button> */}
-						<CheckSquareOutlined
-							onClick={() => handleVendorCostClick(vendorProduct)}
+						<Checkbox
+							onChange={() => handleVendorCostClick(vendorProduct)}
 							style={{ color: 'green' }}
 						/>
 					</div>
 				)),
 		},
+		
 
 		{
 			title: 'Margin %',
