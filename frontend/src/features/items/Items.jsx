@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from "react";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
-import { Table, Button } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
-import axios from "axios";
-import ExcelJS from "exceljs";
-import saveAs from "file-saver";
-import "./items.scss";
-import PrecisionManufacturingOutlinedIcon from "@mui/icons-material/PrecisionManufacturingOutlined";
-import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
+import React, { useState, useEffect } from 'react';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import { Table, Button } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import ExcelJS from 'exceljs';
+import saveAs from 'file-saver';
+import './items.scss';
 
 export const Items = () => {
   const [data, setData] = useState([]);
@@ -166,25 +164,22 @@ export const Items = () => {
 
   console.log("brandData", brandData);
 
-  console.log("data===", data);
-  //get all skus
-  useEffect(() => {
-    const getAllSkus = async () => {
-      try {
-        await axios
-          .get(`http://localhost:8080/api/products_sku`)
-          .then((res) => {
-            const responseData = res.data;
-            // console.log('Data from backend:', responseData);
-            // Process the response data from backend if needed
-            setSku([...responseData]);
-          });
-      } catch (error) {
-        console.error("Failed to fetch data from backend:", error);
-      }
-    };
-    getAllSkus();
-  }, []);
+	//get all skus
+	useEffect(() => {
+		const getAllSkus = async () => {
+			try {
+				await axios.get(`http://localhost:8080/api/products_sku`).then(res => {
+					const responseData = res.data;
+					// console.log('Data from backend:', responseData);
+					// Process the response data from backend if needed
+					setSku([...responseData]);
+				});
+			} catch (error) {
+				console.error('Failed to fetch data from backend:', error);
+			}
+		};
+		getAllSkus();
+	}, []);
 
   const handleSearchByChange = (event) => {
     setSearchBy(event.target.value);
@@ -204,203 +199,203 @@ export const Items = () => {
     getOptionLabel: (option) => option.brand_name,
   };
 
-  const columns_by_sku = [
-    {
-      title: "Manufacturer",
-      dataIndex: "brand_name",
-      key: "brand_name",
-      align: "center",
-    },
-    {
-      title: "SKU",
-      dataIndex: "sku",
-      key: "sku",
-      align: "center",
-    },
-    {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      align: "center",
-      render: (image) => <img src={image} alt="Product" width="50" />,
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      align: "center",
-      render: (name, vendorProducts) => (
-        <a
-          href={vendorProducts.url_path}
-          target="_blank"
-          onClick={() => console.log(vendorProducts)}
-        >
-          {name}
-        </a>
-      ),
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-      align: "center",
-    },
-    {
-      title: "Vendor Name",
-      dataIndex: "vendorProducts",
-      key: "vendor_id",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
-        )),
-    },
-    {
-      title: "Vendor Cost",
-      dataIndex: "vendorProducts",
-      key: "vendor_cost",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
-        )),
-    },
-    {
-      title: "Margin %",
-      key: "margin",
-      align: "center",
-      render: (record) => {
-        const { price, vendorProducts } = record;
-        return vendorProducts.map((vendorProduct) => {
-          const { vendor_cost } = vendorProduct;
-          const margin = ((price - vendor_cost) / price) * 100;
-          const className = margin < 20 ? "red-margin" : "";
-          return (
-            <div
-              key={vendorProduct.vendor_id}
-              className={className}
-            >{`${margin.toFixed(2)}%`}</div>
-          );
-        });
-      },
-    },
-    {
-      title: "Vendor Inventory",
-      dataIndex: "vendorProducts",
-      key: "vendor_inventory",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
-        )),
-    },
-    {
-      title: "Vendor SKU   ",
-      dataIndex: "vendorProducts",
-      key: "vendor_sku",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
-        )),
-    },
-    // {
-    //   title: "Competitor Price",
-    //   dataIndex: "competitorProducts",
-    //   key: "competitor_price",
-    //   render: (competitorProducts) =>
-    //     competitorProducts.length > 0 ? (
-    //       <div
-    //         key={competitorProducts[0].id}
-    //       >{`$${competitorProducts[0].competitor_price}`}</div>
-    //     ) : (
-    //       "-"
-    //     ),
-    // },
-  ];
-  const columns_brands = [
-    {
-      title: "SKU",
-      dataIndex: "sku",
-      key: "sku",
-      align: "center",
-      sorter: (a, b) => a.sku.localeCompare(b.sku),
-      filter: true,
-    },
-    {
-      title: "Image",
-      dataIndex: "image",
-      key: "image",
-      align: "center",
-      render: (image) => <img src={image} alt="Product" width="50" />,
-    },
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      align: "left",
-      render: (name, vendorProducts) => (
-        <a
-          href={vendorProducts.url_path}
-          target="_blank"
-          onClick={() => console.log(vendorProducts)}
-        >
-          {name}
-        </a>
-      ),
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-      align: "center",
-      sorter: (a, b) => a.price - b.price,
-    },
-    {
-      title: "Manufacturer",
-      dataIndex: "brand_name",
-      key: "brand_name",
-      align: "center",
-    },
-    {
-      title: "Vendor Name",
-      dataIndex: "vendorProducts",
-      key: "vendor_id",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
-        )),
-    },
-    {
-      title: "Vendor Cost",
-      dataIndex: "vendorProducts",
-      key: "vendor_cost",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
-        )),
-    },
-    {
-      title: "Margin %",
-      key: "margin",
-      align: "center",
-      render: (record) => {
-        const { price, vendorProducts } = record;
-        return vendorProducts.map((vendorProduct) => {
-          const { vendor_cost } = vendorProduct;
-          const margin = ((price - vendor_cost) / price) * 100;
-          const className = margin < 20 ? "red-margin" : "";
-          return (
-            <div
-              key={vendorProduct.vendor_id}
-              className={className}
-            >{`${margin.toFixed(2)}%`}</div>
-          );
-        });
-      },
-    },
+	const columns_by_sku = [
+		{
+			title: 'Manufacturer',
+			dataIndex: 'brand_name',
+			key: 'brand_name',
+			align: "center",
+		},
+		{
+			title: 'SKU',
+			dataIndex: 'sku',
+			key: 'sku',
+			align: "center",
+		},
+		{
+			title: 'Image',
+			dataIndex: 'image',
+			key: 'image',
+			align: "center",
+			render: image => <img src={image} alt='Product' width='50' />,
+		},
+		{
+			title: 'Name',
+			dataIndex: 'name',
+			key: 'name',
+			align: "center",
+			render: (name, vendorProducts) => (
+				<a
+					href={vendorProducts.url_path}
+					target='_blank'
+					onClick={() => console.log(vendorProducts)}
+				>
+					{name}
+				</a>
+			),
+		},
+		{
+			title: 'Price',
+			dataIndex: 'price',
+			key: 'price',
+			align: "center",
+		},
+		{
+			title: 'Vendor Name',
+			dataIndex: 'vendorProducts',
+			key: 'vendor_id',
+			align: "center",
+			render: vendorProducts =>
+				vendorProducts.map(vendorProduct => (
+					<div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
+				)),
+		},
+		{
+			title: 'Vendor Cost',
+			dataIndex: 'vendorProducts',
+			key: 'vendor_cost',
+			align: "center",
+			render: vendorProducts =>
+				vendorProducts.map(vendorProduct => (
+					<div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
+				)),
+		},
+		{
+			title: 'Margin %',
+			key: 'margin',
+			align: "center",
+			render: record => {
+				const { price, vendorProducts } = record;
+				return vendorProducts.map(vendorProduct => {
+					const { vendor_cost } = vendorProduct;
+					const margin = ((price - vendor_cost) / price) * 100;
+					const className = margin < 20 ? 'red-margin' : '';
+					return (
+						<div
+							key={vendorProduct.vendor_id}
+							className={className}
+						>{`${margin.toFixed(2)}%`}</div>
+					);
+				});
+			},
+		},
+		{
+			title: 'Vendor Inventory',
+			dataIndex: 'vendorProducts',
+			key: 'vendor_inventory',
+			align: "center",
+			render: vendorProducts =>
+				vendorProducts.map(vendorProduct => (
+					<div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
+				)),
+		},
+		{
+			title: 'Vendor SKU   ',
+			dataIndex: 'vendorProducts',
+			key: 'vendor_sku',
+			align: "center",
+			render: vendorProducts =>
+				vendorProducts.map(vendorProduct => (
+					<div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
+				)),
+		},
+		// {
+		//   title: "Competitor Price",
+		//   dataIndex: "competitorProducts",
+		//   key: "competitor_price",
+		//   render: (competitorProducts) =>
+		//     competitorProducts.length > 0 ? (
+		//       <div
+		//         key={competitorProducts[0].id}
+		//       >{`$${competitorProducts[0].competitor_price}`}</div>
+		//     ) : (
+		//       "-"
+		//     ),
+		// },
+	];
+	const columns_brands = [
+		{
+			title: 'SKU',
+			dataIndex: 'sku',
+			key: 'sku',
+			align: "center",
+			sorter: (a, b) => a.sku.localeCompare(b.sku),
+			filter: true,
+		},
+		{
+			title: 'Image',
+			dataIndex: 'image',
+			key: 'image',
+			align: "center",
+			render: image => <img src={image} alt='Product' width='50' />,
+		},
+		{
+			title: 'Name',
+			dataIndex: 'name',
+			key: 'name',
+			align: "left",
+			render: (name, vendorProducts) => (
+				<a
+					href={vendorProducts.url_path}
+					target='_blank'
+					onClick={() => console.log(vendorProducts)}
+				>
+					{name}
+				</a>
+			),
+		},
+		{
+			title: 'Price',
+			dataIndex: 'price',
+			key: 'price',
+			align: "center",
+			sorter: (a, b) => a.price - b.price,
+		},
+		{
+			title: 'Manufacturer',
+			dataIndex: 'brand_name',
+			key: 'brand_name',
+			align: "center",
+		},
+		{
+			title: 'Vendor Name',
+			dataIndex: 'vendorProducts',
+			key: 'vendor_id',
+			align: "center",
+			render: vendorProducts =>
+				vendorProducts.map(vendorProduct => (
+					<div key={vendorProduct.id}>{vendorProduct.vendor.name}</div>
+				)),
+		},
+		{
+			title: 'Vendor Cost',
+			dataIndex: 'vendorProducts',
+			key: 'vendor_cost',
+			align: "center",
+			render: vendorProducts =>
+				vendorProducts.map(vendorProduct => (
+					<div key={vendorProduct.id}>{`$${vendorProduct.vendor_cost}`}</div>
+				)),
+		},
+		{
+			title: 'Margin %',
+			key: 'margin',
+			align: "center",
+			render: record => {
+				const { price, vendorProducts } = record;
+				return vendorProducts.map(vendorProduct => {
+					const { vendor_cost } = vendorProduct;
+					const margin = ((price - vendor_cost) / price) * 100;
+					const className = margin < 20 ? 'red-margin' : '';
+					return (
+						<div
+							key={vendorProduct.vendor_id}
+							className={className}
+						>{`${margin.toFixed(2)}%`}</div>
+					);
+				});
+			},
+		},
 
     {
       title: "Vendor Inventory",
@@ -442,140 +437,116 @@ export const Items = () => {
     loading,
   };
 
-  return (
-    <div className="items">
-      <div className="sidebar">
-        <FormControl sx={{ mt: 10, width: 300 }}>
-          <Select
-            value={searchBy}
-            onChange={handleSearchByChange}
-            style={{ width: 300, margin: 0, padding: 0 }}
-          >
-            <MenuItem value="sku">SKU</MenuItem>
-            <MenuItem value="brand">Brand</MenuItem>
-          </Select>
-        </FormControl>
+	return (
+		<div className='items'>
+			<div className='sidebar'>
+				<FormControl sx={{ mt: 10, width: 300 }}>
+					<Select
+						value={searchBy}
+						onChange={handleSearchByChange}
+						style={{ width: 300, margin: 0, padding: 0 }}
+					>
+						<MenuItem value='sku'>SKU</MenuItem>
+						<MenuItem value='brand'>Brand</MenuItem>
+					</Select>
+				</FormControl>
 
-        {searchBy === "sku" ? (
-          <div className="sidebar-sku">
-            <Autocomplete
-              {...skus_for_autocomplete}
-              sx={{ width: 300 }}
-              id="clear-on-escape"
-              clearOnEscape
-              value={null}
-              onChange={(event, newValue) => {
-                setSearchTermSku(newValue);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  className="textfield"
-                  {...params}
-                  label="Search SKU"
-                  variant="standard"
-                  onChange={handleSearchTermChange}
-                />
-              )}
-            />
-          </div>
-        ) : (
-          <div className="sidebar-brand">
-            <Autocomplete
-              {...brands_for_autocomplete}
-              sx={{ width: 200 }}
-              id="clear-on-escape"
-              clearOnEscape
-              value={null}
-              onChange={(event, newValue) => {
-                setSearchTermSku(newValue);
-              }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Search brand"
-                  variant="standard"
-                  onChange={handleSearchTermChange}
-                />
-              )}
-            />
-            <Button onClick={exportToExcel}>
-              <UploadOutlined /> Export to Excel
-            </Button>
-          </div>
-        )}
-      </div>
-      {/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
+				{searchBy === 'sku' ? (
+					<div className='sidebar-sku'>
+						<Autocomplete
+							{...skus_for_autocomplete}
+							sx={{ width: 300 }}
+							id='clear-on-escape'
+							clearOnEscape
+							value={null}
+							onChange={(event, newValue) => {
+								setSearchTermSku(newValue);
+							}}
+							renderInput={params => (
+								<TextField
+									className='textfield'
+									{...params}
+									label='Search SKU'
+									variant='standard'
+									onChange={handleSearchTermChange}
+								/>
+							)}
+						/>
+					</div>
+				) : (
+					<div className='sidebar-brand'>
+						<Autocomplete
+							{...brands_for_autocomplete}
+							sx={{ width: 200 }}
+							id='clear-on-escape'
+							clearOnEscape
+							value={null}
+							onChange={(event, newValue) => {
+								setSearchTermSku(newValue);
+							}}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label='Search brand'
+									variant='standard'
+									onChange={handleSearchTermChange}
+								/>
+							)}
+						/>
+						<Button onClick={exportToExcel}>
+							<UploadOutlined /> Export to Excel
+						</Button>
+					</div>
+				)}
+			</div>
+			{/* <p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p> */}
 
-      <div class="explore-content">
-        {searchBy === "sku" ? (
-          <Table
-            dataSource={data}
-            columns={columns_by_sku}
-            rowKey="sku"
-            pagination={false} // Change pageSize as needed
-          />
-        ) : (
-          <div>
-            <div className="brand-statistic">
-              <div className="widget">
-                <div className="left">
-                  <span className="title">
-                    <strong>{searchTermSku.brand_name} </strong>TOTAL PRODUCTS:
-                  </span>
-                  <span className="counter">{brandData.length}</span>
-                </div>
-                <div className="right">
-                  <PrecisionManufacturingOutlinedIcon
-                    className="icon"
-                    style={{
-                      color: "crimson",
-                      backgroundColor: "rgba(255, 0, 0, 0.2)",
-                      fontSize: "35px",
-                    }}
-                  />
-                </div>
-              </div>
+			<div class='explore-content'>
+				{searchBy === 'sku' ? (
+					<Table
+						dataSource={data}
+						columns={columns_by_sku}
+						rowKey='sku'
+						pagination={false} // Change pageSize as needed
+					/>
+				) : (
+					<div >
+						<div className='brand-statistic'>
+						<br />
 
-              <div className="widget">
-                <div className="left">
-                  <span className="title">
-                    <strong>{searchTermSku.brand_name} </strong>Price Range:
-                  </span>
-                  <span className="counter">
-                    ${minPrice} -${maxPrice}{" "}
-                  </span>
-                </div>
-                <div className="right">
-                  <MonetizationOnOutlinedIcon
-                    className="icon"
-                    style={{
-                      backgroundColor: "rgba(0, 128, 0, 0.2)",
-                      color: "green",
-											fontSize: "35px",
-                    }}
-                  />
-                </div>
-              </div>
+						<div className='widget'>
+							<div className='left'>
+								<span className='title'>
+									<strong>{searchTermSku.brand_name} </strong>TOTAL PRODUCTS:
+								</span><br />
+								<span className='counter'>{brandData.length}</span>
+							</div>
+							<div className='right'>{data.icon}</div>
+						</div>
 
-              <div className="widget">
-                <div className="left">
-                  <span className="title">
-                    <strong>{searchTermSku.brand_name} </strong>Price Average:
-                  </span>
-                  <span className="counter">${averagePrice.toFixed(2)}</span>
-                </div>
-                <div className="right">
-                  <MonetizationOnOutlinedIcon
-                    className="icon"
-                    style={{
-                      backgroundColor: "rgba(0, 128, 0, 0.2)",
-                      color: "goldenrod",
-											fontSize: "35px",
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+						<div className='widget'>
+							<div className='left'>
+								<span className='title'>
+									<strong>{searchTermSku.brand_name} </strong>Price Range:
+								</span><br />
+								<span className='counter'>
+									${minPrice} -${maxPrice}{' '}
+								</span>
+							</div>
+							<div className='right'>{data.icon}</div>
+						</div>
+
+						<div className='widget'>
+							<div className='left'>
+								<span className='title'>
+									<strong>{searchTermSku.brand_name} </strong>Price Average:
+								</span><br />
+								<span className='counter'>${averagePrice.toFixed(2)}</span>
+							</div>
+							<div className='right'>{data.icon}</div>
+						</div>
+						<br />
+						</div>
 
             {/* {brandData[0]["vendors"] && (<p><strong>Vendors:</strong> {brandData[0]["vendors"]}</p>)} */}
             <Table
