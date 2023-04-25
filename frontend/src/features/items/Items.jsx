@@ -182,7 +182,6 @@ export const Items = () => {
           .get(`http://localhost:8080/api/products_sku`)
           .then((res) => {
             const responseData = res.data;
-            // console.log('Data from backend:', responseData);
             // Process the response data from backend if needed
             setSku([...responseData]);
           });
@@ -497,30 +496,6 @@ export const Items = () => {
         );
       },
     },
-    // {
-    //   title: "Vendor SKU   ",
-    //   dataIndex: "vendorProducts",
-    //   key: "vendor_sku",
-    //   align: "center",
-    //   render: (vendorProducts) =>
-    //     vendorProducts.map((vendorProduct) => (
-    //       <div key={vendorProduct.id}>{vendorProduct.vendor_sku}</div>
-    //     )),
-    // },
-    // {
-    //   title: "Competitor Price",
-    //   dataIndex: "competitorProducts",
-    //   key: "competitor_price",
-    //   align: "center",
-    //   render: (competitorProducts) =>
-    //     competitorProducts.length > 0 ? (
-    //       <div
-    //         key={competitorProducts[0].id}
-    //       >{`$${competitorProducts[0].competitor_price}`}</div>
-    //     ) : (
-    //       "-"
-    //     ),
-    // },
   ];
 
   const tableProps = {
