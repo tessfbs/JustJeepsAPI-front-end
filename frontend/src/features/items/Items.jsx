@@ -589,7 +589,6 @@ export const Items = () => {
                   width: 300,
                   backgroundColor: "white",
                   height: 55,
-                  height: 55,
                 }}
                 id="clear-on-escape"
                 clearOnEscape
