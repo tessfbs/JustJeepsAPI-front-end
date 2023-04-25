@@ -19,8 +19,10 @@ import {
 const Chart = ({aspect, title, data}) => {
 
   data = [
-      { name: "January", Total: 138000 },
-      { name: "February", Total: 108000 },].concat(data);
+      { name: "January", Total: 158091 },
+      { name: "February", Total: 188500 },
+      { name: "March", Total: 262450 },
+    ].concat(data);
 
   return (
     <div className="chart">

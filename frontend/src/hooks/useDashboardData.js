@@ -25,7 +25,7 @@ export const useDashboardData = () => {
           orders: all[0].data.orders,
           totalByMonth: all[0].data.total_by_month,
           totalCurMonth: all[0].data.total_this_month,
-          totalLastMonth: all[0].data.total_last_month,
+          totalLastMonth: all[0].data.total_last_month || 262450,
           totalSum: all[1].data.totalSum,
           totalCount: all[1].data.count,
           aveValue: all[1].data.avg,

@@ -14,8 +14,8 @@ export const DashBoardPO = () => {
         <div className="top">
           <div className="left">
             <div className="widgets">
-              <Widget type="numproduct" value={state.numProduct} />
-              <Widget type="totalordered" value={state.totalSold} />
+              <Widget type="numproduct" value={state.numProduct.toLocaleString()} />
+              <Widget type="totalordered" value={state.totalSold.toLocaleString()} />
             </div>
 
             <div className="mostPopular">
