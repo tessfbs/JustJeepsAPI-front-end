@@ -250,7 +250,7 @@ const OrderTable = () => {
 		console.log('updated orders::', updatedOrders[index]);
 		const updatedOrdersStatus = updatedOrders[index].status;
 		console.log('updatedOrdersStatus::', updatedOrdersStatus);
-		const addStatusToValues = {...values, status: updatedOrdersStatus}
+		const addStatusToValues = { ...values, status: updatedOrdersStatus };
 		console.log('values::', addStatusToValues);
 		updatedOrders.splice(index, 1, {
 			...addStatusToValues,
@@ -1091,11 +1091,11 @@ const OrderTable = () => {
 				},
 			},
 		];
-		const total_cost = record.items.reduce(
+		const total_cost = record.items?.reduce(
 			(acc, record) => acc + record.qty_ordered * record.selected_supplier_cost,
 			0
 		);
-		const total_price = record.items.reduce(
+		const total_price = record.items?.reduce(
 			(acc, record) => acc + record.price * record.qty_ordered,
 			0
 		);
@@ -1115,8 +1115,8 @@ const OrderTable = () => {
 							fontSize: '1.2rem',
 						}}
 					>
-						Total Sales : ${total_price.toFixed(2)} <br />
-						Total Cost : ${total_cost.toFixed(2)} <br />
+						Total Sales : ${total_price?.toFixed(2)} <br />
+						Total Cost : ${total_cost?.toFixed(2)} <br />
 						Total Margin :{' '}
 						{(((total_price - total_cost) / total_price) * 100).toFixed(2)}%
 					</span>
