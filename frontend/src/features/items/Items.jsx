@@ -498,22 +498,6 @@ export const Items = () => {
     loading,
   };
 
-	const tableCSS = css({
-		margin: '40px 120px',
-		backgroundColor: 'white',
-		'& table': {
-			borderCollapse: 'collapse'
-		},
-		'& thead > tr > th': {
-			backgroundColor: 'darkblue',
-			color: 'white',
-		},
-		'& thead > tr': {
-			borderWidth: '2px',
-			borderColor: 'yellow',
-			borderStyle: 'solid'
-		}
-	});
 
   return (
     <div className="items">
@@ -573,7 +557,7 @@ export const Items = () => {
             <div className="sidebar-brand">
               <Autocomplete
                 {...brands_for_autocomplete}
-                sx={{
+          
                 sx={{
                   width: 300,
                   backgroundColor: "white",
@@ -589,12 +573,8 @@ export const Items = () => {
                 style={{
                   borderRadius: 5,
                 }}
-                style={{
-                  borderRadius: 5,
-                }}
                 renderInput={(params) => (
                   <TextField
-                    className="textfield"
                     className="textfield"
                     {...params}
                     label="Search brand"
