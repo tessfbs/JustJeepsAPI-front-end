@@ -586,7 +586,7 @@ const OrderTable = () => {
 						</Form.Item>
 					);
 				} else {
-					return <p>${text.toFixed(2)}</p>;
+					return <p>${text?.toFixed(2)}</p>;
 				}
 			},
 		},
@@ -658,55 +658,50 @@ const OrderTable = () => {
 					<>
 						<Form.Item>
 							<Space size='middle'>
-							<Tooltip title='Edit Order'>
-								<button
-									className='btn btn-sm btn-outline-warning'
-									onClick={() => {
-										setEditingRow(record.key);
-										form.setFieldsValue({
-											customer_email: record.customer_email,
-											customer_firstname: record.customer_firstname,
-											customer_lastname: record.customer_lastname,
-											grand_total: record.grand_total,
-											total_qty_ordered: record.total_qty_ordered,
-											entity_id: record.entity_id,
-											created_at: record.created_at,
-											increment_id: record.increment_id,
-										});
-									}}
-								>
-									<Edit />
-								</button>
+								<Tooltip title='Edit Order'>
+									<button
+										className='btn btn-sm btn-outline-warning'
+										onClick={() => {
+											setEditingRow(record.key);
+											form.setFieldsValue({
+												customer_email: record.customer_email,
+												customer_firstname: record.customer_firstname,
+												customer_lastname: record.customer_lastname,
+												grand_total: record.grand_total,
+												total_qty_ordered: record.total_qty_ordered,
+												entity_id: record.entity_id,
+												created_at: record.created_at,
+												increment_id: record.increment_id,
+											});
+										}}
+									>
+										<Edit />
+									</button>
 								</Tooltip>
 								<Tooltip title='Delete Order'>
-
-								<button
-									className='btn btn-sm btn-outline-danger'
-									onClick={() => handleDeleteOrder(record)}
-								>
-
-									<Trash />
-								</button>
+									<button
+										className='btn btn-sm btn-outline-danger'
+										onClick={() => handleDeleteOrder(record)}
+									>
+										<Trash />
+									</button>
 								</Tooltip>
 								<Tooltip title='Save changes'>
-
-								<button
-									className='btn btn-sm btn-outline-success'
-									onClick={handleSave}
-								>
-									<Save />
-								</button>
+									<button
+										className='btn btn-sm btn-outline-success'
+										onClick={handleSave}
+									>
+										<Save />
+									</button>
 								</Tooltip>
 								<Tooltip title='Refresh'>
-
-								<button
-									className='btn btn-sm btn-outline-info'
-									onClick={refreshPage}
-								>
-									<Reload />
-								</button>
+									<button
+										className='btn btn-sm btn-outline-info'
+										onClick={refreshPage}
+									>
+										<Reload />
+									</button>
 								</Tooltip>
-
 							</Space>
 						</Form.Item>
 					</>
@@ -790,11 +785,11 @@ const OrderTable = () => {
 				key: 'image',
 				align: 'center',
 				render: (text, record) => {
-					console.log('record from image', record.product.image);
+					console.log('record from image', record.product?.image);
 					//render image here
 					return (
 						<>
-							{record.product.image ? (
+							{record.product?.image ? (
 								<img
 									src={record.product.image}
 									alt='product'
@@ -968,7 +963,7 @@ const OrderTable = () => {
 				},
 			},
 			{
-				title: 'Total',
+				title: 'TotalCost',
 				dataIndex: 'total',
 				key: 'total',
 				align: 'center',
@@ -1004,7 +999,7 @@ const OrderTable = () => {
 								rules={[
 									{
 										required: true,
-										message: 'sku is required',
+										message: 'status is required',
 									},
 								]}
 							>
@@ -1015,8 +1010,8 @@ const OrderTable = () => {
 									<Option value='No Stock'>
 										<Badge status='warning' text='No Stock' />
 									</Option>
-									<Option value='PO Sent'>
-										<Badge status='processing' text='PO Sent' />
+									<Option value='PO Created'>
+										<Badge status='processing' text='PO Created' />
 									</Option>
 									<Option value='Cancel'>
 										<Badge status='error' text='Cancel' />
@@ -1114,7 +1109,7 @@ const OrderTable = () => {
 							fontSize: '1.2rem',
 						}}
 					>
-						Total Purchased : ${total_price.toFixed(2)} <br />
+						Total Sales : ${total_price.toFixed(2)} <br />
 						Total Cost : ${total_cost.toFixed(2)} <br />
 						Total Margin :{' '}
 						{(((total_price - total_cost) / total_price) * 100).toFixed(2)}%

@@ -2,6 +2,10 @@
   height: 600px;
   padding: 20px;
 
+  .MuiDataGrid-columnHeaders {
+    background-color: #FAEA48;
+  }
+
   .cellWithStatus {
     padding: 5px;
     border-radius: 5px;
