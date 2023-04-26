@@ -254,7 +254,7 @@ export const Items = () => {
       dataIndex: "name",
       key: "name",
       align: "center",
-      width: "20%",
+      width: "15%",
       render: (name, vendorProducts) => (
         <a
           href={vendorProducts.url_path}
@@ -451,6 +451,19 @@ export const Items = () => {
         );
       },
     },
+    {
+			title: 'Competitor Price',
+			dataIndex: 'competitorProducts',
+			key: 'competitor_price',
+			render: competitorProducts =>
+				competitorProducts.length > 0 ? (
+					<div
+						key={competitorProducts[0].id}
+					>{`$${competitorProducts[0].competitor_price}`}</div>
+				) : (
+					'-'
+				),
+		},
   ];
 
   const columns_brands = [
@@ -680,6 +693,19 @@ export const Items = () => {
         );
       },
     },
+    {
+			title: 'Competitor Price',
+			dataIndex: 'competitorProducts',
+			key: 'competitor_price',
+			render: competitorProducts =>
+				competitorProducts.length > 0 ? (
+					<div
+						key={competitorProducts[0].id}
+					>{`$${competitorProducts[0].competitor_price}`}</div>
+				) : (
+					'-'
+				),
+		},
   ];
 
   const tableProps = {
@@ -814,7 +840,7 @@ export const Items = () => {
               <div className="widget">
                 <div className="left">
                   <span className="title">
-                    <strong> Promotion Simulation:</strong>
+                    <strong> PROMOTION SIMULATION:</strong>
                   </span>
                   <InputNumber
                     min={0}
@@ -928,9 +954,14 @@ export const Items = () => {
               columns={columns_brands}
               rowKey="sku"
               pagination={{
-                pageSize: 20,
+                // pageSize: 20,
+                //move to top
+                position: ["topRight"],
+                //change font color
+      
               }}
               loading={loading}
+              scroll={{ y: 1000 }}
             />
           </div>
         )}

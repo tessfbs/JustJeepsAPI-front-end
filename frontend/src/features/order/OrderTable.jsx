@@ -1138,12 +1138,26 @@ const OrderTable = () => {
 							columns={columns}
 							expandable={{ expandedRowRender }} //, onExpand: handleExpand remove expandable
 							dataSource={data}
+							// scroll={{ y: 1500 }}
 							bordered
 							rowKey={record => record.id}
 							onChange={handleChange}
 							size='large'
 							loading={loading}
-							pagination={true}
+							pagination={{
+								// pageSize: 20,
+								itemRender: (page, type, originalElement) => {
+									if (type === 'page') {
+										return <a style={{ color: 'black', backgroundColor: 'white' }}>{page}</a>;
+									} else if (type === 'prev') {
+										return <a style={{ color: 'white', backgroundColor: '' }}>Previous</a>;
+									} else if (type === 'next') {
+										return <a style={{ color: 'white', backgroundColor: '' }}>Next</a>;
+									}
+									return originalElement;
+								},
+								position: ['topRight'],
+							}}
 							onRow={(record, rowIndex) => {
 								return {
 									onClick: event => {
