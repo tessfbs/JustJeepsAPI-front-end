@@ -40,7 +40,7 @@ const Piechart = () => {
 
   return (
     <div className="piechart">
-      <ResponsiveContainer width="100%" aspect={2 / 1}>
+      <ResponsiveContainer width="100%" aspect={2.8 / 1}>
         <PieChart width={800} height={800}>
           <Pie
             data={data}
