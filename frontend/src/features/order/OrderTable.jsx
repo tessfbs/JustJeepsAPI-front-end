@@ -433,7 +433,7 @@ const OrderTable = () => {
 				let tagColor;
 				switch (status) {
 					case 'processing':
-						tagColor = 'yellow';
+						tagColor = 'orange';
 						break;
 					case 'pending':
 						tagColor = 'blue';
