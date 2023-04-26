@@ -1,8 +1,9 @@
-import { Table, Button, Checkbox } from 'antd';
+import { Table, Button, Checkbox, Tag } from 'antd';
 import CopyText from '../copyText/CopyText';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { CheckSquareOutlined } from '@ant-design/icons';
+import { sizeHeight } from '@mui/system';
 
 const ProductTable = props => {
 	console.log('props.orderProductPrice', props.orderProductPrice);
@@ -49,7 +50,7 @@ const ProductTable = props => {
 			title: 'Name',
 			dataIndex: 'name',
 			key: 'name',
-			width: '30%',
+			width: '25%',
 		},
 		{
 			title: 'Price',
@@ -57,9 +58,9 @@ const ProductTable = props => {
 			key: 'price',
 			render: price => {
 				if (props.orderProductPrice) {
-					return props.orderProductPrice;
+					return `$${props.orderProductPrice.toFixed(2)}`;
 				} else {
-					return price;
+					return `$${price.toFixed(2)}`;
 				}
 			},
 		},
@@ -88,14 +89,27 @@ const ProductTable = props => {
 	
 			
 				return (
-					<div>
+					<div
+					style={
+            //setup green border if margin is greater than 20%
+            margin > 20 ? { border: "2px solid green" } : { border: "2px solid red" }
+
+          }
+					>
 						<div>{minVendorProduct.vendor.name}</div>
 						<div>{`$${minVendorProduct.vendor_cost}`}</div>
 						<div> {`${margin.toFixed(0)}%`} </div>
 						<Checkbox
 							onChange={() => handleVendorCostClick(minVendorProduct)}
-							style={{ color: 'green' }}
-						/>
+							style={{ 
+								color: 'green' ,
+								//style checkbox is a more professional look
+								color: margin > 20 ? "green" : "red",
+
+						}}
+						
+
+						/> 
 					</div>
 				);
 			},
@@ -131,38 +145,82 @@ const ProductTable = props => {
 				)),
 		},
 		
-
 		{
-			title: 'Margin %',
-			key: 'margin',
-			render: record => {
-				const { vendorProducts } = record;
-				return vendorProducts.map(vendorProduct => {
-					const { vendor_cost } = vendorProduct;
-					const margin =
-						((props.orderProductPrice - vendor_cost) /
-							props.orderProductPrice) *
-						100;
-					const className = margin < 20 ? 'red-margin' : '';
-					return (
-						<CopyText
-							key={vendorProduct.vendor_id}
-							className={className}
-							text={`${margin.toFixed(2)}%`}
-						/>
-					);
-				});
-			},
-		},
-		{
-			title: 'Vendor Inventory',
-			dataIndex: 'vendorProducts',
-			key: 'vendor_inventory',
-			render: vendorProducts =>
-				vendorProducts.map(vendorProduct => (
-					<div key={vendorProduct.id}>{vendorProduct.vendor_inventory}</div>
-				)),
-		},
+      title: "Margin %",
+      key: "margin",
+      align: "center",
+      render: (record) => {
+        const { price, vendorProducts } = record;
+ 
+        return vendorProducts.map((vendorProduct) => {
+          const { vendor_cost } = vendorProduct;
+          const margin =
+            ((props.orderProductPrice - vendor_cost) / props.orderProductPrice) * 100;
+          const className = margin < 20 ? "red-margin" : "";
+          return (
+            <div key={vendorProduct.vendor_id}>
+              {margin > 20 ? (
+                <Tag
+                  color="#1f8e24"
+                  style={{
+                    fontSize: "12px",
+                    padding: "5px",
+                    marginBottom: "7px",
+                  }}
+                >
+                  {margin.toFixed(2)}%
+                </Tag>
+              ) : (
+                <Tag color="#f63535"
+                style={{
+                  fontSize: "12px",
+                  padding: "5px",
+                  marginBottom: "7px",
+                }}
+              >
+                {margin.toFixed(2)}%</Tag>
+              )}
+            </div>
+          );
+        });
+      },
+    },
+		
+    {
+      title: "Vendor Inventory",
+      dataIndex: "vendorProducts",
+      key: "vendor_inventory",
+      align: "center",
+      render: (vendorProducts) =>
+        vendorProducts.map((vendorProduct) => (
+          <div
+            key={vendorProduct.id}
+          >
+            {vendorProduct.vendor_inventory > 0 ? (
+                <Tag
+                  color="#1f8e24"
+                  style={{
+                    fontSize: "12px",
+                    padding: "5px",
+                    marginBottom: "7px",
+                    width: "30px",
+                  }}
+                >
+                  {vendorProduct.vendor_inventory}
+                </Tag>
+              ) : (
+                <Tag color="#f63535"
+                style={{
+                  fontSize: "12px",
+                  padding: "5px",
+                  marginBottom: "7px",
+                  width: "30px",
+                }}>{vendorProduct.vendor_inventory}</Tag>
+              )}
+          </div>
+          
+        )),
+    },
 		{
 			title: 'Vendor SKU   ',
 			dataIndex: 'vendorProducts',

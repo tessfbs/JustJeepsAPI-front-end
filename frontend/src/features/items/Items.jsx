@@ -254,6 +254,7 @@ export const Items = () => {
       dataIndex: "name",
       key: "name",
       align: "center",
+      width: "20%",
       render: (name, vendorProducts) => (
         <a
           href={vendorProducts.url_path}
@@ -312,15 +313,22 @@ export const Items = () => {
       align: "center",
       render: (record) => {
         const { price, vendorProducts } = record;
+        let discountedPrice = 0;
+        if (discount > 0) {
+          discountedPrice = price * (1 - discount / 100);
+        } else {
+          discountedPrice = price;
+        }
         return vendorProducts.map((vendorProduct) => {
           const { vendor_cost } = vendorProduct;
-          const margin = ((price - vendor_cost) / price) * 100;
+          const margin =
+            ((discountedPrice - vendor_cost) / discountedPrice) * 100;
           const className = margin < 20 ? "red-margin" : "";
           return (
             <div key={vendorProduct.vendor_id}>
               {margin > 20 ? (
                 <Tag
-                  color="darkgreen"
+                  color="#1f8e24"
                   style={{
                     fontSize: "12px",
                     padding: "5px",
@@ -330,7 +338,14 @@ export const Items = () => {
                   {margin.toFixed(2)}%
                 </Tag>
               ) : (
-                <Tag color="red">{margin.toFixed(2)}%</Tag>
+                <Tag color="#f63535"
+                style={{
+                  fontSize: "12px",
+                  padding: "5px",
+                  marginBottom: "7px",
+                }}
+              >
+                {margin.toFixed(2)}%</Tag>
               )}
             </div>
           );
@@ -346,13 +361,30 @@ export const Items = () => {
         vendorProducts.map((vendorProduct) => (
           <div
             key={vendorProduct.id}
-            style={{
-              padding: "5px",
-              marginBottom: "7px",
-            }}
           >
-            {vendorProduct.vendor_inventory}
+            {vendorProduct.vendor_inventory > 0 ? (
+                <Tag
+                  color="#1f8e24"
+                  style={{
+                    fontSize: "12px",
+                    padding: "5px",
+                    marginBottom: "7px",
+                    width: "30px",
+                  }}
+                >
+                  {vendorProduct.vendor_inventory}
+                </Tag>
+              ) : (
+                <Tag color="#f63535"
+                style={{
+                  fontSize: "12px",
+                  padding: "5px",
+                  marginBottom: "7px",
+                  width: "30px",
+                }}>{vendorProduct.vendor_inventory}</Tag>
+              )}
           </div>
+          
         )),
     },
     {
@@ -405,7 +437,13 @@ export const Items = () => {
         const className = margin < 20 ? "red-margin" : "";
 
         return (
-          <div>
+          <div
+          style={
+            //setup green border if margin is greater than 20%
+            margin > 20 ? { border: "2px solid green" } : { border: "2px solid red" }
+
+          }
+          >
             <div>{minVendorProduct.vendor.name}</div>
             <div>{`$${minVendorProduct.vendor_cost}`}</div>
             <div className={className}> {`${margin.toFixed(0)}%`} </div>
@@ -535,7 +573,7 @@ export const Items = () => {
                 <div key={vendorProduct.vendor_id}>
                   {margin > 20 ? (
                     <Tag
-                      color="darkgreen"
+                      color="#1f8e24"
                       style={{
                         fontSize: "12px",
                         padding: "5px",
@@ -545,7 +583,14 @@ export const Items = () => {
                       {margin.toFixed(2)}%
                     </Tag>
                   ) : (
-                    <Tag color="red">{margin.toFixed(2)}%</Tag>
+                    <Tag color="#f63535"
+                    style={{
+                      fontSize: "12px",
+                      padding: "5px",
+                      marginBottom: "7px",
+                    }}
+                  >
+                    {margin.toFixed(2)}%</Tag>
                   )}
                 </div>
               );
@@ -553,7 +598,7 @@ export const Items = () => {
           },
         },
         {
-          title: "Inventory",
+          title: "Vendor Inventory",
           dataIndex: "vendorProducts",
           key: "vendor_inventory",
           align: "center",
@@ -561,13 +606,30 @@ export const Items = () => {
             vendorProducts.map((vendorProduct) => (
               <div
                 key={vendorProduct.id}
-                style={{
-                  padding: "5px",
-                  marginBottom: "7px",
-                }}
               >
-                {vendorProduct.vendor_inventory}
+                {vendorProduct.vendor_inventory > 0 ? (
+                    <Tag
+                      color="#1f8e24"
+                      style={{
+                        fontSize: "12px",
+                        padding: "5px",
+                        marginBottom: "7px",
+                        width: "30px",
+                      }}
+                    >
+                      {vendorProduct.vendor_inventory}
+                    </Tag>
+                  ) : (
+                    <Tag color="#f63535"
+                    style={{
+                      fontSize: "12px",
+                      padding: "5px",
+                      marginBottom: "7px",
+                      width: "30px",
+                    }}>{vendorProduct.vendor_inventory}</Tag>
+                  )}
               </div>
+              
             )),
         },
       ],
@@ -604,7 +666,13 @@ export const Items = () => {
         const className = margin < 20 ? "red-margin" : "";
 
         return (
-          <div>
+          <div
+          style={
+            //setup green border if margin is greater than 20%
+            margin > 20 ? { border: "2px solid green" } : { border: "2px solid red" }
+
+          }
+          >
             <div>{minVendorProduct.vendor.name}</div>
             <div>{`$${minVendorProduct.vendor_cost}`}</div>
             <div className={className}> {`${margin.toFixed(0)}%`} </div>
@@ -736,8 +804,40 @@ export const Items = () => {
             )}
           />
         ) : (
+
+
+          
           <div>
             <div className="brand-statistic">
+
+
+              <div className="widget">
+                <div className="left">
+                  <span className="title">
+                    <strong> Promotion Simulation:</strong>
+                  </span>
+                  <InputNumber
+                    min={0}
+                    max={50}
+                    defaultValue={0}
+                    onChange={onChange}
+                    formatter={(value) => `${value}%`}
+                    parser={(value) => value.replace("%", "")}
+                    size="large"
+                  />
+                </div>
+                <div className="right">
+                  <MonetizationOnOutlinedIcon
+                    className="icon"
+                    style={{
+                      backgroundColor: "rgba(218, 165, 32, 0.2)",
+                      color: "goldenrod",
+                      fontSize: "30px",
+                    }}
+                  />
+                </div>
+              </div>
+
               <div className="widget">
                 <div className="left">
                   <span className="title">
@@ -780,32 +880,6 @@ export const Items = () => {
                 </div>
               </div>
 
-              <div className="widget">
-                <div className="left">
-                  <span className="title">
-                    <strong> Promotion Simulation:</strong>
-                  </span>
-                  <InputNumber
-                    min={0}
-                    max={50}
-                    defaultValue={0}
-                    onChange={onChange}
-                    formatter={(value) => `${value}%`}
-                    parser={(value) => value.replace("%", "")}
-                    size="large"
-                  />
-                </div>
-                <div className="right">
-                  <MonetizationOnOutlinedIcon
-                    className="icon"
-                    style={{
-                      backgroundColor: "rgba(218, 165, 32, 0.2)",
-                      color: "goldenrod",
-                      fontSize: "30px",
-                    }}
-                  />
-                </div>
-              </div>
 
               <div className="widget">
                 <div className="left">
