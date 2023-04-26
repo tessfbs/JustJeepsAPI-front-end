@@ -724,6 +724,7 @@ export const Items = () => {
               style={{
                 width: 300,
                 margin: 0,
+                marginRight: 10,
                 padding: 0,
                 borderRadius: 10,
                 height: 55,
@@ -953,6 +954,7 @@ export const Items = () => {
               dataSource={brandData}
               columns={columns_brands}
               rowKey="sku"
+              size="large"
               pagination={{
                 // pageSize: 20,
                 //move to top

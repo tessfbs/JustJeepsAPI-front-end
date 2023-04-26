@@ -560,7 +560,7 @@ app.get('/api/purchase_orders', async (req, res) => {
 	}
 });
 
-// Route for getting all Purchase Orders by vendor
+// Route for getting latest Purchase Orders by vendor
 app.get('/api/purchase_orders/vendor/:id', async (req, res) => {
 	try {
 		const purchaseOrders = await prisma.purchaseOrder.findMany({
@@ -581,6 +581,10 @@ app.get('/api/purchase_orders/vendor/:id', async (req, res) => {
 					},
 				},
 			},
+			orderBy: {
+				created_at: 'desc',
+			},
+			take: 10, // Limit the results to 10 latest Purchase Orders
 		});
 		res.json(purchaseOrders);
 	} catch (error) {
@@ -588,6 +592,7 @@ app.get('/api/purchase_orders/vendor/:id', async (req, res) => {
 		res.status(500).json({ error: 'Failed to fetch purchase orders' });
 	}
 });
+
 
 // Route for getting a single Purchase Order
 app.get('/api/purchase_orders/:id', async (req, res) => {

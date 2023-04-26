@@ -803,7 +803,7 @@ const OrderTable = () => {
 								/>
 							) : (
 								<img
-									src='https://via.placeholder.com/50'
+									src='https://www.justjeeps.com/pub/media/catalog/product//d/v/dv8-offroad-d-jl-190052-pil-picatinny-rail-a-pillar-light-mounts-jeep-wrangler-jl-gladiator-jt-main-updated.jpg'
 									alt='product'
 									style={{ width: '50px', height: '50px' }}
 								/>

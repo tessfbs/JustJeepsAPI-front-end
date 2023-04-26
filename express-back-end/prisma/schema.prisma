@@ -75,7 +75,7 @@ model VendorProduct {
   id                     Int                     @id @default(autoincrement())
   product_sku            String
   vendor_id              Int
-  vendor_sku             String                  @unique
+  vendor_sku             String                  
   vendor_cost            Float
   vendor_inventory       Float?
   vendor                 Vendor?                 @relation(fields: [vendor_id], references: [id])
