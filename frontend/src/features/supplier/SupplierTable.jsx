@@ -96,10 +96,11 @@ export const SupplierTable = () => {
       name: "Name of new Supplier",
       website: "http://new-website",
       type: "Adding",
+      image:"",
     });
   };
 
-  const handleEdit = ({ name, website, id }) => {
+  const handleEdit = ({ name, website, id,image }) => {
     setTop({
       id,
       show: true,
@@ -107,6 +108,7 @@ export const SupplierTable = () => {
       name,
       website,
       type: "Editing",
+      image,
     });
   };
 
@@ -130,6 +132,7 @@ export const SupplierTable = () => {
           : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
       };
       setVendors([...vendors, newVendor]);
+      setFile("");
     } else if (type === "Editing") {
       const newVendor = vendors.map((item) => {
         if (item.id === top.id) {
@@ -139,13 +142,14 @@ export const SupplierTable = () => {
             website: values.website,
             image: file
               ? URL.createObjectURL(file)
-              : "https://icon-library.com/images/no-image-icon/no-image-icon-0.jpg",
+              : top.image,
           };
         } else {
           return item;
         }
       });
       setVendors(newVendor);
+      setFile("");
     }
   };
 
