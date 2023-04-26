@@ -12,15 +12,15 @@ import { styled } from '@mui/material/styles';
 const List = ({ rows }) => {
   return (
     <TableContainer component={Paper} className="table">
-      <Table sx={{ minWidth: 650 }} aria-label="simple table" size="small">
+      <Table sx={{ minWidth: 650,fontSize: 20, }} aria-label="simple table" size="small">
         <TableHead className="tablehead">
           <TableRow>
             <TableCell className="tableCell" width="10%">SKU</TableCell>
             <TableCell className="tableCell" width="10%">Brand</TableCell>
             <TableCell className="tableCell" width="5%">Vender</TableCell>
-            <TableCell className="tableCell" width="50%">Name</TableCell>
-            <TableCell className="tableCell" width="10%">Price</TableCell>
-            <TableCell className="tableCell" width="10%">Qty Ordered</TableCell>
+            <TableCell className="tableCell" width="58%">Name</TableCell>
+            <TableCell className="tableCell" width="5%">Price</TableCell>
+            <TableCell className="tableCell" width="7%">Qty Ordered</TableCell>
             <TableCell className="tableCell" width="5%">Weight</TableCell>
           </TableRow>
         </TableHead>
@@ -30,13 +30,13 @@ const List = ({ rows }) => {
               <TableCell className="tableCell"  width="10%">{row.sku}</TableCell>
               <TableCell className="tableCell"  width="10%">{row.brand_name}</TableCell>
               <TableCell className="tableCell"  width="5%">{row.vendors}</TableCell>
-              <TableCell className="tableCell"  width="50%">
+              <TableCell className="tableCell"  width="58%">
                 <div className="cellWrapper">
                   <img src={row.image} alt="" className="image" />
                   {row.name}
                 </div>
               </TableCell>
-              <TableCell className="tableCell"  width="10%">
+              <TableCell className="tableCell"  width="5%">
                 $
                 <NumericFormat
                   value={row.price}
@@ -46,7 +46,7 @@ const List = ({ rows }) => {
                   fixedDecimalScale
                 />
               </TableCell>
-              <TableCell className="tableCell"  width="10%">{row.qty_ordered}</TableCell>
+              <TableCell className="tableCell"  width="7%">{row.qty_ordered}</TableCell>
               <TableCell className="tableCell"  width="5%">{row.weight}</TableCell>
             </TableRow>
           ))}

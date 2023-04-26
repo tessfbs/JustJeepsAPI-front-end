@@ -20,6 +20,7 @@ const List = ({value}) => {
         }}
         pageSizeOptions={[5,10]}
         disableRowSelectionOnClick
+        sx={{fontSize:18,}}
       />
     </div>
   );
