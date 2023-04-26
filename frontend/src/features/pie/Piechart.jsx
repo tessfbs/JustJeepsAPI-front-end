@@ -61,7 +61,7 @@ const Piechart = () => {
           </Pie>
         </PieChart>
       </ResponsiveContainer>
-      <div className="bottom">
+      <div className="bottompie">
         <div className="colorOption optionA">Keystone</div>
         <div className="colorOption optionB">Meyer</div>
         <div className="colorOption optionC">Omix</div>
