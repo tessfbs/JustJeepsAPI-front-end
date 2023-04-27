@@ -330,9 +330,9 @@ export const Items = () => {
                 <Tag
                   color="#1f8e24"
                   style={{
-                    fontSize: "12px",
+                    fontSize: "18px",
                     padding: "5px",
-                    marginBottom: "7px",
+                    marginBottom: "12px",
                   }}
                 >
                   {margin.toFixed(2)}%
@@ -340,9 +340,9 @@ export const Items = () => {
               ) : (
                 <Tag color="#f63535"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "18px",
                   padding: "5px",
-                  marginBottom: "7px",
+                  marginBottom: "12px",
                 }}
               >
                 {margin.toFixed(2)}%</Tag>
@@ -366,7 +366,7 @@ export const Items = () => {
                 <Tag
                   color="#1f8e24"
                   style={{
-                    fontSize: "12px",
+                    fontSize: "18px",
                     padding: "5px",
                     marginBottom: "7px",
                     width: "30px",
@@ -377,7 +377,7 @@ export const Items = () => {
               ) : (
                 <Tag color="#f63535"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "18px",
                   padding: "5px",
                   marginBottom: "7px",
                   width: "30px",
@@ -387,24 +387,24 @@ export const Items = () => {
           
         )),
     },
-    {
-      title: "Vendor SKU   ",
-      dataIndex: "vendorProducts",
-      key: "vendor_sku",
-      align: "center",
-      render: (vendorProducts) =>
-        vendorProducts.map((vendorProduct) => (
-          <div
-            key={vendorProduct.id}
-            style={{
-              padding: "5px",
-              marginBottom: "7px",
-            }}
-          >
-            {vendorProduct.vendor_sku}
-          </div>
-        )),
-    },
+    // {
+    //   title: "Vendor SKU   ",
+    //   dataIndex: "vendorProducts",
+    //   key: "vendor_sku",
+    //   align: "center",
+    //   render: (vendorProducts) =>
+    //     vendorProducts.map((vendorProduct) => (
+    //       <div
+    //         key={vendorProduct.id}
+    //         style={{
+    //           padding: "5px",
+    //           marginBottom: "7px",
+    //         }}
+    //       >
+    //         {vendorProduct.vendor_sku}
+    //       </div>
+    //     )),
+    // },
     {
       title: "Suggested Vendor",
       dataIndex: "vendorProducts",
@@ -588,9 +588,9 @@ export const Items = () => {
                     <Tag
                       color="#1f8e24"
                       style={{
-                        fontSize: "12px",
+                        fontSize: "18px",
                         padding: "5px",
-                        marginBottom: "7px",
+                        marginBottom: "12px",
                       }}
                     >
                       {margin.toFixed(2)}%
@@ -598,9 +598,9 @@ export const Items = () => {
                   ) : (
                     <Tag color="#f63535"
                     style={{
-                      fontSize: "12px",
+                      fontSize: "18px",
                       padding: "5px",
-                      marginBottom: "7px",
+                      marginBottom: "12px",
                     }}
                   >
                     {margin.toFixed(2)}%</Tag>
@@ -624,10 +624,10 @@ export const Items = () => {
                     <Tag
                       color="#1f8e24"
                       style={{
-                        fontSize: "12px",
+                        fontSize: "18px",
                         padding: "5px",
                         marginBottom: "7px",
-                        width: "30px",
+                        width: "34px",
                       }}
                     >
                       {vendorProduct.vendor_inventory}
@@ -635,10 +635,10 @@ export const Items = () => {
                   ) : (
                     <Tag color="#f63535"
                     style={{
-                      fontSize: "12px",
+                      fontSize: "18px",
                       padding: "5px",
                       marginBottom: "7px",
-                      width: "30px",
+                      width: "34px",
                     }}>{vendorProduct.vendor_inventory}</Tag>
                   )}
               </div>
@@ -711,6 +711,8 @@ export const Items = () => {
   const tableProps = {
     loading,
   };
+
+  // console.log("data brand legnth", brandData.length);
 
   return (
     <div className="items">
@@ -835,8 +837,11 @@ export const Items = () => {
 
           
           <div>
-            <div className="brand-statistic">
 
+            {brandData.length > 0 && (
+            <div className="brand-statistic">
+                  {/* <h5>Vendors for this Brand: {brandData[0].vendors}</h5> */}
+           
 
               <div className="widget">
                 <div className="left">
@@ -851,6 +856,7 @@ export const Items = () => {
                     formatter={(value) => `${value}%`}
                     parser={(value) => value.replace("%", "")}
                     size="large"
+                    style={{ width: 100, height: 45, marginLeft: 10, fontSize: 20, backgroundColor: "#e6e088" }}
                   />
                 </div>
                 <div className="right">
@@ -948,6 +954,7 @@ export const Items = () => {
                 </div>
               </div>
             </div>
+                   )}
 
             <Table
               {...tableProps}

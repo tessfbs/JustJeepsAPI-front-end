@@ -163,7 +163,7 @@ const ProductTable = props => {
                 <Tag
                   color="#1f8e24"
                   style={{
-                    fontSize: "12px",
+                    fontSize: "18px",
                     padding: "5px",
                     marginBottom: "7px",
                   }}
@@ -173,7 +173,7 @@ const ProductTable = props => {
               ) : (
                 <Tag color="#f63535"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "18px",
                   padding: "5px",
                   marginBottom: "7px",
                 }}
@@ -200,10 +200,10 @@ const ProductTable = props => {
                 <Tag
                   color="#1f8e24"
                   style={{
-                    fontSize: "12px",
+                    fontSize: "18px",
                     padding: "5px",
-                    marginBottom: "7px",
-                    width: "30px",
+                    marginBottom: "12px",
+                    width: "32px",
                   }}
                 >
                   {vendorProduct.vendor_inventory}
@@ -211,10 +211,10 @@ const ProductTable = props => {
               ) : (
                 <Tag color="#f63535"
                 style={{
-                  fontSize: "12px",
+                  fontSize: "82px",
                   padding: "5px",
-                  marginBottom: "7px",
-                  width: "30px",
+                  marginBottom: "12px",
+                  width: "32px",
                 }}>{vendorProduct.vendor_inventory}</Tag>
               )}
           </div>

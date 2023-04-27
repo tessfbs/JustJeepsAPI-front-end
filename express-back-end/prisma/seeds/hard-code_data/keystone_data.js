@@ -38068,7 +38068,7 @@ module.exports = [
       "product_sku": "NOC-GBX45",
       "vendor_id": 1,
       "vendor_sku": "N6CGBX45",
-      "vendor_cost": 179.11,
+      "vendor_cost": 151.17,
       "vendor_inventory": 44
   },
   {
