@@ -111,7 +111,7 @@ app.get('/api/products', async (req, res) => {
 						},
 					},
 				},
-				take: 5000,
+				// take: 5000,
 			},
 			// take: 20
 		});

@@ -840,7 +840,7 @@ export const Items = () => {
 
             {brandData.length > 0 && (
             <div className="brand-statistic">
-                  {/* <h5>Vendors for this Brand: {brandData[0].vendors}</h5> */}
+
            
 
               <div className="widget">
@@ -953,7 +953,10 @@ export const Items = () => {
                   />
                 </div>
               </div>
+
+              <h5>Vendors for this Brand: {brandData[0].vendors}</h5>
             </div>
+    
                    )}
 
             <Table

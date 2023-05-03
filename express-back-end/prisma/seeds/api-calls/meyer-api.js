@@ -35,18 +35,17 @@ const MeyerCost = async () => {
     }
 
     const makeRequests = async (chunk, chunkIndex) => {
+      console.log(`Starting chunk ${chunkIndex}...`);
       const responses = [];
       for (let i = 0; i < chunk.length; i++) {
         const sku = chunk[i].meyer_code;
-        await new Promise((resolve) => setTimeout(resolve, 5000));
         try {
-
           let data = JSON.stringify({
             "username": process.env.MEYER_USERNAME,
             "password": process.env.MEYER_PASSWORD,
             "ItemNumber": sku
           });
-
+    
           let config = {
             method: 'get',
             maxBodyLength: Infinity,
@@ -57,18 +56,22 @@ const MeyerCost = async () => {
             },
             data: data
           };
-
+    
           const response = await axios.request(config);
-          // console.log(`Success for SKU ${sku} from Meyer API Call`);
+          console.log(`Success for SKU ${sku} from Meyer API Call`);
           responses.push(response.data);
         } catch (error) {
-
           console.log(`Error for SKU ${sku} from Meyer API Call: ${error}`);
           responses.push(null); // Push null for error responses
         }
+        // Add a delay of 5 seconds between API requests
+        await new Promise((resolve) => setTimeout(resolve, 5000));
       }
+      console.log(`Chunk ${chunkIndex} completed.`);
       return responses;
     };
+    
+    
 
     const requests = chunkedSkus.map((chunk, index) => makeRequests(chunk, index + 1)); // Increment index by 1
 

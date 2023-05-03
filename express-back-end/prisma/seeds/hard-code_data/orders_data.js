@@ -46,7 +46,7 @@ module.exports = {
     },
     {
       created_at: "2023-04-03 11:34:59",
-      customer_email: "rileybaoi@gmail.com",
+      customer_email: "riley@gmail.com",
       customer_firstname: "Riley",
       customer_lastname: "Baoi",
       entity_id: 82076,
@@ -75,7 +75,7 @@ module.exports = {
     },
     {
         created_at: "2023-04-13 18:02:36",
-        customer_email: "bout0043@gmail.com",
+        customer_email: "bout@gmail.com",
         entity_id: 82298,
         grand_total: 672.7635,
         customer_firstname: "Jacob",
@@ -119,7 +119,7 @@ module.exports = {
       },
     {
         created_at: "2023-04-24 21:01:41",
-        customer_email: "g.lepage-primeau@outlook.com",
+        customer_email: "primeau@outlook.com",
         customer_firstname: "Guillaume",
         customer_lastname: "Lepage-primeau",
         entity_id: 82552,
@@ -163,7 +163,7 @@ module.exports = {
       },
     {
       created_at: "2023-04-25 16:50:24",
-      customer_email: "conrad.aach@gmail.com",
+      customer_email: "conrad@gmail.com",
       customer_firstname: "Conrad",
       customer_lastname: "Aach",
       entity_id: 82564,
@@ -237,7 +237,7 @@ module.exports = {
     },
     {
       created_at: "2023-04-09 14:50:41",
-      customer_email: "dlaratta1@icloud.com",
+      customer_email: "dlaralara@icloud.com",
       entity_id: 82189,
       grand_total: 339.97,
       customer_firstname: "Amanda",
@@ -298,7 +298,7 @@ module.exports = {
     {
       coupon_code: "JJ1APRI5ghlee453bjg69",
       created_at: "2023-04-23 20:50:25",
-      customer_email: "dockman1964@gmail.com",
+      customer_email: "dockman@gmail.com",
       customer_firstname: "Patrick",
       customer_lastname: "Mikuse",
       entity_id: 82529,
@@ -345,7 +345,7 @@ module.exports = {
 
     {
       created_at: "2023-04-24 15:54:46",
-      customer_email: "danlju@hotmail.com",
+      customer_email: "danlarss@hotmail.com",
       customer_firstname: "Judith",
       customer_lastname: "Kunz",
       entity_id: 82542,
@@ -389,7 +389,7 @@ module.exports = {
     },
     {
       created_at: "2023-04-24 14:29:21",
-      customer_email: "michaelfroats@gmail.com",
+      customer_email: "michaelfr@gmail.com",
       customer_firstname: "Michael",
       customer_lastname: "Froats",
       entity_id: 82541,
@@ -448,7 +448,7 @@ module.exports = {
     },
     {
       created_at: "2023-04-25 03:16:44",
-      customer_email: "brunosav1971@gmail.com",
+      customer_email: "brunosavana1@gmail.com",
       customer_firstname: "Savard",
       customer_lastname: "Bruno",
       entity_id: 82573,
