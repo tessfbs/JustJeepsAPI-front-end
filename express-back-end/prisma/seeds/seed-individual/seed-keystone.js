@@ -19,6 +19,7 @@ const seedKeystoneVendorProducts = async (callNumber, numParts) => {
       const existingVendorProduct = await prisma.vendorProduct.findFirst({
         where: {
           vendor_sku: keystoneCode,
+          vendor_id: 1,
         },
       });
 

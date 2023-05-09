@@ -57,6 +57,19 @@ const OrderTable = () => {
     setOrders(response.data);
     setLoading(false);
   }, []);
+  
+  //seed orders
+  const handleSeedOrders = async () => {
+    setLoading(true);
+    try {
+      await axios.get('http://localhost:8080/api/seed-orders');
+      loadData(); // fetch the updated orders
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   //delete an order
   const handleDeleteOrder = (record) => {
@@ -396,33 +409,61 @@ const OrderTable = () => {
   //set up main column
   const columns = [
     {
-      title: "OrderId",
-      dataIndex: "entity_id",
-      key: "entity_id",
-      align: "center",
-      sorter: (a, b) => a.entity_id - b.entity_id,
-      sortOrder: sortedInfo.columnKey === "entity_id" && sortedInfo.order,
-      ...getColumnSearchProps("entity_id"),
-      render: (text, record) => {
-        if (editingRow === record.key) {
-          return (
-            <Form.Item
-              name="entity_id"
-              rules={[
-                {
-                  required: true,
-                  message: "entity_id is required",
-                },
-              ]}
-            >
-              <Input disabled={true} />
-            </Form.Item>
-          );
-        } else {
-          return <p>{text}</p>;
-        }
-      },
+    	title: 'Order ID',
+    	dataIndex: 'increment_id',
+    	key: 'increment_id',
+    	align: 'center',
+    	sorter: (a, b) => a.increment_id - b.increment_id,
+    	sortOrder: sortedInfo.columnKey === 'increment_id' && sortedInfo.order,
+    	...getColumnSearchProps('increment_id'),
+    	render: (text, record) => {
+    		if (editingRow === record.key) {
+    			return (
+    				<Form.Item
+    					name='increment_id'
+    					rules={[
+    						{
+    							required: true,
+    							message: 'increment_id is required',
+    						},
+    					]}
+    				>
+    					<Input disabled={true} />
+    				</Form.Item>
+    			);
+    		} else {
+    			return <p>{text}</p>;
+    		}
+    	},
     },
+    // {
+    //   title: "OrderId",
+    //   dataIndex: "entity_id",
+    //   key: "entity_id",
+    //   align: "center",
+    //   sorter: (a, b) => a.entity_id - b.entity_id,
+    //   sortOrder: sortedInfo.columnKey === "entity_id" && sortedInfo.order,
+    //   ...getColumnSearchProps("entity_id"),
+    //   render: (text, record) => {
+    //     if (editingRow === record.key) {
+    //       return (
+    //         <Form.Item
+    //           name="entity_id"
+    //           rules={[
+    //             {
+    //               required: true,
+    //               message: "entity_id is required",
+    //             },
+    //           ]}
+    //         >
+    //           <Input disabled={true} />
+    //         </Form.Item>
+    //       );
+    //     } else {
+    //       return <p>{text}</p>;
+    //     }
+    //   },
+    // },
     {
       title: "Status",
       dataIndex: "status",
@@ -449,14 +490,11 @@ const OrderTable = () => {
           default:
             tagColor = "volcano";
         }
-        return <Tag 
-				color={tagColor}
-				fontSize="20px"
-					>
-						{status?.toUpperCase()}
-
-
-				</Tag>;
+        return (
+          <Tag color={tagColor} fontSize="20px">
+            {status?.toUpperCase()}
+          </Tag>
+        );
       },
     },
 
@@ -604,34 +642,17 @@ const OrderTable = () => {
         }
       },
     },
-    // {
-    // 	title: 'IncrementId',
-    // 	dataIndex: 'increment_id',
-    // 	key: 'increment_id',
-    // 	align: 'center',
-    // 	sorter: (a, b) => a.increment_id - b.increment_id,
-    // 	sortOrder: sortedInfo.columnKey === 'increment_id' && sortedInfo.order,
-    // 	...getColumnSearchProps('increment_id'),
-    // 	render: (text, record) => {
-    // 		if (editingRow === record.key) {
-    // 			return (
-    // 				<Form.Item
-    // 					name='increment_id'
-    // 					rules={[
-    // 						{
-    // 							required: true,
-    // 							message: 'increment_id is required',
-    // 						},
-    // 					]}
-    // 				>
-    // 					<Input disabled={true} />
-    // 				</Form.Item>
-    // 			);
-    // 		} else {
-    // 			return <p>{text}</p>;
-    // 		}
-    // 	},
-    // },
+    {
+      title: "currency",
+      dataIndex: "order_currency_code",
+      key: "order_currency_code",
+      align: "center",
+      sorter: (a, b) =>
+        a.order_currency_code?.localeCompare(b.order_currency_code),
+      sortOrder:
+        sortedInfo.columnKey === "order_currency_code" && sortedInfo.order,
+    },
+
     {
       title: "Qty",
       dataIndex: "total_qty_ordered",
@@ -661,6 +682,14 @@ const OrderTable = () => {
           return <p>{text}</p>;
         }
       },
+    },
+    {
+      title: "Coupon Code",
+      dataIndex: "coupon_code",
+      key: "coupon_code",
+      align: "center",
+      sorter: (a, b) => a.coupon_code?.localeCompare(b.coupon_code),
+      sortOrder: sortedInfo.columnKey === "coupon_code" && sortedInfo.order,
     },
     {
       title: "Actions",
@@ -769,31 +798,31 @@ const OrderTable = () => {
   const expandedRowRender = (record) => {
     //render sub table here
     const nestedColumns = [
-      {
-        title: "ID",
-        dataIndex: "id",
-        key: "id",
-        align: "center",
-        render: (text, record) => {
-          if (editingRow === record.id) {
-            return (
-              <Form.Item
-                name="id"
-                rules={[
-                  {
-                    required: true,
-                    message: "id is required",
-                  },
-                ]}
-              >
-                <Input disabled={true} />
-              </Form.Item>
-            );
-          } else {
-            return <p>{text}</p>;
-          }
-        },
-      },
+      // {
+      //   title: "ID",
+      //   dataIndex: "id",
+      //   key: "id",
+      //   align: "center",
+      //   render: (text, record) => {
+      //     if (editingRow === record.id) {
+      //       return (
+      //         <Form.Item
+      //           name="id"
+      //           rules={[
+      //             {
+      //               required: true,
+      //               message: "id is required",
+      //             },
+      //           ]}
+      //         >
+      //           <Input disabled={true} />
+      //         </Form.Item>
+      //       );
+      //     } else {
+      //       return <p>{text}</p>;
+      //     }
+      //   },
+      // },
       {
         title: "Image",
         dataIndex: "image",
@@ -1139,7 +1168,29 @@ const OrderTable = () => {
       <div className="container-fluid">
         <div className="container-xl">
           <div className="container mb-3">
-            <TableTop />
+            <Button 
+            type="primary" 
+            onClick={handleSeedOrders}
+            size="large"
+            style={{ 
+              backgroundColor: "#dc3545",
+              borderColor: "white",
+              color: "white",
+              fontSize: "1.5rem",
+              fontWeight: "600",
+              borderRadius: "5px",
+              height: "50px",
+              width: "200px", 
+              marginBottom: "20px",
+          }}
+            // fontFamily: "Montserrat", sans-serif;
+            //font size: 1.5rem;
+            //font weight: 600;
+            >
+              Update Orders
+            </Button>
+
+            <TableTop orderCount={orders.length} />
           </div>
 
           <Form form={form}>

@@ -6,7 +6,7 @@ import { CheckSquareOutlined } from '@ant-design/icons';
 import { sizeHeight } from '@mui/system';
 
 const ProductTable = props => {
-	console.log('props.orderProductPrice', props.orderProductPrice);
+	console.log('props', props);
 	const [selectedVendorCost, setSelectedVendorCost] = useState(null);
 
 	// Function to update an order product
@@ -56,6 +56,7 @@ const ProductTable = props => {
 			title: 'Price',
 			dataIndex: 'price',
 			key: 'price',
+			align: 'center',
 			render: price => {
 				if (props.orderProductPrice) {
 					return `$${props.orderProductPrice.toFixed(2)}`;
@@ -140,6 +141,8 @@ const ProductTable = props => {
 						<Checkbox
 							onChange={() => handleVendorCostClick(vendorProduct)}
 							style={{ color: 'green' }}
+							//size extra large
+							size="large"
 						/>
 					</div>
 				)),
@@ -203,7 +206,7 @@ const ProductTable = props => {
                     fontSize: "18px",
                     padding: "5px",
                     marginBottom: "12px",
-                    width: "32px",
+                    width: "45px",
                   }}
                 >
                   {vendorProduct.vendor_inventory}
@@ -211,10 +214,10 @@ const ProductTable = props => {
               ) : (
                 <Tag color="#f63535"
                 style={{
-                  fontSize: "82px",
+                  fontSize: "18px",
                   padding: "5px",
                   marginBottom: "12px",
-                  width: "32px",
+                  width: "45px",
                 }}>{vendorProduct.vendor_inventory}</Tag>
               )}
           </div>
@@ -239,6 +242,14 @@ const ProductTable = props => {
 				columns={columns_by_sku}
 				rowKey='sku'
 				pagination={false}
+				footer={() => (
+
+					<div>
+					{	props.data.length > 0 && (
+							<h5>Vendors for this Brand: {props.data[0].vendors}</h5>
+						)}
+					</div>
+				)}
 			/>
 		</div>
 	);

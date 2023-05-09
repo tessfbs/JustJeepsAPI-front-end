@@ -247,7 +247,7 @@ export const Items = () => {
       dataIndex: "image",
       key: "image",
       align: "center",
-      render: (image) => <img src={image} alt="Product" width="50" />,
+      render: (image) => <img src={image} alt="Product" width="80" />,
     },
     {
       title: "Name",
@@ -484,7 +484,7 @@ export const Items = () => {
           dataIndex: "image",
           key: "image",
           align: "center",
-          render: (image) => <img src={image} alt="Product" width="50" />,
+          render: (image) => <img src={image} alt="Product" width="80" />,
         },
         {
           title: "Name",
@@ -954,7 +954,7 @@ export const Items = () => {
                 </div>
               </div>
 
-              <h5>Vendors for this Brand: {brandData[0].vendors}</h5>
+              {/* <h5>Vendors for this Brand: {brandData[0].vendors}</h5> */}
             </div>
     
                    )}

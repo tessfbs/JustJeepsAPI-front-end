@@ -3,13 +3,14 @@ import { Login, Logout, ImageAvatars } from '../../icons';
 import { UserOutlined } from '@ant-design/icons';
 import { Avatar, Space } from 'antd';
 import { Link } from 'react-router-dom';
+import logo_jeeps from './logo_jeeps.png';
 
 const Navbar = () => {
 	return (
 		<nav className='navbar navbar-expand-lg bg-body-tertiary'>
 			<div className='container'>
 				<Link className='nav-link active fs-5 mx-4' to='/'>
-					<img src={helper_black} alt='logo' width='120' height='80' />
+					<img src={logo_jeeps} alt='logo'/>
 				</Link>
 				<div className='collapse navbar-collapse' id='navbarSupportedContent'>
 					<ul className='navbar-nav me-auto mb-2 mb-lg-0'>

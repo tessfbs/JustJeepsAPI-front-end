@@ -1,6 +1,8 @@
 // .ant-table-tbody .ant-table-cell:nth-child(even) {
 //   background-color: #b8b8b8;
 // }
+@import 'bootstrap/scss/bootstrap';
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 // change antd Table row height and font size
 .ant-table-row {
@@ -20,7 +22,8 @@
 
 //change antd Table header color
 .ant-table-thead .ant-table-cell {
-  background-color: #FAEA48 !important;
+  background-color: $yellow-500 !important;
+  // color: white !important;
   font-size: 18px !important;
   // color: white !important;
   }

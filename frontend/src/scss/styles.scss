@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
 
 .container-fluid {
-	background-color: #2938c3;
+	background-color: #212121;
 	background-image: url('https://www.transparenttextures.com/patterns/binding-dark.png');
 	height: 2000px;
 	width: 100%;
@@ -19,7 +19,7 @@
 
 .navbar {
 	background-color: $yellow-500;
-	padding: 30px;
+	padding: 45px;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-family: 'Space Mono', monospace;
 	font-size: xx-large;
@@ -87,4 +87,15 @@ nav .nav_right {
 
 .ant-table-content .ant-table-thead .ant-table-cell {
 	text-align: center;
+}
+
+
+.nav-item {
+	//modern font family
+	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'Space Mono', monospace;
+	//increase font size
+	font-size: 80px;
+	padding: auto;
+
 }

@@ -6,6 +6,7 @@ const PORT = 8080;
 const cors = require('cors');
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const seedOrders = require('./prisma/seeds/seed-individual/seed-orders.js');
 
 // Use cors middleware
 app.use(cors());
@@ -205,6 +206,9 @@ app.get('/api/orders', async (req, res) => {
           },
         },
       },
+      orderBy: {
+        created_at: 'desc'
+      },
     });
     res.json(orders);
   } catch (error) {
@@ -214,6 +218,15 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
+app.get('/api/seed-orders', async (req, res) => {
+  try {
+    await seedOrders();
+    res.status(200).send('Orders seeded successfully');
+  } catch (error) {
+    console.error("Error seeding data:", error);
+    res.status(500).send('Error seeding data');
+  }
+});
 
 //Route for getting a single order
 app.get('/api/orders/:id', async (req, res) => {

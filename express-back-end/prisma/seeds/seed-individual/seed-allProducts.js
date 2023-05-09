@@ -72,6 +72,8 @@ const seedAllProducts = async () => {
           return acc;
         }, "");
 
+        console.log("url_path", url_path);
+
       // console.log("check sku", sku);
       //console.log the product when sku is undefined
       if (sku === undefined) {
@@ -163,4 +165,4 @@ const seedAllProducts = async () => {
 
 module.exports = seedAllProducts;
 
-// seedAllProducts();
+seedAllProducts();

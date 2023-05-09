@@ -6,7 +6,8 @@ import {
 import { Card, Col, Row, Statistic } from 'antd';
 import { useDashboardData } from '../../hooks/useDashboardData';
 
-const TableTop = () => {
+const TableTop = (orderCount) => {
+	console.log('orderCount', orderCount);
 	const { state } = useDashboardData();
 	return (
 		<Row gutter={16}>
@@ -14,7 +15,7 @@ const TableTop = () => {
 				<Card bordered={false}>
 					<Statistic
 						title='Total Orders'
-						value={state.totalCount.toLocaleString()}
+						value={orderCount.orderCount}
 						precision={0}
 						valueStyle={{
 							color: '#3f8600',
