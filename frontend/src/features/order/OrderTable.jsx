@@ -43,6 +43,10 @@ const OrderTable = () => {
     useState(null);
   const { Option } = Select;
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
+  // const BACKEND_URL = "http://localhost:8080";
+
+
 
   //initial loading data main table
   useEffect(() => {
@@ -52,7 +56,7 @@ const OrderTable = () => {
   //load all data
   const loadData = useCallback(async () => {
     setLoading(true);
-    const response = await axios.get("http://localhost:8080/api/orders"); //orderProductsJoin.json //http://localhost:8080/api/orders
+    const response = await axios.get(`${BACKEND_URL}/api/orders`); //orderProductsJoin.json 
     setOriginalOrders(response.data);
     setOrders(response.data);
     setLoading(false);
@@ -62,7 +66,7 @@ const OrderTable = () => {
   const handleSeedOrders = async () => {
     setLoading(true);
     try {
-      await axios.get('http://localhost:8080/api/seed-orders');
+      await axios.get(`${BACKEND_URL}/api/seed-orders`);
       loadData(); // fetch the updated orders
     } catch (error) {
       console.error(error);
@@ -86,7 +90,7 @@ const OrderTable = () => {
     });
     const id = record.entity_id;
     return axios
-      .post(`http://localhost:8080/api/orders/${id}/delete`, data)
+      .post(`${BACKEND_URL}/api/orders/${id}/delete`, data)
       .then((response) => {
         setOrders(response.data);
       });
@@ -95,7 +99,7 @@ const OrderTable = () => {
   const deleteOrder = async (order) => {
     const id = order.entity_id;
     const response = await axios.post(
-      `http://localhost:8080/api/orders/${id}/delete`
+      `${BACKEND_URL}/api/orders/${id}/delete`
     );
     setOrders(response.data);
   };
@@ -116,7 +120,7 @@ const OrderTable = () => {
   // delete backend order-product
   const deleteOrderItem = (id) => {
     return axios
-      .delete(`http://localhost:8080/order_products/${id}/delete`)
+      .delete(`${BACKEND_URL}/${id}/delete`)
       .then((response) => {
         setOrders(response.data);
       });
@@ -176,7 +180,7 @@ const OrderTable = () => {
     try {
       // create the purchase order
       const newPurchaseOrder = await axios.post(
-        "http://localhost:8080/api/purchase_orders",
+        `${BACKEND_URL}/api/purchase_orders`,
         {
           vendor_id: vendor_id,
           user_id: 2,
@@ -187,7 +191,7 @@ const OrderTable = () => {
 
       // create the purchase order line item
       const newPurchaseOrderLineItem = await axios.post(
-        "http://localhost:8080/purchaseOrderLineItem",
+        `${BACKEND_URL}/purchaseOrderLineItem`,
         {
           purchaseOrderId: newPurchaseOrder.data.id,
           vendorProductId: null,
@@ -212,7 +216,7 @@ const OrderTable = () => {
     console.log("subRowRecord", subRowRecord);
 
     return axios
-      .post(`http://localhost:8080/order_products/${id}/edit`, subRowRecord)
+      .post(`${BACKEND_URL}/order_products/${id}/edit`, subRowRecord)
       .then((data) => {
         let parentIndex;
         let parentItem;
@@ -288,7 +292,7 @@ const OrderTable = () => {
     } = formObj;
 
     return axios.post(
-      `http://localhost:8080/api/orders/${entity_id}/edit`,
+      `${BACKEND_URL}/api/orders/${entity_id}/edit`,
       formObj
     );
   };
