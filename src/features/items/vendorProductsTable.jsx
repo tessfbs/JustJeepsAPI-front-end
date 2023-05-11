@@ -34,11 +34,13 @@ import axios from 'axios';
 
 const SkuTable = () => {
   const [data, setData] = useState([]);
+  const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
+  // const BACKEND_URL = "http://localhost:8080";
 
   useEffect(() => {
     const getProductbysku = async () => {
       try {
-         await axios.get('http://localhost:8080/api/products/BST-56820-15')
+         await axios.get(`${BACKEND_URL}`/api/products/BST-56820-15``)
         .then(res => {
           const responseData = res.data;
           console.log('Data from backend ....:', responseData);

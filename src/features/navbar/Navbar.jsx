@@ -11,17 +11,20 @@ const Navbar = () => {
 			<div className='container'>
 				<Link className='nav-link active fs-5 mx-4' to='/'>
 					<img src={logo_jeeps} alt='logo'/>
+
 				</Link>
 				<div className='collapse navbar-collapse' id='navbarSupportedContent'>
 					<ul className='navbar-nav me-auto mb-2 mb-lg-0'>
 						<li className='nav-item'>
-							<Link
+							{/* <Link
 								className='aria-current nav-link active fs-5 mx-4'
 								to='/dashboard'
 							>
 								Dashboard
-							</Link>
+							</Link> */}
+
 						</li>
+
 						<li className='nav-item'>
 							<Link
 								className='nav-link active fs-5 mx-4'
@@ -31,6 +34,17 @@ const Navbar = () => {
 								Orders
 							</Link>
 						</li>
+
+						<li className='nav-item'>
+							<Link
+								className='aria-current nav-link active fs-5 mx-4'
+								to='/items'
+							>
+								Explore
+							</Link>
+						</li>
+
+
 						<li className='nav-item'>
 							<Link className='aria-current nav-link active fs-5 mx-4' to='/po'>
 								POs
@@ -45,14 +59,8 @@ const Navbar = () => {
 								Suppliers
 							</Link>
 						</li>
-						<li className='nav-item'>
-							<Link
-								className='aria-current nav-link active fs-5 mx-4'
-								to='/items'
-							>
-								Explore
-							</Link>
-						</li>
+
+
 					</ul>
 					<div className='nav-right'>
 						<span>

@@ -24,6 +24,7 @@ const TableTop = (orderCount) => {
 					/>
 				</Card>
 			</Col>
+
 			<Col span={8}>
 				<Card bordered={false}>
 					<Statistic
@@ -37,7 +38,9 @@ const TableTop = (orderCount) => {
 					/>
 				</Card>
 			</Col>
-			<Col span={8}>
+
+
+			{/* <Col span={8}>
 				<Card bordered={false}>
 					<Statistic
 						title='Total Revenue'
@@ -49,7 +52,8 @@ const TableTop = (orderCount) => {
 						prefix={<DollarCircleOutlined />}
 					/>
 				</Card>
-			</Col>
+			</Col> */}
+
 		</Row>
 	);
 };

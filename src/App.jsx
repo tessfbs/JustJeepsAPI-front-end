@@ -11,22 +11,22 @@ import { Items } from './features/items/Items.jsx';
 // import Test from './Test.jsx';
 
 function App() {
-	const [data, setData] = useState('');
+	// const [data, setData] = useState('');
 
-	useEffect(() => {
-		const fetchDataFromBackend = async () => {
-			try {
-				const response = await axios.get('http://localhost:8080/api/data'); // Use Axios to send GET request to /api/data
-				const responseData = response.data;
-				// console.log('Data from backend:', responseData);
-				// Process the response data from backend if needed
-				setData(responseData);
-			} catch (error) {
-				console.error('Failed to fetch data from backend:', error);
-			}
-		};
-		fetchDataFromBackend();
-	}, []);
+	// useEffect(() => {
+	// 	const fetchDataFromBackend = async () => {
+	// 		try {
+	// 			const response = await axios.get('http://localhost:8080/api/data'); // Use Axios to send GET request to /api/data
+	// 			const responseData = response.data;
+	// 			// console.log('Data from backend:', responseData);
+	// 			// Process the response data from backend if needed
+	// 			setData(responseData);
+	// 		} catch (error) {
+	// 			console.error('Failed to fetch data from backend:', error);
+	// 		}
+	// 	};
+	// 	fetchDataFromBackend();
+	// }, []);
 
 	return (
 		<>
@@ -34,7 +34,7 @@ function App() {
 			{/* <Test /> */}
 
 			<Routes>
-				<Route path='/' element={<DashBoard />} />
+				<Route path='/' element={<OrderTable />} />
 				<Route path='/orders' element={<OrderTable />} />
 				<Route path='/suppliers' element={<SupplierTable />} />
 				<Route path='/dashboard'>

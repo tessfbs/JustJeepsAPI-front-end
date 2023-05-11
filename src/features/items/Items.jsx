@@ -22,6 +22,8 @@ export const Items = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState("1");
+  const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
+  // const BACKEND_URL = "http://localhost:8080";
 
   const onChange = (value) => {
     console.log("changed", value);
@@ -342,7 +344,7 @@ const dataForExcel = transformData(brandData);
           // Add null check
           console.log("value", searchTermSku);
           await axios
-            .get(`http://localhost:8080/api/products/${searchTermSku.sku}`)
+            .get(`${BACKEND_URL}/api/products/${searchTermSku.sku}`)
             .then((res) => {
               const responseData = res.data;
               console.log("Data from backend by sku:", responseData);
@@ -365,7 +367,7 @@ const dataForExcel = transformData(brandData);
         console.log("searchTermBrand", searchTermSku);
         if (searchTermSku && searchTermSku.brand_name) {
           setLoading(true);
-          await axios.get(`http://localhost:8080/api/products`).then((res) => {
+          await axios.get(`${BACKEND_URL}/api/products`).then((res) => {
             const responseData = res.data;
             setAllProducts(responseData);
             const productsByBrand = getProductsByBrand(
@@ -392,7 +394,7 @@ const dataForExcel = transformData(brandData);
     const getAllSkus = async () => {
       try {
         await axios
-          .get(`http://localhost:8080/api/products_sku`)
+          .get(`${BACKEND_URL}/api/products_sku`)
           .then((res) => {
             const responseData = res.data;
             // Process the response data from backend if needed

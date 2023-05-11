@@ -15,12 +15,15 @@ const Popup = ({ placement, onClose, sku, orderProductId, orderProductPrice}) =>
 		setDataProduct([]);
 	}, []);
 
+	const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
+  // const BACKEND_URL = "http://localhost:8080";
+	
 	const getProductBySku = useCallback(searchTermSku => {
 		try {
 			if (searchTermSku) {
 				// Add null check
 				return axios
-					.get(`http://localhost:8080/api/products/${searchTermSku}`)
+					.get(`${BACKEND_URL}/api/products/${searchTermSku}`)
 					.then(res => {
 						const responseData = res.data;
 						// Process the response data from backend if needed

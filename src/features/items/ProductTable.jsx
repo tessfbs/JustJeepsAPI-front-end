@@ -8,6 +8,8 @@ import { sizeHeight } from '@mui/system';
 const ProductTable = props => {
 	console.log('props', props);
 	const [selectedVendorCost, setSelectedVendorCost] = useState(null);
+	const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
+  // const BACKEND_URL = "http://localhost:8080";
 
 	// Function to update an order product
 	const handleVendorCostClick = vendorProduct => {
@@ -15,7 +17,7 @@ const ProductTable = props => {
 		setSelectedVendorCost(vendorProduct.vendor_cost);
 		axios
 			.post(
-				`http://localhost:8080/order_products/${props.orderProductId}/edit/selected_supplier`,
+				`${BACKEND_URL}/order_products/${props.orderProductId}/edit/selected_supplier`,
 				{
 					selected_supplier_cost: vendorProduct.vendor_cost.toString(),
 					selected_supplier: vendorProduct.vendor.name,
