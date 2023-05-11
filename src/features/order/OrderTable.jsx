@@ -695,67 +695,67 @@ const OrderTable = () => {
       sorter: (a, b) => a.coupon_code?.localeCompare(b.coupon_code),
       sortOrder: sortedInfo.columnKey === "coupon_code" && sortedInfo.order,
     },
-    {
-      title: "Actions",
-      dataIndex: "operation",
-      key: "operation",
-      align: "center",
-      render: (text, record) => {
-        return (
-          <>
-            <Form.Item>
-              <Space size="middle">
-                <Tooltip title="Edit Order">
-                  <button
-                    className="btn btn-sm btn-outline-warning"
-                    onClick={() => {
-                      setEditingRow(record.key);
-                      form.setFieldsValue({
-                        customer_email: record.customer_email,
-                        customer_firstname: record.customer_firstname,
-                        customer_lastname: record.customer_lastname,
-                        grand_total: record.grand_total,
-                        total_qty_ordered: record.total_qty_ordered,
-                        entity_id: record.entity_id,
-                        created_at: record.created_at,
-                        increment_id: record.increment_id,
-                        status: record.status,
-                      });
-                    }}
-                  >
-                    <Edit />
-                  </button>
-                </Tooltip>
-                <Tooltip title="Delete Orderxxxx">
-                  <button
-                    className="btn btn-sm btn-outline-danger"
-                    onClick={() => handleDeleteOrder(record)}
-                  >
-                    <Trash />
-                  </button>
-                </Tooltip>
-                <Tooltip title="Save changes">
-                  <button
-                    className="btn btn-sm btn-outline-success"
-                    onClick={handleSave}
-                  >
-                    <Save />
-                  </button>
-                </Tooltip>
-                <Tooltip title="Refresh">
-                  <button
-                    className="btn btn-sm btn-outline-info"
-                    onClick={refreshPage}
-                  >
-                    <Reload />
-                  </button>
-                </Tooltip>
-              </Space>
-            </Form.Item>
-          </>
-        );
-      },
-    },
+    // {
+    //   title: "Actions",
+    //   dataIndex: "operation",
+    //   key: "operation",
+    //   align: "center",
+    //   render: (text, record) => {
+    //     return (
+    //       <>
+    //         <Form.Item>
+    //           <Space size="middle">
+    //             <Tooltip title="Edit Order">
+    //               {/* <button
+    //                 className="btn btn-sm btn-outline-warning"
+    //                 onClick={() => {
+    //                   setEditingRow(record.key);
+    //                   form.setFieldsValue({
+    //                     customer_email: record.customer_email,
+    //                     customer_firstname: record.customer_firstname,
+    //                     customer_lastname: record.customer_lastname,
+    //                     grand_total: record.grand_total,
+    //                     total_qty_ordered: record.total_qty_ordered,
+    //                     entity_id: record.entity_id,
+    //                     created_at: record.created_at,
+    //                     increment_id: record.increment_id,
+    //                     status: record.status,
+    //                   });
+    //                 }}
+    //               >
+    //                 <Edit />
+    //               </button> */}
+    //             </Tooltip>
+    //             <Tooltip title="Delete Order">
+    //               <button
+    //                 className="btn btn-sm btn-outline-danger"
+    //                 onClick={() => handleDeleteOrder(record)}
+    //               >
+    //                 <Trash />
+    //               </button>
+    //             </Tooltip>
+    //             <Tooltip title="Save changes">
+    //               <button
+    //                 className="btn btn-sm btn-outline-success"
+    //                 onClick={handleSave}
+    //               >
+    //                 <Save />
+    //               </button>
+    //             </Tooltip>
+    //             <Tooltip title="Refresh">
+    //               <button
+    //                 className="btn btn-sm btn-outline-info"
+    //                 onClick={refreshPage}
+    //               >
+    //                 <Reload />
+    //               </button>
+    //             </Tooltip>
+    //           </Space>
+    //         </Form.Item>
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   //loop main column data
