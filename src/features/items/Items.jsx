@@ -777,7 +777,7 @@ const dataForExcel = transformData(brandData);
                   padding: "5px",
                   marginBottom: "7px",
                 }}
-              >{`$${vendorProduct.vendor_cost}`}</div>
+              >{`$${vendorProduct.vendor_cost.toFixed(2)}`}</div>
             )),
         },
         {
