@@ -85,6 +85,8 @@ app.get('/api/products', async (req, res) => {
 				url_path: true,
 				status: true,
 				price: true,
+				searchable_sku: true,
+				jj_prefix: true,
 				image: true,
 				brand_name: true,
 				vendors: true,

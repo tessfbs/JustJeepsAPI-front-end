@@ -19,6 +19,7 @@ export const Items = () => {
   const [searchTermSku, setSearchTermSku] = useState("");
   const [sku, setSku] = useState([]);
   const [brandData, setBrandData] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState("1");
 
@@ -38,76 +39,287 @@ export const Items = () => {
     );
   }
 
-  //export to excel
-  const exportToExcel = () => {
-    const workbook = new ExcelJS.Workbook();
-    const worksheet = workbook.addWorksheet("Table Data");
-    const columns = Object.keys(brandData[0]);
-    const vendorProductColumns = [
-      "product_sku",
-      "vendor_sku",
-      "vendor_cost",
-      "vendor_inventory",
-      "vendor_name",
-    ];
-    const competitorProductColumns = [
-      "competitor_price",
-      "product_url",
-      "competitor_name",
-    ];
-    // Combine the vendor product and competitor product columns with the main columns
-    const allColumns = columns
-      .concat(vendorProductColumns)
-      .concat(competitorProductColumns);
+  console.log("brandData", brandData);
 
-    // Add table headers
-    worksheet.addRow(allColumns);
+  // function transformData(input) {
+  //   let output = [];
+  
+  //   input.forEach((item) => {
+  //     let transformedItem = {
+  //       sku: item.sku,
+  //       name: item.name,
+  //       url_path: item.url_path,
+  //       status: item.status,
+  //       price: item.price,
+  //       searchable_sku: item.searchable_sku,
+  //       jj_prefix: item.jj_prefix,
+  //       image: item.image,
+  //       brand_name: item.brand_name,
+  //       vendors: item.vendors
+  //     };
+  
+  //     item.vendorProducts.forEach((vendorProduct) => {
+  //       if (vendorProduct.vendor.name === 'Meyer') {
+  //         transformedItem.meyer_cost = vendorProduct.vendor_cost;
+  //         transformedItem.meyer_inventory = vendorProduct.vendor_inventory;
+  //       } else if (vendorProduct.vendor.name === 'Keystone') {
+  //         transformedItem.keystone_cost = vendorProduct.vendor_cost;
+  //         transformedItem.keystone_inventory = vendorProduct.vendor_inventory;
+  //       }
+  //     });
+  
+  //     if (item.competitorProducts.length > 0) {
+  //       transformedItem.northridge_price = item.competitorProducts[0].competitor_price;
+  //     }
+  
+  //     output.push(transformedItem);
+  //   });
+  
+  //   return output;
+  // }
 
-    // Add table data
-    brandData.forEach((row) => {
-      const vendorProducts = row.vendorProducts || [];
-      const competitorProducts = row.competitorProducts || [];
-      const maxRows = Math.max(
-        vendorProducts.length,
-        competitorProducts.length
-      );
-      if (maxRows > 0) {
-        for (let i = 0; i < maxRows; i++) {
-          const newRow = Object.assign({}, row);
-          // Add the vendor product details as separate columns
-          const vendorProduct = vendorProducts[i] || {};
-          newRow.product_sku = vendorProduct.product_sku || "";
-          newRow.vendor_sku = vendorProduct.vendor_sku || "";
-          newRow.vendor_cost = vendorProduct.vendor_cost || "";
-          newRow.vendor_inventory = vendorProduct.vendor_inventory || "";
-          newRow.vendor_name = (vendorProduct.vendor || {}).name || "";
-          // Add the competitor product details as separate columns
-          const competitorProduct = competitorProducts[i] || {};
-          newRow.competitor_price = competitorProduct.competitor_price || "";
-          newRow.product_url = competitorProduct.product_url || "";
-          newRow.competitor_name =
-            (competitorProduct.competitor || {}).name || "";
-          const values = allColumns.map((col) => newRow[col]);
-          worksheet.addRow(values);
-        }
-      } else {
-        const values = columns.map((col) => row[col]);
-        // Add empty cells for the vendor product and competitor product columns
-        vendorProductColumns
-          .concat(competitorProductColumns)
-          .forEach(() => values.push(""));
-        worksheet.addRow(values);
-      }
+  function transformData(products) {
+  const transformedProducts = products.map(product => {
+    const transformedProduct = {
+      sku: product.sku,
+      name: product.name,
+      url_path: product.url_path,
+      status: product.status,
+      price: product.price,
+      searchable_sku: product.searchable_sku,
+      jj_prefix: product.jj_prefix,
+      image: product.image,
+      brand_name: product.brand_name,
+      vendors: product.vendors,
+    };
+
+    product.vendorProducts.forEach(vendorProduct => {
+      transformedProduct[`${vendorProduct.vendor.name.toLowerCase()}_cost`] = vendorProduct.vendor_cost;
+      transformedProduct[`${vendorProduct.vendor.name.toLowerCase()}_inventory`] = vendorProduct.vendor_inventory;
     });
 
-    // Save the workbook
+    product.competitorProducts.forEach(competitorProduct => {
+      transformedProduct[`${competitorProduct.competitor.name.toLowerCase()}_price`] = competitorProduct.competitor_price;
+    });
+
+    return transformedProduct;
+  });
+
+  return transformedProducts;
+}  
+
+const dataForExcel = transformData(brandData);
+
+  //export to excel
+  // const exportToExcel = () => {
+  //   const workbook = new ExcelJS.Workbook();
+  //   const worksheet = workbook.addWorksheet("Table Data");
+  //   const columns = Object.keys(brandData[0]);
+  //   const vendorProductColumns = [
+  //     "product_sku",
+  //     "vendor_sku",
+  //     "vendor_cost",
+  //     "vendor_inventory",
+  //     "vendor_name",
+  //     "vendor.name" // added vendor name
+  //   ];
+  //   const competitorProductColumns = [
+  //     "competitor_price",
+  //     "product_url",
+  //     "competitor_name",
+  //     "competitor.name" // added competitor name
+  //   ];
+    
+  //   const allColumns = columns.concat(vendorProductColumns, competitorProductColumns);
+  
+  //   // Set column headers
+  //   worksheet.addRow(allColumns);
+  
+  //   // Add table data
+  //   brandData.forEach((row) => {
+  //     const vendorProducts = row.vendorProducts || [];
+  //     const competitorProducts = row.competitorProducts || [];
+  //     const maxRows = Math.max(vendorProducts.length, competitorProducts.length);
+      
+  //     if (maxRows > 0) {
+  //       for (let i = 0; i < maxRows; i++) {
+  //         const newRow = Object.assign({}, row);
+  //         const vendorProduct = vendorProducts[i] || {};
+  //         const competitorProduct = competitorProducts[i] || {};
+          
+  //         // Add the vendor product details as separate columns
+  //         newRow.product_sku = vendorProduct.product_sku || "";
+  //         newRow.vendor_sku = vendorProduct.vendor_sku || "";
+  //         newRow.vendor_cost = vendorProduct.vendor_cost || "";
+  //         newRow.vendor_inventory = vendorProduct.vendor_inventory || "";
+  //         newRow.vendor_name = (vendorProduct.vendor || {}).name || "";
+  
+  //         // Add the competitor product details as separate columns
+  //         newRow.competitor_price = competitorProduct.competitor_price || "";
+  //         newRow.product_url = competitorProduct.product_url || "";
+  //         newRow.competitor_name = (competitorProduct.competitor || {}).name || "";
+  
+  //         // Create an array of row values
+  //         const values = allColumns.map((col) => newRow[col]);
+  
+  //         // Add the row to the worksheet
+  //         worksheet.addRow(values);
+  //       }
+  //     } else {
+  //       const values = columns.map((col) => row[col]);
+  
+  //       // Add empty cells for the vendor product and competitor product columns
+  //       vendorProductColumns.concat(competitorProductColumns).forEach(() => values.push(""));
+  
+  //       // Add the row to the worksheet
+  //       worksheet.addRow(values);
+  //     }
+  //   });
+  
+  //   // Save the workbook and download the file
+  //   workbook.xlsx.writeBuffer().then((buffer) => {
+  //     const blob = new Blob([buffer], {
+  //       type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  //     });
+  //     saveAs(blob, "table.xlsx");
+  //   });
+  // };
+
+  function exportToExcel() {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet("Product Data");
+  
+    // Define column headers
+    sheet.columns = [
+      { header: "SKU", key: "sku" },
+      { header: "Name", key: "name" },
+      { header: "URL", key: "url_path" },
+      { header: "Status", key: "status" },
+      { header: "Price", key: "price" },
+      { header: "Searchable SKU", key: "searchable_sku" },
+      { header: "JJ Prefix", key: "jj_prefix" },
+      { header: "Image URL", key: "image" },
+      { header: "Brand Name", key: "brand_name" },
+      { header: "Vendors", key: "vendors" },
+      { header: "Meyer Cost", key: "meyer_cost" },
+      { header: "Meyer Inventory", key: "meyer_inventory" },
+      { header: "Keystone Cost", key: "keystone_cost" },
+      { header: "Keystone Inventory", key: "keystone_inventory" },
+      { header: "Northridge Price", key: "northridge_price" },
+    ];
+  
+    // Add rows to the sheet
+    brandData.forEach((product) => {
+      const row = {
+        sku: product.sku,
+        name: product.name,
+        url_path: product.url_path,
+        status: product.status,
+        price: product.price,
+        searchable_sku: product.searchable_sku,
+        jj_prefix: product.jj_prefix,
+        image: product.image,
+        brand_name: product.brand_name,
+        vendors: product.vendors,
+        meyer_cost: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Meyer"
+        )?.vendor_cost,
+        meyer_inventory: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Meyer"
+        )?.vendor_inventory,
+        keystone_cost: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Keystone"
+        )?.vendor_cost,
+        keystone_inventory: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Keystone"
+        )?.vendor_inventory,
+        northridge_price: product.competitorProducts.find(
+          (cp) => cp.competitor.name === "Northridge 4x4"
+        )?.competitor_price,
+      };
+      sheet.addRow(row);
+    });
+  
+    // Generate and save the Excel file
     workbook.xlsx.writeBuffer().then((buffer) => {
       const blob = new Blob([buffer], {
         type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      saveAs(blob, "table.xlsx");
+      saveAs(blob, "ProductData.xlsx");
     });
-  };
+  }
+
+  function exportToExcelAllProducts() {
+    const workbook = new ExcelJS.Workbook();
+    const sheet = workbook.addWorksheet("Product Data");
+  
+    // Define column headers
+    sheet.columns = [
+      { header: "SKU", key: "sku" },
+      { header: "Name", key: "name" },
+      { header: "URL", key: "url_path" },
+      { header: "Status", key: "status" },
+      { header: "Price", key: "price" },
+      { header: "Searchable SKU", key: "searchable_sku" },
+      { header: "JJ Prefix", key: "jj_prefix" },
+      { header: "Image URL", key: "image" },
+      { header: "Brand Name", key: "brand_name" },
+      { header: "Vendors", key: "vendors" },
+      { header: "Meyer Cost", key: "meyer_cost" },
+      { header: "Meyer Inventory", key: "meyer_inventory" },
+      { header: "Keystone Cost", key: "keystone_cost" },
+      { header: "Keystone Inventory", key: "keystone_inventory" },
+      { header: "Northridge Price", key: "northridge_price" },
+      { header: "Omix Cost", key: "omix_cost" },
+    ];
+  
+    // Add rows to the sheet
+    allProducts.forEach((product) => {
+      const row = {
+        sku: product.sku,
+        name: product.name,
+        url_path: product.url_path,
+        status: product.status,
+        price: product.price,
+        searchable_sku: product.searchable_sku,
+        jj_prefix: product.jj_prefix,
+        image: product.image,
+        brand_name: product.brand_name,
+        vendors: product.vendors,
+        meyer_cost: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Meyer"
+        )?.vendor_cost,
+        meyer_inventory: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Meyer"
+        )?.vendor_inventory,
+        keystone_cost: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Keystone"
+        )?.vendor_cost,
+        keystone_inventory: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Keystone"
+        )?.vendor_inventory,
+        northridge_price: product.competitorProducts.find(
+          (cp) => cp.competitor.name === "Northridge 4x4"
+        )?.competitor_price,
+        omix_cost: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Omix"
+        )?.vendor_cost,
+
+
+      };
+      sheet.addRow(row);
+    });
+  
+    // Generate and save the Excel file
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      const blob = new Blob([buffer], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
+      saveAs(blob, "ProductData.xlsx");
+    });
+  }
+
+  console.log("all products", allProducts);
 
   const prices = brandData.reduce((acc, product) => {
     acc.push(product.price);
@@ -155,6 +367,7 @@ export const Items = () => {
           setLoading(true);
           await axios.get(`http://localhost:8080/api/products`).then((res) => {
             const responseData = res.data;
+            setAllProducts(responseData);
             const productsByBrand = getProductsByBrand(
               responseData,
               searchTermSku.brand_name
@@ -811,6 +1024,9 @@ export const Items = () => {
               />
               <Button className="excel-export" onClick={exportToExcel}>
                 <UploadOutlined /> Export to Excel
+              </Button>
+              <Button className="excel-export" onClick={exportToExcelAllProducts}>
+                <UploadOutlined /> Export ALL to Excel
               </Button>
             </div>
           )}
