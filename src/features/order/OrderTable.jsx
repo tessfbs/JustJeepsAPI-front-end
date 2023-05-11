@@ -706,7 +706,7 @@ const OrderTable = () => {
             <Form.Item>
               <Space size="middle">
                 <Tooltip title="Edit Order">
-                  {/* <button
+                  <button
                     className="btn btn-sm btn-outline-warning"
                     onClick={() => {
                       setEditingRow(record.key);
@@ -724,9 +724,9 @@ const OrderTable = () => {
                     }}
                   >
                     <Edit />
-                  </button> */}
+                  </button>
                 </Tooltip>
-                <Tooltip title="Delete Order">
+                <Tooltip title="Delete Orderxxxx">
                   <button
                     className="btn btn-sm btn-outline-danger"
                     onClick={() => handleDeleteOrder(record)}
