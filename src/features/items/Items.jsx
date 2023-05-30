@@ -22,8 +22,8 @@ export const Items = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState("1");
-  const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
-  // const BACKEND_URL = "http://localhost:8080";
+  // const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
+  const BACKEND_URL = "http://localhost:8080";
 
   const onChange = (value) => {
     console.log("changed", value);
@@ -257,26 +257,31 @@ const dataForExcel = transformData(brandData);
   
     // Define column headers
     sheet.columns = [
-      { header: "SKU", key: "sku" },
-      { header: "Name", key: "name" },
-      { header: "URL", key: "url_path" },
+      { header: "JJ Prefix", key: "jj_prefix" },
+      { header: "JJ SKU", key: "sku" },
+      { header: "MANUF. SKU", key: "searchable_sku" },
+      // { header: "Name", key: "name" },
+      // { header: "URL", key: "url_path" },
       { header: "Status", key: "status" },
       { header: "Price", key: "price" },
-      { header: "Searchable SKU", key: "searchable_sku" },
-      { header: "JJ Prefix", key: "jj_prefix" },
-      { header: "Image URL", key: "image" },
+      // { header: "Image URL", key: "image" },
       { header: "Brand Name", key: "brand_name" },
       { header: "Vendors", key: "vendors" },
       { header: "Meyer Cost", key: "meyer_cost" },
       { header: "Meyer Inventory", key: "meyer_inventory" },
       { header: "Keystone Cost", key: "keystone_cost" },
       { header: "Keystone Inventory", key: "keystone_inventory" },
-      { header: "Northridge Price", key: "northridge_price" },
       { header: "Omix Cost", key: "omix_cost" },
+      { header: "Quadratec Cost", key: "quadratec_cost" },
+      { header: "Northridge Price", key: "northridge_price" },
+      { header: "PartsEngine Price", key: "partsEngine_price" },
+
+
     ];
   
     // Add rows to the sheet
     allProducts.forEach((product) => {
+      console.log("product.competitorProducts >>>",product.competitorProducts)
       const row = {
         sku: product.sku,
         name: product.name,
@@ -303,8 +308,14 @@ const dataForExcel = transformData(brandData);
         northridge_price: product.competitorProducts.find(
           (cp) => cp.competitor.name === "Northridge 4x4"
         )?.competitor_price,
+        partsEngine_price: product.competitorProducts.find(
+          (cp) => cp.competitor.name === "Parts Engine" 
+        )?.competitor_price,
         omix_cost: product.vendorProducts.find(
           (vp) => vp.vendor.name === "Omix"
+        )?.vendor_cost,
+        quadratec_cost: product.vendorProducts.find(
+          (vp) => vp.vendor.name === "Quadratec"
         )?.vendor_cost,
 
 
