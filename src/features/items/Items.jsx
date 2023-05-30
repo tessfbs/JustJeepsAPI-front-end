@@ -22,8 +22,8 @@ export const Items = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [discount, setDiscount] = useState("1");
-  // const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
-  const BACKEND_URL = "http://localhost:8080";
+  const BACKEND_URL = "https://jj-api-backend.herokuapp.com";
+  // const BACKEND_URL = "http://localhost:8080";
 
   const onChange = (value) => {
     console.log("changed", value);
